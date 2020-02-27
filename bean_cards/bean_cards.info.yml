@@ -1,0 +1,9 @@
+name: Content Cards
+description: Custom Card entities, similar to bean cards
+package: Custom
+type: module
+version: 1.0
+core: 8.x
+dependencies:
+ - block
+ - block_content

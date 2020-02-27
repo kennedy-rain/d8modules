@@ -1,0 +1,10 @@
+uuid: 96a43db3-90c4-489b-8fc5-cc1b5962745c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: x9tx4teynnIIXAyNhN3oS6JuSXLOS0NGpbO4JzYs2QE
+id: content_card
+label: 'Content Card'
+revision: 0
+description: 'The replacement functionality for Bean Cards'
