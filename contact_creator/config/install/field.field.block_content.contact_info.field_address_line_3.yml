@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.contact_info
+    - field.storage.block_content.field_address_line_3
+id: block_content.contact_info.field_address_line_3
+field_name: field_address_line_3
+entity_type: block_content
+bundle: contact_info
+label: 'Address Line 3'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 'Ames, IA 50011'
+default_value_callback: ''
+settings: {  }
+field_type: string
