@@ -8,3 +8,4 @@ dependencies:
  - drupal:block
  - drupal:block_content
  - drupal:options
+ - drupal:image
