@@ -1,0 +1,11 @@
+<?php
+
+/*
+ * Implements hook_ENTITY_TYPE_update()
+ */
+function contact_creator_block_content_update(Drupal\Core\Entity\EntityInterface $entity){
+	// Clear cache if BlockContent is of type 'contact_info'
+	if ($entity->bundle() == 'contact_info') {
+	  \Drupal::service('cache.render')->invalidateAll();
+	}
+}

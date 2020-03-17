@@ -1,9 +1,0 @@
-<?php
-
-/*
- * Implements hook_ENTITY_TYPE_update()
- */
-
-function ISUEO_d8modules_entity_update(Drupal\Core\Entity\EntityInterface $entity){
-	\Drupal::service('cache.render)->invalidateAll();
-}
