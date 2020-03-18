@@ -2,43 +2,41 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.contact_info
-    - field.field.block_content.contact_info.field_address_line_1
-    - field.field.block_content.contact_info.field_address_line_2
-    - field.field.block_content.contact_info.field_address_line_3
-    - field.field.block_content.contact_info.field_phone
-    - field.field.block_content.contact_info.field_phone_secondary
-    - field.field.block_content.contact_info.field_email
-id: block_content.contact_info.default
+    - block_content.type.contact_creator
+    - field.field.block_content.contact_creator.field_contact_creator_address
+    - field.field.block_content.contact_creator.field_contact_creator_email
+    - field.field.block_content.contact_creator.field_contact_creator_phone
+    - field.field.block_content.contact_creator.field_contact_creator_phone_2
+id: block_content.contact_creator.default
 targetEntityType: block_content
-bundle: contact_info
+bundle: contact_creator
 mode: default
 content:
-  field_address:
-    weight: 27
+  field_contact_creator_address:
+    weight: 26
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
     region: content
-  field_phone:
-    weight: 30
+  field_contact_creator_email:
+    weight: 27
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_phone_secondary:
-    weight: 31
+  field_contact_creator_phone:
+    weight: 28
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_email:
+  field_contact_creator_phone_2:
     weight: 29
     settings:
       size: 60

@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - block_content
-id: block_content.field_phone
-field_name: field_phone
+id: block_content.field_contact_creator_phone
+field_name: field_contact_creator_phone
 entity_type: block_content
 type: string
 settings:
