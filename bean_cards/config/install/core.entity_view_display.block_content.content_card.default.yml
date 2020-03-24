@@ -1,4 +1,3 @@
-uuid: 1d85c35f-6088-49b6-824c-7f8bfbc29552
 langcode: en
 status: true
 dependencies:
@@ -16,8 +15,6 @@ dependencies:
     - link
     - options
     - text
-_core:
-  default_config_hash: VzVmxB-CF9qe8LynMoY7VzgmKzWxPx6SYpIJ8LYoZz0
 id: block_content.content_card.default
 targetEntityType: block_content
 bundle: content_card

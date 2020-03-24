@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.contact_creator
+    - field.storage.block_content.field_contact_creator_phone
+id: block_content.contact_creator.field_contact_creator_phone
+field_name: field_contact_creator_phone
+entity_type: block_content
+bundle: contact_creator
+label: Phone
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 515-294-5342
+default_value_callback: ''
+settings: {  }
+field_type: string

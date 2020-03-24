@@ -3,13 +3,11 @@ status: true
 dependencies:
   module:
     - block_content
-id: block_content.field_address_line_3
-field_name: field_address_line_3
+id: block_content.field_contact_creator_address
+field_name: field_contact_creator_address
 entity_type: block_content
-type: string
+type: string_long
 settings:
-  max_length: 255
-  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

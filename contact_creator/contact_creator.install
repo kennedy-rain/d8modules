@@ -11,11 +11,11 @@ use Drupal\block_content\Entity\BlockContent;
  function contact_creator_install(){
     // Add Demo block.
   $block_content = BlockContent::create([
-    'type' => 'contact_info',
+    'type' => 'contact_creator',
     'info' => 'contact_us',
   ]);
   $block_content->save();
- 
+
   $block = Block::create([
     'id' => 'contact_us',
     'plugin' => 'block_content:' . $block_content->uuid(),
@@ -26,7 +26,7 @@ use Drupal\block_content\Entity\BlockContent;
     'visibility' => [],
     'settings' => [
       'label' => 'Contact Info',
-      'label_display' => 'visible',
+      'label_display' => '0',
     ],
   ]);
   $block->save();
