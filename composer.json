@@ -1,5 +1,8 @@
 {
   "name": "isueit/isueo_d8modules",
   "type": "drupal-custom-module",
-  "description": "Modules for Drupal 8"
+  "description": "Modules for Drupal 8",
+  "require": {
+    "drupal/webform": "^5.9"
+  }
 }

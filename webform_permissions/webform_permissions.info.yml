@@ -1,0 +1,8 @@
+name: Webform Permissions Module
+description: Hide some of the Webform permissions from the setup forms.
+package: Custom
+type: module
+version: 1.0
+core: 8.x
+dependencies:
+ - webform:webform

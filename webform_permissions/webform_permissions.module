@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Provides form alter hooks to hide Webform global, form, and element settings.
+ * See: https://www.drupal.org/docs/8/modules/webform/webform-cookbook/how-to-hide-form-and-element-settings
+ */
+
+use Drupal\Component\Utility\Variable;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\Utility\WebformFormHelper;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see /admin/structure/webform/settings
+ */
+function webform_permissions_form_webform_admin_settings_form_alter(array &$form, FormStateInterface $form_state)
+{
+  $elements = WebformFormHelper::flattenElements($form);
+
+  // Novalidate should always be enabled and never changed.
+  $elements['default_form_novalidate']['#access'] = FALSE;
+  $elements['default_form_novalidate']['#default_value'] = TRUE;
+
+  // Details toggle should should always be disabled and never changed.
+  $elements['default_form_details_toggle']['#access'] = FALSE;
+  $elements['default_form_details_toggle']['#default_value'] = FALSE;
+
+  // Global submission logging should always be disabled and never changed.
+  $elements['default_submission_log']['#access'] = FALSE;
+  $elements['default_submission_log']['#default_value'] = FALSE;
+
+  // DEBUG: List all settings.
+  // print '<pre>' . Variable::export(array_keys($elements)) . '<pre>'; exit;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see /admin/structure/webform/manage/{webform}/settings
+ */
+function webform_permissions_form_webform_settings_form_alter(array &$form, FormStateInterface $form_state)
+{
+  $elements = WebformFormHelper::flattenElements($form);
+
+  $settings = [
+    // Validation is disabled via the theme.
+    'form_novalidate',
+    // Details toggle should never be display.
+    'form_details_toggle',
+    // Never allow webforms to have a dedicated URL.
+    // All forms must be attached to nodes.
+    'page_settings',
+    // Don't allow an attributes to customized since this is not supported by
+    // the current theme.
+    'form_attributes',
+    'form_submit_attributes',
+    'wizard_prev_button_attributes',
+    'wizard_next_button_attributes',
+    'draft_button_attributes',
+    'confirmation_attributes',
+    'confirmation_back_attributes',
+    // Only allow custom settings to be defined in source mode.
+    'custom_settings',
+  ];
+  foreach ($settings as $setting) {
+    $elements[$setting]['#access'] = FALSE;
+  }
+
+  // DEBUG: List all settings.
+  // print '<pre>' . Variable::export(array_keys($elements)) . '<pre>'; exit;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see admin/structure/webform/manage/{webform}/element/{element_key}/edit
+ */
+function webform_permissions_form_webform_ui_element_form_alter(array &$form, FormStateInterface $form_state)
+{
+  $elements = WebformFormHelper::flattenElements($form);
+
+  $properties = array(
+    // Disable flexbox support since it is not supported by
+    // the current theme.
+    'flex',
+  );
+  foreach ($properties as $property) {
+    if (isset($elements[$property])) {
+      $elements[$property]['#access'] = FALSE;
+    }
+  }
+
+  // DEBUG: List all properties.
+  // print '<pre>' . Variable::export(array_keys($elements)) . '<pre>'; exit;
+}
