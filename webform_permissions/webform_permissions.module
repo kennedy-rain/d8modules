@@ -84,17 +84,25 @@ function webform_permissions_form_webform_ui_element_form_alter(array &$form, Fo
   \Drupal::logger('webform_permissions')->info('In hook_form_webform_ui_element_form_alter()');
   $elements = WebformFormHelper::flattenElements($form);
 
-  $properties = array(
-    // Disable flexbox support since it is not supported by
-    // the current theme.
-    'flex',
-  );
-  foreach ($properties as $property) {
-    if (isset($elements[$property])) {
-      $elements[$property]['#access'] = FALSE;
-    }
-  }
+  // With devel module, dmp() will help determine that's in the array
+  //dpm($elements);
 
-  // DEBUG: List all properties.
-  // print '<pre>' . Variable::export(array_keys($elements)) . '<pre>'; exit;
+  // This would remove the whole "Form Display" sections
+  //$elements['form']['#access'] = FALSE;
+
+  // These would remove individual areas of the "Form Display" section
+  $elements['form']['display_container']['#access'] = FALSE;
+  $elements['form']['title_display_message']['#access'] = FALSE;
+  $elements['form']['field_container']['#access'] = FALSE;
+  //$elements['form']['length_container']['#access'] = FALSE;
+  //$elements['form']['size_container']['#access'] = FALSE;
+  //$elements['form']['placeholder']['#access'] = FALSE;
+  $elements['form']['autocomplete']['#access'] = FALSE;
+
+  $elements['form']['input_mask']['#access'] = FALSE;
+
+  //$elements['form']['input_hide']['#access'] = FALSE;
+  $elements['form']['disabled']['#access'] = FALSE;
+  $elements['form']['readonly']['#access'] = FALSE;
+  $elements['form']['prepopulate']['#access'] = FALSE;
 }
