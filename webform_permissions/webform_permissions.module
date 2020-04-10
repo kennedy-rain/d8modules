@@ -17,7 +17,6 @@ use Drupal\webform\Utility\WebformFormHelper;
  */
 function webform_permissions_form_webform_admin_settings_form_alter(array &$form, FormStateInterface $form_state)
 {
-  \Drupal::logger('webform_permissions')->info('In hook_form_admin_settings_form_alter()');
   $elements = WebformFormHelper::flattenElements($form);
 
   // Novalidate should always be enabled and never changed.
@@ -43,7 +42,6 @@ function webform_permissions_form_webform_admin_settings_form_alter(array &$form
  */
 function webform_permissions_form_webform_settings_form_alter(array &$form, FormStateInterface $form_state)
 {
-  \Drupal::logger('webform_permissions')->info('In hook_form_webform_settings_form_alter()');
   $elements = WebformFormHelper::flattenElements($form);
 
   $settings = [
@@ -81,7 +79,6 @@ function webform_permissions_form_webform_settings_form_alter(array &$form, Form
  */
 function webform_permissions_form_webform_ui_element_form_alter(array &$form, FormStateInterface $form_state)
 {
-  \Drupal::logger('webform_permissions')->info('In hook_form_webform_ui_element_form_alter()');
   $elements = WebformFormHelper::flattenElements($form);
 
   // With devel module, dmp() will help determine that's in the array
