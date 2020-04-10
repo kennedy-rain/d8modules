@@ -102,4 +102,11 @@ function webform_permissions_form_webform_ui_element_form_alter(array &$form, Fo
   $elements['form']['disabled']['#access'] = FALSE;
   $elements['form']['readonly']['#access'] = FALSE;
   $elements['form']['prepopulate']['#access'] = FALSE;
+
+  // remove the access and advancement tabs, and all sections under these tabs
+  $elements['items'][1]['#items'][2]['#access'] = FALSE;
+  $elements['items'][1]['#items'][3]['#access'] = FALSE;
+  $elements['tab_access']['#access'] = FALSE;
+  $elements['tab_advanced']['#access'] = FALSE;
+
 }
