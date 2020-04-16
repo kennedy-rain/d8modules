@@ -5,5 +5,6 @@ type: module
 version: 1.0
 core: 8.x
 dependencies:
+ - honeypot:honeypot
  - webform:webform
  - webform:webform_ui

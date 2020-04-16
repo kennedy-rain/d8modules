@@ -1,0 +1,30 @@
+<?php
+
+use function Drupal\Core\Session\user_role_permissions;
+
+/**
+ * Implements hook_install().
+ */
+
+function webform_permissions_install() {
+  user_role_grant_permissions('authenticated', ['view the administration theme']);
+
+  user_role_grant_permissions('content_editor', [
+    'view the administration theme',
+    'access webform overview',
+    'access webform submission user',
+    'create webform',
+    'delete any webform',
+    'delete any webform submission',
+    'edit any webform',
+    'edit any webform submission',
+    'view any webform submission',
+  ]);
+
+  $config = \Drupal::service('config.factory')->getEditable('system.mail');
+  if (!empty($config)) {
+    Drupal::logger('webform_permissions')->info('Have the config');
+    $config->set('interface.webform', 'webform_php_mail_22');
+    $config->save();
+  }
+}
