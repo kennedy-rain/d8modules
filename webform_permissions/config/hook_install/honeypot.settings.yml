@@ -13,5 +13,3 @@ form_settings:
   user_register_form: false
   user_pass: false
   node_page_form: false
-_core:
-  default_config_hash: 9bVDfWSa_In6VzTXmy04jJ_3ZQobihKjO9isuuUCPaw
