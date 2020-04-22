@@ -486,7 +486,7 @@ display:
           plugin_id: dropbutton
       filters: {  }
       sorts: {  }
-      title: 'Publication Entities Admin'
+      title: 'Products from Store Admin'
       header: {  }
       footer: {  }
       empty: {  }
@@ -504,7 +504,7 @@ display:
   admin_panel:
     display_plugin: page
     id: admin_panel
-    display_title: 'Pubs Entity Admin Page'
+    display_title: 'Products from Store Admin Page'
     position: 1
     display_options:
       display_extenders: {  }

@@ -16,7 +16,7 @@ class PubsEntityDeleteForm extends ContentEntityConfirmFormBase {
    *  The form question
    */
   public function getQuestion() {
-    return $this->t("Are you sure that you want to delete the Publication entity for %pub?", array( '%pub' => $this->entity->label()));
+    return $this->t("Are you sure that you want to delete the product listing for %pub?", array( '%pub' => $this->entity->label()));
   }
 
   /**

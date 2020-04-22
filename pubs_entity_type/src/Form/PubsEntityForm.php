@@ -51,9 +51,9 @@ class PubsEntityForm extends ContentEntityForm {
     }
 
     if ($status == SAVED_UPDATED) {
-      drupal_set_message($this->t('The publication %staff has been updated.', ['%staff' => $entity->toLink()->toString()]));
+      \Drupal::messenger()->addMessage($this->t('The publication %staff has been updated.', ['%staff' => $entity->toLink()->toString()]));
     } else {
-      drupal_set_message($this->t('The publication %staff has been created.', ['%staff' => $entity->toLink()->toString()]));
+      \Drupal::messenger()->addMessage($this->t('The publication %staff has been created.', ['%staff' => $entity->toLink()->toString()]));
     }
 
     $form_state->setRedirectUrl($this->entity->toUrl('collection'));

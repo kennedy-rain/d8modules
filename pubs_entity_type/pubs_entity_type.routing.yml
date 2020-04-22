@@ -22,7 +22,7 @@ entity.pubs_entity.edit_form:
   path: '/pubs_entity/{pubs_entity}/edit'
   defaults:
     _entity_form: 'pubs_entity.edit'
-    _title: 'Edit Pubs Entity'
+    _title: 'Edit Product from Store'
   requirements:
     _entity_access: 'pubs_entity.edit'
   options:
@@ -32,7 +32,7 @@ entity.pubs_entity.add_form:
   path: '/pubs_entity/add'
   defaults:
     _entity_form: 'pubs_entity.add'
-    _title: 'Add Pubs Entity'
+    _title: 'Add Product from Store'
   requirements:
     _entity_create_access: 'pubs_entity'
   options:
