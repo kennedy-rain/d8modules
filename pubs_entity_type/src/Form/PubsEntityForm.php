@@ -26,6 +26,7 @@ class PubsEntityForm extends ContentEntityForm {
       $form['weight']['#access'] = false;
       $form['field_product_id']['#access'] = false;
     }
+    $form['user_id']['#access'] = false;
     return $form;
   }
 
