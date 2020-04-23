@@ -42,9 +42,9 @@ class PubsEntityForm extends ContentEntityForm {
     //Update entity, new entities handled in entity defintion class
     if (array_key_exists('validated_information', $form) && !$entity->isNew()) {
       $validate = $form['validated_information'];
-      $entity->name->value = $validate->title;
-      $entity->field_image_url->value = $validate->image;
-      $date = explode('/', $validate->pubDate);
+      $entity->name->value = $validate->Title;
+      $entity->field_image_url->value = $validate->ThumbnailURI;
+      $date = explode('/', $validate->PubDate);
       $formatDate = $date[1] . '-' . (($date[0] < 10) ? '0' . $date[0] : $date[0]) . '-01';
       $entity->field_publication_date->value = $formatDate;
       $entity->save();

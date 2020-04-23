@@ -138,6 +138,7 @@ class PubsEntity extends EditorialContentEntityBase implements PubsEntityInterfa
   /**
    * {@inheritdoc}
    */
+  /*
   public function preSave(EntityStorageInterface $storage) {
     $validate = validatePubsEntity($this->field_product_id->value, $this);
     if ($this->isPublished()) {
@@ -194,6 +195,7 @@ class PubsEntity extends EditorialContentEntityBase implements PubsEntityInterfa
     }
     parent::preSave($storage);
   }
+  */
 
   /**
    * {@inheritdoc}
@@ -313,8 +315,11 @@ class PubsEntity extends EditorialContentEntityBase implements PubsEntityInterfa
         ->setLabel(t('Weight'))
         ->setTranslatable(TRUE)
         ->setRevisionable(TRUE)
+        ->setDescription('Higher numbers will come before lower numbers, range should be 20 thru -20')
         ->setSettings(array(
           'max_length' => 255,
+          'max' => 20,
+          'min' => -20,
         ))
         ->setDefaultValue(0)
         ->setDisplayOptions('form', array(

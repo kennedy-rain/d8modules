@@ -22,6 +22,7 @@ function validatePubsEntity($validateID, $curEntity) {
     } else {
       $raw = "";
     }
+    $raw = file_get_contents($url);
 
     $decoded = json_decode($raw);
     if (is_object($decoded) && get_class($decoded) == 'stdClass') {
@@ -34,7 +35,7 @@ function validatePubsEntity($validateID, $curEntity) {
     $found = null;
 
     foreach ($items as $item) {
-      if (array_key_exists('productID', $item) && $validateID == $item->productID) {
+      if (array_key_exists('ProductID', $item) && $validateID == $item->ProductID) {
         $found = $item;
         break;
       }
@@ -75,14 +76,14 @@ function validatePubsEntity($validateID, $curEntity) {
  * Only updates published publications created outside of feeds, as they may not exist in the provided feed
  */
 function pubs_entity_type_rebuild() {
-  $entities = \Drupal::entityTypeManager()->getStorage('pubs_entity')->loadByProperties(['status' => TRUE]);
+  $entities = \Drupal::entityTypeManager()->getStorage('pubs_entity')->loadByProperties(['field_from_feed' => FALSE]);
   $unpublished = [];
   foreach ($entities as $entity) {
     $passed = validatePubsEntity($entity->field_product_id->value, $entity);
     if (!is_string($passed) && is_object($passed)) {
-      $entity->name->value = $passed->title;
-      $entity->field_image_url->value = $passed->image;
-      $date = explode('/', $passed->pubDate);
+      $entity->name->value = $passed->Title;
+      $entity->field_image_url->value = $passed->ThumbnailURI;
+      $date = explode('/', $passed->PubDate);
       $formatDate = $date[1] . '-' . (($date[0] < 10) ? '0' . $date[0] : $date[0]) . '-01';
       $entity->field_publication_date->value = $formatDate;
       $entity->save();
