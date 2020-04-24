@@ -29,7 +29,7 @@ use Drupal\pubs_entity_type\Entity\PubsEntity;
 function pubs_entity_from_feed_form_pubs_entity_settings_alter(&$form, FormStateInterface $form_state) {
 
   $config = \Drupal::config('pubs_entity_type.settings');
-  $pubs_json_feed = '';
+  $pubs_json_feed = 'https://store.extension.iastate.edu/api/products/top';
   if (!empty($config->get('pubs_json_feed'))) {
     $pubs_json_feed = $config->get('pubs_json_feed');
   }
@@ -98,7 +98,7 @@ function pubs_entity_from_feed_rebuild() {
       $myentity = PubsEntity::load(array_values($found_entities)[0]);
     }
 
-    if ($myentity->get('weight')->getString() <= 0) {
+    if ($myentity->get('field_from_feed')->getString() == TRUE) {
       $myentity->set('weight', $count);
     }
     $myentity->set('name', $product['Title']);

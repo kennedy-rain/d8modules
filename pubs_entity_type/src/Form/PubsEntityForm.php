@@ -23,8 +23,8 @@ class PubsEntityForm extends ContentEntityForm {
     $entity = $this->entity;
     $form['revision_log_message']['#access'] = false;
     if ($entity->field_from_feed->value != 0) {
-      $form['weight']['#access'] = false;
-      $form['field_product_id']['#access'] = false;
+      //$form['weight']['#access'] = false;
+      //$form['field_product_id']['#access'] = false;
     }
     $form['user_id']['#access'] = false;
     return $form;
@@ -48,6 +48,7 @@ class PubsEntityForm extends ContentEntityForm {
       $date = explode('/', $validate->PubDate);
       $formatDate = $date[1] . '-' . (($date[0] < 10) ? '0' . $date[0] : $date[0]) . '-01';
       $entity->field_publication_date->value = $formatDate;
+      $entity->set('field_from_feed', FALSE);
       $entity->save();
     }
 
