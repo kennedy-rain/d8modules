@@ -163,3 +163,11 @@ function pubs_entity_from_feed_rebuild() {
     }
   }
 */
+
+/**
+* Implements hook_cron().
+*/
+
+function pubs_entity_from_feed_cron() {
+  pubs_entity_from_feed_rebuild();
+}

@@ -97,3 +97,11 @@ function pubs_entity_type_rebuild() {
     \Drupal::logger('pubs_entity_type')->notice("Publications were not found in store feed and were unpublished: " . json_encode($unpublished));
   }
 }
+
+/**
+* Implements hook_cron().
+*/
+
+function pubs_entity_type_cron() {
+  pubs_entity_type_rebuild();
+}
