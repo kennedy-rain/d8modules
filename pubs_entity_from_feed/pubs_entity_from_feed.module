@@ -32,16 +32,12 @@ use Drupal\pubs_entity_type\Entity\PubsEntity;
 function pubs_entity_from_feed_form_pubs_entity_settings_alter(&$form, FormStateInterface $form_state) {
 
   $config = \Drupal::config('pubs_entity_type.settings');
-  $pubs_json_feed = 'https://store.extension.iastate.edu/api/products/top';
-  if (!empty($config->get('pubs_json_feed'))) {
-    $pubs_json_feed = $config->get('pubs_json_feed');
-  }
 
   $form['pubs_json_feed'] = array(
     '#type' => 'textfield',
     '#title' => t('Publications Feed URL'),
     '#description' => t('URL of page that will return JSON feed of publications.'),
-    '#default_value' => $pubs_json_feed,
+    '#default_value' => $config->get('pubs_json_feed'),
     '#maxlength' => 256,
     '#size' => 64,
   );
@@ -56,7 +52,6 @@ function pubs_entity_from_feed_form_pubs_entity_settings_alter(&$form, FormState
  */
 function pubs_entity_from_feed_form_pubs_entity_settings_save(&$form, FormStateInterface $form_state) {
   $config = \Drupal::service('config.factory')->getEditable('pubs_entity_type.settings');
-
   $config->set('pubs_json_feed', $form_state->getValue('pubs_json_feed'))->save();
 }
 
