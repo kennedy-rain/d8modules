@@ -45,9 +45,8 @@ class PubsEntityForm extends ContentEntityForm {
       $validate = $form['validated_information'];
       $entity->name->value = $validate->Title;
       $entity->field_image_url->value = $validate->ThumbnailURI;
-      $date = explode('/', $validate->PubDate);
-      $formatDate = $date[1] . '-' . (($date[0] < 10) ? '0' . $date[0] : $date[0]) . '-01';
-      $entity->field_publication_date->value = $formatDate;
+      $pub_date = explode('/', $validate->PubDate);
+      $entity->set('field_publication_date', $pub_date[1] . '-' . $pub_date[0] . '-01');
       $entity->set('field_from_feed', FALSE);
       $entity->save();
     }

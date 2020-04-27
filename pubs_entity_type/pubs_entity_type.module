@@ -83,9 +83,8 @@ function pubs_entity_type_rebuild() {
     if (!is_string($passed) && is_object($passed)) {
       $entity->name->value = $passed->Title;
       $entity->field_image_url->value = $passed->ThumbnailURI;
-      $date = explode('/', $passed->PubDate);
-      $formatDate = $date[1] . '-' . (($date[0] < 10) ? '0' . $date[0] : $date[0]) . '-01';
-      $entity->field_publication_date->value = $formatDate;
+      $pub_date = explode('/', $passed->PubDate);
+      $entity->set('field_publication_date', $pub_date[1] . '-' . $pub_date[0] . '-01');
       $entity->save();
     } else {
       $unpublished[] = "<" . $entity->field_product_id->value . "> " . $entity->name->value;
