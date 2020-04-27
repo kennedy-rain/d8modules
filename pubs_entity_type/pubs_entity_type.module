@@ -92,5 +92,8 @@ function pubs_entity_type_rebuild() {
       $entity->save();
     }
   }
-  \Drupal::logger('pubs_entity_type')->notice("Publications were not found in store feed and were unpublished: " . json_encode($unpublished));
+
+  if (!empty($unpublished)) {
+    \Drupal::logger('pubs_entity_type')->notice("Publications were not found in store feed and were unpublished: " . json_encode($unpublished));
+  }
 }
