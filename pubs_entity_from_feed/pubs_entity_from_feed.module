@@ -106,9 +106,8 @@ function pubs_entity_from_feed_rebuild() {
     }
     $myentity->set('name', $product['Title']);
     $myentity->set('field_image_url', $product['ThumbnailURI']);
-    $date = explode('/', $product['PubDate']);
-    $formatDate = $date[1] . '-' . (($date[0] < 10) ? '0' . $date[0] : $date[0]) . '-01';
-    $myentity->set('field_publication_date', $formatDate);
+    $pub_date = explode('/', $product['PubDate']);
+    $myentity->set('field_publication_date', $pub_date[1] . '-' . $pub_date[0] . '-01');
     $myentity->save();
 
   }
