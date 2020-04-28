@@ -5,12 +5,5 @@
   "require": {
     "drupal/honeypot": "^1.30",
     "drupal/webform": "^5.9"
-  },
-  "extra": {
-    "patches": {
-      "drupal/webform": {
-        "Drupal webform granular permissions": "https://www.drupal.org/files/issues/add_more_permissions-2875838-9.patch"
-      }
-    }
   }
 }
