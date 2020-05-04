@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install functions for pubs_entity_from_feed module
+ */
+
+ /**
+ * Implements hook_install().
+ */
+
+ function pubs_entity_from_feed_install() {
+  $config = \Drupal::service('config.factory')->getEditable('pubs_entity_type.settings');
+  $config->set('pubs_json_feed', 'https://store.extension.iastate.edu/api/products/top');
+  $config->save();
+
+  pubs_entity_from_feed_rebuild();
+ }

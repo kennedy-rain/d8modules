@@ -138,8 +138,9 @@ class PubsEntity extends EditorialContentEntityBase implements PubsEntityInterfa
   /**
    * {@inheritdoc}
    */
-  /*
   public function preSave(EntityStorageInterface $storage) {
+    $this->set('changed', getdate());
+  /*
     $validate = validatePubsEntity($this->field_product_id->value, $this);
     if ($this->isPublished()) {
       switch ($validate) {
@@ -193,9 +194,9 @@ class PubsEntity extends EditorialContentEntityBase implements PubsEntityInterfa
         $this->field_publication_date->value = $formatDate;
       }
     }
+  */
     parent::preSave($storage);
   }
-  */
 
   /**
    * {@inheritdoc}

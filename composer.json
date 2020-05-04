@@ -7,12 +7,6 @@
     "drupal/webform": "^5.9",
     "drupal/layout_builder_browser" : "^1.0",
     "drupal/layout_library" : "^1.0"
-  },
-  "extra": {
-    "patches": {
-      "drupal/webform": {
-        "Drupal webform granular permissions": "https://www.drupal.org/files/issues/add_more_permissions-2875838-9.patch"
-      }
-    }
+    "drupal/webform": "^5.9"
   }
 }
