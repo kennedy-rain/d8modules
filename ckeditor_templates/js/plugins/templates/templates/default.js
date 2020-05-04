@@ -3,12 +3,13 @@
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
+var default_image = CKEDITOR.getUrl(CKEDITOR.plugins.getPath('templates')) + 'templates/generic.png';
+console.log(default_image);
 // Register a templates definition set named "default".
 CKEDITOR.addTemplates( 'default', {
 	// The name of sub folder which hold the shortcut preview images of the
 	// templates.
 	imagesPath: CKEDITOR.getUrl(CKEDITOR.plugins.getPath('templates') + 'templates/images/'),
-
 	// The templates definitions.
 	templates: [ {
 		title: 'Left Column Template',
@@ -18,7 +19,7 @@ CKEDITOR.addTemplates( 'default', {
 			'<div class="row two-col-left">'+
 				'<div class="col-md-3 col-sidebar">'+
 					'<p>'+
-						'<img alt="Winter Image" data-entity-type="file" data-entity-uuid="975b7a57-1a51-4e57-80d9-f570e6b72f3c" src="/humansciences/libraries/templates/templates/Iowa-State-Logo.png">'+
+						'<img alt="Winter Image" data-entity-type="file" data-entity-uuid="975b7a57-1a51-4e57-80d9-f570e6b72f3c" src='+default_image+'>'+
 					'</p>'+
 				'</div>'+
 				'<div class ="col-md-9 col-main">'+
@@ -104,5 +105,11 @@ CKEDITOR.addTemplates( 'default', {
 				'</p>'+ 
 			'</div>'+
 		'</div>'
-		}]
+		},
+    {title:'Two Columns',
+    image:'two-columns.gif',
+    description:'Div container with two columns.',
+    html:'<p>Text before two columns.</p><div class="row two-columns"><div class="l-span-B6"><p>Col 1</p></div><div class="l-span-B6"><p>Col 2</p></div></div><p>Text after two columns.</p>'
+    }
+]
 } );
