@@ -37,7 +37,7 @@ class PubImageFormatter extends FormatterBase {
     * {@inheritdoc}
     */
    protected function getEmbedCode($value) {
-     $url = "";
+     $url = '';
      if (is_string($value)) {
        $url = $value;
      } elseif ($value instanceof FieldItemInterface) {
@@ -47,6 +47,6 @@ class PubImageFormatter extends FormatterBase {
          $url = $value->$property;
        }
      }
-     return "<img src='" . $url . "' alt='Publication Image'>";
+     return '<img src="' . $url . '" alt="">';
    }
 }
