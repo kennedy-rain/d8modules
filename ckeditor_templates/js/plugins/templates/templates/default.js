@@ -4,7 +4,6 @@
  */
 
 var default_image = CKEDITOR.getUrl(CKEDITOR.plugins.getPath('templates')) + 'templates/generic.png';
-console.log(default_image);
 // Register a templates definition set named "default".
 CKEDITOR.addTemplates( 'default', {
 	// The name of sub folder which hold the shortcut preview images of the
@@ -50,7 +49,7 @@ CKEDITOR.addTemplates( 'default', {
 				'</div>'+
 				'<div class="col-md-3 col-sidebar">'+
 					'<p>'+
-						'<img alt="Winter Image" data-entity-type="file" data-entity-uuid="975b7a57-1a51-4e57-80d9-f570e6b72f3c" src="/humansciences/libraries/templates/templates/Iowa-State-Logo.png">'+
+						'<img alt="Winter Image" data-entity-type="file" data-entity-uuid="975b7a57-1a51-4e57-80d9-f570e6b72f3c" src='+default_image+'>'+
 					'</p>'+
 				'</div>'+
 			'</div>'
