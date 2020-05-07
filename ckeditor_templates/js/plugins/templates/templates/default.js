@@ -104,11 +104,6 @@ CKEDITOR.addTemplates( 'default', {
 				'</p>'+ 
 			'</div>'+
 		'</div>'
-		},
-    {title:'Two Columns',
-    image:'two-columns.gif',
-    description:'Div container with two columns.',
-    html:'<p>Text before two columns.</p><div class="row two-columns"><div class="l-span-B6"><p>Col 1</p></div><div class="l-span-B6"><p>Col 2</p></div></div><p>Text after two columns.</p>'
-    }
+		}
 ]
 } );
