@@ -5,8 +5,5 @@
   "require": {
     "drupal/honeypot": "^1.30",
     "drupal/webform": "^5.9",
-    "drupal/layout_builder_browser" : "^1.0",
-    "drupal/layout_library" : "^1.0",
-    "drupal/webform": "^5.9"
   }
 }
