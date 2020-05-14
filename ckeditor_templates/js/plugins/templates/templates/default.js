@@ -18,7 +18,7 @@ CKEDITOR.addTemplates( 'default', {
 			'<div class="row two-col-left">'+
 				'<div class="col-md-3 col-sidebar">'+
 					'<p>'+
-						'<img alt="Placeholder Image" data-entity-type="file" data-entity-uuid="975b7a57-1a51-4e57-80d9-f570e6b72f3c" src='+default_image+'>'+
+						'<img height="250px" width="250px" align="left" alt="Placeholder Image" data-entity-type="file" data-entity-uuid="975b7a57-1a51-4e57-80d9-f570e6b72f3c" src='+default_image+'>'+
 					'</p>'+
 				'</div>'+
 				'<div class ="col-md-9 col-main">'+
