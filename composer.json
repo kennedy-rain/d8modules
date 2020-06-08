@@ -1,5 +1,5 @@
 {
-  "name": "isueit/isueo_d8modules",
+  "name": "isueit/d8modules",
   "type": "drupal-custom-module",
   "description": "Modules for Drupal 8",
   "require": {
