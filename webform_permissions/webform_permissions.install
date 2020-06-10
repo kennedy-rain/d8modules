@@ -32,9 +32,9 @@ function webform_permissions_install() {
   }
 
   $module_path = \Drupal::service('extension.list.module')->getPath('webform_permissions');
-  $config_files = \Drupal::service('file_system')->scanDirectory($module_path . '/config/hook_install', '/.yml/');
+  $config_files = \Drupal::service('file_system')->scanDirectory($module_path . '/config/overriden', '/.yml/');
   foreach ($config_files as $config_id) {
-    $raw_data = file_get_contents($module_path . '/config/hook_install/' . $config_id->filename);
+    $raw_data = file_get_contents($module_path . '/config/overriden/' . $config_id->filename);
     \Drupal::configFactory()->getEditable(str_replace('.yml', '', $config_id->filename))
       ->setData(Yaml::decode($raw_data))
       ->save();
