@@ -6,7 +6,6 @@
  * See: https://www.drupal.org/docs/8/modules/webform/webform-cookbook/how-to-hide-form-and-element-settings
  */
 
- // From FontAwesomeIconWidget.php
 
 /**
  * Implements hook_field_widget_form_alter().
@@ -16,13 +15,29 @@ function fontawesome_permissions_form_fontawesome_icon_dialog_alter(&$form, \Dru
   // Remove "Font Awesome Additional Settings" entirely
   //$form['settings']['#access'] = FALSE;
 
-  // Remove indiviual areas
+  // Remove individual areas
   $form['settings']['style']['#access'] = FALSE;
   $form['settings']['fixed-width']['#access'] = FALSE;
   $form['settings']['border']['#access'] = FALSE;
   $form['settings']['invert']['#access'] = FALSE;
   $form['settings']['animation']['#access'] = FALSE;
 
+  // Remove and Rename Size options
+  unset($form['settings']['size']['#options']['']);   // Remove 'Default' option
+  unset($form['settings']['size']['#options']['fa-xs']);
+  unset($form['settings']['size']['#options']['fa-sm']);
+  unset($form['settings']['size']['#options']['fa-5x']);
+  unset($form['settings']['size']['#options']['fa-6x']);
+  unset($form['settings']['size']['#options']['fa-7x']);
+  unset($form['settings']['size']['#options']['fa-8x']);
+  unset($form['settings']['size']['#options']['fa-9x']);
+  unset($form['settings']['size']['#options']['fa-10x']);
+  $form['settings']['size']['#options']['fa-lg'] = 'Small';   // 'Large' becomes new Small
+  $form['settings']['size']['#options']['fa-2x'] = 'Medium';    // '2x' becomes new Medium
+  $form['settings']['size']['#options']['fa-3x'] = 'Large';   // '3x' becomes new Large
+  $form['settings']['size']['#options']['fa-4x'] = 'Extra Large';   // '4x' becomes new Extra Large
+
   // Remove "Power Transforms" settings
   $form['settings']['power_transforms']['#access'] = FALSE;
+
 }
