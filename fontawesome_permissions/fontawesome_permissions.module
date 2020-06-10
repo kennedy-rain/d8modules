@@ -13,5 +13,16 @@
  *  Created to grab WIDGET_TYPE for following function.
  */
 function fontawesome_permissions_form_fontawesome_icon_dialog_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  $form['settings']['#access'] = FALSE;
+  // Remove "Font Awesome Additional Settings" entirely
+  //$form['settings']['#access'] = FALSE;
+
+  // Remove indiviual areas
+  $form['settings']['style']['#access'] = FALSE;
+  $form['settings']['fixed-width']['#access'] = FALSE;
+  $form['settings']['border']['#access'] = FALSE;
+  $form['settings']['invert']['#access'] = FALSE;
+  $form['settings']['animation']['#access'] = FALSE;
+
+  // Remove "Power Transforms" settings
+  $form['settings']['power_transforms']['#access'] = FALSE;
 }
