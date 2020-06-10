@@ -2,14 +2,12 @@
 
 /**
  * @file
- * Provides form alter hooks to hide additional settings in text editor plugin.
+ * Provides form alter hooks to hide/modify additional settings in text editor plugin.
  * See: https://www.drupal.org/docs/8/modules/webform/webform-cookbook/how-to-hide-form-and-element-settings
  */
 
-
 /**
- * Implements hook_field_widget_form_alter().
- *  Created to grab WIDGET_TYPE for following function.
+ * Implements hook_form_FORM_ID_alter().
  */
 function fontawesome_permissions_form_fontawesome_icon_dialog_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   // Remove "Font Awesome Additional Settings" entirely
