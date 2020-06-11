@@ -20,7 +20,7 @@ function fontawesome_permissions_install() {
     \Drupal::configFactory()->getEditable(str_replace('.yml', '', $config_id->filename))
       ->setData(Yaml::decode($raw_data))
       ->save();
-	\Drupal::logger('fontawesome_permissions')->info($config_id->filename);
+	  \Drupal::logger('fontawesome_permissions')->info($config_id->filename);
   }
-}
 
+}
