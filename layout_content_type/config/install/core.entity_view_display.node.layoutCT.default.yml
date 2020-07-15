@@ -1,0 +1,26 @@
+# core.entity_view_display.node.layoutCT.default.yml
+#   Reference: https://rb.gy/tcv6hg
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.field.node.layoutCT.body
+        - node.type.layoutCT
+    module:
+        - user
+    enforced:
+    module:
+        - layout_builder
+        - layout_discovery
+        - layout_content_type
+id: node.layoutCT.default
+targetEntityType: node
+bundle: layoutCT
+mode: default
+third_party_settings:
+    layout_builder:
+        allow_custom: false
+        enabled: true
+    third_party_settings: {  } 
+hidden: {  }
+

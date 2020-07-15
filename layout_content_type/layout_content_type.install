@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Install file for layout_content_type.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * We don't want users to be able to delete our locked_content_type content
+ * type. So therefore we have to tell Drupal that this is the case. This
+ * can't be done in the content type's configuration YAML file, so we have to
+ * do it in code, here.
+ *
+ * @ingroup layout_content_type
+ */
+function layout_content_type_install() {
+  // Do not allow the locked content type to be deleted.
+  $locked = Drupal::state()->get('node.type.locked');
+  $locked['layoutCT'] = 'layoutCT';
+  Drupal::state()->set('node.type.locked', $locked);
+
+  /*
+  $item = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+	'link' => ['uri' => 'internal:/admin/structure/types/manage/layoutCT/display/default/layout'],
+    'title' => 'Manage layout',
+	'menu_name' => 'admin',
+	'parent' => 'admin_toolbar_tools.extra_links:entity.node_type.edit_form.layoutCT',
+	'weight' => 4,
+  ]);
+  $item->save();  
+  */
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Our content types will live on in the Drupal installation, even after this
+ * module is uninstalled. This is a good thing, since it allows the user to
+ * make decisions about their fate. Therefore we should give the user the
+ * option of deleting them.
+ *
+ * Since we told Drupal that our locked_content_type is locked, we now have
+ * to tell it to unlock.
+ *
+ * @ingroup layout_content_type
+ */
+function layout_content_type_uninstall() {
+  // Allow locked_content_type to be deleted.
+  $locked = Drupal::state()->get('node.type.locked');
+  unset($locked['layoutCT']);
+  Drupal::state()->set('node.type.locked', $locked);
+
+  /*
+  $mids = \Drupal::entityQuery('menu_link_content')->condition('admin', NULL)->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+  $entities = $controller->loadMultiple($mids);
+  $controller->delete($entities);
+  */
+}
+

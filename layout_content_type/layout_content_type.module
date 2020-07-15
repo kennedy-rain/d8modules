@@ -1,0 +1,65 @@
+<?php
+
+use \Drupal\Core\Routing\RouteMatchInterface;
+
+ /**
+ * Implements hook_menu_local_tasks_alter().
+ * Add tab with custom title and link only to pages of a selected content type
+ */
+function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
+  if (is_array($data['tabs'][0]['field_ui.fields:display_overview_node']['#link'])) {
+	$thing = $data['tabs'][0]['field_ui.fields:display_overview_node']['#link']['url']->getRouteParameters();
+
+	if ($thing['node_type'] == 'layoutCT') {
+	  $data['tabs'][0]['layout_content_type.manage_layout'] = array(
+		'#theme' => 'menu_local_task',
+		'#link' => array(
+		  'title' => 'Manage Layout',
+		  'url' => \Drupal\Core\Url::fromUri('internal:/admin/structure/types/manage/layoutCT/display/default/layout'),
+		  'localized_options' => array(),
+		),
+		'#weight' => 4,
+	  );
+
+	  $data['tabs'][0]['field_ui.fields:display_overview_node']['#access'] = FALSE;
+	}
+  }
+
+}
+
+function layout_content_type_menu_links_discovered_alter(&$links) {
+  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layoutCT']['enabled'] = 0;
+  // print("<pre>" . $links . "</pre>");
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Hide manage display screen
+ */
+/*
+function layout_content_type_form__alter(&$form, &$form_state, $form_id) {
+
+}
+*/
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Fix redirect from layout manage page 
+ */
+/*
+function layout_content_type_form_entity_view_display_layout_builder_form_alter(&$form, &$form_state, $form_id) {
+  print("<pre>" . print_r($form['actions']->getTitle(), TRUE) . "</pre>");
+}
+*/
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Fix redirect from layout manage page 
+ */
+/*
+function layout_content_type_form_layout_builder_discard_changes_alter(&$form, &$form_state, $form_id) {
+  // print("<pre>" . print_r($form, TRUE) . "</pre>");
+  $form['actions']['cancel']['#url'] = \Drupal\Core\Url::fromUri('internal:/admin/structure/types/manage/layoutCT');
+}
+*/
+

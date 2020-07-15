@@ -1,0 +1,12 @@
+name: Layout Content Type
+description: Creates a restricted layout builder content type.
+package: Custom
+type: module
+core: 8.x
+dependencies:
+  - drupal:node
+  - drupal:path
+  - drupal:text
+  - layout_builder
+  - layout_builder_restrictions
+
