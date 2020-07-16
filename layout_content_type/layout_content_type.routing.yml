@@ -1,7 +1,7 @@
 layout_content_type.manage_layout:
-  path: /admin/structure/types/manage/layoutCT/display/default/layout
+  path: '/admin/structure/types/manage/layoutCT/display/default/layout'
   defaults:
     _title: 'Manage layout'
   requirements:
       _access: 'TRUE'
-      #_permission: 'access content'
+

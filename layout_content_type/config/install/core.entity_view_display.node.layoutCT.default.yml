@@ -19,8 +19,36 @@ bundle: layoutCT
 mode: default
 third_party_settings:
     layout_builder:
-        allow_custom: false
+        allow_custom: true
         enabled: true
     third_party_settings: {  } 
-hidden: {  }
+    layout_builder_restrictions:
+      allowed_block_categories:
+        - 'Chaos Tools'
+        - 'Content fields'
+        - 'Custom block types'
+        - 'Custom blocks'
+        - Forms
+        - Help
+        - 'Inline blocks'
+        - 'Lists (Views)'
+        - Menus
+        - Search
+        - System
+        - User
+        - core
+      entity_view_mode_restriction:
+        whitelisted_blocks:
+          'Chaos Tools': {  }
+          'Content fields': {  }
+          Forms: {  }
+          Help: {  }
+          Search: {  }
+          System: {  }
+          User: {  }
+          core: {  }
+        blacklisted_blocks: {  }
+        allowed_layouts: {  }
+hidden:
+  body: true
 

@@ -29,7 +29,6 @@ function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
 
 function layout_content_type_menu_links_discovered_alter(&$links) {
   $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layoutCT']['enabled'] = 0;
-  // print("<pre>" . $links . "</pre>");
 }
 
 /**
