@@ -1,0 +1,17 @@
+# CSS libraries for Layout plugins.
+isu-columns-two:
+  version: VERSION
+  css:
+    theme:
+      layouts/isu-columns-two/twocol_section.css: {}
+isu-columns-three:
+  version: VERSION
+  css:
+    theme:
+      layouts/isu-columns-three/threecol_section.css: {}
+isu-columns-four:
+  version: VERSION
+  css:
+    theme:
+      layouts/isu-columns-four/fourcol_section.css: {}
+

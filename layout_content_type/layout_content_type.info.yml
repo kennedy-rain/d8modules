@@ -7,6 +7,6 @@ dependencies:
   - drupal:node
   - drupal:path
   - drupal:text
-  - layout_builder
+  - drupal:layout_builder
   - layout_builder_restrictions
 

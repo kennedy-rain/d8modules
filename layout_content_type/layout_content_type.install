@@ -21,16 +21,6 @@ function layout_content_type_install() {
   $locked['layoutCT'] = 'layoutCT';
   Drupal::state()->set('node.type.locked', $locked);
 
-  /*
-  $item = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
-	'link' => ['uri' => 'internal:/admin/structure/types/manage/layoutCT/display/default/layout'],
-    'title' => 'Manage layout',
-	'menu_name' => 'admin',
-	'parent' => 'admin_toolbar_tools.extra_links:entity.node_type.edit_form.layoutCT',
-	'weight' => 4,
-  ]);
-  $item->save();  
-  */
 }
 
 /**
@@ -52,11 +42,5 @@ function layout_content_type_uninstall() {
   unset($locked['layoutCT']);
   Drupal::state()->set('node.type.locked', $locked);
 
-  /*
-  $mids = \Drupal::entityQuery('menu_link_content')->condition('admin', NULL)->execute();
-  $controller = \Drupal::entityTypeManager()->getStorage('menu_link_content');
-  $entities = $controller->loadMultiple($mids);
-  $controller->delete($entities);
-  */
 }
 

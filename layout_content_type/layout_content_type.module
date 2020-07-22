@@ -2,7 +2,7 @@
 
 use \Drupal\Core\Routing\RouteMatchInterface;
 
- /**
+/**
  * Implements hook_menu_local_tasks_alter().
  * Add tab with custom title and link only to pages of a selected content type
  */
@@ -27,38 +27,24 @@ function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
 
 }
 
+/**
+ * Implements hook_menu_links_discovered_alter().
+ * Modifies existing 'Manage display' to now host layout_builder
+ */
 function layout_content_type_menu_links_discovered_alter(&$links) {
-  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layoutCT']['enabled'] = 0;
+  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layoutCT']['title'] = 'Manage layout';
+  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layoutCT']['url'] = "internal:/admin/structure/types/manage/layoutCT/display/default/layout";
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
- * Hide manage display screen
+ * Hides permissions layout_restriction and layout_builder options to users
  */
 /*
-function layout_content_type_form__alter(&$form, &$form_state, $form_id) {
-
-}
-*/
-
-/**
- * Implements hook_form_FORM_ID_alter().
- * Fix redirect from layout manage page 
- */
-/*
-function layout_content_type_form_entity_view_display_layout_builder_form_alter(&$form, &$form_state, $form_id) {
-  print("<pre>" . print_r($form['actions']->getTitle(), TRUE) . "</pre>");
-}
-*/
-
-/**
- * Implements hook_form_FORM_ID_alter().
- * Fix redirect from layout manage page 
- */
-/*
-function layout_content_type_form_layout_builder_discard_changes_alter(&$form, &$form_state, $form_id) {
-  // print("<pre>" . print_r($form, TRUE) . "</pre>");
-  $form['actions']['cancel']['#url'] = \Drupal\Core\Url::fromUri('internal:/admin/structure/types/manage/layoutCT');
+function layout_content_type_form_entity_view_display_edit_form_alter(&$form, &$form_state, $form_id) {
+  hide($form['modes']);
+  hide($form['layout']);
+  hide($form['actions']);
 }
 */
 

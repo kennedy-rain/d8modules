@@ -1,54 +1,68 @@
-# core.entity_view_display.node.layoutCT.default.yml
-#   Reference: https://rb.gy/tcv6hg
 langcode: en
 status: true
 dependencies:
-    config:
-        - field.field.node.layoutCT.body
-        - node.type.layoutCT
-    module:
-        - user
-    enforced:
-    module:
-        - layout_builder
-        - layout_discovery
-        - layout_content_type
+  config:
+    - field.field.node.layoutCT.body
+    - node.type.layoutCT
+  module:
+    - layout_builder
+    - layout_builder_restrictions
+    - layout_discovery
+    - user
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: true
+    sections:
+      -
+        layout_id: isu_columns_two
+        layout_settings:
+          label: ''
+        components: { }
+        third_party_settings: {  }
+  layout_builder_restrictions:
+    allowed_block_categories:
+      - 'Chaos Tools'
+      - 'Content fields'
+      - 'Custom block types'
+      - 'Custom blocks'
+      - Forms
+      - Help
+      - 'Inline blocks'
+      - 'Lists (Views)'
+      - Menus
+      - Search
+      - System
+      - User
+      - core
+    entity_view_mode_restriction:
+      whitelisted_blocks:
+        'Chaos Tools': {  }
+        'Content fields': {  }
+        Forms: {  }
+        Help: {  }
+        Search: {  }
+        System: {  }
+        User: {  }
+        core: {  }
+      blacklisted_blocks: {  }
+      allowed_layouts:
+        - isu_columns_one
+        - isu_columns_two
+        - isu_columns_three
+        - isu_columns_four
+        - isu_columns_two_third_one_third
+        - isu_columns_one_third_two_third
 id: node.layoutCT.default
 targetEntityType: node
 bundle: layoutCT
 mode: default
-third_party_settings:
-    layout_builder:
-        allow_custom: true
-        enabled: true
-    third_party_settings: {  } 
-    layout_builder_restrictions:
-      allowed_block_categories:
-        - 'Chaos Tools'
-        - 'Content fields'
-        - 'Custom block types'
-        - 'Custom blocks'
-        - Forms
-        - Help
-        - 'Inline blocks'
-        - 'Lists (Views)'
-        - Menus
-        - Search
-        - System
-        - User
-        - core
-      entity_view_mode_restriction:
-        whitelisted_blocks:
-          'Chaos Tools': {  }
-          'Content fields': {  }
-          Forms: {  }
-          Help: {  }
-          Search: {  }
-          System: {  }
-          User: {  }
-          core: {  }
-        blacklisted_blocks: {  }
-        allowed_layouts: {  }
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
 hidden:
   body: true
 

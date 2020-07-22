@@ -1,7 +1,0 @@
-layout_content_type.manage_layout_menu:
-  title: 'Manage layout'
-  parent: admin_toolbar_tools.extra_links:entity.node_type.edit_form.layoutCT
-  route_name: layout_content_type.manage_layout  
-  weight: 4
-  menu_name: admin
-
