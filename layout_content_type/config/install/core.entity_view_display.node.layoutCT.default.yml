@@ -15,9 +15,10 @@ third_party_settings:
     enabled: true
     sections:
       -
-        layout_id: isu_columns_two
+        layout_id: layout_threecol_section
         layout_settings:
           label: ''
+          column_widths: 33-34-33
         components: { }
         third_party_settings: {  }
   layout_builder_restrictions:
@@ -37,22 +38,17 @@ third_party_settings:
       - core
     entity_view_mode_restriction:
       whitelisted_blocks:
-        'Chaos Tools': {  }
-        'Content fields': {  }
-        Forms: {  }
-        Help: {  }
-        Search: {  }
-        System: {  }
-        User: {  }
-        core: {  }
+        'Custom block types': {  }
+        'Custom blocks': {  }
+        'Inline blocks': {  }
+        'Lists (Views)': {  }
+        Menus: {  }
       blacklisted_blocks: {  }
       allowed_layouts:
-        - isu_columns_one
-        - isu_columns_two
-        - isu_columns_three
-        - isu_columns_four
-        - isu_columns_two_third_one_third
-        - isu_columns_one_third_two_third
+        - layout_onecol
+        - layout_twocol_section
+        - layout_threecol_section
+        - layout_fourcol_section
 id: node.layoutCT.default
 targetEntityType: node
 bundle: layoutCT

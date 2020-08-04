@@ -10,3 +10,9 @@ dependencies:
   - drupal:layout_builder
   - layout_builder_restrictions
 
+layout_content_type:
+  layout_builder/drupal.layout_builder:
+    css:
+      component:
+          core/themes/stable/css/layout_builder/layout_builder.css: css/layout_builder.css
+
