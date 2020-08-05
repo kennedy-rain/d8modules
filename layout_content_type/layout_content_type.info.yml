@@ -9,10 +9,11 @@ dependencies:
   - drupal:text
   - drupal:layout_builder
   - layout_builder_restrictions
+  - layout_builder_perms
 
-layout_content_type:
+libraries-override:
   layout_builder/drupal.layout_builder:
     css:
-      component:
-          core/themes/stable/css/layout_builder/layout_builder.css: css/layout_builder.css
+      compontent:
+        /core/themes/stable/css/layout_builder/layout-builder.css: css/layout-builder-override.css
 

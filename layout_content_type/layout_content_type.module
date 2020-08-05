@@ -41,9 +41,10 @@ function layout_content_type_menu_links_discovered_alter(&$links) {
  * Implements hook_form_FORM_ID_alter().
  * Hides permissions layout_restriction and layout_builder options to users
  */
+/*
 function layout_content_type_form_entity_view_display_edit_form_alter(&$form, &$form_state, $form_id) {
   hide($form['modes']);
   hide($form['layout']);
   hide($form['actions']);
 }
-
+*/
