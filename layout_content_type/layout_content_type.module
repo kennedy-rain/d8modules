@@ -11,12 +11,12 @@ function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
   if (is_array($data['tabs'][0]['field_ui.fields:display_overview_node']['#link'])) {
 	$thing = $data['tabs'][0]['field_ui.fields:display_overview_node']['#link']['url']->getRouteParameters();
 
-	if ($thing['node_type'] == 'layoutCT') {
+	if ($thing['node_type'] == 'layout_ct') {
 	  $data['tabs'][0]['layout_content_type.manage_layout'] = array(
 		'#theme' => 'menu_local_task',
 		'#link' => array(
 		  'title' => 'Manage Layout',
-		  'url' => \Drupal\Core\Url::fromUri('internal:/admin/structure/types/manage/layoutCT/display/default/layout'),
+		  'url' => \Drupal\Core\Url::fromUri('internal:/admin/structure/types/manage/layout_ct/display/default/layout'),
 		  'localized_options' => array(),
 		),
 		'#weight' => 4,
@@ -33,8 +33,8 @@ function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
  * Modifies existing 'Manage display' to now host layout_builder
  */
 function layout_content_type_menu_links_discovered_alter(&$links) {
-  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layoutCT']['title'] = 'Manage layout';
-  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layoutCT']['url'] = "internal:/admin/structure/types/manage/layoutCT/display/default/layout";
+  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layout_ct']['title'] = 'Manage layout';
+  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layout_ct']['url'] = "internal:/admin/structure/types/manage/layout_ct/display/default/layout";
 }
 
 /**

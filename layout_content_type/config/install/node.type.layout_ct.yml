@@ -4,8 +4,10 @@ dependencies:
   enforced:
     module:
       - layout_content_type
-name: 'Layout Builder Content Type'
-type: layoutCT
+      - layout_builder_perms
+      - layout_builder_restrictions
+name: 'Layout Builder'
+type: layout_ct
 description: 'Content enabling Layout Builder.' 
 help: ''
 new_revision: false

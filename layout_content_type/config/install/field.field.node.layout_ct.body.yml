@@ -3,16 +3,16 @@ status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.layoutCT
+    - node.type.layout_ct
   module:
     - text
   enforced:
     module:
       - layout_content_type
-id: node.layoutCT.body
+id: node.layout_ct.body
 field_name: body
 entity_type: node
-bundle: layoutCT
+bundle: layout_ct
 label: Body
 description: ''
 required: false

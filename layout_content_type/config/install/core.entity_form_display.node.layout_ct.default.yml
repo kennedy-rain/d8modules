@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.layoutCT.body
-    - node.type.layoutCT
+    - field.field.node.layout_ct.body
+    - node.type.layout_ct
   module:
     - path
     - text
   enforced:
     module:
       - layout_content_type
-id: node.layoutCT.default
+id: node.layout_ct.default
 targetEntityType: node
-bundle: layoutCT
+bundle: layout_ct
 mode: default
 content:
   title:
