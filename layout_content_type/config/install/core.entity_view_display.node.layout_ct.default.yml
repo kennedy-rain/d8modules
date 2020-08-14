@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.layout_ct.body
+    - field.field.node.layout_ct.layout_builder__layout
     - node.type.layout_ct
   module:
     - layout_builder
@@ -10,44 +11,14 @@ dependencies:
     - user
 third_party_settings:
   layout_builder:
-    enabled: true
-    allow_custom: true
-    sections:
-      -
-        layout_id: layout_threecol_section
-        layout_settings:
-          label: ''
-          column_widths: 33-34-33
-        components: { }
-        third_party_settings: {  }
+    allow_custom: false
+    enabled: false
   layout_builder_restrictions:
-    allowed_block_categories:
-      - 'Chaos Tools'
-      - 'Content fields'
-      - 'Custom block types'
-      - 'Custom blocks'
-      - Forms
-      - Help
-      - 'Inline blocks'
-      - 'Lists (Views)'
-      - Menus
-      - Search
-      - System
-      - User
-      - core
+    allowed_block_categories: {  }
     entity_view_mode_restriction:
-      whitelisted_blocks:
-        'Custom block types': {  }
-        'Custom blocks': {  }
-        'Inline blocks': {  }
-        'Lists (Views)': {  }
-        Menus: {  }
+      whitelisted_blocks: {  }
       blacklisted_blocks: {  }
-      allowed_layouts:
-        - layout_onecol
-        - layout_twocol_section
-        - layout_threecol_section
-        - layout_fourcol_section
+      allowed_layouts: {  }
 id: node.layout_ct.default
 targetEntityType: node
 bundle: layout_ct
