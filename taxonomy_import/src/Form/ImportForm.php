@@ -4,6 +4,10 @@ namespace Drupal\taxonomy_import\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\File\FileSystemInterface;
+
 
 /**
  * Class ImportForm
@@ -34,20 +38,20 @@ class ImportForm extends FormBase {
       $path = NULL;
     }
 
-    $vocabs = \Drupal\taxonomy\Entity\Vocabulary::loadMultiple();
+    $vocabs = Vocabulary::loadMultiple();
     if (!isset($vocabs[$vid]) && !is_null($path)) {
-      $vocab = \Drupal\taxonomy\Entity\Vocabulary::create(array(
+      $vocab = Vocabulary::create(array(
         'vid' => $vid,
         'description' => $desc,
         'name' => $name,
       ));
       $vocab->save();
 
-      drupal_set_message($this->t('The Taxonomy Vocabulary %vocab has been created.', ['%vocab' => $name]));
+      \Drupal::messenger()->addMessage($this->t('The Taxonomy Vocabulary %vocab has been created.', ['%vocab' => $name]));
       ImportForm::loadVocabFromFile($path, $vid, $name);
 
     } else {
-      drupal_set_message($this->t('The Taxonomy Vocabulary using the machine name %name, please choose another machine name.', ['%name' => $vid]));
+      \Drupal::messenger()->addMessage($this->t('The Taxonomy Vocabulary using the machine name %name, please choose another machine name.', ['%name' => $vid]));
     }
     if (isset($file) && $file) {
       $file->delete();
@@ -85,7 +89,7 @@ class ImportForm extends FormBase {
       '#maxlength' => 255,
     );
     $dir = DRUPAL_ROOT . '/' . drupal_get_path('module', 'taxonomy_import') . '/src/data/';
-    $files = file_scan_directory($dir, '/.txt/');
+    $files = FileSystemInterface::scanDirectory($dir, '/.txt/');
     $options = array('' => $this->t('Upload File Below'));
     foreach ($files as $file) {
       $options[$file->filename] = $file->filename;
@@ -96,6 +100,7 @@ class ImportForm extends FormBase {
       '#description' => t('Choose file from module or upload a file'),
       '#options' => $options,
     );
+
     $form['file'] = array(
       '#type' => 'managed_file',
       '#title' => t('File'),
@@ -161,7 +166,7 @@ class ImportForm extends FormBase {
               $create_arr['parent'] = $last;
             }
           }
-          $term = \Drupal\taxonomy\Entity\Term::create($create_arr);
+          $term = Term::create($create_arr);
           $term->save();
           $tids_array[$term->id()] = $tabs;
           $count_added += 1;
@@ -173,7 +178,7 @@ class ImportForm extends FormBase {
       }
       //Only use $this when in the form
       if (debug_backtrace()[1]['function'] == 'submitForm') {
-        drupal_set_message($this->t('The Taxonomy Vocabulary %vocab added %added terms, skipping %skipped terms and %blank lines.', ['%vocab' => $name, '%added' => $count_added, '%skipped' => $count_skipped, '%blank' => $count_blank]));
+        \Drupal::messenger()->addMessage($this->t('The Taxonomy Vocabulary %vocab added %added terms, skipping %skipped terms and %blank lines.', ['%vocab' => $name, '%added' => $count_added, '%skipped' => $count_skipped, '%blank' => $count_blank]));
       }
       fclose($file);
     }

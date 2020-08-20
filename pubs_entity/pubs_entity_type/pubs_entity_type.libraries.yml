@@ -1,0 +1,5 @@
+pubs_entity_type:
+  version: 1.x
+  css:
+    layout:
+      css/pubs_entity_type.css: {}
