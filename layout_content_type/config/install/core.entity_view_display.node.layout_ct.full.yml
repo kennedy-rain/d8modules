@@ -17,10 +17,10 @@ third_party_settings:
     enabled: true
     sections:
       -
-        layout_id: layout_threecol_section 
+        layout_id: layout_onecol
         layout_settings:
           label: ''
-        components: { }
+        components: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
     allowed_block_categories:
@@ -38,7 +38,16 @@ third_party_settings:
       - User
       - core
     entity_view_mode_restriction:
-      whitelisted_blocks: {  }
+      whitelisted_blocks:
+        'Chaos Tools': {  }
+        'Content fields': {  }
+        'Custom blocks': {  }
+        Forms: {  }
+        Help: {  }
+        Search: {  }
+        System: {  }
+        User: {  }
+        core: {  }
       blacklisted_blocks: {  }
       allowed_layouts:
         - layout_onecol
@@ -58,3 +67,4 @@ content:
 hidden:
   body: true
   layout_builder__layout: true
+

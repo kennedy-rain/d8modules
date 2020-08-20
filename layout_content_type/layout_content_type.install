@@ -55,5 +55,15 @@ function layout_content_type_uninstall() {
   unset($locked['layout_ct']);
   Drupal::state()->set('node.type.locked', $locked);
 
+  $storage_handler = \Drupal::entityTypeManager()
+    ->getStorage('node');
+  $nodes = $storage_handler->loadByProperties(['type' => 'layout_ct']);
+  $storage_handler->delete($nodes);
+  // Delete content type.
+  $content_type = \Drupal::entityTypeManager()
+    ->getStorage('node_type')
+    ->load('layout_ct');
+  $content_type->delete();
+
 }
 

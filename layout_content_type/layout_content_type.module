@@ -7,6 +7,7 @@ use Drupal\node\Entity\Node;
  * Implements hook_menu_local_tasks_alter().
  * Add tab with custom title and link only to pages of a selected content type
  */
+/*
 function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
   if (is_array($data['tabs'][0]['field_ui.fields:display_overview_node']['#link'])) {
 	$thing = $data['tabs'][0]['field_ui.fields:display_overview_node']['#link']['url']->getRouteParameters();
@@ -16,7 +17,7 @@ function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
 		'#theme' => 'menu_local_task',
 		'#link' => array(
 		  'title' => 'Manage Layout',
-		  'url' => \Drupal\Core\Url::fromUri('internal:/admin/structure/types/manage/layout_ct/display/default/layout'),
+		  'url' => \Drupal\Core\Url::fromUri('/admin/structure/types/manage/layout_ct/display/full/layout'),
 		  'localized_options' => array(),
 		),
 		'#weight' => 4,
@@ -27,15 +28,18 @@ function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
   }
 
 }
+*/
 
 /**
  * Implements hook_menu_links_discovered_alter().
  * Modifies existing 'Manage display' to now host layout_builder
  */
+/*
 function layout_content_type_menu_links_discovered_alter(&$links) {
-  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layout_ct']['title'] = 'Manage layout';
-  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.default.layout_ct']['url'] = "internal:/admin/structure/types/manage/layout_ct/display/default/layout";
+  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.full.layout_ct']['title'] = 'Manage layout';
+  $links['admin_toolbar_tools.extra_links:entity.entity_view_display.node.full.layout_ct']['url'] = "internal:/admin/structure/types/manage/layout_ct/display/full/layout";
 }
+*/
 
 /**
  * Implements hook_form_FORM_ID_alter().
