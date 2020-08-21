@@ -1,0 +1,12 @@
+name: 'Pubs Entity Type'
+type: module
+core: 8.x
+description: 'Creates the entity type pubs_entity, used for listing Products from Store'
+version: '8.x-1.0-dev'
+package: 'ISUEO'
+dependencies:
+  - drupal:datetime
+  - slick:slick
+  - slick:slick_ui
+  - slick_views:slick_views
+  - blazy:blazy
