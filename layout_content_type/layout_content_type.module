@@ -30,6 +30,32 @@ function layout_content_type_menu_local_tasks_alter(&$data, $route_name) {
 }
 */
 
+function layout_content_type_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  $type = null;
+
+  foreach ($router_item["map"] as $map) {
+	if (!isset($map->type)) continue;
+	if ($map->type == "layout_ct") {
+	  $type = $map->type;
+	  break;
+	}
+  }
+
+  if ($type == null) {
+	print("<pre>" . print_r("Did not find it", TRUE) . "</pre>");
+    return;
+  } else {
+	  print("<pre>" . print_r("Did find it", TRUE) . "</pre>");
+  }
+
+  foreach ($data['tabs'][0]['output'] as $key => $value) {
+	if ($value['#link']['path'] == 'node/%/manage-display') {
+	  unset($data['tabs'][0]['output'][$key]);
+	}
+  }
+
+}
+
 /**
  * Implements hook_menu_links_discovered_alter().
  * Modifies existing 'Manage display' to now host layout_builder

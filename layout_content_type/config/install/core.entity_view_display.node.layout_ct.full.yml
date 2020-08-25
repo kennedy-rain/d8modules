@@ -17,7 +17,7 @@ third_party_settings:
     enabled: true
     sections:
       -
-        layout_id: layout_onecol
+        layout_id: isu_columns_three
         layout_settings:
           label: ''
         components: {  }
@@ -50,10 +50,12 @@ third_party_settings:
         core: {  }
       blacklisted_blocks: {  }
       allowed_layouts:
-        - layout_onecol
-        - layout_twocol_section
-        - layout_threecol_section
-        - layout_fourcol_section
+        - isu_columns_one
+        - isu_columns_two
+        - isu_columns_three
+        - isu_columns_four
+        - isu_columns_two_third_one_third
+        - isu_columns_one_third_two_third
 id: node.layout_ct.full
 targetEntityType: node
 bundle: layout_ct
