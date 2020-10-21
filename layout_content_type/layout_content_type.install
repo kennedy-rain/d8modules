@@ -21,6 +21,7 @@ function layout_content_type_install() {
   $locked['layout_ct'] = 'layout_ct';
   Drupal::state()->set('node.type.locked', $locked);
 
+  /*
   user_role_change_permissions('content_editor', array(
     'access layout builder page' => TRUE,
 	'config layout builder blocks' => TRUE,
@@ -34,6 +35,7 @@ function layout_content_type_install() {
 	'reorder layout builder blocks'=> TRUE,
 	'view layout_ct revisions' => TRUE)
   );
+  */
 }
 
 /**

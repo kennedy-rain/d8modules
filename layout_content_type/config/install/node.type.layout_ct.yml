@@ -4,8 +4,8 @@ dependencies:
   enforced:
     module:
       - layout_content_type
-        #- layout_builder_perms
-        #- layout_builder_restrictions
+      #- layout_builder_perms
+      #- layout_builder_restrictions
 name: 'Layout Builder'
 type: layout_ct
 description: 'Content enabling Layout Builder.' 
