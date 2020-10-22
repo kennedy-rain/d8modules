@@ -13,7 +13,7 @@ CKEDITOR.addTemplates( 'default', {
 	templates: [ {
 		title: 'Left Column Template',
 		image: 'leftColumn.gif',
-		description: 'One main image with a title and text that surround the image.',
+		description: 'Image to the left with text aligned to the right',
 		html: 
 			'<div class="row two-col-left">'+
 				'<div class="col-md-3 col-sidebar">'+
@@ -24,10 +24,10 @@ CKEDITOR.addTemplates( 'default', {
 				'<div class ="col-md-9 col-main">'+
 					'<h2>Left Column Template</h2>'+
 						'<p>'+
-							'This is the left column template.  Image can be deleted on left-hand side to put text instead if you wanted.'+
+							'This is the left column template.  Remove the placeholder text and image and replace with your own content.'+
 						'</p>'+
 						'<p>'+
-							'Could use it as a call to action and make it really stand out, or it could be used just for easier editing for our content editors, without them having to do any padding or anything.  Also need to verify that this will work with the image resize filter, so that the image is resized upon insertion.  Will need to test as well with the media module if we decide to use that.'+
+							'This is a helpful way to insert image and text with appropriate padding and alignment properties.  If you wish to have two columns of text, try using the two column template provided instead.'+
 						'</p>'+
 				'</div>'+
 			'</div>'
@@ -35,16 +35,16 @@ CKEDITOR.addTemplates( 'default', {
 	{
 		title: 'Right Column Template',
 		image: 'rightColumn.gif',
-		description: 'One main image with a title and text that surround the image.',
+		description: 'Image to the right with text aligned to the left',
 		html: 
 		'<div class="row two-col-right">'+
 				'<div class ="col-md-9 col-main">'+
 					'<h2>Right Column Template</h2>'+
 						'<p>'+
-							'This is the Right column template.  Image can be deleted on right-hand side to put text instead if you wanted.'+
+							'This is the Right column template.  Remove the placeholder text and image and replace with your own content.'+
 						'</p>'+
 						'<p>'+
-							'Could use it as a call to action and make it really stand out, or it could be used just for easier editing for our content editors, without them having to do any padding or anything.  Also need to verify that this will work with the image resize filter, so that the image is resized upon insertion.  Will need to test as well with the media module if we decide to use that.'+
+							'This is a helpful way to insert image and text with appropriate padding and alignment properties.  If you wish to have two columns of text, try using the two column template provided instead.'+
 						'</p>'+
 				'</div>'+
 				'<div class="col-md-3 col-sidebar">'+
@@ -57,21 +57,21 @@ CKEDITOR.addTemplates( 'default', {
 	{
 		title: 'Two Column Template',
 		image: 'twoColumn.gif',
-		description: 'Two Columns of text',
+		description: 'Two Columns of content',
 		html:
 		'<div class="row two-col">'+
 			'<div class="col-md-6 col-1">'+
 				'<h3>Two Column Template</h3>'+
-				'<p>Can have images or text</p>'+
+				'<p>This is a two column template.  Remove the placeholder text and replace with your own content.</p>'+
 				'<p>'+
-					'Could use it as a call to action and make it really stand out, or it could be used just for easier editing for our content editors, without them having to do any padding or anything.  Also need to verify that this will work with the image resize filter, so that the image is resized upon insertion.  Will need to test as well with the media module if we decide to use that.'+
+					'This can be used for text or images.  The template provides the content in a responsive and accessible way.  If you wish to have an image in one column and text in the other, try using the left or right column templates provided instead.'+
 				'</p>'+ 
 			'</div>'+
 			'<div class="col-md-6 col-2">'+
 				'<h3>Two Column Template</h3>'+
-				'<p>Can have images or text</p>'+
+				'<p>This is a two column template.  Remove the placeholder text and replace with your own content.</p>'+
 				'<p>'+
-					'Could use it as a call to action and make it really stand out, or it could be used just for easier editing for our content editors, without them having to do any padding or anything.  Also need to verify that this will work with the image resize filter, so that the image is resized upon insertion.  Will need to test as well with the media module if we decide to use that.'+
+					'This can be used for text or images.  The template provides the content in a responsive and accessible way.  If you wish to have an image in one column and text in the other, try using the left or right column templates provided instead.'+
 				'</p>'+ 
 			'</div>'+
 		'</div>'
@@ -79,28 +79,28 @@ CKEDITOR.addTemplates( 'default', {
 	{
 		title: 'Three Column Template',
 		image: 'threeColumn.gif',
-		description: 'Three Columns of text',
+		description: 'Three Columns of content',
 		html:
 		'<div class="row three-col">'+
 			'<div class="col-md-4 col-1">'+
 				'<h3>Three Column Template</h3>'+
-				'<p>Can have images or text</p>'+
+				'<p>This is a three column template.  Remove the placeholder text and replace with your own content.</p>'+
 				'<p>'+
-					'Could use it as a call to action and make it really stand out, or it could be used just for easier editing for our content editors, without them having to do any padding or anything.  Also need to verify that this will work with the image resize filter, so that the image is resized upon insertion.  Will need to test as well with the media module if we decide to use that.'+
+					'This can be used for text or images or a mixture of the two.  The template provides the content in a responsive and accessible way.'+
 				'</p>'+ 
 			'</div>'+
 			'<div class="col-md-4 col-2">'+
 				'<h3>Three Column Template</h3>'+
-				'<p>Can have images or text</p>'+
+				'<p>This is a three column template.  Remove the placeholder text and replace with your own content.</p>'+
 				'<p>'+
-					'Could use it as a call to action and make it really stand out, or it could be used just for easier editing for our content editors, without them having to do any padding or anything.  Also need to verify that this will work with the image resize filter, so that the image is resized upon insertion.  Will need to test as well with the media module if we decide to use that.'+
+					'This can be used for text or images or a mixture of the two.  The template provides the content in a responsive and accessible way.'+
 				'</p>'+ 
 			'</div>'+
 			'<div class="col-md-4 col-3">'+
 				'<h3>Three Column Template</h3>'+
-				'<p>Can have images or text</p>'+
+				'<p>This is a three column template.  Remove the placeholder text and replace with your own content.</p>'+
 				'<p>'+
-					'Could use it as a call to action and make it really stand out, or it could be used just for easier editing for our content editors, without them having to do any padding or anything.  Also need to verify that this will work with the image resize filter, so that the image is resized upon insertion.  Will need to test as well with the media module if we decide to use that.'+
+					'This can be used for text or images or a mixture of the two.  The template provides the content in a responsive and accessible way.'+
 				'</p>'+ 
 			'</div>'+
 		'</div>'
