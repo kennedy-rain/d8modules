@@ -63,7 +63,6 @@ class BaseOneColumnLayout extends DefaultLayoutBase implements ContainerFactoryP
       'layout--background--none' => $this->t('None'),
       'layout--background--white' => $this->t('White'),
       'layout--background--grey' => $this->t('Grey'),
-      'layout--background--black' => $this->t('Black'),
 	  'layout--background--cardinal' => $this->t('Cardinal'),
     ];
     $this->moduleHandler->alter('layout_builder_base_background', $options);

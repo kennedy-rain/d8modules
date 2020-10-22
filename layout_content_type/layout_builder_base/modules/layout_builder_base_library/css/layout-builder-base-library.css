@@ -2,14 +2,11 @@
 .layout--background--none {
   background: none;
 }
-.layout--background--black {
-  background: black;
-}
 .layout--background--white {
   background: white;
 }
 .layout--background--grey {
-  background: #333;
+  background: #eeeeee;
 }
 .layout--background--cardinal {
   background: #cc0000;
