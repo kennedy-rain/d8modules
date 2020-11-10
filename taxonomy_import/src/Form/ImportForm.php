@@ -89,7 +89,7 @@ class ImportForm extends FormBase {
       '#maxlength' => 255,
     );
     $dir = DRUPAL_ROOT . '/' . drupal_get_path('module', 'taxonomy_import') . '/src/data/';
-    $files = FileSystemInterface::scanDirectory($dir, '/.txt/');
+    $files = \Drupal::service('file_system')->scanDirectory($dir, '/\.(txt)/');
     $options = array('' => $this->t('Upload File Below'));
     foreach ($files as $file) {
       $options[$file->filename] = $file->filename;
