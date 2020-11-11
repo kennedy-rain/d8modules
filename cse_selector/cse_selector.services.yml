@@ -1,0 +1,5 @@
+services:
+  cse_selector.cse_selector_search_results:
+    class: Drupal\cse_selector\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

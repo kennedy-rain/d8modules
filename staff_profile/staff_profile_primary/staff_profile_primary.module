@@ -1,0 +1,280 @@
+<?php
+
+use \Drupal\node\Entity\Node;
+use \Drupal\user\Entity\User;
+use \Drupal\Component\Utility\Random;
+use \Drupal\encrypt\Entity\EncryptionProfile;
+
+/**
+ * Implements hook_rebuild()
+ */
+function staff_profile_primary_rebuild() {
+  \Drupal::logger('staff_profile_primary')->info('Starting staff profile refresh from hook_rebuild page');
+  staff_profile_primary_profile_from_database();
+
+  /*
+  // Code to set SmugMug ID's from a file that contains: netID:SmugMugId
+  $file = fopen(\Drupal::service('module_handler')->getModule('staff_profile_primary')->getPath() . '/smugmug.txt', 'r');
+  while ($line = fgets($file)) {
+    $exploded = explode(':', $line);
+
+    $nids = \Drupal::entityQuery('node')->condition('type', 'staff_profile')->condition('field_staff_profile_netid', $exploded[0])->execute();
+    $nodes =  Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        \Drupal::logger('staff_profile_primary')->info('Found: ' . count($nodes) . $exploded[0] . ' - ' . $exploded[1]);
+        $node->set('field_staff_profile_smugmug', trim($exploded[1]))->save();
+      }
+    } else {
+      \Drupal::logger('staff_profile_primary')->info('Not Found: ' . $exploded[0]);
+    }
+  }
+  */
+
+}
+
+/**
+ * Implements hook_cron().
+ */
+function staff_profile_primary_cron() {
+  staff_profile_primary_profile_from_database();
+}
+
+function staff_profile_primary_profile_from_database () {
+  // Get all Staff Profile nodes
+  $nids = \Drupal::entityQuery('node')->condition('type','staff_profile')->execute();
+  $nodes =  Node::loadMultiple($nids);
+
+  // Get the config, and make sure it looks complete
+  $primary_config = \Drupal::config('staff_profile_primary.settings');
+  if (empty($primary_config->get('db_password'))) {
+    \Drupal::logger('staff_profile_primary')->warning('Doesn\'t look like Staff Profile primary is configured properly in the settings form.');
+    return;
+  }
+
+  // Get the database login informatio out of config
+  $encrypt_profile = EncryptionProfile::load($primary_config->get('sync_encrypt_profile'));
+  $db_password = \Drupal::service('encryption')->decrypt( $primary_config->get('db_password'), $encrypt_profile);
+  $db_database = \Drupal::service('encryption')->decrypt($primary_config->get('db_database'), $encrypt_profile);
+  $db_username = \Drupal::service('encryption')->decrypt($primary_config->get('db_username'), $encrypt_profile);
+  $db_server = \Drupal::service('encryption')->decrypt($primary_config->get('db_address'), $encrypt_profile);
+
+
+  // Query the staff profiles from the database
+  $dbhandle = sqlsrv_connect($db_server, array('Database' => $db_database, 'UID' => $db_username, 'PWD' => $db_password));
+  if ($dbhandle === FALSE) {
+    \Drupal::logger('staff_profile_primary')->error('Couldn\'t connect to SQL Server on ' . $db_server);
+    return;
+  }
+
+  // Make sure we can read from the database
+  $results = sqlsrv_query($dbhandle, 'dbo.Staff_GetFullDirectory');
+  if ($results === false) {
+    \Drupal::logger('staff_profile_primary')->error(print_r(sqlsrv_errors(), true));
+    sqlsrv_close($dbhandle);
+    return;
+  }
+
+  // Read all the profiles into an array
+  $profiles = array();
+  while ($profile = sqlsrv_fetch_object($results)) {
+    $profiles[] = $profile;
+  }
+  sqlsrv_close($dbhandle);
+
+  // Make sure we have the minimum number of staff from the database. If not, the database may not have gotten populated correctly
+  if (count($profiles) < $primary_config->get('minimum_staff')) {
+    \Drupal::logger('staff_profile_primary')->info('Expected records: ' . $primary_config->get('minimum_staff') . ' Received: ' . count($profiles) . ' - Something could be wrong, so exiting import of records');
+    return;
+  }
+
+  // Unpublish all published nodes from the Staff Directory Database
+  foreach ($nodes as $node) {
+    if ($node->isPublished() && !empty($node->field_staff_profile_staffid->value)) {
+      $node->set('field_staff_profile_stale', TRUE)->save();
+    }
+  }
+
+  $count = 0;
+  foreach($profiles as $profile) {
+
+    // Find the node that matches the profile, if one exists
+    $mynode = '';
+    foreach ($nodes as $node) {
+      if (strtolower($node->field_staff_profile_email->value) == strtolower($profile->email)) {
+        $mynode = $node;
+        break;
+      }
+    }
+
+    // Don't let the Job Title start with, or end with ' - '
+    $jobtitle = $profile->JobTitle;
+    if (substr($jobtitle, 0, 3) === ' - ') {
+      $jobtitle = '';
+    } elseif (substr($jobtitle,  -3) === ' - ') {
+      $jobtitle = substr($jobtitle, 0, strlen($jobtitle)  - 3);
+    }
+
+    // Need to create a node
+    if (empty($mynode)) {
+      $mynode = Node::create(array('type' => 'staff_profile', 'title' => $profile->LastName . ', ' . $profile->FirstName));
+      $mynode->field_staff_profile_email->value = $profile->email;
+      $mynode->field_staff_profile_netid->value = str_replace('@iastate.edu', '', strtolower($profile->email));
+      $mynode->field_staff_profile_pref_name->value = $profile->FirstName;
+      $mynode->field_staff_profile_pref_phone->value = $profile->Phone;
+      $mynode->field_staff_profile_pref_title = $jobtitle;
+    }
+
+    $mynode->field_staff_profile_staffid->value = $profile->StaffID;
+
+    if ($mynode->get('field_staff_profile_first_name')->getString() == $mynode->get('field_staff_profile_pref_name')->getString()) {
+      $mynode->field_staff_profile_pref_name->value = $profile->FirstName;
+    }
+    $mynode->field_staff_profile_first_name->value = $profile->FirstName;
+    $mynode->field_staff_profile_last_name->value = $profile->LastName;
+    $mynode->field_staff_profile_addr = array(
+      'country_code' => 'US',
+      'address_line1' => $profile->Address1,
+      'address_line2' => $profile->Address2,
+      'locality' => $profile->City,
+      'administrative_area' => $profile->State,
+      'postal_code' => $profile->Zip,
+    );
+    $mynode->field_staff_profile_departmentid->value = $profile->DepartmentID;
+
+    if ($mynode->get('field_staff_profile_job_title')->getString() == $mynode->get('field_staff_profile_pref_title')->getString()) {
+      $mynode->field_staff_profile_pref_title->value = $jobtitle;
+    }
+    $mynode->field_staff_profile_job_title->value = $jobtitle;
+
+    if ($mynode->get('field_staff_profile_phone')->getString() == $mynode->get('field_staff_profile_pref_phone')->getString()) {
+      $mynode->field_staff_profile_pref_phone->value = $profile->Phone;
+    }
+    $mynode->field_staff_profile_phone->value = $profile->Phone;
+    $mynode->field_staff_profile_fax->value = $profile->Fax;
+
+    $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
+    $taxonomy = array();
+    if (!empty($profile->CountyName)) {
+      $taxonomy = $taxonomyStorage->loadByProperties([
+          'name' => $profile->CountyName,
+          'vid' => 'counties_in_iowa'
+      ]);
+    }
+    $base_county = (!empty($taxonomy) ? array_keys($taxonomy)[0] : 0);
+    $mynode->field_staff_profile_base_county = [['target_id' => $base_county]];
+
+    $mynode->field_staff_profile_college->value = $profile->CollegeName;
+    $mynode->field_staff_profile_location->value = $profile->Location;
+
+    $mynode->field_staff_profile_region->value = (!empty($profile->ExtensionArea) && (intval($profile->ExtensionArea) > 0)) ? $profile->ExtensionArea : '';
+
+    $mynode->field_staff_profile_cty_served = [array()];
+    $temp_array = explode(', ', $profile->CountiesServed);
+    foreach ($temp_array as $index => $temp_term) {
+      $taxon = $taxonomyStorage->loadByProperties([
+            'name' => $temp_term,
+            'vid' => 'counties_in_iowa'
+      ]);
+      if (!empty($taxon) && array_keys($taxon)[0] > 0) {
+        $mynode->field_staff_profile_cty_served[] = ['target_id' => array_keys($taxon)[0]];
+      }
+    }
+
+    $mynode->field_staff_profile_pgm_areas = [array()];
+    $temp_array = explode(', ', $profile->ProgramAreas);
+    foreach ($temp_array as $index => $temp_term) {
+      $taxon = $taxonomyStorage->loadByProperties([
+            'name' => $temp_term,
+            'vid' => 'program_areas'
+      ]);
+      if (!empty($taxon) && array_keys($taxon)[0] > 0) {
+        $mynode->field_staff_profile_pgm_areas[] = ['target_id' => array_keys($taxon)[0]];
+      }
+    }
+
+    $mynode->field_staff_profile_stale->value = FALSE;
+    $mynode->setPublished();
+    $mynode->save();
+
+    $count++;
+  }
+
+  foreach ($nodes as $node) {
+    if ($node->get('field_staff_profile_stale')->value) {
+      $mynode->field_staff_profile_stale->value = FALSE;
+      $node->setUnpublished();
+      $node->save();
+    }
+  }
+
+  \Drupal::logger('staff_profile_primary')->info('Staff from Staff Directory Database: ' . $count);
+}
+
+/*
+ * Implements hook_preprocess_views_view()
+ */
+function staff_profile_primary_preprocess_views_view(&$variables) {
+  $variables['#cache']['contexts'][] = 'route';
+  if ($variables['view_array']['#name'] == 'staff_directory') {
+    $variables['#attached']['library'][] = 'staff_profile_primary/staff_directory';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function staff_profile_primary_form_node_form_alter(&$form, &$form_state, $form_id) {
+  // Make sure we're on the staff_profile node edit screen
+  $node = $form_state->getFormObject()->getEntity();
+  if ($node->getType() == 'staff_profile') {
+
+    // Set Many fields to readonly when user does't have "edit any staff_profile content" permission
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission('edit any staff_profile content') && !empty($node->field_staff_profile_staffid->value)) {
+      staff_profile_mark_database_fields_readonly($form);
+    }
+    // Disable Sort order, not needed on the primary site
+    $form['field_staff_profile_sort_order']['widget'][0]['value']['#access'] = FALSE;
+    $form['field_staff_profile_sort_order']['widget'][0]['value']['#disabled'] = TRUE;
+    $form['field_staff_profile_sort_order']['widget'][0]['value']['#description'] = 'Sort order isn\'t used on this site, so it\'s disabled.';
+
+  }
+}
+
+/*
+ * Implements hook_ENTITY_TYPE_presave()
+ */
+function staff_profile_primary_node_presave($entity) {
+  if ($entity->getType() == 'staff_profile') {
+    // Set the owner of the new node, will probably need to create the user
+    $users =\Drupal::entityTypeManager()->getStorage('user')->loadByProperties(array('name' => $entity->field_staff_profile_netid->value));
+    $owner = reset($users);
+    if (!$owner) {
+      $owner = User::create(array('name' => $entity->field_staff_profile_netid, 'mail' => $entity->field_staff_profile_email, 'pass' => rand_string(40)));
+      $owner->activate()->save();
+    }
+    $entity->setOwner($owner);
+    $entity->setTitle($entity->field_staff_profile_pref_name->value . ' ' . $entity->field_staff_profile_last_name->value);
+  }
+}
+
+function rand_string($strength = 40) {
+  $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?!@#$%&*()_+-=';
+  $length = strlen($chars);
+  $rand_string = '';
+  try {
+    for ($i=0; $i < $strength; $i++) {
+      $rand_char = $chars[random_int(0, $length-1)];
+      $rand_string .= $rand_char;
+    }
+  } catch (\Exception $e) {
+    //In cases where getrandom(2) or /dev/urandom fails, not cryptographically secure
+    $rand_string = '';
+    for ($i=0; $i < $strength; $i++) {
+      $rand_char = $chars[mt_rand(0, $length-1)];
+      $rand_string .= $rand_char;
+    }
+  }
+  return $rand_string;
+}

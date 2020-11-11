@@ -1,0 +1,6 @@
+cse_selector.admin_settings_form:
+  title: 'CSE Selector Settings'
+  route_name: cse_selector.cse_admin_settings_form
+  description: 'Adjust settings for Google CSE'
+  parent: system.admin_config_search
+  weight: 99
