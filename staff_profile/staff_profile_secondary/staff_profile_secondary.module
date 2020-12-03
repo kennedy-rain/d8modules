@@ -1,6 +1,7 @@
 <?php
 
 use \Drupal\node\Entity\Node;
+use \Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_rebuild().
@@ -132,6 +133,31 @@ function staff_profile_secondary_handle_feeds() {
         ]);
         if (!empty($taxon) && array_keys($taxon)[0] > 0) {
           $mynode->field_staff_profile_cty_served[] = ['target_id' => array_keys($taxon)[0]];
+        }
+      }
+
+      //Handle Teams/Groups, NOTE: Teams/Groups must not include a comma in their name, they will be split
+      $mynode->field_staff_profile_teams_groups = [array()];
+      $temp_array = explode(', ', $profile['field_staff_profile_teams_groups']);
+      foreach ($temp_array as $index => $temp_term) {
+        $taxon = $taxonomyStorage->loadByProperties([
+            'name' => $temp_term,
+            'vid' => 'teams_groups'
+        ]);
+        if (!empty($taxon) && array_keys($taxon)[0] > 0) {
+          //Team-group exists in taxon, add to staff profile
+          $mynode->field_staff_profile_teams_groups[] = ['target_id' => array_keys($taxon)[0]];
+        } else {
+          //Missing from taxon, add to vocab and then to staff profile
+          $term = Term::create([
+            'name' => $temp_term,
+            'vid' => 'teams_groups'
+          ])->save();
+          $taxon = $taxonomyStorage->loadByProperties([
+              'name' => $temp_term,
+              'vid' => 'teams_groups'
+          ]);
+          $mynode->field_staff_profile_teams_groups[] = ['target_id' => array_keys($taxon)[0]];
         }
       }
 
