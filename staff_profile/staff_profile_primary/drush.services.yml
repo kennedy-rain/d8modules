@@ -1,0 +1,5 @@
+services:
+  staff_profile_primary.commands:
+    class: \Drupal\staff_profile_primary\Commands\StaffProfilePrimaryCommands
+    tags:
+      - { name: drush.command }
