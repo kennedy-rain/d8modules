@@ -11,7 +11,6 @@ use Drupal\Component\Plugin\Derivative\DeriverBase;
 
 class ProgramOfferingBlocks extends DeriverBase
 {
-
   /**
    * {@inheritdoc}
    */
@@ -22,7 +21,7 @@ class ProgramOfferingBlocks extends DeriverBase
 
     for ($i = 1; $i <= $number_of_blocks; $i++) {
       $this->derivatives[$i] = $base_plugin_definition;
-      $this->derivatives[$i]['admin_label'] = t('Program Offering Blocks: ') . $i;
+      $this->derivatives[$i]['admin_label'] = t('Program Offering Block: ') . $i;
     }
 
     return $this->derivatives;

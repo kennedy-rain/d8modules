@@ -104,16 +104,22 @@ class ProgramOfferingBlocks extends BlockBase
         if ($count < $max_events) {
           $results .= '  <li>' . PHP_EOL;
 
-          $results .= $this->format_title($event, $config);
-//          $startDate = new DateTime($event['Start_Time_and_Date__c']);
-$startDate = date($config['format_with_time'], strtotime($event['Start_Time_and_Date__c']));
-//$startDate = date($config['format_with_time'], strtotime(str_replace('Z','',$event['Start_Time_and_Date__c'])));
-          $results .= '    <div class="event_venue">' . $event['Event_Location_Site_Building__c'] . '</div>' . PHP_EOL;
+          $results .= $this->format_title($event, $config) . PHP_EOL;
+          $results .= '    <div class="event_venue">';
+          $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
+          $results .= '</div>' . PHP_EOL;
+
+          $startDate = date($config['format_with_time'], strtotime($event['Start_Time_and_Date__c']));
           $results .= '    <div class="event_startdate">' . $startDate . '</div>' . PHP_EOL;
 
           //$results .= '    ' . $title . PHP_EOL;
           //$results .= '    <div class="event_venue">' . $event['ANCHORVENUE'] . '</div>' . PHP_EOL;
 
+          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
+          //$results .= $event['Event_Location__c'] . '<br/>' . PHP_EOL;
+          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
+          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
+          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
           //$results .= $event['Id'] . '<br/>' . PHP_EOL;
           //$results .= 'Registraion Link: ' . $event['Registration_Link__c'] . '<br/>' . PHP_EOL;
           //$results .= 'Planned Program Website: ' . $event['Planned_Program_Website__c'] . '<br/>' . PHP_EOL;
