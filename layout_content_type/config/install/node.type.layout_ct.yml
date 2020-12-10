@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - layout_content_type
+      - layout_builder_base
+      - layout_builder_base_library
+#     - layout_builder_perms
+#     - layout_builder_restrictions
+name: 'Layout Builder'
+type: layout_ct
+description: 'Content enabling Layout Builder.' 
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true
+third_party_settings: {  }

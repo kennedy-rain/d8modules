@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Install file for layout_content_type.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * We don't want users to be able to delete our locked_content_type content
+ * type. So therefore we have to tell Drupal that this is the case. This
+ * can't be done in the content type's configuration YAML file, so we have to
+ * do it in code, here.
+ *
+ * @ingroup layout_content_type
+ */
+function layout_content_type_install() {
+  // Do not allow the locked content type to be deleted.
+  $locked = Drupal::state()->get('node.type.locked');
+  $locked['layout_ct'] = 'layout_ct';
+  Drupal::state()->set('node.type.locked', $locked);
+
+  /*
+  user_role_change_permissions('content_editor', array(
+    'access layout builder page' => TRUE,
+	'config layout builder blocks' => TRUE,
+	'create layout builder blocks' => TRUE,
+	'create layout_ct content' => TRUE,
+	'delete any layout_ct content' => TRUE,
+	'delete own layout_ct content' => TRUE,
+	'edit any layout_ct content' => TRUE,
+	'edit own layout_ct content' => TRUE,
+	'remove layout builder blocks' => TRUE,
+	'reorder layout builder blocks'=> TRUE,
+	'view layout_ct revisions' => TRUE)
+  );
+  */
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Our content types will live on in the Drupal installation, even after this
+ * module is uninstalled. This is a good thing, since it allows the user to
+ * make decisions about their fate. Therefore we should give the user the
+ * option of deleting them.
+ *
+ * Since we told Drupal that our locked_content_type is locked, we now have
+ * to tell it to unlock.
+ *
+ * @ingroup layout_content_type
+ */
+function layout_content_type_uninstall() {
+  // Allow locked_content_type to be deleted.
+  $locked = Drupal::state()->get('node.type.locked');
+  unset($locked['layout_ct']);
+  Drupal::state()->set('node.type.locked', $locked);
+
+  $storage_handler = \Drupal::entityTypeManager()
+    ->getStorage('node');
+  $nodes = $storage_handler->loadByProperties(['type' => 'layout_ct']);
+  $storage_handler->delete($nodes);
+  // Delete content type.
+  $content_type = \Drupal::entityTypeManager()
+    ->getStorage('node_type')
+    ->load('layout_ct');
+  $content_type->delete();
+
+}
+
