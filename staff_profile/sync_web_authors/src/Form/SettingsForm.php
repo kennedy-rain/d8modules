@@ -31,9 +31,9 @@ class SettingsForm extends ConfigFormBase {
     public function buildForm(array $form, FormStateInterface $form_state) {
       $config = $this->config('sync_web_authors.settings');
       $form['sync_url'] = array(
-        '#type' => 'textarea',
-        '#title' => $this->t('URLs of JSON Feeds'),
-        '#description' => $this->t('URLs of JSON feeds for sync. Use %20 instead of spaces, ie black%20hawk & pottawattamie%20-%20west <br>Separate each url with a new line'),
+        '#type' => 'textfield',
+        '#title' => $this->t('URL of JSON Feed'),
+        '#description' => $this->t('URL of JSON feeds for sync. Use %20 instead of spaces, ie black%20hawk & pottawattamie%20-%20west'),
         '#size' => 64,
         '#default_value' => !empty($config->get('sync_url')) ? preg_replace('/,/',"\r\n",$config->get('sync_url')) : '',
         '#required' => TRUE,
