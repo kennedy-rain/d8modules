@@ -1,0 +1,10 @@
+<?php
+use \Drupal\user\Entity\Role;
+
+function staff_profile_reed_install() {
+  $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadByProperties(['id' => 'regional_director']);
+  if (count($roles) == 0) {
+    $role = Role::create(array('id' => 'regional_director', 'label' => 'Regional Director'));
+    $role->save();
+  }
+}
