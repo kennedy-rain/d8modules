@@ -27,7 +27,7 @@ class EventDetailsController extends ControllerBase
     $program_offerings = json_decode(strip_tags($buffer), TRUE);
 
     foreach ($program_offerings as $event) {
-      if ($event['Id'] == $eventID) {
+      if ($event['Id'] == $eventID  || (strlen($eventID) < 10 && trim(trim($event['Ungerboeck_Event_ID__c']), "0") == trim(trim($eventID),"0"))) {
 
         $title = $event['Name_Placeholder__c'];
         $results .= $this->handle_dates($event) . PHP_EOL;
