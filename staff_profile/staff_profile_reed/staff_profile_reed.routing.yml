@@ -5,3 +5,5 @@ staff_profile_reed.regional_director_panel:
     _title: 'Regional Director Panel'
   requirements:
     _role: 'regional_director'
+  options:
+    no_cache: 'TRUE'

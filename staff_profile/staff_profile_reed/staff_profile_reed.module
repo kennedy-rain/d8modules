@@ -1,0 +1,36 @@
+<?php
+use \Drupal\user\Entity\User;
+
+// function staff_profile_reed_menu_alter(&$variables) {
+//   //May make more sense to add if user has role rather than keep removing it.
+//   $hasdirector = User::load(\Drupal::currentUser()->id())->hasRole('regional_director');
+//   if (!$hasdirector && isset($variables['menu_name']) && $variables['menu_name'] == 'main') {
+//     foreach ($variables['items'] as $key => $item) {
+//       \Drupal::logger('staff_profile_reed')->notice(serialize($item));
+//       $path = $item['url']->toString();
+//       \Drupal::logger('staff_profile_reed')->notice(explode("/", $path, 3)[2]);
+//       if (explode("/", $path, 3)[2] == 'admin/regional_director_panel') {
+//         unset($variables['items'][$key]);
+//       }
+//     }
+//   }
+// }
+// /**
+//  * Implements hook_preprocess_HOOK().
+//  */
+// function staff_profile_reed_preprocess_menu(&$variables) {
+//   $hasdirector = User::load(\Drupal::currentUser()->id())->hasRole('regional_director');
+//   if (!$hasdirector) {
+//     unset($variables['items']['staff_profile_reed.regional_director_panel']);
+//   }
+// }
+//
+// /**
+//  * Implements hook_preprocess_HOOK().
+//  */
+// function staff_profile_reed_preprocess_block(&$variables) {
+//   // Disable the cache of the menu block.
+//   if($variables['derivative_plugin_id'] == 'tabs-documents') {
+//     $variables['#cache']['max-age'] = 0;
+//   }
+// }
