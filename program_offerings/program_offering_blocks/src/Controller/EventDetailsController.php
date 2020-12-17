@@ -17,6 +17,9 @@ class EventDetailsController extends ControllerBase
    */
   public function event_details($eventID, $eventTitle)
   {
+    // Do NOT cache the events details page
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
     $results = '';
     $results .= PHP_EOL . '<div class="program_offering_blocks ungerboeck_eventlist_details">' . PHP_EOL;
     $title = 'Sorry, event not found';
