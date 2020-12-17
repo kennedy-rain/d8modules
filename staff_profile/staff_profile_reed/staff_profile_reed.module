@@ -1,4 +1,5 @@
 <?php
+use \Drupal\Core\Entity\EntityInterface;
 use \Drupal\user\Entity\User;
 
 // function staff_profile_reed_menu_alter(&$variables) {
@@ -34,3 +35,12 @@ use \Drupal\user\Entity\User;
 //     $variables['#cache']['max-age'] = 0;
 //   }
 // }
+
+function staff_profile_reed_entity_operation(EntityInterface $entity) {
+  $operations = [];
+  $operations['remove_cty_editor'] = [
+    'title' => t('Remove County Editors'),
+    'url' => '/staff_profile_remove_cty_editor',
+    'weight' => 50,
+  ];
+}

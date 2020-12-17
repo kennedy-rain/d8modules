@@ -2,7 +2,7 @@ staff_profile_reed.regional_director_panel:
   path: '/admin/regional_director_panel'
   defaults:
     _controller: '\Drupal\staff_profile_reed\Controller\RegionalDirectorPanel::panel'
-    _title: 'Regional Director Panel'
+    _title: 'County Web Authors'
   requirements:
     _role: 'regional_director'
   options:

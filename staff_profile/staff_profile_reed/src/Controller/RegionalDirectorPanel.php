@@ -25,11 +25,15 @@ class RegionalDirectorPanel extends ControllerBase {
     $counties = RegionalDirectorPanel::getCountiesServed($user->getUsername());
     $result = [];
     foreach ($counties as $key => $county) {
-      $result[] = [
+      $result[$county->label()] = array(
+        '#type' => 'fieldset',
+        "#title" => $this->t($county->label())
+      );
+      $result[$county->label()]['view'] = [
         '#type' => 'view',
         '#name' => 'regional_director_county',
         '#display_id' => 'block_1',
-        '#arguments' => [$county->tid],
+        '#arguments' => [$county->id()],
         '#embed' => TRUE,
       ];
     }
