@@ -7,3 +7,11 @@ staff_profile_reed.regional_director_panel:
     _role: 'regional_director'
   options:
     no_cache: 'TRUE'
+
+entity.staff_profile.remove_cty_author_form:
+  path: '/staff_profile/{staff_profile}/remove_cty_author/{cty}'
+  defaults:
+    _form: '\Drupal\staff_profile_reed\Form\StaffProfileRemoveCtyAuthor'
+    _title: 'Remove County Author'
+  requirements:
+    _role: 'regional_director'

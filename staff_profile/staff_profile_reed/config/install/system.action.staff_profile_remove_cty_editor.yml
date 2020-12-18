@@ -1,9 +1,0 @@
-id: staff_profile_remove_cty_editor
-label: 'Remove County Editor'
-status: true
-langcode: en
-type: node
-plugin: staff_profile_remove_cty_editor
-dependencies:
-  module:
-    - node
