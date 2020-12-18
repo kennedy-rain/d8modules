@@ -70,8 +70,7 @@ class ProgramOfferingBlocks extends BlockBase
     }
 
     // Combine all search filters, into a $search_terms array()
-    $string_of_search_terms = $this->build_search_string(!empty($node->field_ungerboeck_search_term->value) ? $node->field_ungerboeck_search_term->value : '', $config['title_search']);
-    $string_of_search_terms = $this->build_search_string(!empty($node->field_event_title_filter->value) ? $node->field_event_title_filter->value : '', $string_of_search_terms);
+    $string_of_search_terms = $this->build_search_string(!empty($node->field_event_title_filter->value) ? $node->field_event_title_filter->value : '', $config['title_search']);
     $string_of_search_terms = $this->build_search_string($string_of_search_terms, $querystring_filter);
     $search_terms_array = explode('|', $string_of_search_terms);
 
