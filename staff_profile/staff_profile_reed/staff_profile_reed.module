@@ -9,16 +9,17 @@ function staff_profile_reed_uninstall() {
 
 function staff_profile_reed_entity_operation_alter(array &$operations, EntityInterface $entity) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-  if ($route_name == "staff_profile_reed.regional_director_panel") {
+  if ($route_name == "staff_profile_reed.regional_director_panel" && in_array($entity->bundle(), ['staff_profile'])) {
+    $view = views_get_current_view();
     $roles = \Drupal::currentUser()->getRoles();
     if (in_array('regional_director', $roles)) {
       $operations = [];
       $operations['remove_cty_author'] = array(
         'title' => t('Remove County Author'),
         'weight' => -10,
-        'url' => Url::fromRoute("entity.staff_profile.remove_cty_author_form", array(
-              'staff_profile' => $entity->id(),
-              'cty' => "_",//County to remove, rewritten later
+        'url' => Url::fromRoute("entity.staff_profile_reed.remove_cty_author_form", array(
+              'node' => $entity->id(),
+              'cty' => $view->args[0],//County to remove, rewritten later
               'destination' => Url::fromRoute("staff_profile_reed.regional_director_panel")->toString()
             )
           ),
