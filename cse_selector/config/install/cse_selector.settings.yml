@@ -1,0 +1,8 @@
+cse_selector_id_key: 014153082229948236703:4fobzs0gqdo
+#The following settings are dynamic and defined in the .install file
+#cse_selector_narrow_search_text: "Search %site-name%"
+#cse_selector_narrow_search_query: "https://www.extension.iastate.edu%base-path%"
+cse_selector_wide_search_text: 'Search All of ISU Extension and Outreach'
+cse_selector_default_search_type: 'narrow'
+cse_selector_url_text: 'as_q'
+cse_selector_results_page_name: 'search-results'

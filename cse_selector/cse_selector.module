@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains cse_selector.module
+ */
+ use Drupal\Core\Routing\RouteMatchInterface;
+
+ /**
+ * Implements hook_help()
+ */
+ function cse_selector_help($route_name, RouteMatchInterface $route_match) {
+   switch ($route_name) {
+     //Main module help for the cse_selector module
+     case 'help.page.cse_selector':
+       $output = '';
+       $output .= '<h3>' . t('About') . '</h3>';
+       $output .= '<p>' . t('Drupal 8 Implementation of Google CSE with search scope options') . '</p>';
+       return $output;
+     default:
+   }
+}

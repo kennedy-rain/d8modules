@@ -1,0 +1,204 @@
+<?php
+
+use \Drupal\node\Entity\Node;
+use \Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_rebuild().
+ */
+function staff_profile_secondary_rebuild() {
+  staff_profile_secondary_handle_feeds();
+}
+
+/**
+ * Implements hook_cron().
+ */
+function staff_profile_secondary_cron() {
+  staff_profile_secondary_handle_feeds();
+
+}
+
+/**
+ * Pull in the feeds
+ */
+function staff_profile_secondary_handle_feeds() {
+  $config = \Drupal::config('staff_profile_secondary.settings');
+  if (empty($config->get('sync_url'))) {
+    \Drupal::logger('staff_profile_secondary')->warning('Need to set a URL for the JSON feed to Sync from Staff Directory');
+    return;
+  }
+
+  // Get all Staff Profile nodes
+  $nids = \Drupal::entityQuery('node')->condition('type', 'staff_profile')->execute();
+  $nodes =  Node::loadMultiple($nids);
+  // Mark nodes as "stale"
+  foreach ($nodes as $node) {
+    if ($node->isPublished() && !empty($node->field_staff_profile_staffid->value)) {
+      $node->set('field_staff_profile_stale', TRUE)->save();
+    }
+  }
+
+  $feedUrls = explode(',', $config->get('sync_url'));
+  $count = 0;
+
+  foreach ($feedUrls as $feedUrl) {
+    $fromFeed = file_get_contents($feedUrl);
+    $fromFeed = str_replace('\u0026#039;', '\'', $fromFeed);
+    $profiles = json_decode($fromFeed, TRUE);
+
+    foreach ($profiles as $profile) {
+
+      // Find the node that matches the profile, if one exists
+      $mynode = '';
+      foreach ($nodes as $node) {
+        if (strtolower($node->field_staff_profile_email->value) == strtolower($profile['field_staff_profile_email'])) {
+          $mynode = $node;
+          break;
+        }
+      }
+
+      // Create node if one's not found
+      if (empty($mynode)) {
+        $mynode = Node::create(array('type' => 'staff_profile', 'title' => $profile['title']));
+      }
+
+      // Handle the title and body
+      $mynode->setTitle($profile['title']);
+      $mynode->body->value = $profile['body'];
+      $mynode->body->format = 'basic';
+
+      // Handle all the normal fields
+      $mynode->field_staff_profile_first_name->value = $profile['field_staff_profile_first_name'];
+      $mynode->field_staff_profile_last_name->value = $profile['field_staff_profile_last_name'];
+      $mynode->field_staff_profile_email->value = $profile['field_staff_profile_email'];
+      $mynode->field_staff_profile_netid->value = $profile['field_staff_profile_netid'];
+      $mynode->field_staff_profile_pref_name->value = $profile['field_staff_profile_pref_name'];
+      $mynode->field_staff_profile_pref_phone->value = $profile['field_staff_profile_pref_phone'];
+      $mynode->field_staff_profile_pref_title->value = $profile['field_staff_profile_pref_title'];
+      $mynode->field_staff_profile_staffid->value = $profile['field_staff_profile_staffid'];
+      $mynode->field_staff_profile_departmentid->value = $profile['field_staff_profile_departmentid'];
+      $mynode->field_staff_profile_job_title->value = $profile['field_staff_profile_job_title'];
+      $mynode->field_staff_profile_phone->value = $profile['field_staff_profile_phone'];
+      $mynode->field_staff_profile_fax->value = $profile['field_staff_profile_fax'];
+      $mynode->field_staff_profile_college->value = $profile['field_staff_profile_college'];
+      $mynode->field_staff_profile_location->value = $profile['field_staff_profile_location'];
+      $mynode->field_staff_profile_region->value = ((!empty($profile['field_staff_profile_region']) && (intval($profile['field_staff_profile_region']) > 0)) ? $profile['field_staff_profile_region'] : '');
+      $mynode->field_staff_profile_cty_dept->value = $profile['field_staff_profile_cty_dept'];
+      $mynode->field_staff_profile_smugmug->value = $profile['field_staff_profile_smugmug'];
+      $mynode->field_staff_profile_canonical->value = $profile['view_node'];
+
+      // Handle the address field
+      $mynode->field_staff_profile_addr = array(
+        'country_code' => $profile['field_staff_profile_addr_country_code'],
+        'address_line1' => $profile['field_staff_profile_addr_address_line1'],
+        'address_line2' => $profile['field_staff_profile_addr_address_line2'],
+        'locality' => $profile['field_staff_profile_addr_locality'],
+        'administrative_area' => $profile['field_staff_profile_addr_administrative_area'],
+        'postal_code' => $profile['field_staff_profile_addr_postal_code'],
+      );
+
+
+      // Handle the base county
+      $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
+      $taxonomy = array();
+      if (!empty($profile['field_staff_profile_base_county'])) {
+        $taxonomy = $taxonomyStorage->loadByProperties([
+            'name' => str_replace('&#039;', '\'', $profile['field_staff_profile_base_county']),
+            'vid' => 'counties_in_iowa'
+        ]);
+      }
+      $base_county = (!empty($taxonomy) ? array_keys($taxonomy)[0] : 0);
+      $mynode->field_staff_profile_base_county = [['target_id' => $base_county]];
+
+      // Handle the program areas field
+      $mynode->field_staff_profile_pgm_areas = [array()];
+      $temp_array = explode(', ', $profile['field_staff_profile_pgm_areas']);
+      foreach ($temp_array as $index => $temp_term) {
+        $taxon = $taxonomyStorage->loadByProperties([
+            'name' => $temp_term,
+            'vid' => 'program_areas'
+        ]);
+        if (!empty($taxon) && array_keys($taxon)[0] > 0) {
+          $mynode->field_staff_profile_pgm_areas[] = ['target_id' => array_keys($taxon)[0]];
+        }
+      }
+
+      // Handle counties served
+      $mynode->field_staff_profile_cty_served = [array()];
+      $temp_array = explode(', ', str_replace('&#039;', '\'', $profile['field_staff_profile_cty_served']));
+      foreach ($temp_array as $index => $temp_term) {
+        $taxon = $taxonomyStorage->loadByProperties([
+            'name' => $temp_term,
+            'vid' => 'counties_in_iowa'
+        ]);
+        if (!empty($taxon) && array_keys($taxon)[0] > 0) {
+          $mynode->field_staff_profile_cty_served[] = ['target_id' => array_keys($taxon)[0]];
+        }
+      }
+
+      //Handle Teams/Groups, NOTE: Teams/Groups must not include a comma in their name, they will be split
+      $mynode->field_staff_profile_teams_groups = [array()];
+      $temp_array = explode(', ', $profile['field_staff_profile_teams_groups']);
+      foreach ($temp_array as $index => $temp_term) {
+        $taxon = $taxonomyStorage->loadByProperties([
+            'name' => $temp_term,
+            'vid' => 'teams_groups'
+        ]);
+        if (!empty($taxon) && array_keys($taxon)[0] > 0) {
+          //Team-group exists in taxon, add to staff profile
+          $mynode->field_staff_profile_teams_groups[] = ['target_id' => array_keys($taxon)[0]];
+        } else {
+          //Missing from taxon, add to vocab and then to staff profile
+          $term = Term::create([
+            'name' => $temp_term,
+            'vid' => 'teams_groups'
+          ])->save();
+          $taxon = $taxonomyStorage->loadByProperties([
+              'name' => $temp_term,
+              'vid' => 'teams_groups'
+          ]);
+          $mynode->field_staff_profile_teams_groups[] = ['target_id' => array_keys($taxon)[0]];
+        }
+      }
+
+      $mynode->field_staff_profile_stale->value = FALSE;
+      $mynode->setPublished();
+      $mynode->save();
+
+      $count++;
+    }
+  }
+
+  // Unpublish nodes that are still marked "stale"
+  foreach ($nodes as $node) {
+    if ($node->get('field_staff_profile_stale')->value) {
+      $node->field_staff_profile_stale->value = FALSE;
+      $node->setUnpublished();
+      $node->save();
+    }
+  }
+
+  // Log a message to ensure it ran
+  \Drupal::logger('staff_profile_secondary')->info('Number of Staff Imported: ' . $count);
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function staff_profile_secondary_form_node_form_alter(&$form, &$form_state, $form_id)
+{
+  // Make sure we're on the staff_profile node edit screen
+  $node = $form_state->getFormObject()->getEntity();
+  if ($node->getType() == 'staff_profile') {
+    staff_profile_mark_database_fields_readonly($form);
+
+    $form['field_staff_profile_cty_dept']['widget'][0]['value']['#disabled'] = TRUE;
+    $form['field_staff_profile_pref_title']['widget'][0]['value']['#disabled'] = TRUE;
+    $form['field_staff_profile_pref_name']['widget'][0]['value']['#disabled'] = TRUE;
+    $form['field_staff_profile_pref_phone']['widget'][0]['value']['#disabled'] = TRUE;
+    $form['field_staff_profile_smugmug']['widget'][0]['value']['#disabled'] = TRUE;
+
+    $form['body']['widget']['#disabled'] = TRUE;
+  }
+}

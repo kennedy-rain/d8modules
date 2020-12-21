@@ -1,0 +1,21 @@
+<?php
+/**
+ * Implements hook_install to set default variables
+ */
+function cse_selector_install() {
+  $cse_selector_narrow_search_text = 'Search ' . \Drupal::config('system.site')->get('name');
+  $cse_selector_narrow_search_query = 'https://www.extension.iastate.edu' . base_path();
+  \Drupal::configFactory()->getEditable('cse_selector.settings')
+    ->set('cse_selector_narrow_search_text', $cse_selector_narrow_search_text)
+    ->set('cse_selector_narrow_search_query', $cse_selector_narrow_search_query)
+    ->save();
+}
+
+/*
+ * Not sure if this is the proper way to remove, do not uncomment for the moment
+ *
+function cse_selector_uninstall() {
+  \Drupal::configFactory()->getEditable('cse_selector.settings')
+    ->delete();
+}
+*/
