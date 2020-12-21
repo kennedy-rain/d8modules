@@ -1,0 +1,6 @@
+program_offering_blocks.admin_settings_form:
+  title: 'Program Offering Blocks'
+  route_name: program_offering_blocks.admin_settings_form
+  description: 'Pull Ungerboeck Events into block(s)'
+  parent: system.admin_config_content
+  weight: 99

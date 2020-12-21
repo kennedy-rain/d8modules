@@ -1,0 +1,5 @@
+program_offering_blocks_details:
+  version: 1.x
+  css:
+    layout:
+      css/program_offering_blocks_details.css: {}
