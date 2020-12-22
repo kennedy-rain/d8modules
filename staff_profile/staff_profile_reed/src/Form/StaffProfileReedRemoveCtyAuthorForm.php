@@ -10,7 +10,7 @@ use Drupal\taxonomy\Entity\Term;
 /**
  * @ingroup staff_profile_reed
  */
-class StaffProfileRemoveCtyAuthor extends ContentEntityConfirmFormBase {
+class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
   //County to be removed
   private  $county;
 

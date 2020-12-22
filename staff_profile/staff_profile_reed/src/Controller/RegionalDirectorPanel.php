@@ -36,6 +36,9 @@ class RegionalDirectorPanel extends ControllerBase {
         '#arguments' => [$county->id()],
         '#embed' => TRUE,
       ];
+      $result[$county->label()]['add-form'] = \Drupal::formBuilder()->getForm('\Drupal\staff_profile_reed\Form\StaffProfileReedAddCtyEditorForm');
+      $result[$county->label()]['add-form']['cty']['#value'] = $county->id();
+      $result[$county->label()]['add-form']['cty']['#default_value'] = $county->id();
     }
     return $result;
   }
