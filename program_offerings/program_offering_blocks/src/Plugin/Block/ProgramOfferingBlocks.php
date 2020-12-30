@@ -99,6 +99,16 @@ class ProgramOfferingBlocks extends BlockBase
         }
       }
 
+      if (!empty($config['county'])) {
+        $search_county = strtolower($config['county']) . ' county';
+        if ($search_county == 'pottawattamie - west county') { $search_county = 'west pottawattamie county'; }
+        if ($search_county == 'pottawattamie - east county') { $search_county = 'east pottawattamie county'; }
+        if (!(strpos(strtolower($event['Account__c.Name']), $search_county) !== FALSE)
+            && !(strpos(strtolower($event['Additional_Counties__c']), $search_county) !== FALSE)) {
+          $display_event = FALSE;
+        }
+      }
+
       if ($display_event) {
         if ($count < $max_events) {
           $results .= '  <li>' . PHP_EOL;
@@ -239,6 +249,25 @@ class ProgramOfferingBlocks extends BlockBase
       '#default_value' => $config['program_area'],
     );
 
+    // Get the list of Iowa Counties
+    $taxonomy_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'counties-in-iowa']);
+    if (sizeof($taxonomy_terms) > 0) {
+      $counties = array('' => 'Include All');
+      foreach ($taxonomy_terms as $taxonomy_term) {
+        $counties[$taxonomy_term->label()] = $taxonomy_term->label();
+      }
+
+    $form['county'] = array(
+      '#type' => 'select',
+      '#options' => $counties,
+      '#title' => t('Limit By county'),
+      '#description' => t('If something is selected, then only show events for that county'),
+      //'#size' => 75,
+      //'#maxlength' => 300,
+      '#default_value' => $config['county'],
+    );
+    }
+
     $form['placement'] = array(
       '#type' => 'textfield',
       '#title' => t('Placed on Page'),
@@ -268,6 +297,7 @@ class ProgramOfferingBlocks extends BlockBase
     $this->configuration['announcement_text'] = $values['announcement_text'];
     $this->configuration['only_planned_programs'] = $values['only_planned_programs'];
     $this->configuration['program_area'] = $values['program_area'];
+    $this->configuration['county'] = array_key_exists('county', $values) ? $values['county'] : '';
     $this->configuration['placement'] = $values['placement'];
   }
 
@@ -287,6 +317,7 @@ class ProgramOfferingBlocks extends BlockBase
       'announement_text' => '',
       'only_planned_programs' => FALSE,
       'program_area' => '',
+      'county' => '',
       'placement' => '',
     );
   }
