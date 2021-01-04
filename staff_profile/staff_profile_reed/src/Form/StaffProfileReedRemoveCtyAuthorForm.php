@@ -51,12 +51,49 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
     return $this->t('Remove from County');
   }
 
+  public function getDescription() {
+    return $this->t('Removes staff_profile from users authorized in %cty county Web Editors.', array('%cty' => $this->county->label()));
+  }
+
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    //Remove item
     $staff_profile = $this->getEntity();
     $ctys = $staff_profile->get('field_staff_profile_cty_author')->getValue();
     $key = array_search($this->county->id(), array_column($ctys, 'target_id'));
     $staff_profile->get('field_staff_profile_cty_author')->removeItem($key);
     $staff_profile->save();
+
+    //Send Mail
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'staff_profile_reed';
+    $params['netid'] = $this->entity->label();
+    $params['county'] = $this->county->label();
+    $params['reg_director'] = \Drupal::currentUser()->getUsername();
+    $send = false; //TODO: Set to true to send emails, set emails to testing email while not in production
+
+    //Send to regional director
+    $director_key = 'remove_staff_profile_editor_cty_reg_director';
+    $reg_director_email = 'eit_tcgerwig@iastate.edu';
+    //$reg_director_email = \Drupal::currentUser()->getEmail();
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $reg_dir_result = $mailManager->mail($module, $director_key, $reg_director_email, $langcode, $params, NULL, $send);
+
+    //Send to extweb
+    $extweb_key = 'remove_staff_profile_editor_cty_extweb';
+    $extweb_email = 'eit_tcgerwig@iastate.edu';
+    //$extweb_email = 'extensionweb@iastate.edu';
+    $langcode = 'en';
+    $ext_result = $mailManager->mail($module, $extweb_key, $extweb_email, $langcode, $params, NULL, $send);
+
+    if ($reg_dir_result['result'] !== true && $ext_result['result'] !== true) {
+      drupal_set_message(t('There was a problem sending notification emails.'));
+    } elseif ($reg_dir_result['result'] !== true) {
+      drupal_set_message(t('There was a problem sending notification email to regional director.'));
+    } elseif ($ext_result['result'] !== true) {
+      drupal_set_message(t('There was a problem sending notification email to extensionweb.'));
+    } else {
+      drupal_set_message(t('Notification emails sent.'));
+    }
 
     $this->logger('staff_profile_reed')->notice('Removed %title from county editor in %cty county', array('%title' => $this->entity->label(), '%cty' => $this->county->label()));
     $form_state->setRedirect('staff_profile_reed.regional_director_panel');
