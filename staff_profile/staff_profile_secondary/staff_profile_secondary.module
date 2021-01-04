@@ -33,7 +33,7 @@ function staff_profile_secondary_handle_feeds() {
   $nodes =  Node::loadMultiple($nids);
   // Mark nodes as "stale"
   foreach ($nodes as $node) {
-    if ($node->isPublished() && !empty($node->field_staff_profile_staffid->value)) {
+    if ($node->isPublished()) {
       $node->set('field_staff_profile_stale', TRUE)->save();
     }
   }
