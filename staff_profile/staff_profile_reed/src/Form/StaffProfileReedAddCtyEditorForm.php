@@ -43,24 +43,33 @@ class StaffProfileReedAddCtyEditorForm extends FormBase {
     $netid = $form_state->getValue('netid');
     $tid = $form_state->getValue('cty');
     $county = Term::load($tid)->get('name')->value;
+    $web_editor_qual = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => 'Web Editor', 'vid' => 'editor_qualifications']);
+    $web_editor = reset($web_editor_qual);
+    $web_editor_qual_id = $web_editor->id();
 
     $staff_profiles = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['field_staff_profile_netid' => $netid]);;
     if ($staff_profile = reset($staff_profiles)) {
       $staff_profile->field_staff_profile_cty_author[] = ['target_id' => $tid];
       $staff_profile->save();
 
+      if (!in_array($web_editor_qual_id, array_column($staff_profile->field_staff_profile_quals->getValue(), 'target_id'))) {
+        $needs_training = true;
+      } else {
+        $needs_training = false;
+      }
       //Send notification emails
       $mailManager = \Drupal::service('plugin.manager.mail');
       $module = 'staff_profile_reed';
       $params['netid'] = $staff_profile->label();
       $params['county'] = $county;
       $params['reg_director'] = \Drupal::currentUser()->getUsername();
+      $params['needstraining'] = $needs_training;
       $send = false; //TODO: Set to true to send emails, set emails to testing email while not in production
 
       //Send to staff_profile
       $staff_profile_key = 'request_staff_profile_editor_training_profile';
       $staff_profile_email = 'eit_tcgerwig@iastate.edu';
-      //$staff_profile_email = $staff_profile->field_staff_profile_email;
+      //$staff_profile_email = $staff_profile->field_staff_profile_email->value;
       $langcode = $staff_profile->getOwner()->getPreferredLangcode();
       $staff_profile_result = $mailManager->mail($module, $staff_profile_key, $staff_profile_email, $langcode, $params, NULL, $send);
 
@@ -80,9 +89,9 @@ class StaffProfileReedAddCtyEditorForm extends FormBase {
 
       if ($reg_dir_result['result'] !== true || $ext_result['result'] !== true || $staff_profile_result['result'] !== true) {
         drupal_set_message(t('There was a problem sending notification emails to:'
-        . ($reg_dir_result['result'] !== true ? " Regional Director" : "")
-        . ($ext_result['result'] !== true ? " ExtensionWeb" : "")
-        . ($staff_profile_result['result'] !== true ? " Staff Profile: " . $staff_profile->field_staff_profile_email : "") . '.'));
+        . ($reg_dir_result['result'] !== true ? " Regional Director" . ($ext_result['result'] !== true || $staff_profile_result['result'] !== true ? "," : "") : "")
+        . ($ext_result['result'] !== true ? " ExtensionWeb" . ($staff_profile_result['result'] !== true ? "," : "") : "")
+        . ($staff_profile_result['result'] !== true ? " Staff Profile: " . $staff_profile->field_staff_profile_email->value : "") . '.'), 'error');
       } else {
         drupal_set_message(t('Notification emails sent.'));
       }

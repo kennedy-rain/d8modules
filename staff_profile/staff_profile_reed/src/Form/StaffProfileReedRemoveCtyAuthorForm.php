@@ -85,12 +85,8 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
     $langcode = 'en';
     $ext_result = $mailManager->mail($module, $extweb_key, $extweb_email, $langcode, $params, NULL, $send);
 
-    if ($reg_dir_result['result'] !== true && $ext_result['result'] !== true) {
-      drupal_set_message(t('There was a problem sending notification emails.'));
-    } elseif ($reg_dir_result['result'] !== true) {
-      drupal_set_message(t('There was a problem sending notification email to regional director.'));
-    } elseif ($ext_result['result'] !== true) {
-      drupal_set_message(t('There was a problem sending notification email to extensionweb.'));
+    if ($reg_dir_result['result'] !== true || $ext_result['result'] !== true) {
+      drupal_set_message(t('There was a problem sending notification emails to' . ($reg_dir_result['result'] !== true ? " Regional Director" . ($ext_result['result'] !== true ? "," : "") : "") . ($ext_result['result'] !== true ? " ExtensionWeb" : "")), 'error');
     } else {
       drupal_set_message(t('Notification emails sent.'));
     }
