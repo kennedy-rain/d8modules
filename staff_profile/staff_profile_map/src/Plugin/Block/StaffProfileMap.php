@@ -39,6 +39,7 @@ class StaffProfileMap extends BlockBase
         $county_name = $ctyServed->entity->label();
         if (!empty($county_name)) {
           $styles .= '#' . $this->fixCounty($county_name) . ' polygon {fill:' . $config['served_color'] . '}' . PHP_EOL;
+          $styles .= '#' . $this->fixCounty($county_name) . ' g.CountyName {display:inline;}' . PHP_EOL;
           $displayMap = true;
         }
       }
@@ -48,6 +49,7 @@ class StaffProfileMap extends BlockBase
         $base_county = $node->field_staff_profile_base_county->entity->label();
         if (!empty($base_county)) {
           $styles .= '#' . $this->fixCounty($base_county) . ' polygon {fill:' . $config['base_color'] . ';}' . PHP_EOL;
+          $styles .= '#' . $this->fixCounty($county_name) . ' g.CountyName {display:inline;}' . PHP_EOL;
           $displayMap = true;
         }
       }
