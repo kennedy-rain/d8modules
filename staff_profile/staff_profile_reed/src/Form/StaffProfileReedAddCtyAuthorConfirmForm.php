@@ -7,11 +7,16 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\taxonomy\Entity\Term;
 
-/**
- * @ingroup staff_profile_reed
- */
-class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
-  //County to be removed
+class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBase {
+  /**
+   * @var int
+   */
+  protected $node;
+  /**
+   * @var int
+   */
+  protected $cty;
+
   private  $county;
 
   //TODO: Look for a way to add this as a controller for staff_profile to automatically pick up entity
@@ -38,60 +43,72 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
   }
 
   public function getQuestion() {
-    return $this->t('Are you sure you want to remove %name from %cty county?', array('%name' => $this->entity->label(), '%cty' => $this->county->label()));
+    return $this->t('Are you sure you want to add %name to %cty county?', array('%name' => $this->entity->label(), '%cty' => $this->county->label()));
   }
 
-  //Fix Incoming
-  //https://www.drupal.org/project/drupal/issues/2582295
   public function getCancelUrl() {
     return new Url('staff_profile_reed.regional_director_panel');
   }
 
   public function getConfirmText() {
-    return $this->t('Remove from County');
+    return $this->t('Add from County');
   }
 
   public function getDescription() {
-    return $this->t('Removes staff_profile from users authorized in %cty county Web Editors.', array('%cty' => $this->county->label()));
+    return $this->t('Adds staff_profile from users authorized in county Web Editors.');
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    //Remove item
-    $staff_profile = $this->getEntity();
-    $ctys = $staff_profile->get('field_staff_profile_cty_author')->getValue();
-    $key = array_search($this->county->id(), array_column($ctys, 'target_id'));
-    $staff_profile->get('field_staff_profile_cty_author')->removeItem($key);
-    $staff_profile->save();
+    $web_editor_qual = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => 'Web Editor', 'vid' => 'editor_qualifications']);
+    $web_editor = reset($web_editor_qual);
+    $web_editor_qual_id = $web_editor->id();
 
-    //Send Mail
+    $this->entity->field_staff_profile_cty_author[] = ['target_id' => $this->county->id()];
+    $this->entity->save();
+
+    if (!in_array($web_editor_qual_id, array_column($this->entity->field_staff_profile_quals->getValue(), 'target_id'))) {
+      $needs_training = true;
+    } else {
+      $needs_training = false;
+    }
+    //Send notification emails
     $mailManager = \Drupal::service('plugin.manager.mail');
     $module = 'staff_profile_reed';
     $params['netid'] = $this->entity->label();
-    $params['county'] = $this->county->label();
+    $params['county'] = $county;
     $params['reg_director'] = \Drupal::currentUser()->getUsername();
+    $params['needstraining'] = $needs_training;
     $send = false; //TODO: Set to true to send emails, set emails to testing email while not in production
 
+    //Send to staff_profile
+    $staff_profile_key = 'request_staff_profile_editor_training_profile';
+    $staff_profile_email = 'eit_tcgerwig@iastate.edu';
+    //$staff_profile_email = $this->entity->field_staff_profile_email->value;
+    $langcode = $this->entity->getOwner()->getPreferredLangcode();
+    $staff_profile_result = $mailManager->mail($module, $staff_profile_key, $staff_profile_email, $langcode, $params, NULL, $send);
+
     //Send to regional director
-    $director_key = 'remove_staff_profile_editor_cty_reg_director';
+    $director_key = 'request_staff_profile_editor_training_reg_director';
     $reg_director_email = 'eit_tcgerwig@iastate.edu';
     //$reg_director_email = \Drupal::currentUser()->getEmail();
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
     $reg_dir_result = $mailManager->mail($module, $director_key, $reg_director_email, $langcode, $params, NULL, $send);
 
     //Send to extweb
-    $extweb_key = 'remove_staff_profile_editor_cty_extweb';
+    $extweb_key = 'request_staff_profile_editor_training_extweb';
     $extweb_email = 'eit_tcgerwig@iastate.edu';
     //$extweb_email = 'extensionweb@iastate.edu';
     $langcode = 'en';
     $ext_result = $mailManager->mail($module, $extweb_key, $extweb_email, $langcode, $params, NULL, $send);
 
-    if ($reg_dir_result['result'] !== true || $ext_result['result'] !== true) {
-      drupal_set_message(t('There was a problem sending notification emails to' . ($reg_dir_result['result'] !== true ? " Regional Director" . ($ext_result['result'] !== true ? "," : "") : "") . ($ext_result['result'] !== true ? " ExtensionWeb" : "")), 'error');
+    if ($reg_dir_result['result'] !== true || $ext_result['result'] !== true || $staff_profile_result['result'] !== true) {
+      drupal_set_message(t('There was a problem sending notification emails to:'
+      . ($reg_dir_result['result'] !== true ? " Regional Director" . ($ext_result['result'] !== true || $staff_profile_result['result'] !== true ? "," : "") : "")
+      . ($ext_result['result'] !== true ? " ExtensionWeb" . ($staff_profile_result['result'] !== true ? "," : "") : "")
+      . ($staff_profile_result['result'] !== true ? " Staff Profile: " . $this->entity->field_staff_profile_email->value : "") . '.'), 'error');
     } else {
       drupal_set_message(t('Notification emails sent.'));
     }
-
-    $this->logger('staff_profile_reed')->notice('Removed %title from county editor in %cty county', array('%title' => $this->entity->label(), '%cty' => $this->county->label()));
     $form_state->setRedirect('staff_profile_reed.regional_director_panel');
   }
 }
