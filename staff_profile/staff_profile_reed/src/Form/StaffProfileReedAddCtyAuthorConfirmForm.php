@@ -25,10 +25,11 @@ class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBa
     $this->setEntityManager(\Drupal::entityManager());
     $this->setModuleHandler(\Drupal::moduleHandler());
     $path = explode('/', \Drupal::service('path.current')->getPath());
-    $nid = \Drupal::routeMatch()->getParameter('node');
+    $staff_profile = \Drupal::routeMatch()->getParameter('node');
     $tid = \Drupal::routeMatch()->getParameter('cty');
+    \Drupal::logger('staff_profile_reed')->notice(serialize($tid));
 
-    $this->setEntity($this->entityTypeManager->getStorage('node')->load($nid));
+    $this->setEntity($staff_profile);
     $this->county = $this->entityTypeManager->getStorage('taxonomy_term')->load($tid);
   }
 

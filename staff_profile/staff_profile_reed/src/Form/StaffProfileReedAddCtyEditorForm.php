@@ -43,6 +43,12 @@ class StaffProfileReedAddCtyEditorForm extends FormBase {
     if (count($staff_profiles) == 0) {
       $form_state->setErrorByName('', $this->t('Staff Profile Not found with given netid'));
       drupal_set_message(t('Staff Profile Not found with given netid'), 'error');
+    } else {
+      $staff_profile = reset($staff_profiles);
+      if (in_array($form_state->getValue('cty'), array_column($staff_profile->field_staff_profile_cty_author->getValue(), 'target_id'))) {
+        $form_state->setErrorByName('', $this->t('Staff Profile with given netid already authorized in county'));
+        drupal_set_message(t('Staff Profile with given netid already authorized in county'), 'error');
+      }
     }
   }
 

@@ -17,7 +17,7 @@ class AutocompleteController extends ControllerBase {
       $nids = $query->execute();
       $result = entity_load_multiple('node', $nids);
       foreach ($result as $row) {
-        $matches[] = ['value' => $row->field_staff_profile_netid->value, 'label' => $row->field_staff_profile_netid->value];
+        $matches[] = ['value' => $row->field_staff_profile_netid->value, 'label' => $row->title->value . ' [' . $row->field_staff_profile_email->value . ']'];
       }
     }
     return new JsonResponse($matches);

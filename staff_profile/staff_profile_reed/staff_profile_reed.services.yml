@@ -1,0 +1,5 @@
+services:
+  staff_profile_reed.content_type_access_checker:
+    class: Drupal\staff_profile_reed\Access\ContentTypeAccessCheck
+    tags:
+      - { name: access_check, applies_to: _content_type }

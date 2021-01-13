@@ -15,12 +15,14 @@ entity.staff_profile_reed.remove_cty_author_form:
     _title: 'Remove County Author'
   requirements:
     _role: 'regional_director'
-    node: '[0-9]+'
-    cty: '[0-9]+'
+    _content_type: 'staff_profile'
   options:
     _node_operation_route: true
     parameters:
-      node_type: 'staff_profile'
+      node:
+        type: entity:node
+      cty:
+        type: entity:term
 
 entity.staff_profile_reed.add_cty_author_form:
   path: '/staff_profile/{node}/add_cty_author/{cty}'
@@ -29,12 +31,14 @@ entity.staff_profile_reed.add_cty_author_form:
     _title: 'Add County Author'
   requirements:
     _role: 'regional_director'
-    node: '[0-9]+'
-    cty: '[0-9]+'
+    _content_type: 'staff_profile'
   options:
     _node_operation_route: true
     parameters:
-      node_type: 'staff_profile'
+      node:
+        type: entity:node
+      cty:
+        type: entity:term
 
 staff_profile_reed.autocomplete:
   path: '/staff_profile_reed/{field_name}/{count}'
