@@ -2,7 +2,8 @@ staff_profile_primary.primary_settings_form:
   title: 'Staff Profile Primary Settings'
   route_name: staff_profile_primary.primary_settings_form
   description: 'Change settings for Staff Profile Syncing'
-  parent: system.admin_config_content
+  parent: user.admin_index
+  weight: 100
 
 staff_profile_primary.search:
   title: 'Search'
