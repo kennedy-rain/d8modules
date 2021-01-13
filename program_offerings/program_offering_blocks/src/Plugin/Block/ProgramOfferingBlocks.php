@@ -92,9 +92,9 @@ class ProgramOfferingBlocks extends BlockBase
       if ($config['only_planned_programs'] && empty($event['Planned_Program__c'])) {
         $display_event = FALSE;
       }
-      foreach ($search_terms_array as $search_term) {
-        //$search_term = trim($search_term);
-        if (!empty($search_term) &&  !(strpos(strtolower($event['Name_Placeholder__c']), $search_term) !== FALSE)) {
+
+      if (!empty($string_of_search_terms)) {
+        if (!$this->search_term_in_title(strtolower($event['Name_Placeholder__c']), $search_terms_array)) {
           $display_event = FALSE;
         }
       }
@@ -396,5 +396,20 @@ class ProgramOfferingBlocks extends BlockBase
     }
 
     return $return_string;
+  }
+
+  /**
+   * Determine if search term is in title
+   */
+  private function search_term_in_title($title, $search_terms)
+  {
+    $found_term = FALSE;
+    foreach ($search_terms as $search_term) {
+      $search_term = trim($search_term);
+      if (!empty($search_term) &&  strpos(strtolower($title), $search_term) !== false) {
+        $found_term = TRUE;
+      }
+    }
+    return $found_term;
   }
 }
