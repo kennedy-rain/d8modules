@@ -7,6 +7,12 @@ function staff_profile_reed_uninstall() {
   \Drupal::configFactory()->getEditable('views.view.regional_director_county')->delete();
 }
 
+//Issue may be solved in 9.2 https://www.drupal.org/project/drupal/issues/2570593
+function staff_profile_reed_entity_type_alter(array &$entity_types) {
+  $entity_types['node']->setFormClass('add_cty_author', 'Drupal\staff_profile_reed\Forms\StaffProfileReedAddCtyAuthorConfirmForm');
+  $entity_types['node']->setFormClass('remove_cty_author', 'Drupal\staff_profile_reed\Forms\StaffProfileReedRemoveCtyAuthorForm');
+}
+
 function staff_profile_reed_entity_operation_alter(array &$operations, EntityInterface $entity) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   if ($route_name == "staff_profile_reed.regional_director_panel" && in_array($entity->bundle(), ['staff_profile'])) {

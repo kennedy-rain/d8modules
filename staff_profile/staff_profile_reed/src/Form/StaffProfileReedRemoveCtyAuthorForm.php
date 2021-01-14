@@ -19,12 +19,9 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
     $this->setEntityTypeManager(\Drupal::entityTypeManager());
     $this->setEntityManager(\Drupal::entityManager());
     $this->setModuleHandler(\Drupal::moduleHandler());
-    $path = explode('/', \Drupal::service('path.current')->getPath());
-    $staff_profile = \Drupal::routeMatch()->getParameter('node');
     $tid = \Drupal::routeMatch()->getParameter('cty');
-    \Drupal::logger('staff_profile_reed')->notice(serialize($tid));
 
-    $this->setEntity($staff_profile);
+    $this->setEntity(\Drupal::routeMatch()->getParameter('node'));
     $this->county = $this->entityTypeManager->getStorage('taxonomy_term')->load($tid);
   }
 
