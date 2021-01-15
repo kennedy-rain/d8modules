@@ -7,4 +7,15 @@ function staff_profile_reed_install() {
     $role = Role::create(array('id' => 'regional_director', 'label' => 'Regional Director'));
     $role->save();
   }
+
+  //Add forms as entity operations
+  $def_manager = \Drupal::entityDefinitionUpdateManager();
+
+  $staff_profile_type = $def_manager->getEntityType('staff_profile');
+  $node_type = $def_manager->getEntityType('node');
+
+  $node_type->setFormClass('add_cty_author', 'Drupal\staff_profile_reed\Forms\StaffProfileReedAddCtyAuthorConfirmForm');
+  $node_type->setFormClass('remove_cty_author', 'Drupal\staff_profile_reed\Forms\StaffProfileReedRemoveCtyAuthorForm');
+
+  $def_manager->updateEntityType($node_type);
 }
