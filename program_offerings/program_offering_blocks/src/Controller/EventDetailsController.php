@@ -33,6 +33,12 @@ class EventDetailsController extends ControllerBase
       if ($event['Id'] == $eventID  || (strlen($eventID) < 10 && trim(trim($event['Ungerboeck_Event_ID__c']), "0") == trim(trim($eventID),"0"))) {
 
         $title = $event['Name_Placeholder__c'];
+
+        // Append language to the end of the title, when it's not English
+        if (!empty($event['Delivery_Language__c']) && 'english' != strtolower($event['Delivery_Language__c'])) {
+          $title .= ' - ' . $event['Delivery_Language__c'];
+        }
+
         $results .= $this->handle_dates($event) . PHP_EOL;
 
         if ('Online' == $event['Event_Location__c']) {

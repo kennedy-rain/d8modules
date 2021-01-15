@@ -351,8 +351,15 @@ class ProgramOfferingBlocks extends BlockBase
   private function format_title($event, $config)
   {
     $title = '<div class="event_title">';
+    $title_text = $event['Name_Placeholder__c'];
+
+    // Append language to the end of the title, when it's not English
+    if (!empty($event['Delivery_Language__c']) && 'english' != strtolower($event['Delivery_Language__c'])) {
+      $title_text .= ' - ' . $event['Delivery_Language__c'];
+    }
+
     if ($config['event_details_page']) {
-      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . $event['Name_Placeholder__c'] .'">' . $event['Name_Placeholder__c'] . '</a>';
+      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . $event['Name_Placeholder__c'] .'">' . $title_text . '</a>';
     } else {
       $now = strtotime('today midnight');
       $regstartdate = !empty($event['Registration_Opens__c']) ? strtotime($event['Registration_Opens__c']) : $now;
@@ -360,20 +367,13 @@ class ProgramOfferingBlocks extends BlockBase
       $regenddate = date_add(new DateTime('@'.$regenddate), new DateInterval('P1D'))->getTimestamp();
 
       if (!empty($event['Registration_Link__c']) && ($now >= $regstartdate && $now <= $regenddate)) {
-        $title .= '<a href="' . $event['Registration_Link__c'] . '">' . $event['Name_Placeholder__c'] . '</a>';
+        $title .= '<a href="' . $event['Registration_Link__c'] . '">' . $title_text . '</a>';
       } elseif (!empty($event['Planned_Program_Website__c'])) {
-        $title .= '<a href="' . $event['Planned_Program_Website__c'] . '">' . $event['Name_Placeholder__c'] . '</a>';
+        $title .= '<a href="' . $event['Planned_Program_Website__c'] . '">' . $title_text . '</a>';
       } else {
-        $title .= $event['Name_Placeholder__c'];
+        $title .= $title_text;
       }
     }
-    //$title .= '<br/>';
-    //$title .= 'Now: ' . date($config['format_with_time'], $now);
-    //$title .= '<br/>';
-    //$title .= 'Open: ' . date($config['format_with_time'], $regstartdate) . ' - ' . $event['Registration_Opens__c'];
-    //$title .= '<br/>';
-    //$title .= 'Close: ' . date($config['format_with_time'], $regenddate) . ' - ' . $event['Registration_Deadline__c'];
-    //$title .= '<br/>';
     $title .= '</div>';
 
     return $title;
