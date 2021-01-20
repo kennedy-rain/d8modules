@@ -89,7 +89,10 @@ class ProgramOfferingBlocks extends BlockBase
       if (!empty($config['program_area']) && $config['program_area'] != $event['PrimaryProgramUnit__c']) {
         $display_event = FALSE;
       }
-      if ($config['only_planned_programs'] && empty($event['Planned_Program__c'])) {
+
+      // Do we only display planned programs
+      // This may someday need to be a separate function if we have to distingish the type of Associated Products, but this is OK for now
+      if ($config['only_planned_programs'] && empty($event['All_Associated_Product_ID_s__c'])) {
         $display_event = FALSE;
       }
 
@@ -359,7 +362,7 @@ class ProgramOfferingBlocks extends BlockBase
     }
 
     if ($config['event_details_page']) {
-      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . $event['Name_Placeholder__c'] .'">' . $title_text . '</a>';
+      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . str_replace('/', '-', $event['Name_Placeholder__c']) .'">' . $title_text . '</a>';
     } else {
       $now = strtotime('today midnight');
       $regstartdate = !empty($event['Registration_Opens__c']) ? strtotime($event['Registration_Opens__c']) : $now;
