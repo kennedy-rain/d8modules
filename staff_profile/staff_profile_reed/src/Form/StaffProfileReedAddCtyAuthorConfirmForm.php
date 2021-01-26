@@ -6,31 +6,40 @@ use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityRepository;
+use Drupal\Core\Entity\EntityTypeBundleInfo;
+use Drupal\Component\Datetime\Time;
 
 class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBase {
 
   private  $county;
 
   //TODO: Look for a way to add this as a controller for staff_profile to automatically pick up entity
-  function __construct() {
-    $this->setEntityTypeManager(\Drupal::entityTypeManager());
-    $this->setEntityManager(\Drupal::entityManager());
-    $this->setModuleHandler(\Drupal::moduleHandler());
+  function __construct(EntityRepository $repo, EntityTypeBundleInfo $bundle_info, Time $time) {
+    //repo's entityTypeManager is protected variable, $repo->entityTypeManager
+
+    parent::__construct($repo);//Construction of parent first should remove need for much of this constructor and initFormLangcodes function
+    // $this->setEntityTypeManager(\Drupal::entityTypeManager());
+    // $this->setEntityManager(\Drupal::entityManager());
+    // $this->setModuleHandler(\Drupal::moduleHandler());
+    // $this->setEntity(\Drupal::routeMatch()->getParameter('node'));
+
+
     $tid = \Drupal::routeMatch()->getParameter('cty');
 
-    $this->setEntity(\Drupal::routeMatch()->getParameter('node'));
     $this->county = $this->entityTypeManager->getStorage('taxonomy_term')->load($tid);
   }
 
-  //NOTE: May not be needed when entity manager is removed in 9.x+
-  protected function initFormLangcodes(FormStateInterface $form_state) {
-    if (!$form_state->has('entity_default_langcode')) {
-      $form_state->set('entity_default_langcode', $this->entity->getUntranslated()->language()->getId());
-    }
-    if (!$form_state->has('langcode')) {
-      $form_state->set('langcode', \Drupal::languageManager()->getCurrentLanguage()->getId());
-    }
-  }
+  // //NOTE: May not be needed when entity manager is removed in 9.x+
+  // protected function initFormLangcodes(FormStateInterface $form_state) {
+  //   if (!$form_state->has('entity_default_langcode')) {
+  //     $form_state->set('entity_default_langcode', $this->entity->getUntranslated()->language()->getId());
+  //   }
+  //   if (!$form_state->has('langcode')) {
+  //     $form_state->set('langcode', \Drupal::languageManager()->getCurrentLanguage()->getId());
+  //   }
+  // }
 
   public function getQuestion() {
     return $this->t('Are you sure you want to add %name to %cty county?', array('%name' => $this->entity->label(), '%cty' => $this->county->label()));
