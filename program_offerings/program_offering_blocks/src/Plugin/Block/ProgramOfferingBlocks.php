@@ -146,6 +146,11 @@ class ProgramOfferingBlocks extends BlockBase
 
     $results .= '</ul>' . PHP_EOL;
 
+    // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
+    if (0 == $count) {
+      $results .= '<script>document.getElementById("block-programofferingblock' . $id . '").style.display = "none";</script>';
+    }
+
     if (!empty($config['show_more_page']) && !empty($config['show_more_text']) && $count > $max_events) {
       $results .= '<a class="events_show_more" href="' . $base_url . '/' . $config['show_more_page'] . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
     }
