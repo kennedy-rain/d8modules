@@ -1,15 +1,5 @@
-/*#block-programofferingblock1 {margin:0; padding:0;}*/
-
-/* -------------------------------------- */
-/* ## Homepage
-/* ------------------------------------- */
 
 /* Upcoming Events */
-/*.layout__region.layout__region--second h2.isu-block-title.h3 {
-	color: #ffffff;
-	font-weight: 700;
-}
-*/
 
 ul.program_offering_blocks {
         list-style-type: none;
@@ -33,28 +23,14 @@ div.event_title {
 div.event_title a:hover {
         text-decoration: underline;
 }
-/*
-a.county_calendar {
-	border: 1px solid #ffffff;
-	color: #ffffff;
-	border-radius: 3px;
-	transition: background 0.2s ease;
-	padding: 7px;
-	white-space: break-spaces;
-}
-*/
+
 div.event_date {float:left;
-  margin:0 5px 25px 0;
+  margin:0 5px 25px 0;		border-right: 2px solid #f1be47;	padding-right: 5px;
 }
-div.event_shortDate {
-		border-right: 2px solid #f1be47;
-	border-bottom: 1px solid #f1be47;
-	padding-right: 5px;
-}
-span.event_time{font-size:0.7rem; font-weight:bold;}
+span.event_time{font-size:0.7rem; font-weight:bold; }
 span.event_ampm{font-size:0.6rem; font-weight:bold; padding-left:1px;}
 
-div.event_shortDate span.event_day {
+span.event_day {
         color: #000;
         float: left;
         font-size: 2rem;
@@ -63,11 +39,12 @@ div.event_shortDate span.event_day {
 	margin-bottom: -12px;
 }
 
-div.event_shortDate span.event_month {
+span.event_month {
         color: #000;
         display: block;
         font-weight: bold;
         text-transform: uppercase;
+margin-bottom:-9px;
 }
 
 div.program_offering_blocks {padding:10px !important; }

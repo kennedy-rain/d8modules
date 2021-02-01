@@ -116,11 +116,9 @@ class ProgramOfferingBlocks extends BlockBase
         if ($count < $max_events) {
           $start_date = strtotime($event['Start_Time_and_Date__c']);
           $results .= '  <li class="event">' . PHP_EOL;
-          $results .= '    <div class="event_date"><div class="event_shortDate"><span class="event_day">' . date('d', $start_date) . '</span>
+          $results .= '    <div class="event_date"><span class="event_day">' . date('d', $start_date) . '</span>
 <span class="event_month">' . date('M', $start_date) . '</span>
-</div>
 <span class="event_time">'. date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span></div>';
-$results .= '      <div class="blah">';
 
           $results .= $this->format_title($event, $config) . PHP_EOL;
           $results .= '    <div class="event_venue">';
@@ -144,7 +142,6 @@ $results .= '      <div class="blah">';
           //$results .= 'Program Offering Website: ' . $event['Program_Offering_Website__c'] . '<br/>' . PHP_EOL;
           //$results .= $event['Id'] . '<br/>' . PHP_EOL;
 //          $results .= PHP_EOL . $event['Ungerboeck_Event_ID__c'] . PHP_EOL;
-$results .= '      </div>';
           $results .= '  </li>' . PHP_EOL;
         }
         $count++;
