@@ -1,0 +1,74 @@
+/*#block-programofferingblock1 {margin:0; padding:0;}*/
+
+/* -------------------------------------- */
+/* ## Homepage
+/* ------------------------------------- */
+
+/* Upcoming Events */
+/*.layout__region.layout__region--second h2.isu-block-title.h3 {
+	color: #ffffff;
+	font-weight: 700;
+}
+*/
+
+ul.program_offering_blocks {
+        list-style-type: none;
+        padding-left: 0rem;
+	padding-bottom: 25px;
+}
+
+div.event_startdate {
+        display: none;
+}
+
+li.event {
+        padding:0 0 15px 0;
+        clear: both;
+}
+
+div.event_title {
+        text-decoration: none;
+        font-weight: 600;
+}
+div.event_title a:hover {
+        text-decoration: underline;
+}
+/*
+a.county_calendar {
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	border-radius: 3px;
+	transition: background 0.2s ease;
+	padding: 7px;
+	white-space: break-spaces;
+}
+*/
+div.event_date {float:left;
+  margin:0 5px 25px 0;
+}
+div.event_shortDate {
+		border-right: 2px solid #f1be47;
+	border-bottom: 1px solid #f1be47;
+	padding-right: 5px;
+}
+span.event_time{font-size:0.7rem; font-weight:bold;}
+span.event_ampm{font-size:0.6rem; font-weight:bold; padding-left:1px;}
+
+div.event_shortDate span.event_day {
+        color: #000;
+        float: left;
+        font-size: 2rem;
+        margin-top: -12px;
+        display: block;
+	margin-bottom: -12px;
+}
+
+div.event_shortDate span.event_month {
+        color: #000;
+        display: block;
+        font-weight: bold;
+        text-transform: uppercase;
+}
+
+div.program_offering_blocks {padding:10px !important; }
+div.program_offering_blocks h2 {font-weight: 500; padding-left: 20px; }
