@@ -16,7 +16,7 @@ li.event {
         clear: both;
 }
 
-div.event_title {
+div.event_title a {
         text-decoration: none;
         font-weight: 600;
 }
@@ -25,10 +25,21 @@ div.event_title a:hover {
 }
 
 div.event_date {float:left;
-  margin:0 5px 25px 0;		border-right: 2px solid #f1be47;	padding-right: 5px;
+  margin:0 5px 25px 0;
+  border-right: 2px solid #f1be47;
+  padding-right: 5px;
 }
-span.event_time{font-size:0.7rem; font-weight:bold; }
-span.event_ampm{font-size:0.6rem; font-weight:bold; padding-left:1px;}
+
+span.event_time{
+  font-size:0.7rem;
+  font-weight:bold;
+}
+
+span.event_ampm {
+  font-size:0.6rem;
+  font-weight:bold;
+  padding-left:1px;
+}
 
 span.event_day {
         color: #000;
@@ -36,7 +47,7 @@ span.event_day {
         font-size: 2rem;
         margin-top: -12px;
         display: block;
-	margin-bottom: -12px;
+        margin-bottom: -12px;
 }
 
 span.event_month {
