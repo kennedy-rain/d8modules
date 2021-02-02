@@ -28,6 +28,7 @@ div.event_date {float:left;
   margin:0 5px 25px 0;
   border-right: 2px solid #f1be47;
   padding-right: 5px;
+  min-width: 50px;
 }
 
 span.event_time{
