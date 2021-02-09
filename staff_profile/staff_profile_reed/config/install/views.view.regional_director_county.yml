@@ -6,7 +6,6 @@ dependencies:
     - field.storage.node.field_staff_profile_email
     - field.storage.node.field_staff_profile_quals
     - node.type.staff_profile
-    - user.role.regional_director
   module:
     - node
     - user

@@ -1,5 +1,6 @@
 <?php
 use \Drupal\user\Entity\Role;
+use \Drupal\user\Entity\User;
 
 function staff_profile_reed_install() {
   $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadByProperties(['id' => 'regional_director']);
@@ -7,6 +8,11 @@ function staff_profile_reed_install() {
     $role = Role::create(array('id' => 'regional_director', 'label' => 'Regional Director'));
     $role->save();
   }
+
+  // Add admin as regional director for testing NOTE: May not be needed in production
+  $admin = User::load(1);
+  $admin->addRole('regional_director');
+  $admin->save();
 
   //Add forms as entity operations
   $def_manager = \Drupal::entityDefinitionUpdateManager();
