@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: social_media_red_bar
+label: 'Social Media Red Bar'
+revision: 0
+description: ''
