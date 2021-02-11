@@ -1,0 +1,78 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.social_media_red_bar
+    - field.field.block_content.social_media_red_bar.field_facebook_red
+    - field.field.block_content.social_media_red_bar.field_instagram_red
+    - field.field.block_content.social_media_red_bar.field_linked_in_red
+    - field.field.block_content.social_media_red_bar.field_pinterest_red
+    - field.field.block_content.social_media_red_bar.field_twitter_red
+  module:
+    - link
+id: block_content.social_media_red_bar.default
+targetEntityType: block_content
+bundle: social_media_red_bar
+mode: default
+content:
+  field_facebook_red:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_instagram_red:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_linked_in_red:
+    weight: 2
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_pinterest_red:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_twitter_red:
+    weight: 4
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+hidden: {  }

@@ -1,0 +1,9 @@
+name: Social Media Red Menu
+description: Module for creating the block that contains the white icons in the red bar
+package: Custom
+type: module
+version: 1.0
+core: 8.x
+dependencies:
+ - block
+ - block_content
