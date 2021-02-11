@@ -1,0 +1,5 @@
+{
+  "name": "isueit/social_red",
+  "type": "drupal-custom-module",
+  "description": "Module that creates site specific social media icons in the red bar"
+}
