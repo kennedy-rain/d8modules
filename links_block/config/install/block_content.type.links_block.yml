@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: links_block
+label: 'Links Block'
+revision: 0
+description: ''
+

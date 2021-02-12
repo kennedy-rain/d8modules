@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.links_block
+    - field.storage.block_content.field_icons
+  module:
+    - fontawesome
+id: block_content.links_block.field_icons
+field_name: field_icons
+entity_type: block_content
+bundle: links_block
+label: Icons
+description: ''
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings: { }
+field_type: fontawesome_icon
+
