@@ -38,12 +38,12 @@ class ViewMyProfile extends ControllerBase
 
       // Step through the nodes, redirect when the current user is the owner of the node
       foreach ($nodes as $node) {
-        if ($node->getOwner()->getUsername() == $currentUser->getUsername()) {
+        if ($node->getOwner()->getAccountName() == $currentUser->getAccountName()) {
           $response = new RedirectResponse('node/' . $node->id(), '302');
           $response->send();
         }
       }
-      \Drupal::logger('staff_profile_primary')->info('Profile not found: ' . $currentUser->getUsername());
+      \Drupal::logger('staff_profile_primary')->info('Profile not found: ' . $currentUser->getAccountName());
     }
 
     // Return the results, when no redirect found
