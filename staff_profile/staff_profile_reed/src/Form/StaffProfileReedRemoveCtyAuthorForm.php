@@ -59,10 +59,11 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
     //Send Mail
     $mailManager = \Drupal::service('plugin.manager.mail');
     $module = 'staff_profile_reed';
-    $params['netid'] = $this->entity->label();
+    $params['name'] = $this->entity->label();
+    $params['netid'] = $this->entity->field_staff_profile_email->value;
     $params['county'] = $this->county->label();
     $params['reg_director'] = \Drupal::currentUser()->getUsername();
-    $send = false; //TODO: Set to true to send emails, set emails to testing email while not in production
+    $send = true; //TODO: Set to true to send emails, set emails to testing email while not in production
 
     //Send to regional director
     $director_key = 'remove_staff_profile_editor_cty_reg_director';

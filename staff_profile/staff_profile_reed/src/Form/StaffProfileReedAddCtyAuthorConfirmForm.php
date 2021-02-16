@@ -62,11 +62,12 @@ class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBa
     //Send notification emails
     $mailManager = \Drupal::service('plugin.manager.mail');
     $module = 'staff_profile_reed';
-    $params['netid'] = $this->entity->label();
+    $params['name'] = $this->entity->label();
+    $params['netid'] = $this->entity->field_staff_profile_email->value;
     $params['county'] = $this->county->label();
     $params['reg_director'] = \Drupal::currentUser()->getUsername();
     $params['needstraining'] = $needs_training;
-    $send = false; //TODO: Set to true to send emails, set emails to testing email while not in production
+    $send = true; //TODO: Set to true to send emails, set emails to testing email while not in production
 
     //Send to staff_profile
     $staff_profile_key = 'request_staff_profile_editor_training_profile';
