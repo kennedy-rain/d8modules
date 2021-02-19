@@ -1,1 +1,0 @@
-Changed ( protected function getBackgroundOptions() ) adding 'Cardinal' and removing 'Black'
