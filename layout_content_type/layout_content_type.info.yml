@@ -7,7 +7,7 @@ dependencies:
   - drupal:node
   - drupal:path
   - drupal:text
-# - drupal:ds
+  - drupal:ds
   - drupal:layout_builder
   - drupal:layout_builder_base
   - drupal:layout_builder_base_library
