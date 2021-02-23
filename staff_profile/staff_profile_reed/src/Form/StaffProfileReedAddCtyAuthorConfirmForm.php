@@ -67,34 +67,34 @@ class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBa
     $params['county'] = $this->county->label();
     $params['reg_director'] = \Drupal::currentUser()->getUsername();
     $params['needstraining'] = $needs_training;
-    $send = true; //TODO: Set to true to send emails, set emails to testing email while not in production
+    $send = false; //TODO: Set to true to send emails, default false to prevent spam from being sent
 
     //Send to staff_profile
     $staff_profile_key = 'request_staff_profile_editor_training_profile';
-    $staff_profile_email = 'eit_tcgerwig@iastate.edu';
-    //$staff_profile_email = $this->entity->field_staff_profile_email->value;
+    $staff_profile_email = $this->entity->field_staff_profile_email->value;
+    $staff_profile_email = 'eit_tcgerwig@iastate.edu'; //TODO Remove in production
     $langcode = $this->entity->getOwner()->getPreferredLangcode();
     $staff_profile_result = $mailManager->mail($module, $staff_profile_key, $staff_profile_email, $langcode, $params, NULL, $send);
 
     //Send to regional director
     $director_key = 'request_staff_profile_editor_training_reg_director';
-    $reg_director_email = 'eit_tcgerwig@iastate.edu';
-    //$reg_director_email = \Drupal::currentUser()->getEmail();
+    $reg_director_email = \Drupal::currentUser()->getEmail();
+    $reg_director_email = 'eit_tcgerwig@iastate.edu'; //TODO remove in production
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
     $reg_dir_result = $mailManager->mail($module, $director_key, $reg_director_email, $langcode, $params, NULL, $send);
 
     //Send to extweb
     $extweb_key = 'request_staff_profile_editor_training_extweb';
-    $extweb_email = 'eit_tcgerwig@iastate.edu';
-    //$extweb_email = 'extensionweb@iastate.edu';
+    $extweb_email = 'extensionweb@iastate.edu';
+    $extweb_email = 'eit_tcgerwig@iastate.edu';//TODO Remove in production
     $langcode = 'en';
     $ext_result = $mailManager->mail($module, $extweb_key, $extweb_email, $langcode, $params, NULL, $send);
 
-    if ($reg_dir_result['result'] !== true || $ext_result['result'] !== true || $staff_profile_result['result'] !== true) {
+    if (!array_key_exists('result', $reg_dir_result) || !array_key_exists('result', $ext_result) || !array_key_exists('result', $staff_profile_result)) {
       drupal_set_message(t('There was a problem sending notification emails to:'
-      . ($reg_dir_result['result'] !== true ? " Regional Director" . ($ext_result['result'] !== true || $staff_profile_result['result'] !== true ? "," : "") : "")
-      . ($ext_result['result'] !== true ? " ExtensionWeb" . ($staff_profile_result['result'] !== true ? "," : "") : "")
-      . ($staff_profile_result['result'] !== true ? " Staff Profile: " . $this->entity->field_staff_profile_email->value : "") . '.'), 'error');
+      . (!array_key_exists('result', $reg_dir_result) ? " Regional Director" . (!array_key_exists('result', $ext_result) || !array_key_exists('result', $staff_profile_result) ? "," : "") : "")
+      . (!array_key_exists('result', $ext_result) ? " ExtensionWeb" . (!array_key_exists('result', $staff_profile_result) ? "," : "") : "")
+      . (!array_key_exists('result', $staff_profile_result) ? " Staff Profile: " . $this->entity->field_staff_profile_email->value : "") . '.'), 'error');
     } else {
       drupal_set_message(t('Notification emails sent.'));
     }
