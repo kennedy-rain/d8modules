@@ -1,6 +1,6 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: { }
 id: links_block
 label: 'Links Block'
 revision: 0

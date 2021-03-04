@@ -3,19 +3,21 @@ status: true
 dependencies:
   config:
     - block_content.type.links_block
-    - field.storage.block_content.field_icons
+    - field.storage.block_content.field_link03
   module:
-    - fontawesome
-id: block_content.links_block.field_icons
-field_name: field_icons
+    - link
+id: block_content.links_block.field_link03
+field_name: field_link03
 entity_type: block_content
 bundle: links_block
-label: Icons
+label: Link03
 description: ''
 required: false
 translatable: false
-default_value: { }
+default_value: {  }
 default_value_callback: ''
-settings: { }
-field_type: fontawesome_icon
+settings:
+  link_type: 17
+  title: 1
+field_type: link
 

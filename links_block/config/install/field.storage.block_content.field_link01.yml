@@ -4,16 +4,15 @@ dependencies:
   module:
     - block_content
     - link
-id: block_content.field_links
-field_name: field_links
+id: block_content.field_link01
+field_name: field_link01
 entity_type: block_content
 type: link
 settings: {  }
 module: link
 locked: false
-cardinality: 6
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false
-

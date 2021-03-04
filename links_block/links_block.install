@@ -3,13 +3,11 @@
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
 
-
 /**
  * Implements hook_install().
  */
-
- function links_block_install(){
-    // Add Demo block.
+function links_block_install() {
+  // Add Demo block.
   $block_content = BlockContent::create([
     'type' => 'links_block',
     'info' => 'linksblock',
@@ -29,5 +27,5 @@ use Drupal\block_content\Entity\BlockContent;
     ],
   ]);
   $block->save();
- }
+}
 
