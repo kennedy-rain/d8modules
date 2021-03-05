@@ -5,8 +5,6 @@ label: 'Links Block'
 revision: 0
 description: ''
 dependencies:
-  module:
-    - links_block
   enforced:
     module:
       - links_block

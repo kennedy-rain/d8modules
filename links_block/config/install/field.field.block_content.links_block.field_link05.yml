@@ -16,10 +16,10 @@ required: false
 translatable: false
 default_value:
   -
-    attributes: {  }
+    attributes: { }
     uri: 'https://blogs.extension.iastate.edu/'
     title: Blogs
-    options: {  }
+    options: { }
 default_value_callback: ''
 settings:
   link_type: 17

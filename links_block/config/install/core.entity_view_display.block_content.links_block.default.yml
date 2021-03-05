@@ -19,6 +19,9 @@ dependencies:
     - field_group
     - fontawesome
     - link
+  enforced:
+    module:
+      - links_block
 third_party_settings:
   field_group:
     group_icon_link_01:
@@ -145,7 +148,7 @@ content:
     label: hidden
     settings:
       layers: false
-    third_party_settings: {  }
+    third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
   field_icon02:
@@ -153,7 +156,7 @@ content:
     label: hidden
     settings:
       layers: false
-    third_party_settings: {  }
+    third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
   field_icon03:
@@ -161,7 +164,7 @@ content:
     label: hidden
     settings:
       layers: false
-    third_party_settings: {  }
+    third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
   field_icon04:
@@ -169,7 +172,7 @@ content:
     label: hidden
     settings:
       layers: false
-    third_party_settings: {  }
+    third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
   field_icon05:
@@ -177,7 +180,7 @@ content:
     label: hidden
     settings:
       layers: false
-    third_party_settings: {  }
+    third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
   field_icon06:
@@ -185,7 +188,7 @@ content:
     label: hidden
     settings:
       layers: false
-    third_party_settings: {  }
+    third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
   field_link01:
@@ -197,7 +200,7 @@ content:
       url_plain: false
       rel: ''
       target: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link
     region: content
   field_link02:
@@ -209,7 +212,7 @@ content:
       url_plain: false
       rel: ''
       target: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link
     region: content
   field_link03:
@@ -221,7 +224,7 @@ content:
       url_plain: false
       rel: ''
       target: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link
     region: content
   field_link04:
@@ -233,7 +236,7 @@ content:
       url_plain: false
       rel: ''
       target: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link
     region: content
   field_link05:
@@ -245,7 +248,7 @@ content:
       url_plain: false
       rel: ''
       target: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link
     region: content
   field_link06:
@@ -257,8 +260,8 @@ content:
       url_plain: false
       rel: ''
       target: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link
     region: content
-hidden: {  }
+hidden: { }
 

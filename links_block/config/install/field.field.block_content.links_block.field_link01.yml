@@ -16,10 +16,10 @@ required: true
 translatable: false
 default_value:
   -
-    attributes: {  }
+    attributes: { }
     uri: 'http://www.extension.iastate.edu/content/hotlines'
     title: Hotlines
-    options: {  }
+    options: { }
 default_value_callback: ''
 settings:
   link_type: 17

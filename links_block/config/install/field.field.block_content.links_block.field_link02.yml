@@ -16,10 +16,10 @@ required: false
 translatable: false
 default_value:
   -
-    attributes: {  }
+    attributes: { }
     uri: 'https://www.extension.iastate.edu/calendar/ShowList.asp?County='
     title: Calendar
-    options: {  }
+    options: { }
 default_value_callback: ''
 settings:
   link_type: 17

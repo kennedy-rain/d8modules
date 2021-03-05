@@ -16,10 +16,10 @@ required: false
 translatable: false
 default_value:
   -
-    attributes: {  }
+    attributes: { }
     uri: 'https://store.extension.iastate.edu/'
     title: Store
-    options: {  }
+    options: { }
 default_value_callback: ''
 settings:
   link_type: 17

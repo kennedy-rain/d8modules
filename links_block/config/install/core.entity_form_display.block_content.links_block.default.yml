@@ -19,6 +19,9 @@ dependencies:
     - field_group
     - fontawesome
     - link
+  enforced:
+    module:
+      - links_block
 third_party_settings:
   field_group:
     group_form_icon_link_01:
@@ -148,38 +151,38 @@ mode: default
 content:
   field_icon01:
     weight: 26
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
   field_icon02:
     weight: 28
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
   field_icon03:
     weight: 30
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
   field_icon04:
     weight: 32
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
   field_icon05:
     weight: 34
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
   field_icon06:
     weight: 36
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
   field_link01:
@@ -187,7 +190,7 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link_default
     region: content
   field_link02:
@@ -195,7 +198,7 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link_default
     region: content
   field_link03:
@@ -203,7 +206,7 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link_default
     region: content
   field_link04:
@@ -211,7 +214,7 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link_default
     region: content
   field_link05:
@@ -219,7 +222,7 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link_default
     region: content
   field_link06:
@@ -227,7 +230,7 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link_default
     region: content
   info:
@@ -237,6 +240,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-hidden: {  }
+    third_party_settings: { }
+hidden: { }
 

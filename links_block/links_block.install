@@ -14,6 +14,7 @@ function links_block_install() {
   ]);
   $block_content->save();
  
+  /*
   $block = Block::create([
     'id' => 'linksblock',
     'plugin' => 'block_content:' . $block_content->uuid(),
@@ -27,5 +28,6 @@ function links_block_install() {
     ],
   ]);
   $block->save();
+  */
 }
 
