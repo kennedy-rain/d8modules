@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+  theme:
+    - iastate_theme
+id: linksblock
+theme: iastate_theme
+region: footer_fourth
+weight: 0
+provider: null
+settings:
+  label: linksblock
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: { }
+
