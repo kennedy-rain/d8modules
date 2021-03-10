@@ -7,17 +7,17 @@ use Drupal\block_content\Entity\BlockContent;
  * Implements hook_install().
  */
 function links_block_install() {
-  // Add Demo block.
   $block_content = BlockContent::create([
-    'type' => 'links_block',
-    'info' => 'linksblock',
+	'type' => 'links_block',
+	'info' => 'linksblock'
   ]);
+
   $block_content->save();
- 
-  /*
+
   $block = Block::create([
     'id' => 'linksblock',
     'plugin' => 'block_content:' . $block_content->uuid(),
+	'region' => 'footer_fourth',
     'provider' => 'block_content',
     'weight' => -100,
     'theme' => \Drupal::config('system.theme')->get('default'),
@@ -28,6 +28,5 @@ function links_block_install() {
     ],
   ]);
   $block->save();
-  */
 }
 

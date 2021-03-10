@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.links_block
+    # - block_content.type.links_block
     - field.field.block_content.links_block.field_icon01
     - field.field.block_content.links_block.field_icon02
     - field.field.block_content.links_block.field_icon03
