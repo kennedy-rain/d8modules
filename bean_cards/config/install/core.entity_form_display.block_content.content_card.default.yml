@@ -33,7 +33,7 @@ content:
     weight: 5
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   field_content_card_image:
     weight: 1
@@ -69,7 +69,7 @@ content:
     weight: 6
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   info:
     type: string_textfield
