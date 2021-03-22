@@ -27,12 +27,18 @@ class EventDetailsController extends ControllerBase
     //    $eventID = intval($eventID);
     $module_config = \Drupal::config('program_offering_blocks.settings');
     $buffer = file_get_contents($module_config->get('url'));
-    $program_offerings = json_decode(strip_tags($buffer), TRUE);
+    $program_offerings = json_decode($buffer, TRUE);
 
     foreach ($program_offerings as $event) {
       if ($event['Id'] == $eventID  || (strlen($eventID) < 10 && trim(trim($event['Ungerboeck_Event_ID__c']), "0") == trim(trim($eventID),"0"))) {
 
         $title = $event['Name_Placeholder__c'];
+
+        // Append language to the end of the title, when it's not English
+        if (!empty($event['Delivery_Language__c']) && 'english' != strtolower($event['Delivery_Language__c'])) {
+          $title .= ' - ' . $event['Delivery_Language__c'];
+        }
+
         $results .= $this->handle_dates($event) . PHP_EOL;
 
         if ('Online' == $event['Event_Location__c']) {
@@ -46,7 +52,11 @@ class EventDetailsController extends ControllerBase
         }
 
         $results .= '  <div class="event_address">' . $event_address . '  </div>' . PHP_EOL;
-        $results .= '  <div class="event_description">' . $event['Program_Description__c'] . '</div>' . PHP_EOL;
+        if (!empty($event['Planned_Program__r.Web_Description__c'])) {
+          $results .= '  <div class="event_description">' . str_replace('<p><br></p>', '', $event['Planned_Program__r.Web_Description__c']) . '</div>' . PHP_EOL;
+        } else {
+          $results .= '  <div class="event_description">' . $event['Program_Description__c'] . '</div>' . PHP_EOL;
+        }
 
         $results .= '  <div class="event_contact_label">Contact Info:</div>' . PHP_EOL;
         $results .= '  <div class="event_contact_name">' . $event['Contact_Information_Name__c'] . '</div>' . PHP_EOL;

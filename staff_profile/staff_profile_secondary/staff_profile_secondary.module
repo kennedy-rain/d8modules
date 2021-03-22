@@ -33,7 +33,7 @@ function staff_profile_secondary_handle_feeds() {
   $nodes =  Node::loadMultiple($nids);
   // Mark nodes as "stale"
   foreach ($nodes as $node) {
-    if ($node->isPublished() && !empty($node->field_staff_profile_staffid->value)) {
+    if ($node->isPublished()) {
       $node->set('field_staff_profile_stale', TRUE)->save();
     }
   }
@@ -140,6 +140,11 @@ function staff_profile_secondary_handle_feeds() {
       $mynode->field_staff_profile_teams_groups = [array()];
       $temp_array = explode(', ', $profile['field_staff_profile_teams_groups']);
       foreach ($temp_array as $index => $temp_term) {
+        // Skip empty terms
+        if (empty($temp_term)) {
+          continue;
+        }
+
         $taxon = $taxonomyStorage->loadByProperties([
             'name' => $temp_term,
             'vid' => 'teams_groups'

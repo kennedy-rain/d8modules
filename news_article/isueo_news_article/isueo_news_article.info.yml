@@ -2,7 +2,7 @@ name: ISUEO New Article
 type: module
 description: 'Create a News Artile content type'
 package: ISUEO
-core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:system
   - drupal:views

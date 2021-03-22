@@ -3,3 +3,9 @@ program_offering_blocks_details:
   css:
     layout:
       css/program_offering_blocks_details.css: {}
+
+program_offering_blocks_block:
+  version: 1.x
+  css:
+    layout:
+      css/program_offering_blocks_block.css: {}

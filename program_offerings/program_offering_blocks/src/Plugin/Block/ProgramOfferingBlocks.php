@@ -89,19 +89,36 @@ class ProgramOfferingBlocks extends BlockBase
       if (!empty($config['program_area']) && $config['program_area'] != $event['PrimaryProgramUnit__c']) {
         $display_event = FALSE;
       }
-      if ($config['only_planned_programs'] && empty($event['Planned_Program__c'])) {
+
+      // Do we only display planned programs
+      // This may someday need to be a separate function if we have to distingish the type of Associated Products, but this is OK for now
+      if ($config['only_planned_programs'] && empty($event['All_Associated_Product_ID_s__c'])) {
         $display_event = FALSE;
       }
-      foreach ($search_terms_array as $search_term) {
-        //$search_term = trim($search_term);
-        if (!empty($search_term) &&  !(strpos(strtolower($event['Name_Placeholder__c']), $search_term) !== FALSE)) {
+
+      if (!empty($string_of_search_terms)) {
+        if (!$this->search_term_in_title(strtolower($event['Name_Placeholder__c']), $search_terms_array)) {
+          $display_event = FALSE;
+        }
+      }
+
+      if (!empty($config['county'])) {
+        $search_county = strtolower($config['county']) . ' county';
+        if ($search_county == 'pottawattamie - west county') { $search_county = 'west pottawattamie county'; }
+        if ($search_county == 'pottawattamie - east county') { $search_county = 'east pottawattamie county'; }
+        if (!(strpos(strtolower($event['Account__c.Name']), $search_county) !== FALSE)
+            && !(strpos(strtolower($event['Additional_Counties__c']), $search_county) !== FALSE)) {
           $display_event = FALSE;
         }
       }
 
       if ($display_event) {
         if ($count < $max_events) {
-          $results .= '  <li>' . PHP_EOL;
+          $start_date = strtotime($event['Start_Time_and_Date__c']);
+          $results .= '  <li class="event">' . PHP_EOL;
+          $results .= '    <div class="event_date"><span class="event_day">' . date('d', $start_date) . '</span>
+<span class="event_month">' . date('M', $start_date) . '</span>
+<span class="event_time">'. date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span></div>';
 
           $results .= $this->format_title($event, $config) . PHP_EOL;
           $results .= '    <div class="event_venue">';
@@ -133,8 +150,13 @@ class ProgramOfferingBlocks extends BlockBase
 
     $results .= '</ul>' . PHP_EOL;
 
+    // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
+    if (0 == $count) {
+      $results .= '<script>document.getElementById("block-programofferingblock' . $id . '").style.display = "none";</script>';
+    }
+
     if (!empty($config['show_more_page']) && !empty($config['show_more_text']) && $count > $max_events) {
-      $results .= '<a class="events_show_more" href="' . $base_url . '/' . $config['show_more_page'] . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
+      $results .= '<a class="events_show_more btn-outline-danger" href="' . $base_url . '/' . $config['show_more_page'] . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
     }
 
     return [
@@ -239,6 +261,25 @@ class ProgramOfferingBlocks extends BlockBase
       '#default_value' => $config['program_area'],
     );
 
+    // Get the list of Iowa Counties
+    $taxonomy_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'counties-in-iowa']);
+    if (sizeof($taxonomy_terms) > 0) {
+      $counties = array('' => 'Include All');
+      foreach ($taxonomy_terms as $taxonomy_term) {
+        $counties[$taxonomy_term->label()] = $taxonomy_term->label();
+      }
+
+    $form['county'] = array(
+      '#type' => 'select',
+      '#options' => $counties,
+      '#title' => t('Limit By county'),
+      '#description' => t('If something is selected, then only show events for that county'),
+      //'#size' => 75,
+      //'#maxlength' => 300,
+      '#default_value' => $config['county'],
+    );
+    }
+
     $form['placement'] = array(
       '#type' => 'textfield',
       '#title' => t('Placed on Page'),
@@ -268,6 +309,7 @@ class ProgramOfferingBlocks extends BlockBase
     $this->configuration['announcement_text'] = $values['announcement_text'];
     $this->configuration['only_planned_programs'] = $values['only_planned_programs'];
     $this->configuration['program_area'] = $values['program_area'];
+    $this->configuration['county'] = array_key_exists('county', $values) ? $values['county'] : '';
     $this->configuration['placement'] = $values['placement'];
   }
 
@@ -287,6 +329,7 @@ class ProgramOfferingBlocks extends BlockBase
       'announement_text' => '',
       'only_planned_programs' => FALSE,
       'program_area' => '',
+      'county' => '',
       'placement' => '',
     );
   }
@@ -320,8 +363,15 @@ class ProgramOfferingBlocks extends BlockBase
   private function format_title($event, $config)
   {
     $title = '<div class="event_title">';
+    $title_text = $event['Name_Placeholder__c'];
+
+    // Append language to the end of the title, when it's not English
+    if (!empty($event['Delivery_Language__c']) && 'english' != strtolower($event['Delivery_Language__c'])) {
+      $title_text .= ' - ' . $event['Delivery_Language__c'];
+    }
+
     if ($config['event_details_page']) {
-      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . $event['Name_Placeholder__c'] .'">' . $event['Name_Placeholder__c'] . '</a>';
+      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . str_replace('/', '-', $event['Name_Placeholder__c']) .'">' . $title_text . '</a>';
     } else {
       $now = strtotime('today midnight');
       $regstartdate = !empty($event['Registration_Opens__c']) ? strtotime($event['Registration_Opens__c']) : $now;
@@ -329,20 +379,13 @@ class ProgramOfferingBlocks extends BlockBase
       $regenddate = date_add(new DateTime('@'.$regenddate), new DateInterval('P1D'))->getTimestamp();
 
       if (!empty($event['Registration_Link__c']) && ($now >= $regstartdate && $now <= $regenddate)) {
-        $title .= '<a href="' . $event['Registration_Link__c'] . '">' . $event['Name_Placeholder__c'] . '</a>';
+        $title .= '<a href="' . $event['Registration_Link__c'] . '">' . $title_text . '</a>';
       } elseif (!empty($event['Planned_Program_Website__c'])) {
-        $title .= '<a href="' . $event['Planned_Program_Website__c'] . '">' . $event['Name_Placeholder__c'] . '</a>';
+        $title .= '<a href="' . $event['Planned_Program_Website__c'] . '">' . $title_text . '</a>';
       } else {
-        $title .= $event['Name_Placeholder__c'];
+        $title .= $title_text;
       }
     }
-    //$title .= '<br/>';
-    //$title .= 'Now: ' . date($config['format_with_time'], $now);
-    //$title .= '<br/>';
-    //$title .= 'Open: ' . date($config['format_with_time'], $regstartdate) . ' - ' . $event['Registration_Opens__c'];
-    //$title .= '<br/>';
-    //$title .= 'Close: ' . date($config['format_with_time'], $regenddate) . ' - ' . $event['Registration_Deadline__c'];
-    //$title .= '<br/>';
     $title .= '</div>';
 
     return $title;
@@ -365,5 +408,20 @@ class ProgramOfferingBlocks extends BlockBase
     }
 
     return $return_string;
+  }
+
+  /**
+   * Determine if search term is in title
+   */
+  private function search_term_in_title($title, $search_terms)
+  {
+    $found_term = FALSE;
+    foreach ($search_terms as $search_term) {
+      $search_term = trim($search_term);
+      if (!empty($search_term) &&  strpos(strtolower($title), $search_term) !== false) {
+        $found_term = TRUE;
+      }
+    }
+    return $found_term;
   }
 }

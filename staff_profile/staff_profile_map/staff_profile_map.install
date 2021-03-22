@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function staff_profile_map_uninstall() {
+  \Drupal::configFactory()->getEditable('block.block.staffprofilemapblock')->delete();
+}
