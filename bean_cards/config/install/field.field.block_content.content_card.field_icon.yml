@@ -5,7 +5,7 @@ dependencies:
     - block_content.type.content_card
     - field.storage.block_content.field_icon
   module:
-    - options
+    - fontawesome
 id: block_content.content_card.field_icon
 field_name: field_icon
 entity_type: block_content
@@ -17,4 +17,5 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: list_string
+field_type: fontawesome_icon
+

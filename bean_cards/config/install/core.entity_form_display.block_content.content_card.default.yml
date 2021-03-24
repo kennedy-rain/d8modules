@@ -3,15 +3,16 @@ status: true
 dependencies:
   config:
     - block_content.type.content_card
+    - field.field.block_content.content_card.field_body
     - field.field.block_content.content_card.field_color_style
     - field.field.block_content.content_card.field_content_card_image
     - field.field.block_content.content_card.field_content_card_title
     - field.field.block_content.content_card.field_content_card_url
     - field.field.block_content.content_card.field_icon
     - field.field.block_content.content_card.field_text_size
-    - field.field.block_content.content_card.field_body
     - image.style.thumbnail
   module:
+    - fontawesome
     - image
     - link
     - text
@@ -20,13 +21,19 @@ targetEntityType: block_content
 bundle: content_card
 mode: default
 content:
-  field_content_card_title:
-    weight: 0
+  field_body:
+    weight: 2
     settings:
-      size: 60
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textfield
+    type: string_textarea
+    region: content
+  field_color_style:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   field_content_card_image:
     weight: 1
@@ -36,37 +43,33 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
-  field_body:
-    weight: 2 
-    settings: {  }
+  field_content_card_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: options_select
+    type: text_textfield
     region: content
   field_content_card_url:
-    weight: 3
+    weight: 4
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
     region: content
-  field_color_style:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_icon:
-    weight: 5
+    weight: 3
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: fontawesome_icon_widget
     region: content
   field_text_size:
     weight: 6
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   info:
     type: string_textfield
@@ -77,3 +80,4 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden: {  }
+

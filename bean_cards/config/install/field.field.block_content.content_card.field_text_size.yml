@@ -12,9 +12,12 @@ entity_type: block_content
 bundle: content_card
 label: 'Text Size'
 description: ''
-required: false
+required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: bean-card_text-md
 default_value_callback: ''
 settings: {  }
 field_type: list_string
+

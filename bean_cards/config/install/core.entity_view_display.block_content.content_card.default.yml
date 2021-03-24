@@ -3,14 +3,15 @@ status: true
 dependencies:
   config:
     - block_content.type.content_card
+    - field.field.block_content.content_card.field_body
     - field.field.block_content.content_card.field_color_style
     - field.field.block_content.content_card.field_content_card_image
     - field.field.block_content.content_card.field_content_card_title
     - field.field.block_content.content_card.field_content_card_url
     - field.field.block_content.content_card.field_icon
     - field.field.block_content.content_card.field_text_size
-    - field.field.block_content.content_card.field_body
   module:
+    - fontawesome
     - image
     - link
     - options
@@ -20,9 +21,16 @@ targetEntityType: block_content
 bundle: content_card
 mode: default
 content:
+  field_body:
+    weight: 7
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
   field_color_style:
     weight: 5
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: list_default
@@ -57,23 +65,18 @@ content:
     region: content
   field_icon:
     weight: 4
-    label: above
-    settings: {  }
+    label: hidden
+    settings:
+      layers: false
     third_party_settings: {  }
-    type: list_default
+    type: fontawesome_icon_formatter
     region: content
   field_text_size:
     weight: 6
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_body:
-    weight: 7
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
 hidden: {  }
+
