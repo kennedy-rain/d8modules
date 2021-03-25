@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - block_content.type.content_card
-    - field.storage.block_content.field_body
-id: block_content.content_card.field_body
-field_name: field_body
+    - field.storage.block_content.field_content_card_body
+id: block_content.content_card.field_content_card_body
+field_name: field_content_card_body
 entity_type: block_content
 bundle: content_card
 label: 'Body'
@@ -13,8 +13,10 @@ description: ''
 required: false
 translatable: false
 default_value:
-  -
+  - null
 default_value_callback: ''
-settings: {  }
+settings:
+  display_summary: 0
+  required_summary: false
 field_type: string_long
 

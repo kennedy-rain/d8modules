@@ -5,7 +5,14 @@ dependencies:
     - block_content.type.content_card
     - field.storage.block_content.field_content_card_title
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    basic: basic
+    wysiwyg: '0'
+    full_html: '0'
+    plain_text: '0'
 id: block_content.content_card.field_content_card_title
 field_name: field_content_card_title
 entity_type: block_content
@@ -18,3 +25,4 @@ default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: text
+

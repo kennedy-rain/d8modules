@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - block_content.type.content_card
-    - field.storage.block_content.field_text_size
+    - field.storage.block_content.field_content_card_text_size
   module:
     - options
-id: block_content.content_card.field_text_size
-field_name: field_text_size
+id: block_content.content_card.field_content_card_text_size
+field_name: field_content_card_text_size
 entity_type: block_content
 bundle: content_card
 label: 'Text Size'

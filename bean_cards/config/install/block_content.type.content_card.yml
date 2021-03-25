@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - bean_cards
 id: content_card
 label: 'Content Card'
 revision: 0

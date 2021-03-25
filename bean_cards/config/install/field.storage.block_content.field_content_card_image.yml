@@ -5,6 +5,9 @@ dependencies:
     - block_content
     - file
     - image
+  enforced:
+    module:
+      - bean_cards
 id: block_content.field_content_card_image
 field_name: field_content_card_image
 entity_type: block_content
@@ -27,3 +30,4 @@ translatable: true
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false
+

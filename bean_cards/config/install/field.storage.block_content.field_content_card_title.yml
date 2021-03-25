@@ -4,6 +4,9 @@ dependencies:
   module:
     - block_content
     - text
+  enforced:
+    module:
+      - bean_cards
 id: block_content.field_content_card_title
 field_name: field_content_card_title
 entity_type: block_content
@@ -17,3 +20,4 @@ translatable: true
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false
+
