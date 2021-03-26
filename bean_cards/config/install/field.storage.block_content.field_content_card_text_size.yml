@@ -4,23 +4,24 @@ dependencies:
   module:
     - block_content
     - options
-_core:
-  default_config_hash: w9wcqVMxkDLDMfwA1PQFGYIZ5zOjTYT2pwUEr5twqbA
-id: block_content.field_text_size
-field_name: field_text_size
+  enforced:
+    module:
+      - bean_cards
+id: block_content.field_content_card_text_size
+field_name: field_content_card_text_size
 entity_type: block_content
 type: list_string
 settings:
   allowed_values:
     -
       value: bean-card_text-sm
-      label: bean-card_text-sm
+      label: Small
     -
       value: bean-card_text-md
-      label: bean-card_text-md
+      label: Medium
     -
       value: bean-card_text-lg
-      label: bean-card_text-lg
+      label: Large
   allowed_values_function: ''
 module: options
 locked: false

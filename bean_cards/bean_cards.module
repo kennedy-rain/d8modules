@@ -9,3 +9,11 @@ function bean_cards_block_content_update(Drupal\Core\Entity\EntityInterface $ent
 	  \Drupal::service('cache.render')->invalidateAll();
 	}
 }
+
+function bean_cards_theme_suggestions_block_alter(&$suggestions, $variables) {
+  $content = $variables['elements']['content'];
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof \Drupal\block_content\BlockContentInterface) {
+    $suggestions[] = 'block__' . $content['#block_content']->bundle();
+  }
+}
+

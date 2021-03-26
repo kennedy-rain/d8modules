@@ -10,3 +10,4 @@ dependencies:
   - drupal:options
   - drupal:image
   - drupal:fontawesome
+  - drupal:allowed_formats

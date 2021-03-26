@@ -3,8 +3,12 @@ status: true
 dependencies:
   module:
     - block_content
-id: block_content.field_body
-field_name: field_body
+    - text
+  enforced:
+    module:
+      - bean_cards
+id: block_content.field_content_card_body
+field_name: field_content_card_body
 entity_type: block_content
 type: text_with_summary
 settings: {  }
