@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - block_content.type.links_block
-    - field.storage.block_content.field_icon06
+    - field.storage.block_content.field_lblock_icon06
   module:
     - fontawesome
-id: block_content.links_block.field_icon06
-field_name: field_icon06
+id: block_content.links_block.field_lblock_icon06
+field_name: field_lblock_icon06
 entity_type: block_content
 bundle: links_block
 label: Icon06
