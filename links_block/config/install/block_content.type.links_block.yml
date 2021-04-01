@@ -1,0 +1,11 @@
+langcode: en
+status: true
+id: links_block
+label: 'Links Block'
+revision: 0
+description: ''
+dependencies:
+  enforced:
+    module:
+      - links_block
+
