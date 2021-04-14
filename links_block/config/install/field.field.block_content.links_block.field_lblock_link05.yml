@@ -3,22 +3,22 @@ status: true
 dependencies:
   config:
     - block_content.type.links_block
-    - field.storage.block_content.field_link02
+    - field.storage.block_content.field_lblock_link05
   module:
     - link
-id: block_content.links_block.field_link02
-field_name: field_link02
+id: block_content.links_block.field_lblock_link05
+field_name: field_lblock_link05
 entity_type: block_content
 bundle: links_block
-label: Link02
+label: Link05
 description: ''
 required: false
 translatable: false
 default_value:
   -
     attributes: { }
-    uri: 'https://www.extension.iastate.edu/calendar/ShowList.asp?County='
-    title: Calendar
+    uri: 'https://blogs.extension.iastate.edu/'
+    title: Blogs
     options: { }
 default_value_callback: ''
 settings:

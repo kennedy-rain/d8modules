@@ -2,190 +2,64 @@ langcode: en
 status: true
 dependencies:
   config:
-    # - block_content.type.links_block
-    - field.field.block_content.links_block.field_icon01
-    - field.field.block_content.links_block.field_icon02
-    - field.field.block_content.links_block.field_icon03
-    - field.field.block_content.links_block.field_icon04
-    - field.field.block_content.links_block.field_icon05
-    - field.field.block_content.links_block.field_icon06
-    - field.field.block_content.links_block.field_link01
-    - field.field.block_content.links_block.field_link02
-    - field.field.block_content.links_block.field_link03
-    - field.field.block_content.links_block.field_link04
-    - field.field.block_content.links_block.field_link05
-    - field.field.block_content.links_block.field_link06
+    - block_content.type.links_block
+    - field.field.block_content.links_block.field_lblock_icon01
+    - field.field.block_content.links_block.field_lblock_icon02
+    - field.field.block_content.links_block.field_lblock_icon03
+    - field.field.block_content.links_block.field_lblock_icon04
+    - field.field.block_content.links_block.field_lblock_icon05
+    - field.field.block_content.links_block.field_lblock_icon06
+    - field.field.block_content.links_block.field_lblock_link01
+    - field.field.block_content.links_block.field_lblock_link02
+    - field.field.block_content.links_block.field_lblock_link03
+    - field.field.block_content.links_block.field_lblock_link04
+    - field.field.block_content.links_block.field_lblock_link05
+    - field.field.block_content.links_block.field_lblock_link06
   module:
-    - field_group
     - fontawesome
     - link
-  enforced:
-    module:
-      - links_block
-third_party_settings:
-  field_group:
-    group_form_icon_link_01:
-      children:
-        - field_icon01
-        - field_link01
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        required_fields: true
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 01'
-    group_form_icon_link_02:
-      children:
-        - field_icon02
-        - field_link02
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        required_fields: false
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 02'
-    group_form_icon_link_03:
-      children:
-        - field_icon03
-        - field_link03
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        required_fields: false
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 03'
-    group_form_icon_link_04:
-      children:
-        - field_icon04
-        - field_link04
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        required_fields: false
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 04'
-    group_form_icon_link_05:
-      children:
-        - field_icon05
-        - field_link05
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        required_fields: false
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 05'
-    group_form_icon_link_06:
-      children:
-        - field_icon06
-        - field_link06
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        required_fields: false
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 06'
 id: block_content.links_block.default
 targetEntityType: block_content
 bundle: links_block
 mode: default
 content:
-  field_icon01:
+  field_lblock_icon01:
     weight: 26
     settings: { }
     third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
-  field_icon02:
+  field_lblock_icon02:
     weight: 28
     settings: { }
     third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
-  field_icon03:
+  field_lblock_icon03:
     weight: 30
     settings: { }
     third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
-  field_icon04:
+  field_lblock_icon04:
     weight: 32
     settings: { }
     third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
-  field_icon05:
+  field_lblock_icon05:
     weight: 34
     settings: { }
     third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
-  field_icon06:
+  field_lblock_icon06:
     weight: 36
     settings: { }
     third_party_settings: { }
     type: fontawesome_icon_widget
     region: content
-  field_link01:
+  field_lblock_link01:
     weight: 27
     settings:
       placeholder_url: ''
@@ -193,7 +67,7 @@ content:
     third_party_settings: { }
     type: link_default
     region: content
-  field_link02:
+  field_lblock_link02:
     weight: 29
     settings:
       placeholder_url: ''
@@ -201,7 +75,7 @@ content:
     third_party_settings: { }
     type: link_default
     region: content
-  field_link03:
+  field_lblock_link03:
     weight: 31
     settings:
       placeholder_url: ''
@@ -209,7 +83,7 @@ content:
     third_party_settings: { }
     type: link_default
     region: content
-  field_link04:
+  field_lblock_link04:
     weight: 33
     settings:
       placeholder_url: ''
@@ -217,7 +91,7 @@ content:
     third_party_settings: { }
     type: link_default
     region: content
-  field_link05:
+  field_lblock_link05:
     weight: 35
     settings:
       placeholder_url: ''
@@ -225,7 +99,7 @@ content:
     third_party_settings: { }
     type: link_default
     region: content
-  field_link06:
+  field_lblock_link06:
     weight: 37
     settings:
       placeholder_url: ''

@@ -3,147 +3,27 @@ status: true
 dependencies:
   config:
     - block_content.type.links_block
-    - field.field.block_content.links_block.field_icon01
-    - field.field.block_content.links_block.field_icon02
-    - field.field.block_content.links_block.field_icon03
-    - field.field.block_content.links_block.field_icon04
-    - field.field.block_content.links_block.field_icon05
-    - field.field.block_content.links_block.field_icon06
-    - field.field.block_content.links_block.field_link01
-    - field.field.block_content.links_block.field_link02
-    - field.field.block_content.links_block.field_link03
-    - field.field.block_content.links_block.field_link04
-    - field.field.block_content.links_block.field_link05
-    - field.field.block_content.links_block.field_link06
+    - field.field.block_content.links_block.field_lblock_icon01
+    - field.field.block_content.links_block.field_lblock_icon02
+    - field.field.block_content.links_block.field_lblock_icon03
+    - field.field.block_content.links_block.field_lblock_icon04
+    - field.field.block_content.links_block.field_lblock_icon05
+    - field.field.block_content.links_block.field_lblock_icon06
+    - field.field.block_content.links_block.field_lblock_link01
+    - field.field.block_content.links_block.field_lblock_link02
+    - field.field.block_content.links_block.field_lblock_link03
+    - field.field.block_content.links_block.field_lblock_link04
+    - field.field.block_content.links_block.field_lblock_link05
+    - field.field.block_content.links_block.field_lblock_link06
   module:
-    - field_group
     - fontawesome
     - link
-  enforced:
-    module:
-      - links_block
-third_party_settings:
-  field_group:
-    group_icon_link_01:
-      children:
-        - field_icon01
-        - field_link01
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: links_block_field
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 01'
-    group_icon_link_02:
-      children:
-        - field_icon02
-        - field_link02
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: links_block_field
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 02'
-    group_icon_link_03:
-      children:
-        - field_icon03
-        - field_link03
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: links_block_field
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 03'
-    group_icon_link_04:
-      children:
-        - field_icon04
-        - field_link04
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: links_block_field
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 04'
-    group_icon_link_05:
-      children:
-        - field_icon05
-        - field_link05
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: links_block_field
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 05'
-    group_icon_link_06:
-      children:
-        - field_icon06
-        - field_link06
-      parent_name: ''
-      weight: 20
-      format_type: html_element
-      region: content
-      format_settings:
-        id: ''
-        classes: links_block_field
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Icon & Link 06'
 id: block_content.links_block.default
 targetEntityType: block_content
 bundle: links_block
 mode: default
 content:
-  field_icon01:
+  field_lblock_icon01:
     weight: 0
     label: hidden
     settings:
@@ -151,7 +31,7 @@ content:
     third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
-  field_icon02:
+  field_lblock_icon02:
     weight: 2
     label: hidden
     settings:
@@ -159,7 +39,7 @@ content:
     third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
-  field_icon03:
+  field_lblock_icon03:
     weight: 4
     label: hidden
     settings:
@@ -167,7 +47,7 @@ content:
     third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
-  field_icon04:
+  field_lblock_icon04:
     weight: 6
     label: hidden
     settings:
@@ -175,7 +55,7 @@ content:
     third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
-  field_icon05:
+  field_lblock_icon05:
     weight: 8
     label: hidden
     settings:
@@ -183,7 +63,7 @@ content:
     third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
-  field_icon06:
+  field_lblock_icon06:
     weight: 10
     label: hidden
     settings:
@@ -191,7 +71,7 @@ content:
     third_party_settings: { }
     type: fontawesome_icon_formatter
     region: content
-  field_link01:
+  field_lblock_link01:
     weight: 1
     label: hidden
     settings:
@@ -203,7 +83,7 @@ content:
     third_party_settings: { }
     type: link
     region: content
-  field_link02:
+  field_lblock_link02:
     weight: 3
     label: hidden
     settings:
@@ -215,7 +95,7 @@ content:
     third_party_settings: { }
     type: link
     region: content
-  field_link03:
+  field_lblock_link03:
     weight: 5
     label: hidden
     settings:
@@ -227,7 +107,7 @@ content:
     third_party_settings: { }
     type: link
     region: content
-  field_link04:
+  field_lblock_link04:
     weight: 7
     label: hidden
     settings:
@@ -239,7 +119,7 @@ content:
     third_party_settings: { }
     type: link
     region: content
-  field_link05:
+  field_lblock_link05:
     weight: 9
     label: hidden
     settings:
@@ -251,7 +131,7 @@ content:
     third_party_settings: { }
     type: link
     region: content
-  field_link06:
+  field_lblock_link06:
     weight: 11
     label: hidden
     settings:

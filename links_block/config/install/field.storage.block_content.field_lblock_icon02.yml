@@ -7,8 +7,8 @@ dependencies:
   enforced:
     module:
       - links_block
-id: block_content.field_icon06
-field_name: field_icon06
+id: block_content.field_lblock_icon02
+field_name: field_lblock_icon02
 entity_type: block_content
 type: fontawesome_icon
 settings: {  }

@@ -3,22 +3,22 @@ status: true
 dependencies:
   config:
     - block_content.type.links_block
-    - field.storage.block_content.field_link05
+    - field.storage.block_content.field_lblock_link04
   module:
     - link
-id: block_content.links_block.field_link05
-field_name: field_link05
+id: block_content.links_block.field_lblock_link04
+field_name: field_lblock_link04
 entity_type: block_content
 bundle: links_block
-label: Link05
+label: Link04
 description: ''
 required: false
 translatable: false
 default_value:
   -
     attributes: { }
-    uri: 'https://blogs.extension.iastate.edu/'
-    title: Blogs
+    uri: 'https://www.extension.iastate.edu/staffdir'
+    title: 'Staff Directory'
     options: { }
 default_value_callback: ''
 settings:
