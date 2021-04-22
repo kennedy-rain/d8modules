@@ -1,5 +1,5 @@
 name: Content Cards
-description: Custom Card entities, similar to bean cards
+description: Displays custom card entities that allow for selection of images, text and icons.
 package: Custom
 type: module
 version: 1.0
