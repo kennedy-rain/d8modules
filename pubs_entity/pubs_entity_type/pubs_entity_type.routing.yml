@@ -3,7 +3,7 @@ entity.pubs_entity.collection:
   path: '/pubs_entity/admin'
   defaults:
     _entity_list: 'pubs_entity'
-    _title: 'Publications Entity'
+    _title: 'Resource Entity'
   requirements:
     _permission: 'administer pubs_entity entity'
   options:
@@ -14,7 +14,7 @@ entity.pubs_entity.canonical:
   path: '/pubs_entity/{pubs_entity}'
   defaults:
     _entity_view: 'pubs_entity'
-    _title: 'Publication'
+    _title: 'Resource'
   requirements:
     _entity_access: 'pubs_entity.view'
 #Form to edit individual pubs entity
@@ -22,7 +22,7 @@ entity.pubs_entity.edit_form:
   path: '/pubs_entity/{pubs_entity}/edit'
   defaults:
     _entity_form: 'pubs_entity.edit'
-    _title: 'Edit Product from Store'
+    _title: 'Edit Resource from Store'
   requirements:
     _entity_access: 'pubs_entity.edit'
   options:
@@ -32,7 +32,7 @@ entity.pubs_entity.add_form:
   path: '/pubs_entity/add'
   defaults:
     _entity_form: 'pubs_entity.add'
-    _title: 'Add Product from Store'
+    _title: 'Add Resource from Store'
   requirements:
     _entity_create_access: 'pubs_entity'
   options:

@@ -794,12 +794,12 @@ display:
   block_1:
     display_plugin: block
     id: block_1
-    display_title: 'Featured Publications'
+    display_title: 'Featured Resources'
     position: 1
     display_options:
       display_extenders: {  }
       display_description: ''
-      title: 'Featured Publications'
+      title: 'Featured Resources'
       defaults:
         title: false
         style: false
@@ -808,7 +808,7 @@ display:
         sorts: false
         filters: false
         filter_groups: false
-      block_description: 'Featured Publications'
+      block_description: 'Featured Resources'
       style:
         type: slick
         options:
