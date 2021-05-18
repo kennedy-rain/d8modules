@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.content_card
-    - field.field.block_content.content_card.field_content_card_body
-    - field.field.block_content.content_card.field_content_card_color_style
-    - field.field.block_content.content_card.field_content_card_icon
-    - field.field.block_content.content_card.field_content_card_image
-    - field.field.block_content.content_card.field_content_card_text_size
-    - field.field.block_content.content_card.field_content_card_title
-    - field.field.block_content.content_card.field_content_card_url
+    - block_content.type.image_card
+    - field.field.block_content.image_card.field_image_card_color_style
+    - field.field.block_content.image_card.field_image_card_icon
+    - field.field.block_content.image_card.field_image_card_image
+    - field.field.block_content.image_card.field_image_card_text_size
+    - field.field.block_content.image_card.field_image_card_title
+    - field.field.block_content.image_card.field_image_card_url
     - image.style.thumbnail
   module:
     - allowed_formats
@@ -17,24 +16,24 @@ dependencies:
     - image
     - link
     - text
-id: block_content.content_card.default
+id: block_content.image_card.default
 targetEntityType: block_content
-bundle: content_card
+bundle: image_card
 mode: default
 content:
-  field_content_card_color_style:
+  field_image_card_color_style:
     weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
     region: content
-  field_content_card_icon:
+  field_image_card_icon:
     weight: 4
     settings: {  }
     third_party_settings: {  }
     type: fontawesome_icon_widget
     region: content
-  field_content_card_image:
+  field_image_card_image:
     weight: 2
     settings:
       progress_indicator: throbber
@@ -42,13 +41,13 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
-  field_content_card_text_size:
+  field_image_card_text_size:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
     region: content
-  field_content_card_title:
+  field_image_card_title:
     weight: 1
     settings:
       size: 60
@@ -59,7 +58,7 @@ content:
         hide_guidelines: '0'
     type: text_textfield
     region: content
-  field_content_card_url:
+  field_image_card_url:
     weight: 3
     settings:
       placeholder_url: ''
@@ -75,6 +74,5 @@ content:
       size: 60
       placeholder: 'Administrative name for block, not displayed to user'
     third_party_settings: {  }
-hidden:
-  field_content_card_body: true
+hidden: { }
 

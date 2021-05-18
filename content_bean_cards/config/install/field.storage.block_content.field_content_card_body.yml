@@ -1,22 +1,22 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - content_bean_cards
   module:
     - block_content
     - text
-  enforced:
-    module:
-      - bean_cards
 id: block_content.field_content_card_body
 field_name: field_content_card_body
 entity_type: block_content
-type: text_with_summary
-settings: {  }
+type: text_long
+settings: { }
 module: text
 locked: false
 cardinality: 1
 translatable: true
-indexes: {  }
-persist_with_no_fields: true
+indexes: { }
+persist_with_no_fields: false
 custom_storage: false
 

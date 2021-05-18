@@ -6,9 +6,9 @@ dependencies:
     - text
   enforced:
     module:
-      - bean_cards
-id: block_content.field_content_card_title
-field_name: field_content_card_title
+      - image_bean_cards
+id: block_content.field_image_card_title
+field_name: field_image_card_title
 entity_type: block_content
 type: text
 settings:

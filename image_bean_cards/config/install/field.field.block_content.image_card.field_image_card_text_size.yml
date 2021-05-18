@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.content_card
-    - field.storage.block_content.field_content_card_text_size
+    - block_content.type.image_card
+    - field.storage.block_content.field_image_card_text_size
   module:
     - options
-id: block_content.content_card.field_content_card_text_size
-field_name: field_content_card_text_size
+id: block_content.image_card.field_image_card_text_size
+field_name: field_image_card_text_size
 entity_type: block_content
-bundle: content_card
+bundle: image_card
 label: 'Text Size'
 description: ''
 required: true

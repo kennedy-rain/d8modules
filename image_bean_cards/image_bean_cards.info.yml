@@ -1,5 +1,5 @@
-name: Content Cards
-description: Displays custom card entities that allow for selection of images, text and icons.
+name: Image Cards
+description: Displays custom card entities that allow for selection of images with icon and title.
 package: Custom
 type: module
 version: 1.0
@@ -11,3 +11,4 @@ dependencies:
   - drupal:image
   - drupal:fontawesome
   - drupal:allowed_formats
+

@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.content_card
-    - field.storage.block_content.field_content_card_url
+    - block_content.type.image_card
+    - field.storage.block_content.field_image_card_url
   module:
     - link
-id: block_content.content_card.field_content_card_url
-field_name: field_content_card_url
+id: block_content.image_card.field_image_card_url
+field_name: field_image_card_url
 entity_type: block_content
-bundle: content_card
-label: 'Content Card URL'
+bundle: image_card
+label: 'Image Card URL'
 description: ''
 required: true
 translatable: false

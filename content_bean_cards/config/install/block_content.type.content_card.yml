@@ -3,8 +3,9 @@ status: true
 dependencies:
   enforced:
     module:
-      - bean_cards
+      - content_bean_cards
 id: content_card
 label: 'Content Card'
 revision: 0
-description: 'The replacement functionality for Bean Cards'
+description: 'The replacement functionality for Bean Cards, exculsively for text'
+

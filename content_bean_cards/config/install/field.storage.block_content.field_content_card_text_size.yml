@@ -1,12 +1,12 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - content_bean_cards
   module:
     - block_content
     - options
-  enforced:
-    module:
-      - bean_cards
 id: block_content.field_content_card_text_size
 field_name: field_content_card_text_size
 entity_type: block_content

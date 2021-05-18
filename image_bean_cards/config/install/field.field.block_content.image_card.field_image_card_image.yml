@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.content_card
-    - field.storage.block_content.field_content_card_image
+    - block_content.type.image_card
+    - field.storage.block_content.field_image_card_image
   module:
     - image
-id: block_content.content_card.field_content_card_image
-field_name: field_content_card_image
+id: block_content.image_card.field_image_card_image
+field_name: field_image_card_image
 entity_type: block_content
-bundle: content_card
-label: 'Content Card Image'
+bundle: image_card
+label: 'Card Image'
 description: ''
 required: true
 translatable: false
@@ -35,3 +35,4 @@ settings:
   handler: 'default:file'
   handler_settings: {  }
 field_type: image
+

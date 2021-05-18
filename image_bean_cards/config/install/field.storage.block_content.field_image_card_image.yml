@@ -7,9 +7,9 @@ dependencies:
     - image
   enforced:
     module:
-      - bean_cards
-id: block_content.field_content_card_image
-field_name: field_content_card_image
+      - image_bean_cards
+id: block_content.field_image_card_image
+field_name: field_image_card_image
 entity_type: block_content
 type: image
 settings:
