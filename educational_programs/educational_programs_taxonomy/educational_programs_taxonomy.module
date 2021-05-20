@@ -81,7 +81,6 @@ function educational_programs_taxonomy_handle_feeds()
 
   // Get all the terms again, step through the list, and unpublish unused terms
   $all_terms = $taxonomyStorage->loadByProperties(['vid' => $vid]);
-  \Drupal::logger('blah')->info(count($all_terms));
   foreach ($all_terms as $term) {
     if ($term->getChangedTime() < $now && $term->isPublished()) {
       $term->setPublished(false);
