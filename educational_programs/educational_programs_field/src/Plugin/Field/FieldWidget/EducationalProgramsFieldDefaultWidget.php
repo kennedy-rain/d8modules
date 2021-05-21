@@ -10,6 +10,7 @@ namespace Drupal\educational_programs_field\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Plugin implementation of the 'educational_programs_field_default' widget.
@@ -29,11 +30,36 @@ class EducationalProgramsFieldDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    //$all_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('category');
+  $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
+  $all_terms = $taxonomyStorage->loadByProperties(['vid' => 'educational_programs', 'status' => true]);
+  ksort($all_terms);
+  $options = array();
+  $units = array();
+  foreach ($all_terms as $term) {
+    if ($term->parent->target_id == 0) {
+      $units[$term->id()] = $term->getName();
+      $options[$term->getName()] = array();
+      //\Drupal::logger('blah')->info($term->id().' - '.$term->getName() . ' - ' . count($term->parent) . ': ' . $term->parent->target_id);
+    }
+  }
+  foreach ($all_terms as $term) {
+    if ($term->parent->target_id != 0) {
+      $options[$units[$term->parent->target_id]][$term->id()] = $term->getName();
+    }
+  }
+  ksort($options);
+  foreach($options as $key => $value) {
+    asort($options[$key]);
+  }
     $element['term_id'] = array(
+      '#type' => 'select',
+      //'#target_type' => 'taxonomy_term',
       '#title' => $this->t('Select an Educational Program'),
-      '#type' => 'textfield',
-      '#maxlength' => 255,
       '#default_value' => isset($items[$delta]->term_id) ? $items[$delta]->term_id : NULL,
+      //'#tags' => TRUE,
+      '#options' => $options,
+      '#empty_option' => '-- Select a value --',
     );
 
     return $element;
