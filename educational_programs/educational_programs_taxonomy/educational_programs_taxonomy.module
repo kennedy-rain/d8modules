@@ -26,7 +26,8 @@ function educational_programs_taxonomy_handle_feeds()
 {
 
   // Initialize some variables
-  $now = time();
+  // $now is 10 seconds ago
+  $now = time() - 10;
 
   $vid = 'educational_programs';
   $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
