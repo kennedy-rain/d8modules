@@ -1,0 +1,19 @@
+<?php
+use Drupal\taxonomy\Entity\Term;
+
+/**
+* Implements hook_entity_presave().
+*/
+function educational_programs_field_node_presave($entity) {
+  $program_name = '';
+
+  foreach ($entity->getFields() as $field) {
+    if ($field->getFieldDefinition()->getType() == 'educational_programs_field') {
+      $program_name =  Term::load($entity->get($field->getName())[0]->get('term_id')->getValue())->getName();
+    }
+  }
+
+  if (!empty($program_name)) {
+    $entity->setTitle($program_name);
+  }
+}
