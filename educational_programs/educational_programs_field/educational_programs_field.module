@@ -9,7 +9,10 @@ function educational_programs_field_node_presave($entity) {
 
   foreach ($entity->getFields() as $field) {
     if ($field->getFieldDefinition()->getType() == 'educational_programs_field') {
-      $program_name =  Term::load($entity->get($field->getName())[0]->get('term_id')->getValue())->getName();
+      if (!empty($entity->get($field->getName())[0])) {
+        $program_name =  Term::load($entity->get($field->getName())[0]->get('term_id')->getValue())->getName();
+        break;
+      }
     }
   }
 
