@@ -83,13 +83,6 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase {
         }
       }
 
-      //May need this stuff
-      $tags = FieldFilteredMarkup::allowedTags();
-      array_push($tags, 'iframe', 'div', 'h2', 'h3', 'h4', 'h5', 'h5', 'h6', 'footer', 'article', 'img');
-      while (preg_match('/<iframe[a-zA-Z0-9\" =\/\._\?\%]+\/>/', $output, $matches, PREG_OFFSET_CAPTURE)) {
-      $output = substr_replace($output, "> </iframe>", strlen($matches[0][0])+$matches[0][1]-2, 11);
-      }
-
       // Render output
       $output = PHP_EOL;
       $output .= '<div class="educational_program">' . PHP_EOL;
@@ -100,6 +93,14 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase {
         $output .= '<div class="educational_program_link"><a href="' . $website . '">' . $website_description . '</a></div>' . PHP_EOL;
       }
       $output .= '</div>' . PHP_EOL;
+
+      //May need this stuff
+      $tags = FieldFilteredMarkup::allowedTags();
+      array_push($tags, 'iframe', 'div', 'h2', 'h3', 'h4', 'h5', 'h5', 'h6', 'footer', 'article', 'img');
+      while (preg_match('/<iframe[a-zA-Z0-9\" =\/\._\?\%]+\/>/', $output, $matches, PREG_OFFSET_CAPTURE)) {
+        $output = substr_replace($output, "> </iframe>", strlen($matches[0][0])+$matches[0][1]-2, 11);
+      }
+
       //$elements[$delta] = array('#markup' => $output);
       $elements[$delta] = array('#markup' => $output, '#allowed_tags' => $tags);
     }
