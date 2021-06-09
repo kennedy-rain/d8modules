@@ -62,6 +62,8 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase {
 
       // Find the description of the program by steppign through the list of Programs until we find the right one based on the MyData ID
       $description = 'Program not found';
+      $website = "";
+      $website_description = "";
       foreach ($programs as $program) {
         if ($program['Id'] == trim(strip_tags($term->getDescription()))) {
           if (!empty($program['Web_Description__c'])) {
@@ -73,22 +75,32 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase {
           } else {
             $description = 'Description not found';
           }
+          if (!empty($program['Planned_Program_Website__c'])) {
+            $website = $program['Planned_Program_Website__c'];
+            $website_description = "More about " . $program['Name'];
+          }
           break;
         }
       }
+
+      // Render output
+      $output = PHP_EOL;
+      $output .= '<div class="educational_program">' . PHP_EOL;
+      $output .= '<div class="educational_program_description">' . PHP_EOL;
+      $output .= $description . PHP_EOL;
+      $output .= '</div>' . PHP_EOL;
+      if (!empty($website)) {
+        $output .= '<div class="educational_program_link"><a href="' . $website . '">' . $website_description . '</a></div>' . PHP_EOL;
+      }
+      $output .= '</div>' . PHP_EOL;
 
       //May need this stuff
       $tags = FieldFilteredMarkup::allowedTags();
       array_push($tags, 'iframe', 'div', 'h2', 'h3', 'h4', 'h5', 'h5', 'h6', 'footer', 'article', 'img');
       while (preg_match('/<iframe[a-zA-Z0-9\" =\/\._\?\%]+\/>/', $output, $matches, PREG_OFFSET_CAPTURE)) {
-      $output = substr_replace($output, "> </iframe>", strlen($matches[0][0])+$matches[0][1]-2, 11);
+        $output = substr_replace($output, "> </iframe>", strlen($matches[0][0])+$matches[0][1]-2, 11);
       }
 
-      // Render output
-      $output = PHP_EOL;
-      $output .= '<div class="educational_program_description">' . PHP_EOL;
-      $output .= $description . PHP_EOL;
-      $output .= '</div>' . PHP_EOL;
       //$elements[$delta] = array('#markup' => $output);
       $elements[$delta] = array('#markup' => $output, '#allowed_tags' => $tags);
     }
