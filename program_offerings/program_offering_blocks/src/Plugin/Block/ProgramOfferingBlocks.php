@@ -248,9 +248,9 @@ class ProgramOfferingBlocks extends BlockBase
       '#type' => 'select',
       '#options' => [
         '' => $this->t('Include All'),
-        '4-H & Youth Development' => $this->t('4-H & Youth Development'),
-        'Agriculture & Natural Resources' => $this->t('Agriculture & Natural Resources'),
-        'Community & Economic Development' => $this->t('Community & Economic Development'),
+        '4-H Youth Development' => $this->t('4-H Youth Development'),
+        'Agriculture and Natural Resources' => $this->t('Agriculture and Natural Resources'),
+        'Community and Economic Development' => $this->t('Community and Economic Development'),
         'County Services' => $this->t('County Services'),
         'Human Sciences' => $this->t('Human Sciences'),
       ],
