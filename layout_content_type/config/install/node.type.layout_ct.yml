@@ -8,9 +8,9 @@ dependencies:
       - layout_builder_base_library
 #     - layout_builder_perms
 #     - layout_builder_restrictions
-name: 'Layout Builder'
+name: 'Landing Page'
 type: layout_ct
-description: 'Content enabling Layout Builder.' 
+description: 'Landing page using layout builder.'
 help: ''
 new_revision: false
 preview_mode: 1
