@@ -50,13 +50,19 @@ class EventDetailsController extends ControllerBase
           $event_address .= $event['Program_State__c'] . ' ';
           $event_address .= $event['Event_Location_Zip_Code__c'] . '<br/>' . PHP_EOL;
         }
-
         $results .= '  <div class="event_address">' . $event_address . '  </div>' . PHP_EOL;
+
+
         if (!empty($event['Planned_Program__r.Web_Description__c'])) {
-          $results .= '  <div class="event_description">' . str_replace('<p><br></p>', '', $event['Planned_Program__r.Web_Description__c']) . '</div>' . PHP_EOL;
+          $description = str_replace('<p><br></p>', '', $event['Planned_Program__r.Web_Description__c']) . PHP_EOL;
         } else {
-          $results .= '  <div class="event_description">' . $event['Program_Description__c'] . '</div>' . PHP_EOL;
+          $results .= $event['Program_Description__c'] . PHP_EOL;
         }
+        if (!empty($event['Planned_Program__r.Smugmug_ID__c'])) {
+          $description = '<img class="educational_program_image" src="https://photos.smugmug.com/photos/' . $event['Planned_Program__r.Smugmug_ID__c'] . '/0/XL/' . $event['Planned_Program__r.Smugmug_ID__c'] . '-XL.jpg" alt="" />' . $description . '<div class="clearer"></div>';
+        }
+        $results .= '  <div class="event_description">' . $description . PHP_EOL;
+
 
         $results .= '  <div class="event_contact_label">Contact Info:</div>' . PHP_EOL;
         $results .= '  <div class="event_contact_name">' . $event['Contact_Information_Name__c'] . '</div>' . PHP_EOL;
