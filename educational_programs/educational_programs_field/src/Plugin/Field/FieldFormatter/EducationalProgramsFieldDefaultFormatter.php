@@ -36,7 +36,7 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase {
     $elements = array();
 
     // Get the feed from MyData
-    $fromFeed = file_get_contents('https://datastore.exnet.iastate.edu/mydata/PlannedPrograms.json');
+    $fromFeed = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
     $fromFeed = str_replace('\u0026#039;', '\'', $fromFeed);
     $programs = json_decode($fromFeed, TRUE);
 
@@ -75,6 +75,10 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase {
           } else {
             $description = 'Description not found';
           }
+          if (!empty($program['Smugmug_ID__c'])) {
+            $description = '<img class="educational_program_image" src="https://photos.smugmug.com/photos/' . $program['Smugmug_ID__c'] . '/0/XL/' . $program['Smugmug_ID__c'] . '-XL.jpg" alt="" />'. $description . '<div class="clearer"></div>';
+          }
+
           if (!empty($program['Planned_Program_Website__c'])) {
             $website = $program['Planned_Program_Website__c'];
             $website_description = "More about " . $program['Name'];
