@@ -33,11 +33,13 @@ a.publication-title {
 
 nav.slick__arrow {
 	position: absolute;
-	top: 34%;
+	top: 50%;
 	width: 100%;
+	transform: translateY(-50%);
+	display: block;
 }
 
-button.slick-next.slick__arrow {
+button.slick-next.slick-arrow {
 	float: right;
 }
 
