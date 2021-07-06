@@ -231,9 +231,9 @@ function section_lib_importer_install() {
   ],
 
 [
-	‘label => 'Left Column Template',
+	'label' => 'Left Column Template',
 	'type' => 'section',
-	'filename' => ‘leftColumn.png',
+	'filename' => 'leftColumn.png',
 	'sections' => [[
 		'label' => 'Left Column Template',
 		'type' => 'section',
@@ -277,12 +277,12 @@ function section_lib_importer_install() {
 			[
 				'region' => 'first',
 				'id' => 'inline_block:basic_content',
-				'label' => “Placeholder Content”,
+				'label' => 'Placeholder Content',
 				'provider' => 'layout_builder',
 				'label_display' => 0,
 				'view_mode' => 'full',
 				'info' => 'Float Left',
-				'body' => ‘<p><This is the left column template. Remove the placeholder text and replace with your own text and/or image.</p><p>This is a helpful way to insert image and text with appropriate padding and alignment properties. If you wish to have two columns of equal width, try using the two column template provided instead.</p>’
+				'body' => '<p><This is the left column template. Remove the placeholder text and replace with your own text and/or image.</p><p>This is a helpful way to insert image and text with appropriate padding and alignment properties. If you wish to have two columns of equal width, try using the two column template provided instead.</p>'
 				],[
 				'region' => 'second',
 				'id' => 'inline_block:basic_content',
@@ -291,7 +291,7 @@ function section_lib_importer_install() {
 				'label_display' => 'visible',
 				'view_mode' => 'full',
 				'info' => 'Placeholder Content',
-				'body' => '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>'
+				'body' => '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>'
 			]
 		]
 	]]
@@ -350,9 +350,9 @@ function section_lib_importer_install() {
 			"label_display" => "visible",
 			"view_mode" => "full",
 			"info" => "Placeholder Content",
-			"body" => "<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>”
+			"body" => "<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>"
 			],[
-			“region" => "second",
+			"region" => "second",
 			"id" => "inline_block:basic_content",
 			"label" => "Placeholder Content",
 			"provider" => "layout_builder",
@@ -363,7 +363,7 @@ function section_lib_importer_install() {
 			]
 		]
 	]]
-];
+]];
 
   $blocks = \Drupal::entityManager()->getStorage('block_content_type')->loadMultiple(null);
   if (array_search('basic_content', array_map(function ($o) { return $o->id(); }, $blocks)) === false) {
