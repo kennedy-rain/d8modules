@@ -301,8 +301,8 @@ function section_lib_importer_install() {
 	"label" => "Right Column Template",
 	"type" => "section",
 	"filename" => "rightColumn.png",
-	"sections" => [
-		[label" => "Right Column Template",
+	"sections" => [[
+		"label" => "Right Column Template",
 		"type" => "section",
 		"section_id" => "layout_base_twocol",
 		"section" => [
