@@ -229,7 +229,143 @@ function section_lib_importer_install() {
         ]
       ]]
     ]
-  ];
+  ],
+
+[
+	‘label => 'Left Column Template',
+	'type' => 'section',
+	'filename' => ‘leftColumn.png',
+	'sections' => [[
+		'label' => 'Left Column Template',
+		'type' => 'section',
+		'section_id' => 'layout_base_twocol',
+		'section' => [
+			'label' => '',
+			'column_widths' => null,
+			'column_gap' => 'layout--column-gap--small',
+			'row_gap' => 'layout--row-gap--none',
+			'column_width' => 'layout--column-width--25-75',
+			'column_breakpoint' => 'layout--column-breakpoint--medium',
+			'align_items' => 'layout--align-items--normal',
+			'background' => 'layout--background--none',
+			'background_image' => '','background_image_style' => '',
+			'background_attachment' => 'layout--background-attachment--default',
+			'background_position' => 'layout--background-position--center',
+			'background_size' => 'layout--background-size--cover',
+			'background_overlay' => 'layout--background-overlay--none',
+			'equal_top_bottom_margins' => '',
+			'equal_left_right_margins' => '',
+			'top_margin' => '',
+			'right_margin' => '',
+			'bottom_margin' => '',
+			'left_margin' => '',
+			'equal_top_bottom_paddings' => 'layout--top-bottom-padding--big',
+			'equal_left_right_paddings' => 'layout--left-right-padding--small',
+			'top_padding' => '',
+			'right_padding' => '',
+			'bottom_padding' => '',
+			'left_padding' => '',
+			'container' => 'layout--container--none',
+			'content_container' => 'layout--content-container--default',
+			'height' => 'layout--height--default',
+			'color' => 'layout--color--default',
+			'alignment' => '',
+			'modifier' => '',
+			'customizable_columns' => '',
+			'modifiers' => ''
+		],
+		'blocks' => [
+			[
+				'region' => 'first',
+				'id' => 'inline_block:basic_content',
+				'label' => “Placeholder Content”,
+				'provider' => 'layout_builder',
+				'label_display' => 0,
+				'view_mode' => 'full',
+				'info' => 'Float Left',
+				'body' => ‘<p><This is the left column template. Remove the placeholder text and replace with your own text and/or image.</p><p>This is a helpful way to insert image and text with appropriate padding and alignment properties. If you wish to have two columns of equal width, try using the two column template provided instead.</p>’
+				],[
+				'region' => 'second',
+				'id' => 'inline_block:basic_content',
+				'label' => 'Placeholder Content',
+				'provider' => 'layout_builder',
+				'label_display' => 'visible',
+				'view_mode' => 'full',
+				'info' => 'Placeholder Content',
+				'body' => '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>'
+			]
+		]
+	]]
+],
+
+[
+	"label" => "Right Column Template",
+	"type" => "section",
+	"filename" => "rightColumn.png",
+	"sections" => [
+		[label" => "Right Column Template",
+		"type" => "section",
+		"section_id" => "layout_base_twocol",
+		"section" => [
+			"label" => "Right Column Template",
+			"column_widths" => null,
+			"column_gap" => "layout--column-gap--small",
+			"row_gap" => "layout--row-gap--none",
+			"column_width" => "layout--column-width--75-25",
+			"column_breakpoint" => "layout--column-breakpoint--medium",
+			"align_items" => "layout--align-items--normal",
+			"background" => "layout--background--none",
+			"background_image" => "",
+			"background_image_style" => "",
+			"background_attachment" => "layout--background-attachment--default",
+			"background_position" => "layout--background-position--center",
+			"background_size" => "layout--background-size--cover",
+			"background_overlay" => "layout--background-overlay--none",
+			"equal_top_bottom_margins" => "",
+			"equal_left_right_margins" => "",
+			"top_margin" => "",
+			"right_margin" => "",
+			"bottom_margin" => "",
+			"left_margin" => "",
+			"equal_top_bottom_paddings" => "layout--top-bottom-padding--big",
+			"equal_left_right_paddings" => "layout--left-right-padding--small",
+			"top_padding" => "",
+			"right_padding" => "",
+			"bottom_padding" => "",
+			"left_padding" => "",
+			"container" => "layout--container--none",
+			"content_container" => "layout--content-container--default",
+			"height" => "layout--height--default",
+			"color" => "layout--color--default",
+			"alignment" => "",
+			"modifier" => "",
+			"customizable_columns" => "",
+			"modifiers" => ""
+		],
+		"blocks" => [
+			[
+			"region" => "first",
+			"id" => "inline_block:basic_content",
+			"label" => "Placeholder Content",
+			"provider" => "layout_builder",
+			"label_display" => "visible",
+			"view_mode" => "full",
+			"info" => "Placeholder Content",
+			"body" => "<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>”
+			],[
+			“region" => "second",
+			"id" => "inline_block:basic_content",
+			"label" => "Placeholder Content",
+			"provider" => "layout_builder",
+			"label_display" => 0,
+			"view_mode" => "full",
+			"info" => "Placeholder Content",
+			"body" => "<p>This is the Right column template. Remove the placeholder text and replace with your own text and/or image.</p><p>This is a helpful way to insert image and text with appropriate padding and alignment properties. If you wish to have two columns of equal width, try using the two column template provided instead.</p>"
+			]
+		]
+	]]
+];
+
   $blocks = \Drupal::entityManager()->getStorage('block_content_type')->loadMultiple(null);
   if (array_search('basic_content', array_map(function ($o) { return $o->id(); }, $blocks)) === false) {
     //Create block content type
