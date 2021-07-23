@@ -1,5 +1,5 @@
 name: Educational Programs Page
-description: I'm going to guess that this is our issue
+description: Creates a layout builder content type that uses the Educational Programs field
 package: Custom
 type: module
 core_version_requirement: ^8 || ^9

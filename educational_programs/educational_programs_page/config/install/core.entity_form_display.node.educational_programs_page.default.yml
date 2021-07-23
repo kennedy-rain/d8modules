@@ -8,7 +8,6 @@ dependencies:
     - node.type.educational_programs_page
   module:
     - educational_programs_field
-    - path
     - scheduler
 id: node.educational_programs_page.default
 targetEntityType: node
@@ -27,12 +26,6 @@ content:
     third_party_settings: {  }
     type: educational_programs_field_default
     region: content
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
@@ -84,5 +77,6 @@ content:
 hidden:
   body: true
   layout_builder__layout: true
+  path: true
   title: true
 

@@ -1,22 +1,19 @@
 <?php
 
-use Drupal\Core\Form\FormStateInterface;
-// use Drupal\node\NodeTypeInterface;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\menu_link_content\Entity\MenuLinkContent as E_MenuLinkContent;
+use Drupal\menu_link_content\Plugin\Menu\MenuLinkContent;
 use Drupal\Core\Menu\MenuLinkTree;
 
 /**
  * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
  *
  * Make menu option mandatory based on configuration.
- *
 function educational_programs_page_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) { } */
 
 function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
   foreach ($entity->getFields() as $field) {
 	$field_name = $field->getName();
-
 	// TODO: Maybe rename 'field_name' to something more exclusive
 	if ($field->getFieldDefinition()->getType() == 'educational_programs_field' && $field_name == 'field_educational_program') {
 	  if (!empty($entity->get($field_name)[0])) {
@@ -30,24 +27,28 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 		  $child_term_name = $child_term->getName();
 
 		  $storage = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term');
-
-		  // Get parent term
+		  // Get parent term, then grabs first parent term of child (in our case should only be one)
 		  $parent_terms = $storage->loadParents($child_term_id);
-		  // Grabs first parent term of child (in our case should only be one)
 		  $parent_term_name = reset($parent_terms)->getName();
 
+		  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+		  $menu_link_result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $entity->id()));
+		  if (!empty($menu_link_result))
+			reset($menu_link_result)->deleteLink();
+		  // print($menu_link->getParent());
+
 		  // Load main menu to check existing menu items
-		  $tree = \Drupal::menuTree()->load('main', \Drupal::menuTree()->getCurrentRouteMenuTreeParameters('main'));
+		  $main_menu_tree = \Drupal::menuTree()->load('main', \Drupal::menuTree()->getCurrentRouteMenuTreeParameters('main'));
 
 		  // Populate array with current parent menu items (titles and uuid)
 		  $menu_links = array();
-		  foreach ($tree as $menu_item)
-			$menu_links[$menu_item->link->getTitle()] = 'menu_link_content:' . $menu_item->link->getDerivativeId();
+		  foreach ($main_menu_tree as $menu_item)
+		    $menu_links[$menu_item->link->getTitle()] = 'menu_link_content:' . $menu_item->link->getDerivativeId();
 
 		  // Check to see if parent already has a menu item
 		  // If there isn't one create one
 		  if (!in_array($parent_term_name, array_keys($menu_links))) {
-			$parent_menu_link = MenuLinkContent::create([
+		    $parent_menu_link = E_MenuLinkContent::create([
    	      	  'title' => $parent_term_name,
 		  	  'link' => ['uri' => 'route:<nolink>'],
    	      	  'menu_name' => 'main',
@@ -57,13 +58,13 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 		  }
 
 		  // Create link for child term
-		  $child_menu_link = MenuLinkContent::create([
+		  $child_menu_link = E_MenuLinkContent::create([
    	        'title' => $child_term_name,
-   	        'link' => ['uri' => 'internal:/' . str_replace(' ', '-', strtolower($child_term_name))],
+		    'link' => ['uri' => 'internal:/' . \Drupal::service('pathauto.alias_cleaner')->cleanString($child_term_name)],
    	        'menu_name' => 'main',
    	        'expanded' => TRUE,
-			'node' => $entity->uuid(),
-		    'parent' => isset($parent_menu_link) ? $parent_menu_link->getPluginId() : $menu_links[$parent_term_name],
+		    'node' => $entity->uuid(),
+		    'parent' => !empty($parent_menu_link) ? $parent_menu_link->getPluginId() : $menu_links[$parent_term_name],
 		  ])->save();
 
 		  break;
@@ -92,7 +93,7 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 
 		break;
 	  }
-	} 
+	}
 
   }
 } */
