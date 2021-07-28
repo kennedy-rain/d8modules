@@ -53,24 +53,27 @@ third_party_settings:
           modifier: ''
           customizable_columns: ''
           modifiers: ''
-        #components:
-          #-
-          #  region: content
-          #    configuration:
-          #      id: 'field_block:node:educational_programs_page:field_educational_program'
-          #      label: 'Educational Program'
-          #      provider: layout_builder
-          #      label_display: '0'
-          #      formatter:
-          #        label: hidden
-          #        type: educational_programs_field_default
-          #        settings: {  }
-          #        third_party_settings:
-          #          field_formatter_class:
-          #            class: ''
-          #      context_mapping:
-          #        entity: layout_builder.entity
-          #        view_mode: view_mode
+        components:
+          6e84f67a-2edb-4aa8-8df0-e8dbc134d70d:
+            uuid: 6e84f67a-2edb-4aa8-8df0-e8dbc134d70d
+            region: content
+            configuration:
+              id: 'field_block:node:educational_programs_page:field_educational_program'
+              label: 'Educational Program'
+              provider: layout_builder
+              label_display: '0'
+              formatter:
+                label: hidden
+                type: educational_programs_field_default
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+            additional: {  }
+            weight: 0
         third_party_settings: {  }
 id: node.educational_programs_page.full
 targetEntityType: node

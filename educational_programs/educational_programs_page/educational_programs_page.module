@@ -48,6 +48,22 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 		  // Check to see if parent already has a menu item
 		  // If there isn't one create one
 		  if (!in_array($parent_term_name, array_keys($menu_links))) {
+			switch ($parent_term_name) {
+			  case '4-H Youth Development':
+			    $parent_term_name = '4-H & Youth';
+			    break;
+			  case 'Agriculture and Natural Resources':
+			    $parent_term_name = 'Agriculture & Environment';
+			    break;
+			  case 'Community and Economic Development':
+			    $parent_term_name = 'Community Development';
+			    break;
+			  case 'Human Sciences':
+			    $parent_term_name = 'Food & Family';
+			    break;
+			  default:
+			}
+
 		    $parent_menu_link = E_MenuLinkContent::create([
    	      	  'title' => $parent_term_name,
 		  	  'link' => ['uri' => 'route:<nolink>'],
