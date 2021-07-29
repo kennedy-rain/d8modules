@@ -25,7 +25,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'create page content'
+          perm: 'edit any staff_profile content'
       cache:
         type: none
         options: {  }
