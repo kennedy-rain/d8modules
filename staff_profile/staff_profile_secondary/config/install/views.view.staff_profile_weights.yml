@@ -4,6 +4,7 @@ dependencies:
   config:
     - node.type.staff_profile
     - system.menu.admin
+    - user.role.content_editor
   module:
     - node
     - user
@@ -23,9 +24,10 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'administer site configuration'
+          role:
+            content_editor: content_editor
       cache:
         type: none
         options: {  }
@@ -227,6 +229,30 @@ display:
           expose:
             label: ''
           plugin_id: standard
+        field_staff_profile_last_name_value:
+          id: field_staff_profile_last_name_value
+          table: node__field_staff_profile_last_name
+          field: field_staff_profile_last_name_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
+        field_staff_profile_first_name_value:
+          id: field_staff_profile_first_name_value
+          table: node__field_staff_profile_first_name
+          field: field_staff_profile_first_name_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
       title: 'Staff Profile Weights'
       header: {  }
       footer: {  }
@@ -240,7 +266,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }
   page_1:
     display_plugin: page
@@ -265,5 +291,5 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }
