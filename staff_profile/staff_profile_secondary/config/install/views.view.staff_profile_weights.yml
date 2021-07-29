@@ -4,7 +4,6 @@ dependencies:
   config:
     - node.type.staff_profile
     - system.menu.admin
-    - user.role.content_editor
   module:
     - node
     - user
@@ -24,10 +23,9 @@ display:
     position: 0
     display_options:
       access:
-        type: role
+        type: perm
         options:
-          role:
-            content_editor: content_editor
+          perm: 'create page content'
       cache:
         type: none
         options: {  }
@@ -266,7 +264,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags: {  }
   page_1:
     display_plugin: page
@@ -281,7 +279,7 @@ display:
         title: 'Staff Profile Secondary Weights'
         description: ''
         expanded: false
-        parent: user.admin_index
+        parent: system.admin_content
         weight: 0
         context: '0'
         menu_name: admin
@@ -291,5 +289,5 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags: {  }
