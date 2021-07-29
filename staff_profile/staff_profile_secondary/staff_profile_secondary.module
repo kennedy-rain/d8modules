@@ -60,6 +60,8 @@ function staff_profile_secondary_handle_feeds() {
       // Create node if one's not found
       if (empty($mynode)) {
         $mynode = Node::create(array('type' => 'staff_profile', 'title' => $profile['title']));
+        // Weight defaults to zero on creation
+        $mynode->field_staff_profile_sort_order->value = 0;
       }
 
       // Handle the title and body
