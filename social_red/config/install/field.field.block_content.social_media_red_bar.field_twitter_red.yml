@@ -10,7 +10,7 @@ id: block_content.social_media_red_bar.field_twitter_red
 field_name: field_twitter_red
 entity_type: block_content
 bundle: social_media_red_bar
-label: 'Twitter'
+label: 'Twitter (multiple links allowed)'
 description: ''
 required: false
 translatable: false
