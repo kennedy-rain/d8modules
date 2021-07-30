@@ -39,7 +39,7 @@ third_party_settings:
           right_margin: ''
           bottom_margin: ''
           left_margin: ''
-          equal_top_bottom_paddings: layout--top-bottom-padding--big
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
           equal_left_right_paddings: layout--left-right-padding--small
           top_padding: ''
           right_padding: ''

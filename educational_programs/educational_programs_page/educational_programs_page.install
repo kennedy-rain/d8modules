@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Install file for educational_programs_page.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * @ingroup educational_programs_page
+ */
+function educational_programs_page_install() {
+  user_role_grant_permissions('content_editor', array(
+	'create educational_programs_page content',
+	'delete any educational_programs_page content',
+	'edit any educational_programs_page content',
+	'override educational_programs_page authored on option',
+	'override educational_programs_page published option'
+  ));
+
+}
+
