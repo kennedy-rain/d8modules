@@ -10,6 +10,7 @@ dependencies:
   module:
     - layout_builder
     - layout_builder_base_library
+    - layout_builder_restrictions
     - user
 third_party_settings:
   layout_builder:
@@ -75,6 +76,40 @@ third_party_settings:
             additional: {  }
             weight: 0
         third_party_settings: {  }
+  layout_builder_restrictions:
+    allowed_block_categories:
+      - 'Chaos Tools'
+      - 'Content fields'
+      - 'Custom block types'
+      - 'Custom blocks'
+      - Forms
+      - Help
+      - 'Inline blocks'
+      - 'Lists (Views)'
+      - Menus
+      - Search
+      - System
+      - User
+      - core
+    entity_view_mode_restriction:
+      whitelisted_blocks: {  }
+      blacklisted_blocks:
+        'Inline blocks':
+          - 'inline_block:contact_creator'
+      restricted_categories:
+        - 'Chaos Tools'
+        - 'Content fields'
+        - 'Custom block types'
+        - 'Custom blocks'
+        - Forms
+        - Help
+        - 'Lists (Views)'
+        - Menus
+        - Search
+        - System
+        - User
+        - core
+      allowed_layouts: {  }
 id: node.educational_programs_page.full
 targetEntityType: node
 bundle: educational_programs_page
