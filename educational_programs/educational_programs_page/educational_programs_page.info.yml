@@ -1,6 +1,6 @@
 name: Educational Programs Page
 description: Creates a layout builder content type that uses the Educational Programs field
-package: Custom
+package: ISUEO
 type: module
 core_version_requirement: ^8 || ^9
 dependencies:
