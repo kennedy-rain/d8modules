@@ -24,6 +24,8 @@ function educational_programs_page_install() {
 	'override educational_programs_page published option'
   ));
 
+  drupal_flush_all_caches();
+
 }
 
 /**

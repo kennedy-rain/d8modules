@@ -58,7 +58,7 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 		      $parent_term_name = 'Community Development';
 		      break;
 		    case 'Human Sciences':
-		      $parent_term_name = 'Food & Family';
+		      $parent_term_name = 'Family & Food';
 		      break;
 		    default:
 		  }
