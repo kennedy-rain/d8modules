@@ -262,7 +262,7 @@ class ProgramOfferingBlocks extends BlockBase
     );
 
     // Get the list of Iowa Counties
-    $taxonomy_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'counties-in-iowa']);
+    $taxonomy_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'counties_in_iowa']);
     if (sizeof($taxonomy_terms) > 0) {
       $counties = array('' => 'Include All');
       foreach ($taxonomy_terms as $taxonomy_term) {
