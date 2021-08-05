@@ -32,11 +32,8 @@ a.publication-title {
 }
 
 nav.slick__arrow {
-	position: absolute;
-	top: 50%;
-	width: 100%;
-	transform: translateY(-50%);
-	display: block;
+	position: sticky;
+	transform: translateY(-704%);
 }
 
 button.slick-next.slick-arrow {
@@ -58,6 +55,7 @@ button.slick-next, button.slick-prev {
 .slick .slick-prev::before {
 	content: '\f053';
 	font-family: 'FontAwesome';
+	font-size: 18px;
 }
 
 .slick .slick-next::before {
