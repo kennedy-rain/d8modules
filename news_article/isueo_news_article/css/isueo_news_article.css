@@ -22,3 +22,9 @@
 	padding-bottom: 15px;
 	font-style: oblique;
 }
+
+span.authored-on {
+	font-size: .9rem;
+	color: #666;
+	font-style: oblique;
+}
