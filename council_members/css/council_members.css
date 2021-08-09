@@ -1,0 +1,5 @@
+ul.council_list {padding:0;}
+ul.council_list li {list-style-type:none; padding:0; margin:0 0 8px 0;}
+ul.council_list li div.council_name {float:left; font-weight:bold;}
+ul.council_list li div.council_city {clear:both;}
+ul.council_list li div.council_position::before {content: "-"; margin: 0.35em;}
