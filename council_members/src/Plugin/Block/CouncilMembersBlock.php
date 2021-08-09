@@ -33,7 +33,8 @@ class CouncilMembersBlock extends BlockBase
     if (!empty($county_name) && !empty($feed_url)) {
       $local_members = array();
       $active_council_members = json_decode(file_get_contents($feed_url), true);
-      $results = '<ul class="council_list">' . PHP_EOL;
+      $results .= '<p class="council_note">(Number) is the year the term expires</p>';
+      $results .= '<ul class="council_list">' . PHP_EOL;
 
       // Find council members for this county, and clean up some data
       foreach ($active_council_members as $member) {
@@ -55,6 +56,7 @@ class CouncilMembersBlock extends BlockBase
           if ($member['Extension_Council_Position__c'] === $position) {
             $results .= '<li>' . PHP_EOL;
             $results .= '  <div class="council_name">'. $member['hed__Contact__r.FirstName'] . ' ' . $member['hed__Contact__r.LastName'] . '</div>' . PHP_EOL;
+            $results .= '  <div class="council_date">(' . substr($member['hed__End_Date__c'], 0, 4) . ')</div>' . PHP_EOL;
             $results .= '  <div class="council_position">' . $member['Extension_Council_Position__c'] . '</div>' . PHP_EOL;
             $results .= '  <div class="council_city">'. $member['hed__Contact__r.MailingCity'] . ', ' . $member['hed__Contact__r.MailingState'] . '</div>' . PHP_EOL;
             $results .= '</li>' . PHP_EOL;
