@@ -32,9 +32,6 @@ function council_members_get_county_name() {
 
   // Fix special cases of county names
   switch ($site) {
-    case "Blah";
-      $site = "Black Hawk";
-      break;
     case "Blackhawk":
       $site = "Black Hawk";
       break;
