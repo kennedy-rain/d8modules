@@ -23,7 +23,7 @@ function editor_login_signoff_install() {
 	'theme' => \Drupal::config('system.theme')->get('default'),
 	'uri' => 'internal:/user',
 	'settings' => [
-	  'label' => 'Editor Login',
+	  'label' => 'Staff Links',
 	  'label_display' => 'hidden',
     ],
   ]);
