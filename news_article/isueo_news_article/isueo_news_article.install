@@ -9,12 +9,12 @@ use function Drupal\Core\Session\user_role_permissions;
 function isueo_news_article_install() {
   // Set up permissions for content editors
   user_role_grant_permissions('content_editor', [
-    'create news article content',
-    'delete any news article content',
-    'edit any news article content',
-    'override news article authored on option',
-    'override news article published option',
-    'override news article sticky option',
+    'create news_article content',
+    'delete any news_article content',
+    'edit any news_article content',
+    'override news_article authored on option',
+    'override news_article published option',
+    'override news_article sticky option',
   ]);
 }
 
