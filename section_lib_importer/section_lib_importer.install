@@ -371,7 +371,7 @@ function section_lib_importer_install() {
     $contentBlockType = BlockContentType::create([
       'id' => 'basic_content',
       'label' => 'Basic Content',
-      'description' => "Basic Content",
+      'description' => "Use for normal body content such as text, images, videos, etc",
     ]);
     $contentBlockType->save();
     
