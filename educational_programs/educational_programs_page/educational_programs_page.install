@@ -21,7 +21,8 @@ function educational_programs_page_install() {
 	'delete any educational_programs_page content',
 	'edit any educational_programs_page content',
 	'override educational_programs_page authored on option',
-	'override educational_programs_page published option'
+	'override educational_programs_page published option',
+	'configure editable educational_programs_page node layout overrides',
   ));
 
   drupal_flush_all_caches();
