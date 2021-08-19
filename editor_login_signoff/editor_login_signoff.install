@@ -9,13 +9,13 @@ use Drupal\block_content\Entity\BlockContent;
 function editor_login_signoff_install() {
   $block_content = BlockContent::create([
 	'type' => 'editor_login_signoff',
-	'info' => 'editor_login_signoff'
+	'info' => 'staff_links'
   ]);
 
   $block_content->save();
  
   $block = Block::create([
-	'id' => 'editor_login_signoff',
+	'id' => 'staff_links',
 	'plugin' => 'block_content:' . $block_content->uuid(),
 	'region' => 'sign_off',
 	'provider' => 'block_content',
