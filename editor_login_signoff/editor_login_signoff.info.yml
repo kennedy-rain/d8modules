@@ -1,5 +1,5 @@
 name: Staff Links
-description: ''
+description: 'Creates the login and MyExtension links in the footer.'
 package: ISUEO
 type: module
 version: 1.0
