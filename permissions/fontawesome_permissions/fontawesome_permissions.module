@@ -8,7 +8,7 @@
 
 /**
  * Implements hook_form_FORM_ID_alter().
- *
+ */
 function fontawesome_permissions_form_fontawesome_icon_dialog_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   // Remove "Font Awesome Additional Settings" entirely
   //$form['settings']['#access'] = FALSE;
@@ -38,7 +38,7 @@ function fontawesome_permissions_form_fontawesome_icon_dialog_alter(&$form, \Dru
   // Remove "Power Transforms" settings
   $form['settings']['power_transforms']['#access'] = FALSE;
 
-} */
+}
 
 function fontawesome_permissions_field_widget_fontawesome_icon_widget_form_alter(&$element, &$form_state, $context) {
   $element['settings']['style']['#access'] = FALSE;
@@ -62,7 +62,12 @@ function fontawesome_permissions_field_widget_fontawesome_icon_widget_form_alter
   $element['settings']['size']['#options']['fa-3x'] = 'Large';   // '3x' becomes new Large
   $element['settings']['size']['#options']['fa-4x'] = 'Extra Large';   // '4x' becomes new Extra Large
 
-  // Remove "Power Transelements" settings
-  $element['settings']['power_transelements']['#access'] = FALSE;
+  $element['settings']['additional_classes']['#access'] = FALSE;
+  // Remove "Power Transforms" options
+  $element['settings']['power_transforms']['#access'] = FALSE;
+  // Remove "Duotone" options
+  $element['settings']['duotone']['#access'] = FALSE;
+  // Remove "Icon Mask" options
+  $element['settings']['masking']['#access'] = FALSE;
 }
 
