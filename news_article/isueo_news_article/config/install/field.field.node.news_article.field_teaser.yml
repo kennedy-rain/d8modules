@@ -5,14 +5,21 @@ dependencies:
     - field.storage.node.field_teaser
     - node.type.news_article
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    wysiwyg: wysiwyg
+    full_html: '0'
+    basic: '0'
+    plain_text: '0'
 id: node.news_article.field_teaser
 field_name: field_teaser
 entity_type: node
 bundle: news_article
 label: Teaser
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
