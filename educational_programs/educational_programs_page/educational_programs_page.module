@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
 use Drupal\menu_link_content\Entity\MenuLinkContent as E_MenuLinkContent;
 use Drupal\menu_link_content\Plugin\Menu\MenuLinkContent;
 use Drupal\Core\Menu\MenuLinkTree;
@@ -9,7 +10,23 @@ use Drupal\Core\Menu\MenuLinkTree;
  * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
  *
  * Make menu option mandatory based on configuration.
-function educational_programs_page_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) { } */
+ *
+ function educational_programs_page_form_node_educational_programs_page_layout_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {  } */
+
+function educational_programs_page_field_widget_educational_programs_field_default_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
+  $nids = \Drupal::entityQuery('node')->condition('type', 'educational_programs_page')->execute();
+  $nodes = Node::loadMultiple($nids);
+
+  $node_term_ids = array();
+  foreach($nodes as $node) {
+	$node_id = reset($node->get('field_educational_program')->getValue())['term_id'];
+	if ($element['term_id']['#default_value'] != $node_id)
+	  array_push($node_term_ids, $node_id);
+  }
+
+  foreach($element['term_id']['#options'] as $key => &$values)
+    $values = array_diff_key($values, array_flip($node_term_ids));
+}
 
 function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
   foreach ($entity->getFields() as $field) {
