@@ -1,0 +1,26 @@
+<?php
+
+use Drupal\Core\Access\AccessResult;
+
+function contentaccess_permissions_node_access(\Drupal\node\NodeInterface $node, $op, \Drupal\Core\Session\AccountInterface $account) {
+  // $front_url = \Drupal::state()->get('site_frontpage', 'node');
+  // $front_url = trim($front_url, '/');
+  // $front = explode('/', $front_url);
+  // if( $front[0]=='node' && ctype_digit($front[1]) ) {
+  //   $front_nid = $front[1];
+  // }
+  if ($node->id() == '1') {
+    switch ($op) {
+      case 'create':
+		// return AccessResult::forbidden();
+      case 'update':
+		return AccessResult::forbidden();
+      case 'delete':
+		return AccessResult::forbidden();
+      default: 
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
