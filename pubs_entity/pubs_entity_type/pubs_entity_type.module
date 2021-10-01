@@ -35,7 +35,7 @@ function validatePubsEntity($validateID, $curEntity) {
     $found = null;
 
     foreach ($items as $item) {
-      if (array_key_exists('ProductID', $item) && $validateID == $item->ProductID) {
+      if (property_exists($item, 'ProductID') && $validateID == $item->ProductID) {
         $found = $item;
         break;
       }
