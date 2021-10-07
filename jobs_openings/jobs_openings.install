@@ -1,0 +1,20 @@
+<?php
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+
+function jobs_openings_install() {
+  $roles = Role::loadMultiple([
+    'content_editor'
+  ]);
+  
+  $issueAccessPermissions = [
+    "edit own job_openings content",
+    "delete own job_openings content"
+  ];
+  
+  foreach ($issueAccessPermissions as $permission) {
+    $roles['content_editor']->grantPermission($permission);
+  }
+  $roles['content_editor']->save();
+  
+}

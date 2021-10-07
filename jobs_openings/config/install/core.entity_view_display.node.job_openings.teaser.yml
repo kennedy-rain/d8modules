@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.job_openings.body
+    - field.field.node.job_openings.field_base_county
+    - field.field.node.job_openings.field_counties_served
+    - field.field.node.job_openings.field_requirements
+    - node.type.job_openings
+  module:
+    - text
+    - user
+id: node.job_openings.teaser
+targetEntityType: node
+bundle: job_openings
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_base_county: true
+  field_counties_served: true
+  field_requirements: true

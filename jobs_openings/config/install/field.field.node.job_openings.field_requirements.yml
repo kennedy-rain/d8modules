@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_requirements
+    - node.type.job_openings
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    wysiwyg: wysiwyg
+    full_html: '0'
+    basic: '0'
+    plain_text: '0'
+id: node.job_openings.field_requirements
+field_name: field_requirements
+entity_type: node
+bundle: job_openings
+label: Requirements
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

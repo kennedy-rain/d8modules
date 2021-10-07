@@ -1,0 +1,53 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.job_openings.body
+    - field.field.node.job_openings.field_base_county
+    - field.field.node.job_openings.field_counties_served
+    - field.field.node.job_openings.field_requirements
+    - node.type.job_openings
+  module:
+    - text
+    - user
+id: node.job_openings.default
+targetEntityType: node
+bundle: job_openings
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_base_county:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_counties_served:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_requirements:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

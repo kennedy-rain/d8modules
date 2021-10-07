@@ -1,0 +1,12 @@
+<?php
+use  Drupal\Core\Entity\EntityInterface;
+
+
+/**
+ * Prevent publishing of template type regardless of permissions
+*/
+function jobs_openings_entity_presave(EntityInterface $entity) {
+  if ($entity->bundle() == 'template_jobs') {
+    $entity->setUnpublished();
+  }
+}
