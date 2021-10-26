@@ -38,7 +38,8 @@ function sync_web_authors_users() {
   $usersInFeed = array_column($profiles, 'field_staff_profile_netid');
 
   foreach ($users as $user) {
-    $feed_user = array_search($user->getUsername(), $usersInFeed);
+    //$feed_user = array_search($user->getUsername(), $usersInFeed);
+    $feed_user = array_search($user->getAccountName(), $usersInFeed);
     if ($feed_user === FALSE) {
       $user->removeRole('content_editor');
       $user->block()->save();
