@@ -31,7 +31,7 @@ class EducationalProgramsFieldDefaultWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     //$all_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('category');
-  $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
+  $taxonomyStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
   $all_terms = $taxonomyStorage->loadByProperties(['vid' => 'educational_programs', 'status' => true]);
   ksort($all_terms);
   $options = array();
