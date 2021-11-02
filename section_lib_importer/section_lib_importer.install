@@ -17,6 +17,7 @@ function section_lib_importer_install() {
   // Set up permissions for content editors
    user_role_grant_permissions('content_editor', [
     'import template from section_library',
+    'view section_library templates',
     'create basic_content block content',
     'delete any basic_content block content',
     'Update any basic_content block content',
