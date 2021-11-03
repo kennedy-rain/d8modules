@@ -153,7 +153,7 @@ function staff_profile_primary_profile_from_database () {
     $mynode->field_staff_profile_phone->value = $profile->Phone;
     $mynode->field_staff_profile_fax->value = $profile->Fax;
 
-    $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
+    $taxonomyStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     $taxonomy = array();
     if (!empty($profile->CountyName)) {
       $taxonomy = $taxonomyStorage->loadByProperties([

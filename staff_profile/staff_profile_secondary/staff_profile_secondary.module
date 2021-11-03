@@ -101,7 +101,7 @@ function staff_profile_secondary_handle_feeds() {
 
 
       // Handle the base county
-      $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
+      $taxonomyStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
       $taxonomy = array();
       if (!empty($profile['field_staff_profile_base_county'])) {
         $taxonomy = $taxonomyStorage->loadByProperties([

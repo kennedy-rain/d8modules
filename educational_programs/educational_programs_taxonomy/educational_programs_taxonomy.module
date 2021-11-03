@@ -30,7 +30,7 @@ function educational_programs_taxonomy_handle_feeds()
   $now = time() - 10;
 
   $vid = 'educational_programs';
-  $taxonomyStorage = \Drupal::service('entity.manager')->getStorage('taxonomy_term');
+  $taxonomyStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
   $all_terms = $taxonomyStorage->loadByProperties(['vid' => $vid]);
 
   // Get the feed from MyData
