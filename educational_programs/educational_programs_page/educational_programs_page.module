@@ -112,6 +112,46 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
   }
 }
 
+/**
+ * Called when cache is rebuilt
+ */
+function educational_programs_page_rebuild() {
+	educational_programs_page_check_published_nodes();
+
+}
+
+/**
+ * Called when cron is called
+ */
+function educational_programs_page_cron() {
+	educational_programs_page_check_published_nodes();
+
+}
+
+/**
+ * Function to check published nodes of educational_program_page type
+ *	if node label is not in taxonomy term list, node will be unpublished
+ */
+function educational_programs_page_check_published_nodes() {
+	// Get all taxonomy terms, store in array
+	$terms = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadMultiple($terms);
+	// Create array and store all taxonomy term names, these should be what our edu_page content is called
+	$term_names = array();
+	foreach ($terms as $term)
+		array_push($term_names, $term->getName());
+
+	// Get all published nodes of edu_page type
+	$nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(array('type' => 'educational_programs_page', 'status' => '1'));
+	foreach($nodes as $node) {
+		// Check if node label is in array of term names, if not unpublish and save node
+		if (!in_array(Term::load($node->get('field_educational_program')[0]->get('term_id')->getValue())->getName(), $term_names)) {
+			$node->setPublished(false);
+			$node->save();
+		}
+	}
+
+}
+
 /* function educational_programs_page_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->bundle() == 'educational_programs_page') {
 	$child_term = Term::load($entity->get($field_name)[0]->get('term_id')->getValue());
