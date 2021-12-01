@@ -1060,7 +1060,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<b> <a href="https://store.extension.iastate.edu/product/{{ field_product_id }}" class="publication-title">{{ name }} </a></b> Publication Date: {{ field_publication_date }} '
+            text: '<b> <a href="https://store.extension.iastate.edu/product/{{ field_product_id }}" class="publication-title">{{ name }} </a></b>'
             make_link: false
             path: ''
             absolute: false
