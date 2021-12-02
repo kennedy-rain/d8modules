@@ -52,6 +52,14 @@ function staff_profile_primary_profile_from_database () {
     return;
   }
 
+  // Build array of address fixes
+  $address_fixes = array();
+  $temp_fixes = explode("\r\n", $primary_config->get('address_fixes'));
+  foreach($temp_fixes as $temp_fix) {
+    list($k, $v) = explode('::', $temp_fix);
+    $address_fixes[strtolower($k)] = $v;
+  }
+
   // Get the database login informatio out of config
   $encrypt_profile = EncryptionProfile::load($primary_config->get('sync_encrypt_profile'));
   $db_password = \Drupal::service('encryption')->decrypt( $primary_config->get('db_password'), $encrypt_profile);
@@ -134,8 +142,8 @@ function staff_profile_primary_profile_from_database () {
     $mynode->field_staff_profile_last_name->value = $profile->LastName;
     $mynode->field_staff_profile_addr = array(
       'country_code' => 'US',
-      'address_line1' => $profile->Address1,
-      'address_line2' => $profile->Address2,
+      'address_line1' => array_key_exists(strtolower($profile->Address1), $address_fixes)? $address_fixes[strtolower($profile->Address1)] : $profile->Address1,
+      'address_line2' => array_key_exists(strtolower($profile->Address2), $address_fixes)? $address_fixes[strtolower($profile->Address2)] : $profile->Address2,
       'locality' => $profile->City,
       'administrative_area' => $profile->State,
       'postal_code' => $profile->Zip,

@@ -45,7 +45,7 @@ class SettingsForm extends ConfigFormBase {
         '#description' => $this->t('Some address are incomplete when they come in. This field allows text substitutions. Enter one substitution per line, with 2 colons between them. <br/>Old Address::New Address'),
         '#rows' => 10,
         '#cols' => 14,
-        '#default_value' => !empty($config->get('address_fixes')) ? $config->get('address_fixes') : 'blah',
+        '#default_value' => !empty($config->get('address_fixes')) ? $config->get('address_fixes') : '',
       );
       $form['db_username'] = array(
         '#type' => 'textfield',
