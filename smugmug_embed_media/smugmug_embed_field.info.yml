@@ -1,0 +1,11 @@
+name: Smugmug Embed Field
+type: module
+description: 'Provides a field type for displaying Images from Smugmugs.'
+package: Smugmug Embed Field
+core_version_requirement: ^8.8
+dependencies:
+  - drupal:field
+  - drupal:media
+
+version: '8.x-dev'
+project: 'smugmug_embed_field'

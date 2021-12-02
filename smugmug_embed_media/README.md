@@ -1,0 +1,21 @@
+# SmugMug Embed Module
+This module provides a media type for remote SmugMug images
+
+## Setup
+This module uses the SmugMug API to get metadata for images, this requires a SmugMug API Key
+The api key must be set before creating SmugMug media on the Configuration > Media > SmugMug Settings page
+
+## Image Styles
+The Image FieldFormatter in this module automatically selects the image style from SmugMug that is equal to or greater than the scaling from the image style
+Ex: The image style specifies 200x400, the selected image will be the one with the maximum dimension closest to 400px, the rendered element will be given the style tags max-width:200px and max-height:400px
+This module requires a display type in order to get the image style, if it does not have a display for an image style, it will default to 220px by 220px, the default medium image style
+
+## Adding Image Styles
+Add image style as before
+Go to Admin > Structure > Media Types > Smugmug Image > Manage Display
+Click Custom display settings and add the new image style
+Go to the tab for the new image style and click the gear beside the Image URL field and set the image style to the new image style
+Click update and click save
+
+In order to use new image styles in another website, export the Entity view Display > 'Smugmug Image media items (media.smugmug.[image style here])' config
+'core.entity_view_display.media.smugmug.[image style here].yml' file and add it to the /config/install/ folder of this module

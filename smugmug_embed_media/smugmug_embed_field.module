@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function smugmug_embed_field_theme() {
+  return [
+    'smugmug_embed_image' => [
+      'variables' => [
+        'url' => '',
+        'alt' => '',
+        'width' => '',
+        'height' => '',
+      ],
+    ],
+  ];
+}
