@@ -11,6 +11,7 @@ function smugmug_embed_field_theme() {
         'alt' => '',
         'width' => '',
         'height' => '',
+        'cropped' => false,
       ],
     ],
   ];

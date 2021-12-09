@@ -22,6 +22,7 @@ class SmugmugEmbed extends RenderElement {
       '#url' => '',
       '#alt' => '',
       '#size' => '',
+      '#cropped' => '',
       '#pre_render' => [
         [static::class, 'preRenderInlineFrameEmbed'],
       ],

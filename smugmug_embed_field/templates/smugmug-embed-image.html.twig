@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Display an iframe with alterable components.
+ * If image style only uses scale, use max-width & max-height to scale to size
+ * If image style uses cropped, set width & height and use object-fit:cover to crop image to the proper size
+ */
+#}
+<img{{ attributes }}
+{% if url is not empty %} src="{{ url }}"{% endif %}
+{% if alt is not empty %} alt="{{ alt }}"{% endif %}
+{% if cropped is sameas(false) %}
+  {% if width is not empty and height is not empty %} style="max-width:{{ width }}px;max-height:{{ height }}px;"{% endif %}
+{% elseif cropped is sameas(true) %}
+  {% if width is not empty and height is not empty %} style="width:{{ width }}px;height:{{ height }}px;object-fit:cover;"{% endif %}
+{% endif %}
+></img>

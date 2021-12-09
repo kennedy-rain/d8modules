@@ -26,6 +26,8 @@ class SmugmugAPI extends ProviderPluginBase {
     $max_dim = 220;
     $height = 220;
     $width = 220;
+    $using_scale = false;
+    $using_crop = false;
     //Load image style and set to image size that is not greater
     if ($size != '') {
       $style = ImageStyle::load($size);
@@ -33,10 +35,27 @@ class SmugmugAPI extends ProviderPluginBase {
         // Only look for sizes, break after first sizing 
         // Assuming only effect is scaling, as that is the only one smugmug provides
         if ($styleplugin instanceof ScaleImageEffect) {
-          $width = $styleplugin->getConfiguration()['data']['width'];
-          $height = $styleplugin->getConfiguration()['data']['height'];
+          //If either height/width is not set for scaling, use the alternative dimension
+          if (isset($styleplugin->getConfiguration()['data']['width'])) {
+            $width = $styleplugin->getConfiguration()['data']['width'];
+          } elseif (isset($styleplugin->getConfiguration()['data']['height'])) {
+            $width = $styleplugin->getConfiguration()['data']['height'];
+          }
+          if (isset($styleplugin->getConfiguration()['data']['height'])) {
+            $height = $styleplugin->getConfiguration()['data']['height'];
+          } elseif (isset($styleplugin->getConfiguration()['data']['width'])) {
+            $height = $styleplugin->getConfiguration()['data']['width'];
+          }
           $max_dim = max($width, $height);
+          $using_scale = true;
           //break;
+        } else if ($styleplugin instanceof CropImageEffect) {
+          //Set cropping using "object-fit:cover;", changing height/width to be smaller if needed
+          if ($using_scale) {
+            $height = min($styleplugin->getConfiguration()['data']['height'], $height);
+            $width = min($styleplugin->getConfiguration()['data']['width'], $width);
+            $using_crop = true;
+          }
         }
       }
     }
@@ -82,6 +101,7 @@ class SmugmugAPI extends ProviderPluginBase {
       '#alt' => HTML::escape($alt), //htmlspecialchars()
       '#height' => $height,
       '#width' => $width,
+      '#cropped' => $using_crop,
       '#attributes' => [
         'frameborder' => '0',
       ],

@@ -1,7 +1,0 @@
-{#
-/**
- * @file
- * Display an iframe with alterable components.
- */
-#}
-<img{{ attributes }}{% if url is not empty %} src="{{ url }}"{% endif %} {% if alt is not empty %} alt="{{ alt }}"{% endif %} {% if width is not empty and height is not empty %} style="max-width:{{ width }}px;max-height:{{ height }}px;"{% endif %}></img>

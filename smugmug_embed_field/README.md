@@ -5,6 +5,17 @@ This module provides a media type for remote SmugMug images
 This module uses the SmugMug API to get metadata for images, this requires a SmugMug API Key
 The api key must be set before creating SmugMug media on the Configuration > Media > SmugMug Settings page
 
+## Adding Images
+Add images through the normal interface, adding the url and alt text
+
+Example Urls
+
+https://isuextensionimages.smugmug.com/Folder/i-FFFFFFF/A
+https://isuextensionimages.smugmug.com/Folder/i-FFFFFFF
+https://isuextensionimages.smugmug.com/Folder/Folder2/i-FFFFFFF
+
+The id for the image is extracted using a regex in [SmugmugAPI.php](src/Plugin/smugmug_embed_field/Provider/SmugmugAPI.php), in the previous examples, the id is 'FFFFFFF'
+
 ## Image Styles
 The Image FieldFormatter in this module automatically selects the image style from SmugMug that is equal to or greater than the scaling from the image style
 Ex: The image style specifies 200x400, the selected image will be the one with the maximum dimension closest to 400px, the rendered element will be given the style tags max-width:200px and max-height:400px
