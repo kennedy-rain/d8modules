@@ -23,6 +23,8 @@ class ImageTextfield extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    $element = parent::formElement($items, $delta, $element, $form, $form_state);
+    
     $element['value'] = $element + [
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
@@ -31,6 +33,7 @@ class ImageTextfield extends WidgetBase {
       '#attributes' => ['class' => ['js-text-full', 'text-full']],
       '#allowed_providers' => $this->getFieldSetting('allowed_providers'),
       '#theme' => 'input__image',
+      '#required' => TRUE
     ];
     
     $element['alt'] = [
@@ -39,6 +42,7 @@ class ImageTextfield extends WidgetBase {
       '#default_value' => isset($items[$delta]->alt) ? $items[$delta]->alt : NULL,
       '#description' => t('Short description of the image used by screen readers and displayed when the image is not loaded. This is important for accessibility.'),
       '#maxlength' => 255,
+      '#required' => TRUE
     ];
     return $element;
   }

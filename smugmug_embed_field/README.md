@@ -10,9 +10,9 @@ Add images through the normal interface, adding the url and alt text
 
 Example Urls
 
-https://isuextensionimages.smugmug.com/Folder/i-FFFFFFF/A
-https://isuextensionimages.smugmug.com/Folder/i-FFFFFFF
-https://isuextensionimages.smugmug.com/Folder/Folder2/i-FFFFFFF
+https://isuextensionimages.smugmug.com/Folder/i-FFFFFFF/A  
+https://isuextensionimages.smugmug.com/Folder/i-FFFFFFF  
+https://isuextensionimages.smugmug.com/Folder/Folder2/i-FFFFFFF  
 
 The id for the image is extracted using a regex in [SmugmugAPI.php](src/Plugin/smugmug_embed_field/Provider/SmugmugAPI.php), in the previous examples, the id is 'FFFFFFF'
 

@@ -1,7 +1,19 @@
 <?php
+use Drupal\smugmug_embed_field\Form\SmugmugMediaLibraryForm;
+
+/**
+ * Implements hook_media_source_info_alter().
+ * Adds smugmug form to media library to add images in wysiwyg editor
+ */
+function smugmug_embed_field_media_source_info_alter(array &$sources) {
+  if (empty($sources['smugmug_embed_field']['forms']['media_library_add'])) {
+    $sources['smugmug_embed_field']['forms']['media_library_add'] = SmugmugMediaLibraryForm::class;
+  }
+}
 
 /**
  * Implements hook_theme().
+ * Adds theme to use included twig template as output of Image FieldFormatter
  */
 function smugmug_embed_field_theme() {
   return [
