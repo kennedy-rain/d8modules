@@ -217,5 +217,13 @@ class SmugmugEmbedField extends MediaSourceBase {
     }
     return NULL;
   }
+  
+  public function getProviders() {
+    return $this->providerManager->getProvidersOptionList();
+  }
+  
+  public function getDefinitions($input) {
+    return $this->providerManager->loadDefinitionFromInput($input);
+  }
 
 }

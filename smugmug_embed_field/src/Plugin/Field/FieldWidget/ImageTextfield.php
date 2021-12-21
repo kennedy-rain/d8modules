@@ -23,7 +23,7 @@ class ImageTextfield extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element = parent::formElement($items, $delta, $element, $form, $form_state);
+    //$element = parent::formElement($items, $delta, $element, $form, $form_state);
     
     $element['value'] = $element + [
       '#type' => 'textfield',
@@ -32,7 +32,6 @@ class ImageTextfield extends WidgetBase {
       '#maxlength' => $this->getFieldSetting('max_length'),
       '#attributes' => ['class' => ['js-text-full', 'text-full']],
       '#allowed_providers' => $this->getFieldSetting('allowed_providers'),
-      '#theme' => 'input__image',
       '#required' => TRUE
     ];
     
