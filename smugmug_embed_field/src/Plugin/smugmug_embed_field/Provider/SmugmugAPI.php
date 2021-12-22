@@ -159,6 +159,10 @@ class SmugmugAPI extends ProviderPluginBase {
    * {@inheritdoc}
    */
   public static function getIdFromInput($input) {
+    //Regex for url
+    // Domains isuextensionimages.smugmug.com or smugmug.com
+    // Allows for folders and subfolders along with trailing '/A'
+    // IDs should be 7 chars, but no guarantee this will be the case in the future/no documentation stating this is or will be the case
     preg_match('/^https?:\/\/(isuextensionimages\.)?smugmug.com\/[A-Za-z0-9\-\_\/]+i\-(?<id>[A-Za-z0-9]*)(\/A)?$/', $input, $matches);
     return isset($matches['id']) ? $matches['id'] : FALSE;
   }

@@ -12,23 +12,10 @@ use Drupal\media_library\MediaLibraryUiBuilder;
 use Drupal\media_library\OpenerResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Drupal\media\OEmbed\ResourceException;
-use Drupal\media\OEmbed\ResourceFetcherInterface;
-use Drupal\media\OEmbed\UrlResolverInterface;
-
 /**
  * Creates a form to create media entities from Smugmug URLs.
  */
 class SmugmugMediaLibraryForm extends AddFormBase {
-  /**
-   * @var \Drupal\media\OEmbed\UrlResolverInterface
-   */
-  protected $urlResolver;
-
-  /**
-   * @var \Drupal\media\OEmbed\ResourceFetcherInterface
-   */
-  protected $resourceFetcher;
   
   /**
    * {@inheritdoc}
@@ -44,17 +31,11 @@ class SmugmugMediaLibraryForm extends AddFormBase {
    *   The entity type manager.
    * @param \Drupal\media_library\MediaLibraryUiBuilder $library_ui_builder
    *   The media library UI builder.
-   * @param \Drupal\media\OEmbed\UrlResolverInterface $url_resolver
-   *   The oEmbed URL resolver service.
-   * @param \Drupal\media\OEmbed\ResourceFetcherInterface $resource_fetcher
-   *   The oEmbed resource fetcher service.
    * @param \Drupal\media_library\OpenerResolverInterface $opener_resolver
    *   The opener resolver.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, MediaLibraryUiBuilder $library_ui_builder, UrlResolverInterface $url_resolver, ResourceFetcherInterface $resource_fetcher, OpenerResolverInterface $opener_resolver = NULL) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, MediaLibraryUiBuilder $library_ui_builder, OpenerResolverInterface $opener_resolver = NULL) {
     parent::__construct($entity_type_manager, $library_ui_builder, $opener_resolver);
-    $this->urlResolver = $url_resolver;
-    $this->resourceFetcher = $resource_fetcher;
   }
 
   /**
@@ -64,8 +45,6 @@ class SmugmugMediaLibraryForm extends AddFormBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('media_library.ui_builder'),
-      $container->get('media.oembed.url_resolver'),
-      $container->get('media.oembed.resource_fetcher'),
       $container->get('media_library.opener_resolver')
     );
   }
@@ -125,14 +104,9 @@ class SmugmugMediaLibraryForm extends AddFormBase {
       '#button_type' => 'primary',
       '#validate' => ['::validateUrl'],
       '#submit' => ['::addButtonSubmit'],
-      // @todo Move validation in https://www.drupal.org/node/2988215
       '#ajax' => [
         'callback' => '::updateFormCallback',
         'wrapper' => 'media-library-wrapper',
-        // Add a fixed URL to post the form since AJAX forms are automatically
-        // posted to <current> instead of $form['#action'].
-        // @todo Remove when https://www.drupal.org/project/drupal/issues/2504115
-        //   is fixed.
         'url' => Url::fromRoute('media_library.ui'),
         'options' => [
           'query' => $this->getMediaLibraryState($form_state)->all() + [
@@ -156,8 +130,11 @@ class SmugmugMediaLibraryForm extends AddFormBase {
     $url = $form_state->getValue('url');
     if ($url) {
       try {
+        //Get definitions applicable to given url, if it returns false or an empty array, then there aren't applicable defintions and url is invalid for smugmug
         $defs = $this->getMediaType($form_state)->getSource()->getDefinitions($url);
-        \Drupal::logger('smugmug_embed_field')->notice(serialize($defs));
+        if (!$defs || count($defs) == 0) {
+          $form_state->setErrorByName('url', "No valid smugmug source found for given url.");
+        }
       }
       catch (ResourceException $e) {
         $form_state->setErrorByName('url', $e->getMessage());
