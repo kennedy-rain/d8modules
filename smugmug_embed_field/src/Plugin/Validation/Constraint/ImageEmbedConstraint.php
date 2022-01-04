@@ -19,6 +19,12 @@ class ImageEmbedConstraint extends Constraint {
    *
    * @var string
    */
-  public $message = 'Could not find a image provider to handle the given URL.';
-
+  public $message_no_provider = 'Could not find a image provider to handle the given URL.';
+  
+  /**
+   * Message shown when the id does not result in a valid image resource.
+   *
+   * @var string
+   */
+  public $message_invalid_image = 'Could not find a valid image from the given url.';
 }

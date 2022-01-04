@@ -113,22 +113,31 @@ class SmugmugAPI extends ProviderPluginBase {
    * {@inheritdoc}
    */
   public function getRemoteThumbnailUrl() {
-    $thumbnail = $this->oEmbedData();
-    if (isset($thumbnail)) {
-      return $thumbnail->Response->Image->ThumbnailUrl;
+    if ($this->imageId != '') {
+      // Return 100x100 "Tiny" image style
+      return "https://photos.smugmug.com/photos/i-{$this->imageId}/0/Ti/i-{$this->imageId}-Ti.jpg";
     } else {
-      return null;
+      $thumbnail = $this->oEmbedData();
+      if (isset($thumbnail)) {
+        return $thumbnail->Response->Image->ThumbnailUrl;
+      } else {
+        return null;
+      }
     }
   }
   
   public function getThumbnailUri() {
-    $thumbnail = $this->oEmbedData();
-    if (isset($thumbnail)) {
-      return $thumbnail->Response->Image->ThumbnailUrl;
+    if ($this->imageId != '') {
+      // Return 100x100 "Tiny" image style
+      return "https://photos.smugmug.com/photos/i-{$this->imageId}/0/Ti/i-{$this->imageId}-Ti.jpg";
     } else {
-      return null;
+      $thumbnail = $this->oEmbedData();
+      if (isset($thumbnail)) {
+        return $thumbnail->Response->Image->ThumbnailUrl;
+      } else {
+        return null;
+      }
     }
-    
   }
 
   /**
@@ -152,7 +161,6 @@ class SmugmugAPI extends ProviderPluginBase {
     } else {
       return null;
     }
-    
   }
 
   /**
@@ -163,7 +171,7 @@ class SmugmugAPI extends ProviderPluginBase {
     // Domains isuextensionimages.smugmug.com or smugmug.com
     // Allows for folders and subfolders along with trailing '/A'
     // IDs should be 7 chars, but no guarantee this will be the case in the future/no documentation stating this is or will be the case
-    preg_match('/^https?:\/\/(isuextensionimages\.)?smugmug.com\/[A-Za-z0-9\-\_\/]+i\-(?<id>[A-Za-z0-9]*)(\/A)?$/', $input, $matches);
+    preg_match('/^https?:\/\/(isuextensionimages\.)?smugmug.com\/[A-Za-z0-9\-\_\/]*i\-(?<id>[A-Za-z0-9]+)(\/A)?$/', $input, $matches);
     return isset($matches['id']) ? $matches['id'] : FALSE;
   }
 
@@ -195,5 +203,4 @@ class SmugmugAPI extends ProviderPluginBase {
       return $meta->Response->Image->FileName;
     }
   }
-
 }
