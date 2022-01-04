@@ -9,9 +9,9 @@
 <img {{ attributes }}
 {% if url is not empty %} src="{{ url }}"{% endif %}
 {% if alt is not empty %} alt="{{ alt }}"{% endif %}
-{% if cropped is sameas(false) %}
+{% if cropped is same as(false) %}
   {% if width is not empty and height is not empty %} style="max-width:{{ width }}px;max-height:{{ height }}px;"{% endif %}
-{% elseif cropped is sameas(true) %}
+{% elseif cropped is same as(true) %}
   {% if width is not empty and height is not empty %} style="width:{{ width }}px;height:{{ height }}px;object-fit:cover;"{% endif %}
 {% endif %}
 ></img>

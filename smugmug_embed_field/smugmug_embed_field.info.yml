@@ -2,7 +2,7 @@ name: Smugmug Embed Field
 type: module
 description: 'Provides a field type for displaying Images from Smugmugs.'
 package: Smugmug Embed Field
-core_version_requirement: ^8.8
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:field
   - drupal:media

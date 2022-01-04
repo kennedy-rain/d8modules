@@ -28,5 +28,7 @@ Click Custom display settings and add the new image style
 Go to the tab for the new image style and click the gear beside the Image URL field and set the image style to the new image style
 Click update and click save
 
+With the config module enabled (drush en config)  
+Go to the Configuration > Development > Configuration Synchronization > Export page  
 In order to use new image styles in another website, export the Entity view Display > 'Smugmug Image media items (media.smugmug.[image style here])' config
-'core.entity_view_display.media.smugmug.[image style here].yml' file and add it to the /config/install/ folder of this module
+'core.entity_view_display.media.smugmug.[image style here].yml' file and add it to the /config/install/ folder of this module  
