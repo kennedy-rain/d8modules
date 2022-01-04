@@ -34,4 +34,4 @@ With the config module enabled (drush en config)
 Go to the Configuration > Development > Configuration Synchronization > Export page  
 In order to use new image styles in another website, export the from the 'Entity view Display' configuration type with the configuration name 'Smugmug Image media items (media.smugmug.[new image style here])' config
 'core.entity_view_display.media.smugmug.[image style here].yml' file and add it to the /config/install/ folder of this module  
-The site 'filter.format.wysiwyg.yml' must be edited to allow new image styles to be selected in wysiwyg editor popup
+The site 'filter.format.[editor name].yml' must be edited to allow new image styles to be selected in wysiwyg editor popup, this can be done for an individual site under Configuration > Content Authoring > Text Formats and Editors in the Embed Media tab of a given editor
