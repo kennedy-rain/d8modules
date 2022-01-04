@@ -22,13 +22,16 @@ Ex: The image style specifies 200x400, the selected image will be the one with t
 This module requires a display type in order to get the image style, if it does not have a display for an image style, it will default to 220px by 220px, the default medium image style
 
 ## Adding Image Styles
-Add image style as before
-Go to Admin > Structure > Media Types > Smugmug Image > Manage Display
-Click Custom display settings and add the new image style
-Go to the tab for the new image style and click the gear beside the Image URL field and set the image style to the new image style
+Add image style as before (Configuration > Media > Image Styles)  
+Add view mode as before (Structure > Display Modes > View Modes > Add View Mode) under Media  
+Go to Admin > Structure > Media Types > Smugmug Image > Manage Display  
+Click Custom display settings and check the new image style and click save  
+Go to the tab for the new image style and click the gear beside the Image URL field  
+Set the image style to the new image style  
 Click update and click save
 
 With the config module enabled (drush en config)  
 Go to the Configuration > Development > Configuration Synchronization > Export page  
-In order to use new image styles in another website, export the Entity view Display > 'Smugmug Image media items (media.smugmug.[image style here])' config
+In order to use new image styles in another website, export the from the 'Entity view Display' configuration type with the configuration name 'Smugmug Image media items (media.smugmug.[new image style here])' config
 'core.entity_view_display.media.smugmug.[image style here].yml' file and add it to the /config/install/ folder of this module  
+The site 'filter.format.wysiwyg.yml' must be edited to allow new image styles to be selected in wysiwyg editor popup
