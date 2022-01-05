@@ -47,23 +47,22 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 		  $child_term_name = $child_term->getName();
 
 		  $storage = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term');
+
 		  // Get parent term, then grabs first parent term of child (in our case should only be one)
 		  $parent_terms = $storage->loadParents($child_term_id);
 		  $parent_term_name = reset($parent_terms)->getName();
-
 		  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
 		  $menu_link_result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $entity->id()));
+
 		  if (!empty($menu_link_result))
 			reset($menu_link_result)->deleteLink();
-		  // print($menu_link->getParent());
 
 		  // Load main menu to check existing menu items
 		  $main_menu_tree = \Drupal::menuTree()->load('main', \Drupal::menuTree()->getCurrentRouteMenuTreeParameters('main'));
-
 		  // Populate array with current parent menu items (titles and uuid)
 		  $menu_links = array();
 		  foreach ($main_menu_tree as $menu_item)
-		    $menu_links[$menu_item->link->getTitle()] = 'menu_link_content:' . $menu_item->link->getDerivativeId();
+			$menu_links[$menu_item->link->getTitle()] = 'menu_link_content:' . $menu_item->link->getDerivativeId();
 
 		  // Get parent menu name from term name
 		  // this variable will become the name for the menu dropdown
@@ -83,33 +82,75 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 		    default:
 		  }
 
-		  // Check to see if parent already has a menu item
-		  // If there isn't one create one
-		  if (!in_array($parent_term_name, array_keys($menu_links))) {
-		    $parent_menu_link = E_MenuLinkContent::create([
-   	      	  'title' => $parent_term_name,
-		  	  'link' => ['uri' => 'route:<nolink>'],
-   	      	  'menu_name' => 'main',
-   	      	  'expanded' => TRUE,
-   	      	]);
-		  	$parent_menu_link->save();
+	  	  if ($entity->isPublished()) {
+	  	    // Check to see if parent already has a menu item
+		    // If there isn't one create one
+		    if (!in_array($parent_term_name, array_keys($menu_links))) {
+		      $parent_menu_link = E_MenuLinkContent::create([
+				'title' => $parent_term_name,
+				'link' => ['uri' => 'route:<nolink>'],
+	  	    	'menu_name' => 'main',
+				'expanded' => TRUE,
+			  ]);
+		      $parent_menu_link->save();
+		    }
+
+		    // Create link for child term
+		    $child_menu_link = E_MenuLinkContent::create([
+	  	      'title' => $child_term_name,
+	  	      'link' => ['uri' => 'internal:/' . \Drupal::service('pathauto.alias_cleaner')->cleanString($child_term_name)],
+	  	      'menu_name' => 'main',
+	  	      'expanded' => TRUE,
+	  	      'node' => $entity->uuid(),
+	  	      'parent' => !empty($parent_menu_link) ? $parent_menu_link->getPluginId() : $menu_links[$parent_term_name],
+		    ])->save();
 		  }
-
-		  // Create link for child term
-		  $child_menu_link = E_MenuLinkContent::create([
-   	        'title' => $child_term_name,
-		    'link' => ['uri' => 'internal:/' . \Drupal::service('pathauto.alias_cleaner')->cleanString($child_term_name)],
-   	        'menu_name' => 'main',
-   	        'expanded' => TRUE,
-		    'node' => $entity->uuid(),
-		    'parent' => !empty($parent_menu_link) ? $parent_menu_link->getPluginId() : $menu_links[$parent_term_name],
-		  ])->save();
-
 		  break;
-		}
+	    }
 	  }
 	}
   }
+}
+
+/**
+ * Called when cache is rebuilt
+ */
+function educational_programs_page_rebuild() {
+	educational_programs_page_check_published_nodes();
+
+}
+
+/**
+ * Called when cron is called
+ */
+function educational_programs_page_cron() {
+	educational_programs_page_check_published_nodes();
+
+}
+
+/**
+ * Function to check published nodes of educational_program_page type
+ *	if node label is not in taxonomy term list, node will be unpublished
+ */
+function educational_programs_page_check_published_nodes() {
+	// Get all taxonomy terms, store in array
+	$terms = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadTree('educational_programs');
+	// Create array and store all taxonomy term names, these should be what our edu_page content is called
+	$term_names = array();
+	foreach ($terms as $term) {
+		array_push($term_names, $term->name);
+	}
+
+	// Get all published nodes of edu_page type
+	$nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(array('type' => 'educational_programs_page', 'status' => '1'));
+	foreach($nodes as $node) {
+		// Check if node label is in array of term names, if not unpublish and save node
+		if (!in_array(Term::load($node->get('field_educational_program')[0]->get('term_id')->getValue())->getName(), $term_names)) {
+			$node->setPublished(false);
+			$node->save();
+		}
+	}
+
 }
 
 /* function educational_programs_page_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
