@@ -10,7 +10,6 @@ function validatePubsEntity($validateID, $curEntity) {
   }
 
   $url = \Drupal::config('pubs_entity_type.settings')->get('pubs_details_url');
-  $url_host = parse_url($url, PHP_URL_HOST);
 
   try {
     if (0 === substr_compare($url, "/", -1) && explode(' ', get_headers($url . $validateID, 1)[0])[1] == 200) {
@@ -22,7 +21,7 @@ function validatePubsEntity($validateID, $curEntity) {
     } else {
       $raw = "";
     }
-    $raw = file_get_contents($url);
+//    $raw = file_get_contents($url);
 
     $decoded = json_decode($raw);
     if (is_object($decoded) && get_class($decoded) == 'stdClass') {
@@ -87,7 +86,7 @@ function pubs_entity_type_rebuild() {
       $entity->set('field_publication_date', $pub_date[1] . '-' . $pub_date[0] . '-01');
       $entity->save();
     } else {
-      $unpublished[] = "<" . $entity->field_product_id->value . "> " . $entity->name->value;
+      $unpublished[] = "<" . $entity->field_product_id->value . "> " . $entity->name->value . " - " . is_string($passed)?$passed:"not an object";
       $entity->setUnpublished();
       $entity->save();
     }
