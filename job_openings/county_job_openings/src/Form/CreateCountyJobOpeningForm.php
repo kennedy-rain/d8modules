@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 /**
- * Class CreateJobsOpeningForm
+ * Class CreateCountyJobOpeningForm
  */
-class CreateJobsOpeningForm extends FormBase {
+class CreateCountyJobOpeningForm extends FormBase {
   public function getFormId() {
     return 'create_county_job_opening_form';
   }
@@ -48,7 +48,7 @@ class CreateJobsOpeningForm extends FormBase {
 
     $form['job_template'] = array(
       '#type' => 'radios',
-      '#title' => t('Job Template'),
+      '#title' => t('County Template'),
       '#required' => TRUE,
       '#options' => $jobs_templates
     );
