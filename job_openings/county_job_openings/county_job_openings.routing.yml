@@ -2,6 +2,6 @@ county_job_openings.create_county_job_opening_form:
   path: '/node/add/county_job_openings_templated'
   defaults:
     _controller: '\Drupal\county_job_openings\Controller\CreateCountyJobOpeningController::view_page'
-    _title: 'Create County Job Openings'
+    _title: 'Create County Job Opening'
   requirements:
-    _permission: 'edit own job_openings content'
+    _permission: 'edit own county_job_opening content'

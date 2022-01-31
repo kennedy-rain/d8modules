@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.template_jobs.body
-    - field.field.node.template_jobs.field_requirements
-    - node.type.template_jobs
+    - field.field.node.county_job_template.body
+    - field.field.node.county_job_template.field_requirements
+    - node.type.county_job_template
   module:
     - text
     - user
-id: node.template_jobs.default
+id: node.county_job_template.default
 targetEntityType: node
-bundle: template_jobs
+bundle: county_job_template
 mode: default
 content:
   body:

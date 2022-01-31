@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.job_openings.body
-    - field.field.node.job_openings.field_base_county
-    - field.field.node.job_openings.field_counties_served
-    - field.field.node.job_openings.field_requirements
-    - node.type.job_openings
+    - field.field.node.county_job_opening.body
+    - field.field.node.county_job_opening.field_base_county
+    - field.field.node.county_job_opening.field_counties_served
+    - field.field.node.county_job_opening.field_requirements
+    - node.type.county_job_opening
   module:
     - text
     - user
-id: node.job_openings.default
+id: node.county_job_opening.default
 targetEntityType: node
-bundle: job_openings
+bundle: county_job_opening
 mode: default
 content:
   body:

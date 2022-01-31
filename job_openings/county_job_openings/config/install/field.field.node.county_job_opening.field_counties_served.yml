@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_counties_served
-    - node.type.job_openings
-id: node.job_openings.field_counties_served
+    - node.type.county_job_opening
+id: node.county_job_opening.field_counties_served
 field_name: field_counties_served
 entity_type: node
-bundle: job_openings
+bundle: county_job_opening
 label: 'Counties Served'
 description: ''
 required: true

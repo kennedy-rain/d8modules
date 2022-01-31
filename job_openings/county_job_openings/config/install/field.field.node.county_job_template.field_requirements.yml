@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_requirements
-    - node.type.template_jobs
+    - node.type.county_job_template
   module:
     - allowed_formats
     - text
@@ -13,10 +13,10 @@ third_party_settings:
     full_html: '0'
     basic: '0'
     plain_text: '0'
-id: node.template_jobs.field_requirements
+id: node.county_job_template.field_requirements
 field_name: field_requirements
 entity_type: node
-bundle: template_jobs
+bundle: county_job_template
 label: Requirements
 description: ''
 required: true

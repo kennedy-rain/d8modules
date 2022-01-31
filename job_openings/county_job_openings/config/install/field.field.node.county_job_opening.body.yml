@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.job_openings
+    - node.type.county_job_opening
   module:
     - text
-id: node.job_openings.body
+id: node.county_job_opening.body
 field_name: body
 entity_type: node
-bundle: job_openings
+bundle: county_job_opening
 label: Body
 description: ''
 required: false

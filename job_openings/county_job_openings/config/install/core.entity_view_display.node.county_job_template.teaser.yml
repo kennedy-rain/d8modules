@@ -3,17 +3,15 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.job_openings.body
-    - field.field.node.job_openings.field_base_county
-    - field.field.node.job_openings.field_counties_served
-    - field.field.node.job_openings.field_requirements
-    - node.type.job_openings
+    - field.field.node.county_job_template.body
+    - field.field.node.county_job_template.field_requirements
+    - node.type.county_job_template
   module:
     - text
     - user
-id: node.job_openings.teaser
+id: node.county_job_template.teaser
 targetEntityType: node
-bundle: job_openings
+bundle: county_job_template
 mode: teaser
 content:
   body:
@@ -30,6 +28,4 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
-  field_base_county: true
-  field_counties_served: true
   field_requirements: true

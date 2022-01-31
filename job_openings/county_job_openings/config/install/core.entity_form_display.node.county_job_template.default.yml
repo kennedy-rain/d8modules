@@ -2,23 +2,21 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.job_openings.body
-    - field.field.node.job_openings.field_base_county
-    - field.field.node.job_openings.field_counties_served
-    - field.field.node.job_openings.field_requirements
-    - node.type.job_openings
+    - field.field.node.county_job_template.body
+    - field.field.node.county_job_template.field_requirements
+    - node.type.county_job_template
   module:
     - path
     - scheduler
     - text
-id: node.job_openings.default
+id: node.county_job_template.default
 targetEntityType: node
-bundle: job_openings
+bundle: county_job_template
 mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 10
+    weight: 9
     settings:
       rows: 9
       summary_rows: 3
@@ -32,28 +30,8 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_base_county:
-    weight: 12
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_counties_served:
-    weight: 13
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_requirements:
-    weight: 11
+    weight: 10
     settings:
       rows: 5
       placeholder: ''
@@ -78,13 +56,6 @@ content:
     weight: 6
     region: content
     settings: {  }
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 9
-    region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
@@ -122,4 +93,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  status: true
