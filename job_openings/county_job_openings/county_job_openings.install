@@ -4,7 +4,7 @@ use Drupal\taxonomy_import\Form\ImportForm;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
-function jobs_openings_install() {
+function county_job_openings_install() {
   $roles = Role::loadMultiple([
     'content_editor'
   ]);

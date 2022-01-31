@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\jobs_openings\Form;
+namespace Drupal\county_job_openings\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class CreateJobsOpeningForm extends FormBase {
   public function getFormId() {
-    return 'create_jobs_opening_form';
+    return 'create_county_job_opening_form';
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
@@ -33,7 +33,7 @@ class CreateJobsOpeningForm extends FormBase {
     $node->field_requirements->format = $template->field_requirements->format;
     $node->save();
     
-    //Assumes location of form is base/node/add/jobs_openings_templated
+    //Assumes location of form is base/node/add/county_job_openings_templated
     $response = new RedirectResponse('../../node/' . $node->id() . '/edit', '302');
     $response->send();
   }

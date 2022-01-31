@@ -1,7 +1,0 @@
-jobs_openings.create_jobs_opening_form:
-  path: '/node/add/jobs_openings_templated'
-  defaults:
-    _controller: '\Drupal\jobs_openings\Controller\CreateJobsOpeningController::view_page'
-    _title: 'Create Jobs Openings'
-  requirements:
-    _permission: 'edit own job_openings content'

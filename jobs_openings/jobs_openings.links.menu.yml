@@ -1,5 +1,0 @@
-jobs_openings.create_opening:
-  title: 'Templated Job Opening'
-  description: 'Create Job Opening from template'
-  parent: admin_toolbar_tools.extra_links:node.add
-  route_name: jobs_openings.create_jobs_opening_form
