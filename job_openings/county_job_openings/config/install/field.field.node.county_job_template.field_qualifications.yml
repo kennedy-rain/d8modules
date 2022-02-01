@@ -1,26 +1,25 @@
+uuid: 130950a1-16d5-437f-991c-27e049c74f57
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_requirements
+    - field.storage.node.field_qualifications
     - node.type.county_job_template
   module:
     - allowed_formats
     - text
 third_party_settings:
   allowed_formats:
-    wysiwyg: wysiwyg
-    full_html: '0'
-    basic: '0'
-    plain_text: '0'
-id: node.county_job_template.field_requirements
-field_name: field_requirements
+    allowed_formats:
+      - wysiwyg
+id: node.county_job_template.field_qualifications
+field_name: field_qualifications
 entity_type: node
 bundle: county_job_template
-label: Requirements
+label: Qualifications
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

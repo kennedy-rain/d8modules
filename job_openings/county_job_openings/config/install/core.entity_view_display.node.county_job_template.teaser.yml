@@ -1,31 +1,40 @@
+uuid: e138baa7-49f5-41da-90d4-9f776d7437e3
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.county_job_template.body
-    - field.field.node.county_job_template.field_requirements
+    - field.field.node.county_job_template.field_objective
+    - field.field.node.county_job_template.field_preferred_qualifications
+    - field.field.node.county_job_template.field_qualifications
+    - field.field.node.county_job_template.field_responsibilities
     - node.type.county_job_template
   module:
     - text
     - user
+_core:
+  default_config_hash: jFj3RORkqyVzuScuzkzAwft16PIjFAD0e0KAI7Xt99I
 id: node.county_job_template.teaser
 targetEntityType: node
 bundle: county_job_template
 mode: teaser
 content:
   body:
-    label: hidden
     type: text_summary_or_trimmed
-    weight: 101
+    label: hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
+    weight: 101
     region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
-  field_requirements: true
+  field_objective: true
+  field_preferred_qualifications: true
+  field_qualifications: true
+  field_responsibilities: true
