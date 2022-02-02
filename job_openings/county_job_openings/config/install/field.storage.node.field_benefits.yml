@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - text
-id: node.field_qualifications
-field_name: field_qualifications
+id: node.field_benefits
+field_name: field_benefits
 entity_type: node
 type: text_long
 settings: {  }

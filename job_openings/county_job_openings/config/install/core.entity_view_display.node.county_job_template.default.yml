@@ -1,4 +1,3 @@
-uuid: 0fba1345-005f-44f9-97a0-3454b0d9a522
 langcode: en
 status: true
 dependencies:
@@ -12,8 +11,6 @@ dependencies:
   module:
     - text
     - user
-_core:
-  default_config_hash: Wr9hg7ERBILy2zKPj_Q61FYyMM5RvQJHb-XGr_5z89k
 id: node.county_job_template.default
 targetEntityType: node
 bundle: county_job_template

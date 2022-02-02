@@ -4,9 +4,19 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.county_job_opening.body
+    - field.field.node.county_job_opening.field_application_deadline
     - field.field.node.county_job_opening.field_base_county
+    - field.field.node.county_job_opening.field_benefits
     - field.field.node.county_job_opening.field_counties_served
-    - field.field.node.county_job_opening.field_requirements
+    - field.field.node.county_job_opening.field_hours
+    - field.field.node.county_job_opening.field_job_type
+    - field.field.node.county_job_opening.field_objective
+    - field.field.node.county_job_opening.field_preferred_qualifications
+    - field.field.node.county_job_opening.field_qualifications
+    - field.field.node.county_job_opening.field_responsibilities
+    - field.field.node.county_job_opening.field_wages
+    - field.field.node.county_job_opening.field_wages_status
+    - field.field.node.county_job_opening.field_wages_type
     - node.type.county_job_opening
   module:
     - text
@@ -17,19 +27,29 @@ bundle: county_job_opening
 mode: teaser
 content:
   body:
-    label: hidden
     type: text_summary_or_trimmed
-    weight: 101
+    label: hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
+    weight: 101
     region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
+  field_application_deadline: true
   field_base_county: true
+  field_benefits: true
   field_counties_served: true
-  field_requirements: true
+  field_hours: true
+  field_job_type: true
+  field_objective: true
+  field_preferred_qualifications: true
+  field_qualifications: true
+  field_responsibilities: true
+  field_wages: true
+  field_wages_status: true
+  field_wages_type: true

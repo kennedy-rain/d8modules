@@ -20,7 +20,7 @@ class CreateCountyJobOpeningForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $template_id = $form_state->getValue('job_template');
     $template = Node::load($template_id);
-    
+
     $node = Node::create([
       'type' => 'county_job_opening',
       'title' => $template->getTitle(),
@@ -28,18 +28,18 @@ class CreateCountyJobOpeningForm extends FormBase {
     ]);
     $node->body->value = $template->body->value;
     $node->body->format = $template->body->format;
-    
+
     $node->field_requirements->value = $template->field_requirements->value;
     $node->field_requirements->format = $template->field_requirements->format;
     $node->save();
-    
+
     //Assumes location of form is base/node/add/county_job_openings_templated
     $response = new RedirectResponse('../../node/' . $node->id() . '/edit', '302');
     $response->send();
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $nids = \Drupal::entityQuery('node')->condition('type','county_job_template')->execute();
+    $nids = \Drupal::entityQuery('node')->condition('type','county_job_template')->condition('status', 1)->execute();
     $nodes =  Node::loadMultiple($nids);
     $jobs_templates = [];
     foreach ($nodes as $id => $node) {
