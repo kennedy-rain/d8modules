@@ -1,6 +1,7 @@
 <?php
 namespace Drupal\county_job_openings\Form;
 
+use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\taxonomy\Entity\Vocabulary;
@@ -29,8 +30,12 @@ class CreateCountyJobOpeningForm extends FormBase {
     $node->body->value = $template->body->value;
     $node->body->format = $template->body->format;
 
-    $node->field_requirements->value = $template->field_requirements->value;
-    $node->field_requirements->format = $template->field_requirements->format;
+    foreach ($template->getFields() as $field) {
+      if (str_starts_with($field->getName(), 'field_') && $node->hasField($field->getName())) {
+        $node->set($field->getName(), $template->get($field->getName())[0]->value);
+      }
+    }
+
     $node->save();
 
     //Assumes location of form is base/node/add/county_job_openings_templated

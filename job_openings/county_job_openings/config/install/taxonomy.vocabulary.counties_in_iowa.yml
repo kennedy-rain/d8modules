@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Counties in Iowa'
-vid: counties_in_iowa
-description: 'List of counties in Iowa. This vocabulary is required for Staff Profiles.'
-weight: 0
