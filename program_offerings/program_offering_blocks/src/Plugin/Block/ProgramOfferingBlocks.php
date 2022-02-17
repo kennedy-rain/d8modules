@@ -114,7 +114,7 @@ class ProgramOfferingBlocks extends BlockBase
 
       if ($display_event) {
         if ($count < $max_events) {
-          $start_date = strtotime($event['Start_Time_and_Date__c']);
+          $start_date = strtotime($event['Next_Start_Date__c']);
           $results .= '  <li class="event">' . PHP_EOL;
           $results .= '    <div class="event_date"><span class="event_day">' . date('d', $start_date) . '</span>
 <span class="event_month">' . date('M', $start_date) . '</span>
@@ -125,7 +125,7 @@ class ProgramOfferingBlocks extends BlockBase
           $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
           $results .= '</div>' . PHP_EOL;
 
-          $startDate = date($config['format_with_time'], strtotime($event['Start_Time_and_Date__c']));
+          $startDate = date($config['format_with_time'], strtotime($event['Next_Start_Date__c']));
           $results .= '    <div class="event_startdate">' . $startDate . '</div>' . PHP_EOL;
 
           //$results .= '    ' . $title . PHP_EOL;
