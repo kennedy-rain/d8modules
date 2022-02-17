@@ -74,13 +74,12 @@ class ProgramOfferingBlocks extends BlockBase
     $string_of_search_terms = $this->build_search_string($string_of_search_terms, $querystring_filter);
     $search_terms_array = explode('|', $string_of_search_terms);
 
-    // Get the events from the JSON feed
+    // Set the timeout to 2 seconds, Get the events from the JSON feed, then reset timeout to previous value
+    $default_socket_timeout = ini_get('default_socket_timeout');
+    ini_set('default_socket_timeout', 2);
     $buffer = file_get_contents($module_config->get('url'));
-    //$buffer = ""; //Helpers::read_ungerboeck_file();
+    ini_set('default_socket_timeout', $default_socket_timeout);
     $json_events = json_decode($buffer, TRUE);
-    //$json_events = array_reverse($json_events);
-    //\Drupal::logger('program_offering_blocks')->info(sizeof($json_events));
-    //$json_events = array();
 
     $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
 
