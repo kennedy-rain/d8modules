@@ -3,12 +3,14 @@ use  Drupal\Core\Entity\EntityInterface;
 
 
 /**
- * Prevent publishing of template type regardless of permissions
-*/
-/*
-function county_job_openings_entity_presave(EntityInterface $entity) {
-  if ($entity->bundle() == 'county_job_template') {
-    $entity->setUnpublished();
+ * Implements hook_form_alter().
+ */
+function county_job_openings_form_node_form_alter(&$form, &$form_state, $form_id) {
+  /* @var Drupal\Core\Entity\FieldableEntityInterface $node */
+  $node = $form_state->getFormObject()->getEntity();
+
+  if ($node->getType() == 'county_job_opening') {
+   /* var_dump($node);*/
+    $form['#attached']['library'][] = 'county_job_openings/county_job_opening_edit';
   }
 }
-*/
