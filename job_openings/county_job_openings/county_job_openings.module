@@ -1,5 +1,6 @@
 <?php
 use  Drupal\Core\Entity\EntityInterface;
+use Drupal\taxonomy\Entity\Term;
 
 
 /**
@@ -12,5 +13,18 @@ function county_job_openings_form_node_form_alter(&$form, &$form_state, $form_id
   if ($node->getType() == 'county_job_opening') {
    /* var_dump($node);*/
     $form['#attached']['library'][] = 'county_job_openings/county_job_opening_edit';
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+
+function county_job_openings_node_presave(EntityInterface $node)
+{
+  // Ensure the base county is included in the Counties Served list
+  if ($node->bundle() == 'county_job_opening') {
+    $termID = Term::load($node->field_base_county->target_id)->id();
+    $node->field_counties_served[] = ['target_id' => $termID];
   }
 }
