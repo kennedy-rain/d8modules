@@ -2,10 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_application_deadline
+    - field.storage.node.field_application_deadline_date
     - field.storage.node.field_base_county
+    - field.storage.node.field_open_until_filled
     - node.type.county_job_opening
   module:
+    - datetime
     - node
     - user
 id: county_jobs
@@ -22,7 +24,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'County  Jobs'
+      title: 'Current County Job Openings'
       fields:
         title:
           id: title
@@ -38,18 +40,36 @@ display:
           exclude: false
           alter:
             alter_text: false
+            text: ''
             make_link: false
+            path: ''
             absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
             word_boundary: false
             ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
-          element_type: ''
+          element_type: h3
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -79,11 +99,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Location
+          label: ''
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_base_county }} County Extension Office'
+            text: '<em>Location:</em> {{ field_base_county }} County Extension Office'
             make_link: false
             path: ''
             absolute: false
@@ -110,9 +130,9 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: ''
+          element_label_type: strong
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -134,16 +154,16 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_application_deadline:
-          id: field_application_deadline
-          table: node__field_application_deadline
-          field: field_application_deadline
+        field_open_until_filled:
+          id: field_open_until_filled
+          table: node__field_open_until_filled
+          field: field_open_until_filled
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Application deadline'
-          exclude: false
+          label: ''
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -175,20 +195,84 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: 'This position will remain open until field'
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: boolean
           settings:
-            date_format: medium
-            custom_date_format: ''
-            timezone: ''
+            format: custom
+            format_custom_false: ''
+            format_custom_true: 'This position will remain open until filled'
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_application_deadline_date:
+          id: field_application_deadline_date
+          table: node__field_application_deadline_date
+          field: field_application_deadline_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<em>Application Deadline:</em> {{ field_application_deadline_date }} {{ field_open_until_filled }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: m_d_y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -295,8 +379,9 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_application_deadline'
+        - 'config:field.storage.node.field_application_deadline_date'
         - 'config:field.storage.node.field_base_county'
+        - 'config:field.storage.node.field_open_until_filled'
   block_1:
     id: block_1
     display_title: Block
@@ -313,5 +398,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_application_deadline'
+        - 'config:field.storage.node.field_application_deadline_date'
         - 'config:field.storage.node.field_base_county'
+        - 'config:field.storage.node.field_open_until_filled'
