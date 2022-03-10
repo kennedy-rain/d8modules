@@ -60,7 +60,7 @@ class EventDetailsController extends ControllerBase
         if (!empty($event['Planned_Program__r.Smugmug_ID__c'])) {
           $description = '<img class="educational_program_image" src="https://photos.smugmug.com/photos/' . $event['Planned_Program__r.Smugmug_ID__c'] . '/0/XL/' . $event['Planned_Program__r.Smugmug_ID__c'] . '-XL.jpg" alt="" />' . $description . '<div class="clearer"></div>';
         }
-        if isset($description) {
+        if (isset($description)) {
           $results .= '  <div class="event_description">' . $description . PHP_EOL;
         }
 
