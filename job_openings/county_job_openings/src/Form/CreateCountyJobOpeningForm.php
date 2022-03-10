@@ -25,7 +25,7 @@ class CreateCountyJobOpeningForm extends FormBase {
     $node = Node::create([
       'type' => 'county_job_opening',
       'title' => $template->getTitle(),
-      'status' => 0
+      'status' => 1,
     ]);
     $node->body->value = $template->body->value;
     $node->body->format = $template->body->format;

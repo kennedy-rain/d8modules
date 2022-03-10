@@ -2,10 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_application_deadline
+    - field.storage.node.field_application_deadline_date
     - node.type.county_job_opening
-id: node.county_job_opening.field_application_deadline
-field_name: field_application_deadline
+  module:
+    - datetime
+id: node.county_job_opening.field_application_deadline_date
+field_name: field_application_deadline_date
 entity_type: node
 bundle: county_job_opening
 label: 'Application Deadline'
@@ -15,4 +17,4 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: timestamp
+field_type: datetime
