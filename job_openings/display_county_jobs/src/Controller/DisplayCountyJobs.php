@@ -34,12 +34,11 @@ class DisplayCountyJobs extends ControllerBase
       $results .= '<li><a href="https://www.extension.iastate.edu/diversity/">Diversity and Civil Rights</a></li>' . PHP_EOL;
       $results .= '</ul>' . PHP_EOL;
 
-    if (!empty($openings)) {
+    if (empty($openings)) {
       $results .= '<p>No job openings at this time</p>' . PHP_EOL;
     } else {
       $results .= PHP_EOL . '<ul class="county-job-openings">' . PHP_EOL;
       foreach ($openings as $opening) {
-        for ($i=0; $i<5; $i++) {
         $results .= '  <li>' . PHP_EOL;
         $results .= '    <a href="' . $opening['view_node'] . '">' . trim($opening['title']) . '</a><br />' . PHP_EOL;
         $results .= '    <em>Location:</em> ' . $opening['field_base_county'] . ' County Extension Office<br />' . PHP_EOL;
@@ -50,7 +49,6 @@ class DisplayCountyJobs extends ControllerBase
           ($opening['field_open_until_filled']  === 'True' ? ' This position will remail open until filled' : '') .
           '<br />' . PHP_EOL;
         $results .= '  </li>' . PHP_EOL;
-        }
       }
     }
 
