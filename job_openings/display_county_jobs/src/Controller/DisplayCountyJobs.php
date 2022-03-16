@@ -42,9 +42,9 @@ class DisplayCountyJobs extends ControllerBase
         $results .= '  <li>' . PHP_EOL;
         $results .= '    <a href="' . $opening['view_node'] . '">' . trim($opening['title']) . '</a><br />' . PHP_EOL;
         $results .= '    <em>Location:</em> ' . $opening['field_base_county'] . ' County Extension Office<br />' . PHP_EOL;
-        if (str_contains($opening['field_counties_served'], ',')) {
-          $results .= '    <em>Counties Served:</em> ' . $opening['field_counties_served'] . '<br >' . PHP_EOL;
-        }
+        //if ($opening['field_counties_served'] != $opening['field_base_county']) {
+          //$results .= '    <em>Counties Served:</em> ' . $opening['field_counties_served'] . '<br >' . PHP_EOL;
+        //}
         $results .= '    <em>Application Deadline:</em> ' . $opening['field_application_deadline_date'] .
           ($opening['field_open_until_filled']  === 'True' ? ' This position will remail open until filled' : '') .
           '<br />' . PHP_EOL;
