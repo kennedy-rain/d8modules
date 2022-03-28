@@ -1,0 +1,66 @@
+<?php
+/**
+* Implements hook_install().
+*/
+
+function display_county_jobs_install() {
+  $county_name = display_county_jobs_get_county_name();
+
+  $config = \Drupal::service('config.factory')->getEditable('display_county_jobs.settings');
+  $config->set('feed_url', 'https://www.extension.iastate.edu/jobs/feeds/county_jobs/' . $county_name);
+  $config->save();
+}
+
+/**
+* Implements hook_uninstall().
+*/
+
+function display_county_jobs_uninstall() {
+  $config = \Drupal::service('config.factory')->getEditable('display_county_jobs.settings')->delete();
+}
+
+
+// Local function: gets the county name
+function display_county_jobs_get_county_name() {
+  // Get the county from the root path of the Drupal install
+  $folders = explode('/', \Drupal::root());
+  $site = 'Unknown';
+  if (count($folders) >= 2) {
+    $site = ucfirst($folders[count($folders) -2]);
+  }
+
+  // Fix special cases of county names
+  switch ($site) {
+    case "Blackhawk":
+      $site = "Black Hawk";
+      break;
+    case "Buenavista":
+      $site = "Buena Vista";
+      break;
+    case "Cerrogordo":
+      $site = "Cerro Gordo";
+      break;
+    case "Desmoines":
+      $site = "Des Moines";
+      break;
+    case "Eastpottawattamie":
+      $site = "Pottawattamie - East";
+      break;
+    case "Paloalto":
+      $site = "Palo Alto";
+      break;
+    case "Vanburen":
+      $site = "Van Buren";
+      break;
+    case "Westpottawattamie":
+      $site = "Pottawattamie - West";
+      break;
+    case "Obrien":
+      $site = "O'Brien";
+      break;
+    default:
+      break;
+  }
+  return $site;
+}
+
