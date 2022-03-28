@@ -24,20 +24,22 @@ function county_job_openings_node_presave(EntityInterface $node)
 {
   // Ensure the base county is included in the Counties Served list
   if ($node->bundle() == 'county_job_opening') {
-    $termID = Term::load($node->field_base_county->target_id)->id();
-    $found = false;
+    if (($baseCountyTerm = Term::load($node->field_base_county->target_id)) !== null) {
+      $termID = $baseCountyTerm->id();
+      $found = false;
 
-    // Look for base county in counties served
-    foreach ($node->field_counties_served as $selected_term) {
-      if ($selected_term->get('target_id')->getValue() == $termID) {
-        $found = true;
-        break;
+      // Look for base county in counties served
+      foreach ($node->field_counties_served as $selected_term) {
+        if ($selected_term->get('target_id')->getValue() == $termID) {
+          $found = true;
+          break;
+        }
       }
-    }
 
-    // Add it if not found
-    if (!$found) {
-      $node->field_counties_served[] = ['target_id' => $termID];
+      // Add it if not found
+      if (!$found) {
+        $node->field_counties_served[] = ['target_id' => $termID];
+      }
     }
   }
 }
