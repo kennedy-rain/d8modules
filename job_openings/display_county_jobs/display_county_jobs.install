@@ -1,4 +1,5 @@
 <?php
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 /**
 * Implements hook_install().
 */
@@ -9,6 +10,22 @@ function display_county_jobs_install() {
   $config = \Drupal::service('config.factory')->getEditable('display_county_jobs.settings');
   $config->set('feed_url', 'https://www.extension.iastate.edu/jobs/feeds/county_jobs/' . $county_name);
   $config->save();
+
+    $county_full = \Drupal::config("system.site")->get('name');
+    $tree = \Drupal::menuTree()->load('main', new \Drupal\Core\Menu\MenuTreeParameters());
+    foreach ($tree as $item) {
+      if ('About Us' === $item->link->getTitle() && $item->hasChildren) {
+        $addMenuItem = true;
+        foreach ($item->subtree as $subitem) {
+          if ($county_full . ' Jobs' === $subitem->link->getTitle()) {
+            $addMenuItem = false;
+          }
+        }
+        if($addMenuItem && ($menu_link = MenuLinkContent::create(["title" => $county_full . " Jobs", "link" => ["uri" => "internal:/jobs"], "menu_name" => "main", "parent" => $item->link->getPluginId(), "weight" => "-40",]))) {
+         $menu_link->save();
+        }
+      }
+    }
 }
 
 /**

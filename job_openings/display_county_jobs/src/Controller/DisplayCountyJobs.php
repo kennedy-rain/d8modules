@@ -26,16 +26,17 @@ class DisplayCountyJobs extends ControllerBase
     $config = Drupal::config('display_county_jobs.settings');
     $feed_url = str_replace(' ', '+', $config->get('feed_url'));
     $openings = json_decode(file_get_contents($feed_url), true);
+    $site_name = \Drupal::config("system.site")->get('name');
 
-      $results = '</ul>' . PHP_EOL;
-      $results .= '<ul class="job-links">' . PHP_EOL;
-      $results .= '<li><a href="/jobs">County Job Openings</a></li>' . PHP_EOL;
-      $results .= '<li><a href="https://www.jobs.iastate.edu">ISU Job Openings</a></li>' . PHP_EOL;
-      $results .= '<li><a href="https://www.extension.iastate.edu/diversity/">Diversity and Civil Rights</a></li>' . PHP_EOL;
-      $results .= '</ul>' . PHP_EOL;
+    $results = '</ul>' . PHP_EOL;
+    $results .= '<ul class="job-links">' . PHP_EOL;
+    $results .= '<li><a href="/jobs">County Job Openings</a></li>' . PHP_EOL;
+    $results .= '<li><a href="https://www.jobs.iastate.edu">ISU Job Openings</a></li>' . PHP_EOL;
+    $results .= '<li><a href="https://www.extension.iastate.edu/diversity/">Diversity and Civil Rights</a></li>' . PHP_EOL;
+    $results .= '</ul>' . PHP_EOL;
 
     if (empty($openings)) {
-      $results .= '<p>No job openings at this time</p>' . PHP_EOL;
+      $results .= sprintf('<p>No job openings for %s at this time</p>', $site_name) . PHP_EOL;
     } else {
       $results .= PHP_EOL . '<ul class="county-job-openings">' . PHP_EOL;
       foreach ($openings as $opening) {
