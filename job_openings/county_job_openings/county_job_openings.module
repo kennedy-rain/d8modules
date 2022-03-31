@@ -17,6 +17,15 @@ function county_job_openings_form_node_form_alter(&$form, &$form_state, $form_id
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function county_job_openings_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'create_county_job_opening_form') {
+    $form['#attached']['library'][] = 'county_job_openings/county_job_opening_edit';
+  }
+}
+
+/**
  * Implements hook_entity_presave().
  */
 
