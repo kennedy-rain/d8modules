@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.county_job_opening.field_qualifications
     - field.field.node.county_job_opening.field_requirements
     - field.field.node.county_job_opening.field_responsibilities
+    - field.field.node.county_job_opening.field_town_city
     - field.field.node.county_job_opening.field_wages
     - field.field.node.county_job_opening.field_wages_status
     - field.field.node.county_job_opening.field_wages_type
@@ -58,7 +59,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 14
+    weight: 15
     region: content
   field_benefits:
     type: text_default
@@ -79,7 +80,7 @@ content:
         class: ''
       ds:
         ds_limit: ''
-    weight: 15
+    weight: 16
     region: content
   field_hours:
     type: string
@@ -139,6 +140,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_town_city:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_wages:
     type: string
