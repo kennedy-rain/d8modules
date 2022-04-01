@@ -29,6 +29,16 @@ targetEntityType: node
 bundle: county_job_opening
 mode: default
 content:
+  body:
+    type: text_textarea_with_summary
+    weight: 16
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 2
@@ -37,7 +47,7 @@ content:
     third_party_settings: {  }
   field_application_deadline_date:
     type: datetime_datelist
-    weight: 26
+    weight: 24
     region: content
     settings:
       increment: 15
@@ -52,7 +62,7 @@ content:
     third_party_settings: {  }
   field_benefits:
     type: text_textarea
-    weight: 21
+    weight: 23
     region: content
     settings:
       rows: 5
@@ -66,7 +76,7 @@ content:
     third_party_settings: {  }
   field_hours:
     type: string_textfield
-    weight: 17
+    weight: 18
     region: content
     settings:
       size: 60
@@ -74,7 +84,7 @@ content:
     third_party_settings: {  }
   field_job_type:
     type: options_select
-    weight: 16
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -88,7 +98,7 @@ content:
     third_party_settings: {  }
   field_open_until_filled:
     type: boolean_checkbox
-    weight: 27
+    weight: 25
     region: content
     settings:
       display_label: true
@@ -119,7 +129,7 @@ content:
     third_party_settings: {  }
   field_wages:
     type: string_textfield
-    weight: 20
+    weight: 21
     region: content
     settings:
       size: 60
@@ -127,13 +137,13 @@ content:
     third_party_settings: {  }
   field_wages_status:
     type: options_select
-    weight: 19
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
   field_wages_type:
     type: options_select
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -157,7 +167,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -205,5 +215,4 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  body: true
   field_requirements: true
