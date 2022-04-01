@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.county_job_template.field_preferred_qualifications
     - field.field.node.county_job_template.field_qualifications
     - field.field.node.county_job_template.field_responsibilities
+    - field.field.node.county_job_template.field_weight
     - node.type.county_job_template
   module:
     - text
@@ -43,6 +44,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
     region: content
   links:
     settings: {  }

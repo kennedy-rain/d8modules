@@ -7,10 +7,12 @@ dependencies:
     - field.field.node.county_job_template.field_preferred_qualifications
     - field.field.node.county_job_template.field_qualifications
     - field.field.node.county_job_template.field_responsibilities
+    - field.field.node.county_job_template.field_weight
     - node.type.county_job_template
   module:
     - scheduler
     - text
+    - weight
 id: node.county_job_template.default
 targetEntityType: node
 bundle: county_job_template
@@ -53,6 +55,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: weight_selector
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
