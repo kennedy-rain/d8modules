@@ -42,7 +42,8 @@ class DisplayCountyJobs extends ControllerBase
       foreach ($openings as $opening) {
         $results .= '  <li>' . PHP_EOL;
         $results .= '    <a href="' . $opening['view_node'] . '">' . trim($opening['title']) . '</a><br />' . PHP_EOL;
-        $results .= '    <em>Location:</em> ' . $opening['field_base_county'] . ' County Extension Office<br />' . PHP_EOL;
+        $results .= '    ' . $opening['field_town_city'] . ', IA<br />' . PHP_EOL;
+        $results .= '    ' . $opening['field_base_county'] . ' County Extension Office<br />' . PHP_EOL;
         //if ($opening['field_counties_served'] != $opening['field_base_county']) {
           //$results .= '    <em>Counties Served:</em> ' . $opening['field_counties_served'] . '<br >' . PHP_EOL;
         //}
