@@ -3,3 +3,9 @@ county_job_opening_edit:
   css:
     layout:
       css/county_job_opening_edit.css: {}
+
+county_job_opening:
+  version: 1.x
+  css:
+    layout:
+      css/county_job_opening.css: {}

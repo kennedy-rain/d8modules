@@ -2,6 +2,17 @@
 use  Drupal\Core\Entity\EntityInterface;
 use Drupal\taxonomy\Entity\Term;
 
+/**
+* Implements hook_preprocess_HOOK().
+*/
+
+function county_job_openings_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  if ($node->getType() == 'county_job_opening') {
+    $variables['#attached']['library'][] = 'county_job_openings/county_job_opening';
+  }
+}
 
 /**
  * Implements hook_form_alter().
