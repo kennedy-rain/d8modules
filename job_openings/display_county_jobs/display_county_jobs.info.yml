@@ -1,4 +1,4 @@
-name: Job - Display County Openings
+name: Jobs - Display County Openings
 description: Module to create a page to display job openings for a county
 package: ISUEO
 type: module
