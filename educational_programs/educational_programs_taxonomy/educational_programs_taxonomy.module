@@ -16,7 +16,7 @@ function educational_programs_taxonomy_rebuild()
  */
 function educational_programs_taxonomy_cron()
 {
-  educational_programs_taxonomy_handle_feeds();
+  //educational_programs_taxonomy_handle_feeds();
 }
 
 /**

@@ -14,8 +14,7 @@ function staff_profile_secondary_rebuild() {
  * Implements hook_cron().
  */
 function staff_profile_secondary_cron() {
-  staff_profile_secondary_handle_feeds();
-
+  //staff_profile_secondary_handle_feeds();
 }
 
 /**
