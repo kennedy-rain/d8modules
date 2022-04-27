@@ -73,3 +73,10 @@ function county_job_openings_node_presave(EntityInterface $node)
     }
   }
 }
+
+/**
+* Implements hook_preprocess_HOOK().
+*/
+function county_job_openings_preprocess_node_add_list(&$variables) {
+  $variables['#attached']['library'][] = 'county_job_openings/addlink';
+}
