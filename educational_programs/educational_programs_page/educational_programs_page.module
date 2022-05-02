@@ -14,12 +14,14 @@ function educational_programs_page_field_widget_educational_programs_field_defau
   // Gather all active edu_prog_page node ids and add them to an array
   $node_term_ids = array();
   foreach($nodes as $node) {
-	$node_id = reset($node->get('field_educational_program')->getValue())['term_id'];
+		$tmp_value = $node->get('field_educational_program')->getValue();
+		$node_id = reset($tmp_value)['term_id'];
 
-	// Check if current entity has a value assigned already (in the case we are editing a edu_prog_page node)
-	// if value is tied to current node do not add it to array
-	if ($element['term_id']['#default_value'] != $node_id)
-	  array_push($node_term_ids, $node_id);
+		// Check if current entity has a value assigned already (in the case we are editing a edu_prog_page node)
+		// if value is tied to current node do not add it to array
+		if ($element['term_id']['#default_value'] != $node_id) {
+			array_push($node_term_ids, $node_id);
+		}
   }
 
   // Cycle through each parent taxonmy array and remove active node ids
