@@ -57,16 +57,26 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 					$parent_term_name = reset($parent_terms)->getName();
 					$menu_link_manager = \Drupal::service('plugin.manager.menu.link');
 					$menu_link_result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $entity->id()));
+					$main_menu_tree = \Drupal::menuTree()->load('main', \Drupal::menuTree()->getCurrentRouteMenuTreeParameters('main'));
 
-					if (!empty($menu_link_result))
+					if (!empty($menu_link_result)) {
 						reset($menu_link_result)->deleteLink();
+					} else {
+						foreach ($main_menu_tree as $menu_item) {
+							foreach($menu_item->subtree as $child_link) {
+								if ($child_term_name == $child_link->link->getTitle()) {
+									$child_link->link->deleteLink();
+								}
+							}
+						}
+					}
 
 					// Load main menu to check existing menu items
-					$main_menu_tree = \Drupal::menuTree()->load('main', \Drupal::menuTree()->getCurrentRouteMenuTreeParameters('main'));
 					// Populate array with current parent menu items (titles and uuid)
 					$menu_links = array();
-					foreach ($main_menu_tree as $menu_item)
+					foreach ($main_menu_tree as $menu_item) {
 						$menu_links[$menu_item->link->getTitle()] = 'menu_link_content:' . $menu_item->link->getDerivativeId();
+					}
 
 					// Get parent menu name from term name
 					// this variable will become the name for the menu dropdown
