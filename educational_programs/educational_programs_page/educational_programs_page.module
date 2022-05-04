@@ -59,9 +59,11 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 					$menu_link_result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $entity->id()));
 					$main_menu_tree = \Drupal::menuTree()->load('main', \Drupal::menuTree()->getCurrentRouteMenuTreeParameters('main'));
 
+					// Try to delete the existing link
 					if (!empty($menu_link_result)) {
 						reset($menu_link_result)->deleteLink();
 					} else {
+						// Don't know why, but sometimes $menu_link_result doesn't contain our link so search for it here to delete the existing link
 						foreach ($main_menu_tree as $menu_item) {
 							foreach($menu_item->subtree as $child_link) {
 								if ($child_term_name == $child_link->link->getTitle()) {

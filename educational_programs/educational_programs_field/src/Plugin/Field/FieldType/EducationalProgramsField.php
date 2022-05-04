@@ -38,7 +38,8 @@ class EducationalProgramsField extends FieldItemBase {
       ),
       'auto_redirect' => array(
         'description' => 'Whether to redirect automatically to program page',
-        'type' => 'boolean',
+        'type' => 'int',
+        'size' => 'tiny',
         'not null' => true,
       ),
     );
