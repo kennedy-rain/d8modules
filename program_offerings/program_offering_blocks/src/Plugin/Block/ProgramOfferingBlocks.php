@@ -252,6 +252,7 @@ class ProgramOfferingBlocks extends BlockBase
         'Community and Economic Development' => $this->t('Community and Economic Development'),
         'County Services' => $this->t('County Services'),
         'Human Sciences' => $this->t('Human Sciences'),
+        'Professional Development' => $this->t('Professional Development'),
       ],
       '#title' => t('Program Area'),
       '#description' => t('If something is selected, then only show events for that program area'),
