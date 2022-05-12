@@ -95,6 +95,11 @@ class ProgramOfferingBlocks extends BlockBase
         $display_event = FALSE;
       }
 
+      // Skip nonpublic events unless "show_nonpublic_events" checkbox is selected in block config
+      if ($event['Public_Event__c'] == '0' && !$config['show_nonpublic_events']) {
+        $display_event = FALSE;
+      }
+
       if (!empty($string_of_search_terms)) {
         if (!$this->search_term_in_title(strtolower($event['Name_Placeholder__c']), $search_terms_array)) {
           $display_event = FALSE;
@@ -236,6 +241,13 @@ class ProgramOfferingBlocks extends BlockBase
       '#default_value' => $config['announcement_text'],
     );
 
+    $form['show_nonpublic_events'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Include Non-public Events'),
+      '#description' => t('When checked, it will show all matching events, including events marked as not for the public'),
+      '#default_value' => $config['show_nonpublic_events'],
+    );
+
     $form['only_planned_programs'] = array(
       '#type' => 'checkbox',
       '#title' => t('Show Only Planned Programs'),
@@ -307,6 +319,7 @@ class ProgramOfferingBlocks extends BlockBase
     $this->configuration['show_more_page'] = $values['show_more_page'];
     $this->configuration['show_more_text'] = $values['show_more_text'];
     $this->configuration['announcement_text'] = $values['announcement_text'];
+    $this->configuration['show_nonpublic_events'] = $values['show_nonpublic_events'];
     $this->configuration['only_planned_programs'] = $values['only_planned_programs'];
     $this->configuration['program_area'] = $values['program_area'];
     $this->configuration['county'] = array_key_exists('county', $values) ? $values['county'] : '';
@@ -327,6 +340,7 @@ class ProgramOfferingBlocks extends BlockBase
       'show_more_page' => '',
       'show_more_text' => 'More',
       'announcement_text' => '',
+      'show_nonpublic_events' => FALSE,
       'only_planned_programs' => FALSE,
       'program_area' => '',
       'county' => '',
