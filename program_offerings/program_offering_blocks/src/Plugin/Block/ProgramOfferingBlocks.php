@@ -138,20 +138,6 @@ class ProgramOfferingBlocks extends BlockBase
           $startDate = date($config['format_with_time'], strtotime($event['Next_Start_Date__c']));
           $results .= '    <div class="event_startdate">' . $startDate . '</div>' . PHP_EOL;
 
-          //$results .= '    ' . $title . PHP_EOL;
-          //$results .= '    <div class="event_venue">' . $event['ANCHORVENUE'] . '</div>' . PHP_EOL;
-
-          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
-          //$results .= $event['Event_Location__c'] . '<br/>' . PHP_EOL;
-          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
-          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
-          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
-          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
-          //$results .= 'Registraion Link: ' . $event['Registration_Link__c'] . '<br/>' . PHP_EOL;
-          //$results .= 'Planned Program Website: ' . $event['Planned_Program_Website__c'] . '<br/>' . PHP_EOL;
-          //$results .= 'Program Offering Website: ' . $event['Program_Offering_Website__c'] . '<br/>' . PHP_EOL;
-          //$results .= $event['Id'] . '<br/>' . PHP_EOL;
-          //          $results .= PHP_EOL . $event['Ungerboeck_Event_ID__c'] . PHP_EOL;
           $results .= '  </li>' . PHP_EOL;
         }
         $count++;
@@ -274,8 +260,6 @@ class ProgramOfferingBlocks extends BlockBase
       ],
       '#title' => t('Program Area'),
       '#description' => t('If something is selected, then only show events for that program area'),
-      //'#size' => 75,
-      //'#maxlength' => 300,
       '#default_value' => $config['program_area'],
     );
 
@@ -292,8 +276,6 @@ class ProgramOfferingBlocks extends BlockBase
         '#options' => $counties,
         '#title' => t('Limit By county'),
         '#description' => t('If something is selected, then only show events for that county'),
-        //'#size' => 75,
-        //'#maxlength' => 300,
         '#default_value' => $config['county'],
       );
     }
