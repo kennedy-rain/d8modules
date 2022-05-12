@@ -108,10 +108,16 @@ class ProgramOfferingBlocks extends BlockBase
 
       if (!empty($config['county'])) {
         $search_county = strtolower($config['county']) . ' county';
-        if ($search_county == 'pottawattamie - west county') { $search_county = 'west pottawattamie county'; }
-        if ($search_county == 'pottawattamie - east county') { $search_county = 'east pottawattamie county'; }
-        if (!(strpos(strtolower($event['Account__c.Name']), $search_county) !== FALSE)
-            && !(strpos(strtolower($event['Additional_Counties__c']), $search_county) !== FALSE)) {
+        if ($search_county == 'pottawattamie - west county') {
+          $search_county = 'west pottawattamie county';
+        }
+        if ($search_county == 'pottawattamie - east county') {
+          $search_county = 'east pottawattamie county';
+        }
+        if (
+          !(strpos(strtolower($event['Account__c.Name']), $search_county) !== FALSE)
+          && !(strpos(strtolower($event['Additional_Counties__c']), $search_county) !== FALSE)
+        ) {
           $display_event = FALSE;
         }
       }
@@ -121,8 +127,8 @@ class ProgramOfferingBlocks extends BlockBase
           $start_date = strtotime($event['Next_Start_Date__c']);
           $results .= '  <li class="event">' . PHP_EOL;
           $results .= '    <div class="event_date"><span class="event_day">' . date('d', $start_date) . '</span>
-<span class="event_month">' . date('M', $start_date) . '</span>
-<span class="event_time">'. date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span></div>';
+            <span class="event_month">' . date('M', $start_date) . '</span>
+            <span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span></div>';
 
           $results .= $this->format_title($event, $config) . PHP_EOL;
           $results .= '    <div class="event_venue">';
@@ -145,7 +151,7 @@ class ProgramOfferingBlocks extends BlockBase
           //$results .= 'Planned Program Website: ' . $event['Planned_Program_Website__c'] . '<br/>' . PHP_EOL;
           //$results .= 'Program Offering Website: ' . $event['Program_Offering_Website__c'] . '<br/>' . PHP_EOL;
           //$results .= $event['Id'] . '<br/>' . PHP_EOL;
-//          $results .= PHP_EOL . $event['Ungerboeck_Event_ID__c'] . PHP_EOL;
+          //          $results .= PHP_EOL . $event['Ungerboeck_Event_ID__c'] . PHP_EOL;
           $results .= '  </li>' . PHP_EOL;
         }
         $count++;
@@ -281,15 +287,15 @@ class ProgramOfferingBlocks extends BlockBase
         $counties[$taxonomy_term->label()] = $taxonomy_term->label();
       }
 
-    $form['county'] = array(
-      '#type' => 'select',
-      '#options' => $counties,
-      '#title' => t('Limit By county'),
-      '#description' => t('If something is selected, then only show events for that county'),
-      //'#size' => 75,
-      //'#maxlength' => 300,
-      '#default_value' => $config['county'],
-    );
+      $form['county'] = array(
+        '#type' => 'select',
+        '#options' => $counties,
+        '#title' => t('Limit By county'),
+        '#description' => t('If something is selected, then only show events for that county'),
+        //'#size' => 75,
+        //'#maxlength' => 300,
+        '#default_value' => $config['county'],
+      );
     }
 
     $form['placement'] = array(
@@ -385,12 +391,12 @@ class ProgramOfferingBlocks extends BlockBase
     }
 
     if ($config['event_details_page']) {
-      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . str_replace('/', '-', $event['Name_Placeholder__c']) .'">' . $title_text . '</a>';
+      $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . str_replace('/', '-', $event['Name_Placeholder__c']) . '">' . $title_text . '</a>';
     } else {
       $now = strtotime('today midnight');
       $regstartdate = !empty($event['Registration_Opens__c']) ? strtotime($event['Registration_Opens__c']) : $now;
       $regenddate = !empty($event['Registration_Deadline__c']) ? strtotime($event['Registration_Deadline__c']) : $now;
-      $regenddate = date_add(new DateTime('@'.$regenddate), new DateInterval('P1D'))->getTimestamp();
+      $regenddate = date_add(new DateTime('@' . $regenddate), new DateInterval('P1D'))->getTimestamp();
 
       if (!empty($event['Registration_Link__c']) && ($now >= $regstartdate && $now <= $regenddate)) {
         $title .= '<a href="' . $event['Registration_Link__c'] . '">' . $title_text . '</a>';
