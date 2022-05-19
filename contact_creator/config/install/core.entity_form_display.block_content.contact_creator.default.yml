@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - block_content.type.contact_creator
+    - field.field.block_content.contact_creator.field_contact_creator_title
     - field.field.block_content.contact_creator.field_contact_creator_address
     - field.field.block_content.contact_creator.field_contact_creator_email
     - field.field.block_content.contact_creator.field_contact_creator_phone
@@ -12,6 +13,14 @@ targetEntityType: block_content
 bundle: contact_creator
 mode: default
 content:
+field_contact_creator_title:
+    weight: 25
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_contact_creator_address:
     weight: 26
     settings:
