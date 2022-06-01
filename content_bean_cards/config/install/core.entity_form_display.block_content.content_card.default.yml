@@ -54,7 +54,7 @@ content:
         hide_guidelines: '0'
     type: text_textfield
     region: content
-  info:
+    ,
     type: string_textfield
     weight: 0
     region: content
