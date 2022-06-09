@@ -8,7 +8,7 @@ use \Drupal\user\Entity\User;
 * Implements hook_cron().
 */
 function sync_web_authors_cron() {
-  //sync_web_authors_users();
+  sync_web_authors_users();
 }
 
 /**
