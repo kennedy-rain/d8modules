@@ -1,0 +1,15 @@
+/* Red bar social media menu */
+.isu-social-menu-footer {
+	margin-left: 13%;
+}
+
+.isu-social-menu-red {
+	color: #fff;
+	background: transparent;
+	padding-left: 18%;
+	text-align: left;
+}
+
+.isu-col-header-first {
+	text-align: -webkit-match-parent;
+}
