@@ -19,8 +19,8 @@ use Drupal\Core\TypedData\DataDefinition;
  *   description = @Translation("Stores a list of staff contact for the node."),
  *   category = @Translation("ISUEO"),
  *   default_widget = "staff_contact_field_default",
- *   default_formatter = "staff_contact_field_default",
  * )
+ *   default_formatter = "staff_contact_field_default",
  */
 
 class StaffContactField extends FieldItemBase {
