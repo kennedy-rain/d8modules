@@ -67,26 +67,10 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    type: link_default
-    region: content
-   info: 
-    type: string_textfield
-=======
   info:
     type: label_text
->>>>>>> contentAndImageCards
-=======
-  info:
-    type: label_text
->>>>>>> socialRed
     weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
-<<<<<<< HEAD
 hidden: {  }
-=======
-hidden: {  }
->>>>>>> socialRed
