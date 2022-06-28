@@ -8,6 +8,8 @@
 	background: transparent;
 	padding-left: 18%;
 	text-align: left;
+	list-style-type: none;
+	display: inline-block;
 }
 
 .isu-col-header-first {
