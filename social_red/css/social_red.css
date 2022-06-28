@@ -8,8 +8,17 @@
 	background: transparent;
 	padding-left: 18%;
 	text-align: left;
+<<<<<<< HEAD
+=======
+	list-style-type: none;
+	display: inline-block;
+>>>>>>> socialRed
 }
 
 .isu-col-header-first {
 	text-align: -webkit-match-parent;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> socialRed
