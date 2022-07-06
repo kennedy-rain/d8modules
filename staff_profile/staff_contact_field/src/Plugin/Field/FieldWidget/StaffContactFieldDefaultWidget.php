@@ -36,7 +36,7 @@ class StaffContactFieldDefaultWidget extends WidgetBase
     // Get the Staff Profiles from this site
     $nids = \Drupal::entityQuery('node')->condition('type','staff_profile')->condition('status', 1)->sort('field_staff_profile_last_name')->sort('field_staff_profile_first_name')->execute();
     $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
-    $default_header = isset($items[$delta]->contact_header) ? $items[$delta]->contact_header : 'Staff Contact';
+    $default_header = isset($items[$delta]->contact_header) ? $items[$delta]->contact_header : 'Staff Contacts';
 
     $saved_contacts = unserialize($items[$delta]->contacts);
     if (is_bool($saved_contacts)) { $saved_contacts = [];}

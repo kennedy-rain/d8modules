@@ -48,6 +48,7 @@ class StaffContactBlock extends BlockBase
             $results .= '<div class="contact_group">' . PHP_EOL;
             $contacts = unserialize($conact_list['contacts']);
             arsort($contacts);
+            $results .= '<div class="staff_contact_header">' . $conact_list['contact_header'] . '</div>' . PHP_EOL;
             $results .= '<ul class="staff_contact_list">' . PHP_EOL;
 
             foreach ($contacts as $key => $value) {
