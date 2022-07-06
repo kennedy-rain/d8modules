@@ -36,8 +36,10 @@ class StaffContactFieldDefaultWidget extends WidgetBase
     // Get the Staff Profiles from this site
     $nids = \Drupal::entityQuery('node')->condition('type','staff_profile')->condition('status', 1)->sort('field_staff_profile_last_name')->sort('field_staff_profile_first_name')->execute();
     $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
+    $default_header = isset($items[$delta]->contact_header) ? $items[$delta]->contact_header : 'Staff Contact';
 
     $saved_contacts = unserialize($items[$delta]->contacts);
+    if (is_bool($saved_contacts)) { $saved_contacts = [];}
     $stafflist = [];
 
     foreach ($nodes as $node) {
@@ -52,13 +54,31 @@ class StaffContactFieldDefaultWidget extends WidgetBase
 
     $element['embed_container'] = array(
       '#type' => 'details',
-      '#title' => $this->t('Staff Contact'),
+      '#title' => $this->t($default_header),
       '#attributes' => array(
         'class' => 'staff_contact_widget',
       ),
       '#open' => FALSE,
       '#description' => 'Select positive numbers to show staff member as a contact for this page, 0 or less means staff member is not a primary contact for the page',
     );
+
+    $element['embed_container']['contact_header'] = array(
+      '#title' => $this->t('Section Header'),
+      '#type' => 'textfield',
+      '#maxlength' => 255,
+      '#default_value' => $default_header,
+    );
+
+    /*
+    $element['embed_container']['contact_display'] = array(
+      '#title' => $this->t('Display Type'),
+      '#type' => 'radios',
+      '#options' => ['short' => 'Name only', 'medium' => 'Name and contact', 'long' => 'Long, includes image'],
+      '#default_value' => 'change me',
+    );
+    */
+
+
 
     foreach ($stafflist as $key => $staffmember) {
       $element['embed_container']['contact_' . $key] = array(
@@ -93,6 +113,11 @@ class StaffContactFieldDefaultWidget extends WidgetBase
 
       //$values[$i]['contacts'] = serialize([234=>5]);
       $values[$i]['contacts'] = serialize($tmparray);
+
+      // Handle the contact_header (textfield), basically move the value up one level, without the extra container array
+      if (isset($values[$i]['embed_container']['contact_header'])) {
+        $values[$i]['contact_header'] = $values[$i]['embed_container']['contact_header'];
+      }
     }
     return $values;
   }

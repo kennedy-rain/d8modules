@@ -30,6 +30,12 @@ class StaffContactField extends FieldItemBase {
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     $columns = array(
+      'contact_header' => array(
+        'description' => 'Header for the contact list',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
       'contacts' => array(
         'description' => 'Stores the staff contacts',
         'type' => 'varchar',
@@ -49,6 +55,8 @@ class StaffContactField extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
+    $properties['contacts_header'] = DataDefinition::create('string')
+      ->setLabel(t('Snippet description'));
     $properties['contacts'] = DataDefinition::create('string')
       ->setLabel(t('Snippet description'));
 
