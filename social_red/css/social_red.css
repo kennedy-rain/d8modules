@@ -1,0 +1,24 @@
+/* Red bar social media menu */
+.isu-social-menu-footer {
+	margin-left: 13%;
+}
+
+.isu-social-menu-red {
+	color: #fff;
+	background: transparent;
+	padding-left: 18%;
+	text-align: left;
+<<<<<<< HEAD
+=======
+	list-style-type: none;
+	display: inline-block;
+>>>>>>> socialRed
+}
+
+.isu-col-header-first {
+	text-align: -webkit-match-parent;
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> socialRed
