@@ -36,6 +36,12 @@ class StaffContactField extends FieldItemBase {
         'length' => '255',
         'not null' => FALSE,
       ),
+      'contact_display' => array(
+        'description' => 'Display style for the contact list',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
       'contacts' => array(
         'description' => 'Stores the staff contacts',
         'type' => 'varchar',
@@ -56,6 +62,8 @@ class StaffContactField extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['contacts_header'] = DataDefinition::create('string')
+      ->setLabel(t('Snippet description'));
+    $properties['contacts_display'] = DataDefinition::create('string')
       ->setLabel(t('Snippet description'));
     $properties['contacts'] = DataDefinition::create('string')
       ->setLabel(t('Snippet description'));

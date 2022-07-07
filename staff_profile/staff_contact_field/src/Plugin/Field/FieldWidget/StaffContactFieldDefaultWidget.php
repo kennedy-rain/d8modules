@@ -37,6 +37,7 @@ class StaffContactFieldDefaultWidget extends WidgetBase
     $nids = \Drupal::entityQuery('node')->condition('type','staff_profile')->condition('status', 1)->sort('field_staff_profile_last_name')->sort('field_staff_profile_first_name')->execute();
     $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
     $default_header = isset($items[$delta]->contact_header) ? $items[$delta]->contact_header : 'Staff Contacts';
+    $default_display = isset($items[$delta]->contact_display) ? $items[$delta]->contact_display : 'medium';
 
     $saved_contacts = unserialize($items[$delta]->contacts);
     if (is_bool($saved_contacts)) { $saved_contacts = [];}
@@ -69,16 +70,13 @@ class StaffContactFieldDefaultWidget extends WidgetBase
       '#default_value' => $default_header,
     );
 
-    /*
     $element['embed_container']['contact_display'] = array(
       '#title' => $this->t('Display Type'),
       '#type' => 'radios',
-      '#options' => ['short' => 'Name only', 'medium' => 'Name and contact', 'long' => 'Long, includes image'],
-      '#default_value' => 'change me',
+      '#options' => ['long' => 'Contact Info with Picture', 'medium' => 'Name and Contact Info', 'short' => 'Name only'],
+      //'#options' => ['short' => 'Name only', 'medium' => 'Name and contact', 'long' => 'Long, includes image'],
+      '#default_value' => $default_display,
     );
-    */
-
-
 
     foreach ($stafflist as $key => $staffmember) {
       $element['embed_container']['contact_' . $key] = array(
@@ -117,6 +115,9 @@ class StaffContactFieldDefaultWidget extends WidgetBase
       // Handle the contact_header (textfield), basically move the value up one level, without the extra container array
       if (isset($values[$i]['embed_container']['contact_header'])) {
         $values[$i]['contact_header'] = $values[$i]['embed_container']['contact_header'];
+      }
+      if (isset($values[$i]['embed_container']['contact_display'])) {
+        $values[$i]['contact_display'] = $values[$i]['embed_container']['contact_display'];
       }
     }
     return $values;

@@ -55,7 +55,52 @@ class StaffContactBlock extends BlockBase
               // Find the right staff member and output...
               foreach ($staff_nodes as $staff_member) {
                 if ($staff_member->id() == $key) {
-                  $results .= '<li><a href="' . $base_url . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $staff_member->id()) . '">' . $staff_member->getTitle() . '</a></li>' . PHP_EOL;
+                  /*
+                  switch ($conact_list['contact_display']) {
+                    case 'short':
+                      $results .= '<li><a href="' . $base_url . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $staff_member->id()) . '">' . $staff_member->getTitle() . '</a></li>' . PHP_EOL;
+                      break;
+                    case 'medium':
+                      $results .= '<li>';
+                      $results .= '<a href="' . $base_url . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $staff_member->id()) . '">' . $staff_member->getTitle() . '</a><br/>' . PHP_EOL;
+                      $results .= $staff_member->get('field_staff_profile_pref_title')->value . '<br/>'. PHP_EOL;
+                      $results .= '<a href="mailto:' . $staff_member->get('field_staff_profile_email')->value . '">' . $staff_member->get('field_staff_profile_email')->value . '</a><br/>' . PHP_EOL;
+                      $results .= $staff_member->get('field_staff_profile_pref_phone')->value . PHP_EOL;
+                      $results .= '</li>';
+                      break;
+                    case 'long':
+                      $smugmug_id = $staff_member->get('field_staff_profile_smugmug')->value;
+                      $results .= '<li>';
+                      $results .= '<img src="https://photos.smugmug.com/photos/' . $smugmug_id . '/0/XL/' . $smugmug_id . '-XL.jpg"/>' . '<br/>' . PHP_EOL;
+                      $results .= '<a href="' . $base_url . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $staff_member->id()) . '">' . $staff_member->getTitle() . '</a><br/>' . PHP_EOL;
+                      $results .= $staff_member->get('field_staff_profile_pref_title')->value . '<br/>'. PHP_EOL;
+                      $results .= '<a href="mailto:' . $staff_member->get('field_staff_profile_email')->value . '">' . $staff_member->get('field_staff_profile_email')->value . '</a><br/>' . PHP_EOL;
+                      $results .= $staff_member->get('field_staff_profile_pref_phone')->value . PHP_EOL;
+                      $results .= '</li>';
+                      break;
+                  }
+                  */
+
+                      $smugmug_id = $staff_member->get('field_staff_profile_smugmug')->value;
+                      $results .= '<li>';
+                      if ($conact_list['contact_display'] == 'long') {
+                        $results .= '<div class="contact_photo">';
+                        if (!empty($smugmug_id)) {
+                          $results .= '<img src="https://photos.smugmug.com/photos/' . $smugmug_id . '/0/XL/' . $smugmug_id . '-XL.jpg" alt=" ' . $staff_member->getTitle() . '"/>';
+                        }
+                        $results .= '</div>' . PHP_EOL;
+                      }
+                      $results .= '<div class="contact_name">' . '<a href="' . $base_url . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $staff_member->id()) . '">' . $staff_member->getTitle() . '</a></div>' . PHP_EOL;
+                      if ($conact_list['contact_display'] != 'short') {
+                        if (!empty($staff_member->get('field_staff_profile_pref_title')->value)) {
+                          $results .= '<div>' . $staff_member->get('field_staff_profile_pref_title')->value . '</div>'. PHP_EOL;
+                        }
+                        $results .= '<div>' . '<a href="mailto:' . $staff_member->get('field_staff_profile_email')->value . '">' . $staff_member->get('field_staff_profile_email')->value . '</a></div>' . PHP_EOL;
+                        $results .= '<div>' . $staff_member->get('field_staff_profile_pref_phone')->value . '</div>' . PHP_EOL;
+                        $results .= '<hr/>' . PHP_EOL;
+                      }
+                      $results .= '</li>';
+
                 }
               }
             }
