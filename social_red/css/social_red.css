@@ -8,17 +8,18 @@
 	background: transparent;
 	padding-left: 18%;
 	text-align: left;
-<<<<<<< HEAD
-=======
 	list-style-type: none;
 	display: inline-block;
->>>>>>> socialRed
+	margin-left: 88%;
 }
 
 .isu-col-header-first {
 	text-align: -webkit-match-parent;
-<<<<<<< HEAD
 }
-=======
+
+
+@media screen and (max-width : 991px) {
+.isu-social-menu-red {
+	margin-left: 75%;
+	}
 }
->>>>>>> socialRed
