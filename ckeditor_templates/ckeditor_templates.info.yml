@@ -1,7 +1,7 @@
-name: CKEditor Templates plugin
+name: CKEditor Templates
 type: module
 description: Adds Content Templates CKEditor plugin to Drupal.
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: CKEditor
 version: VERSION
 dependencies:

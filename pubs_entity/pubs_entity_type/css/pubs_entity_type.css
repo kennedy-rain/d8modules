@@ -1,12 +1,8 @@
 .views-field-field-publication-date {
-background-color: #eeeeee;
-padding: 10px;
-font-size: 12px;
-border-left: 6px solid #f1be48;
-}
-
-.views-field-field-image-url {
-	padding-bottom: 10px;
+	font-size: 14px;
+	border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
+	padding: 0.75rem 1.25rem;
+	background-color: rgba(0,0,0,.03);
 }
 
 /* Fix for just homepage */
@@ -29,15 +25,22 @@ border-left: 6px solid #f1be48;
 a.publication-title {
 	display: block;
 	min-height: 70px;
+	color: #ffffff;
+	border-bottom: 2px solid #f1be48
+	text-align: center;
+}
+
+a.publication-title:hover {
+	color: #f1be48;
+	text-decoration: none;
 }
 
 nav.slick__arrow {
-	position: absolute;
-	top: 34%;
-	width: 100%;
+	position: sticky;
+	transform: translateY(-472%);
 }
 
-button.slick-next.slick__arrow {
+button.slick-next.slick-arrow {
 	float: right;
 }
 
@@ -50,15 +53,17 @@ button.slick-next.slick__arrow {
 button.slick-next, button.slick-prev {
 	background: transparent;
 	border: 0;
-	color: #d3d3d3;
+	color: #003D4C;
 }
 
 .slick .slick-prev::before {
 	content: '\f053';
 	font-family: 'FontAwesome';
+	font-size: 22px;
 }
 
 .slick .slick-next::before {
 	content: '\f054';
 	font-family: 'FontAwesome';
+	font-size: 22px;
 }

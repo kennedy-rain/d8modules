@@ -1,5 +1,0 @@
-css.override:
-  version: VERSION
-  css:
-    theme:
-      css/layout-builder-overrides.css: {}

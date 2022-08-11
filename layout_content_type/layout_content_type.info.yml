@@ -2,7 +2,7 @@ name: Layout Content Type
 description: Creates a restricted layout builder content type.
 package: Custom
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:node
   - drupal:path
@@ -11,6 +11,6 @@ dependencies:
   - drupal:layout_builder
   - drupal:layout_builder_base
   - drupal:layout_builder_base_library
-# - layout_builder_restrictions
+  - layout_builder_restrictions
 # - layout_builder_perms
 

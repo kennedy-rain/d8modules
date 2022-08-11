@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.social_media_red_bar
+    - field.field.block_content.social_media_red_bar.field_social_media_links
+  module:
+    - link
+id: block_content.social_media_red_bar.default
+targetEntityType: block_content
+bundle: social_media_red_bar
+mode: default
+content:
+  field_social_media_links:
+    type: link_default
+    weight: 32
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

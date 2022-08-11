@@ -2,23 +2,22 @@
 /* Upcoming Events */
 
 ul.program_offering_blocks {
-        list-style-type: none;
-        padding-left: 0rem;
-	padding-bottom: 25px;
+ list-style-type: none;
+ padding-left: 0rem;
+padding-bottom: 25px;
 }
 
 div.event_startdate {
-        display: none;
+ display: none;
 }
 
 li.event {
-        padding:0 0 15px 0;
-        clear: both;
+ padding:0 0 15px 0;
+ clear: both;
 }
 
 div.event_title a {
-        text-decoration: none;
-        font-weight: 600;
+ font-weight: 600;
 }
 div.event_title a:hover {
         text-decoration: underline;
@@ -59,5 +58,7 @@ span.event_month {
 margin-bottom:-9px;
 }
 
-div.program_offering_blocks {padding:10px !important; }
+div.program_offering_blocks {padding:10px 10px 20px 10px !important; }
 div.program_offering_blocks h2 {font-weight: 500; padding-left: 20px; }
+div.program_offering_blocks a {text-decoration:none;}
+div.program_offering_blocks ul {padding:0;}
