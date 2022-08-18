@@ -24,11 +24,12 @@
 
 a.publication-title {
 	display: block;
-	min-height: 70px;
+	min-height: 58px;
 	color: #ffffff;
 	border-bottom: 2px solid #f1be48;
 	text-align: center;
 	text-decoration: none;
+	margin-bottom: 10%;
 }
 
 a.publication-title:hover {
