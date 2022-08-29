@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\pubs_entity_type\Entity\PubsEntity;
 /**
 * Implements hook_install().
 */
@@ -11,4 +12,18 @@ function pubs_entity_type_install() {
     'delete pubs_entity entity',
     'view pubs_entity entity',
   ));
+}
+
+/**
+* Update image URLs
+*/
+function pubs_entity_type_update_9001() {
+  $entityIds = \Drupal::entityQuery('pubs_entity')->execute();
+  $entities = \Drupal::entityTypeManager()->getStorage('pubs_entity')->loadMultiple($entityIds);
+
+  foreach ($entities as $entity) {
+    $entity->field_image_url->value = str_replace('_O', '_F', $entity->field_image_url->value);
+    $entity->save();
+  }
+  return ('Count: ' . count($entities));
 }
