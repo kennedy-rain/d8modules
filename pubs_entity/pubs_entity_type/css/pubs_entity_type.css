@@ -53,6 +53,11 @@ nav.slick__arrow {
 
 button.slick-next.slick-arrow {
 	float: right;
+	margin-right: -3%;
+}
+
+button.slick-prev.slick-arrow {
+	margin-left: -3%;
 }
 
 .slick__arrow {
