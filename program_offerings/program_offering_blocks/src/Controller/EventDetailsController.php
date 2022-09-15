@@ -190,7 +190,7 @@ class EventDetailsController extends ControllerBase
 
     // Add more information link(s)
     if (!empty($event['Program_Offering_Website__c']) && $event['Registration_Link__c'] <> $event['Program_Offering_Website__c']) {
-      $returnStr .= '    <div class="event_details_more_information"><a href="' . $event['Program_Offering_Website__c'] . '">More information this event</a></div>' . PHP_EOL;
+      $returnStr .= '    <div class="event_details_more_information"><a href="' . $event['Program_Offering_Website__c'] . '">More information about this event</a></div>' . PHP_EOL;
     }
     if (!empty($event['Planned_Program_Website__c']) && $event['Registration_Link__c'] <> $event['Planned_Program_Website__c'] && $event['Program_Offering_Website__c'] <> $event['Planned_Program_Website__c']) {
       $returnStr .= '    <div class="event_details_more_information"><a href="' . $event['Planned_Program_Website__c'] . '">More information about this program</a></div>' . PHP_EOL;
