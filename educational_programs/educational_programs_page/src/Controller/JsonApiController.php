@@ -38,6 +38,7 @@ class JsonApiController {
         'nodeURL' => substr(\Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id()), 1),
         //'title' => $node->getTitle(),
         'termID' => $myNode['field_educational_program'][0]['term_id'],
+        'termRedirected' => $myNode['field_educational_program'][0]['auto_redirect'],
         'termName' => $taxonomyTerm->label(),
         'termDescription' => $taxonomyTerm->getDescription(),
         //'title' => $node->get('field_educational_program_field'),
