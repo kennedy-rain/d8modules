@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_thumbnail
+    - block_content.type.flip_cards
+    - field.storage.block_content.field_flip_card_image
     - media.type.image
-    - node.type.news_article
-id: node.news_article.field_thumbnail
-field_name: field_thumbnail
-entity_type: node
-bundle: news_article
-label: Thumbnail
-description: '<a href="https://stock.adobe.com/">Adobe Stock</a> is available for all staff and provides an unlimited photo license. Make sure to login with your net-id and password.'
+id: block_content.flip_cards.field_flip_card_image
+field_name: field_flip_card_image
+entity_type: block_content
+bundle: flip_cards
+label: 'Flip Card Image'
+description: ''
 required: true
 translatable: false
 default_value: {  }
