@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Plugin\Field\FieldWidget;
+namespace Drupal\smugmug_media_type\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -10,10 +10,10 @@ use Drupal\Core\Form\FormStateInterface;
  * A widget to input video URLs.
  *
  * @FieldWidget(
- *   id = "smugmug_embed_field_textfield",
+ *   id = "smugmug_media_type_textfield",
  *   label = @Translation("Smugmug Textfield"),
  *   field_types = {
- *     "smugmug_embed_field"
+ *     "smugmug_media_type"
  *   },
  * )
  */

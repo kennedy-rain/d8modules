@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Plugin\smugmug_embed_field\Provider;
+namespace Drupal\smugmug_media_type\Plugin\smugmug_media_type\Provider;
 
-use Drupal\smugmug_embed_field\ProviderPluginBase;
+use Drupal\smugmug_media_type\ProviderPluginBase;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\image\Plugin\ImageEffect\ScaleImageEffect;
 use Drupal\image\Plugin\ImageEffect\CropImageEffect;
@@ -153,7 +153,7 @@ class SmugmugAPI extends ProviderPluginBase {
    *   An array of data from the oembed endpoint.
    */
   protected function oEmbedData() {
-    $config = \Drupal::config('smugmug_embed_field.settings');
+    $config = \Drupal::config('smugmug_media_type.settings');
     $smugmug_api_key = $config->get('smugmug_api_key');
     if ($smugmug_api_key != '') {
       $data = file_get_contents('https://api.smugmug.com/api/v2/image/' . $this->getIdFromInput($this->getInput()) . '?APIKey=' . $smugmug_api_key . '&_accept=application/json');

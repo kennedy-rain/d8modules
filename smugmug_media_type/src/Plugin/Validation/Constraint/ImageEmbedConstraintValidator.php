@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Plugin\Validation\Constraint;
+namespace Drupal\smugmug_media_type\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\smugmug_embed_field\ProviderManagerInterface;
+use Drupal\smugmug_media_type\ProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -16,14 +16,14 @@ class ImageEmbedConstraintValidator extends ConstraintValidator implements Conta
   /**
    * Smugmug embed provider manager service.
    *
-   * @var \Drupal\smugmug_embed_field\ProviderManagerInterface
+   * @var \Drupal\smugmug_media_type\ProviderManagerInterface
    */
   protected $providerManager;
 
   /**
    * Create an instance of the validator.
    *
-   * @param \Drupal\smugmug_embed_field\ProviderManagerInterface $provider_manager
+   * @param \Drupal\smugmug_media_type\ProviderManagerInterface $provider_manager
    *   The provider manager service.
    */
   public function __construct(ProviderManagerInterface $provider_manager) {
@@ -35,7 +35,7 @@ class ImageEmbedConstraintValidator extends ConstraintValidator implements Conta
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('smugmug_embed_field.provider_manager')
+      $container->get('smugmug_media_type.provider_manager')
     );
   }
 

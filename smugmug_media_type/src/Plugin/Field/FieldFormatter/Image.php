@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Plugin\Field\FieldFormatter;
+namespace Drupal\smugmug_media_type\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Component\Utility\Html;
@@ -11,7 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\field\Entity\FieldConfig;
-use Drupal\smugmug_embed_field\ProviderManagerInterface;
+use Drupal\smugmug_media_type\ProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Url;
@@ -21,10 +21,10 @@ use Drupal\Core\Url;
  * Plugin implementation of the image field formatter.
  *
  * @FieldFormatter(
- *   id = "smugmug_embed_field_image",
+ *   id = "smugmug_media_type_image",
  *   label = @Translation("Image"),
  *   field_types = {
- *     "smugmug_embed_field"
+ *     "smugmug_media_type"
  *   }
  * )
  */
@@ -33,7 +33,7 @@ class Image extends FormatterBase implements ContainerFactoryPluginInterface {
   /**
    * The embed provider plugin manager.
    *
-   * @var \Drupal\smugmug_embed_field\ProviderManagerInterface
+   * @var \Drupal\smugmug_media_type\ProviderManagerInterface
    */
   protected $providerManager;
 
@@ -78,7 +78,7 @@ class Image extends FormatterBase implements ContainerFactoryPluginInterface {
    *   The view mode.
    * @param array $third_party_settings
    *   Third party settings.
-   * @param \Drupal\smugmug_embed_field\ProviderManagerInterface $provider_manager
+   * @param \Drupal\smugmug_media_type\ProviderManagerInterface $provider_manager
    *   The image embed provider manager.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   The logged in user.
@@ -102,7 +102,7 @@ class Image extends FormatterBase implements ContainerFactoryPluginInterface {
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('smugmug_embed_field.provider_manager'),
+      $container->get('smugmug_media_type.provider_manager'),
       $container->get('current_user'),
       $container->get('entity_type.manager')->getStorage('image_style')
     );
@@ -223,7 +223,7 @@ class Image extends FormatterBase implements ContainerFactoryPluginInterface {
    *   The formatter plugin.
    */
   public static function mockInstance($settings) {
-    return \Drupal::service('plugin.manager.field.formatter')->createInstance('smugmug_embed_field_image', [
+    return \Drupal::service('plugin.manager.field.formatter')->createInstance('smugmug_media_type_image', [
       'settings' => !empty($settings) ? $settings : [],
       'third_party_settings' => [],
       'field_definition' => new FieldConfig([

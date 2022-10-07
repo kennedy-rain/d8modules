@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.media.smugmug.field_media_smugmug_embed_field
+    - field.field.media.smugmug.field_media_smugmug_media_type
     - media.type.smugmug
   module:
     - path
-    - smugmug_embed_field
+    - smugmug_media_type
 id: media.smugmug.default
 targetEntityType: media
 bundle: smugmug
@@ -18,11 +18,11 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_media_smugmug_embed_field:
+  field_media_smugmug_media_type:
     weight: 0
     settings: {  }
     third_party_settings: {  }
-    type: smugmug_embed_field_textfield
+    type: smugmug_media_type_textfield
     region: content
   path:
     type: path

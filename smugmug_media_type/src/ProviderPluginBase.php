@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field;
+namespace Drupal\smugmug_media_type;
 
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;

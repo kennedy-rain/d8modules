@@ -3,13 +3,13 @@ status: true
 dependencies:
   module:
     - media
-    - smugmug_embed_field
-id: media.field_media_smugmug_embed_field
-field_name: field_media_smugmug_embed_field
+    - smugmug_media_type
+id: media.field_media_smugmug_media_type
+field_name: field_media_smugmug_media_type
 entity_type: media
-type: smugmug_embed_field
+type: smugmug_media_type
 settings: {  }
-module: smugmug_embed_field
+module: smugmug_media_type
 locked: false
 cardinality: 1
 translatable: true

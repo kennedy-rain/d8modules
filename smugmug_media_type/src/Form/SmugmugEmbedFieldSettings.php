@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Form;
+namespace Drupal\smugmug_media_type\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -11,7 +11,7 @@ class SmugmugEmbedFieldSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'smugmug_embed_field_settings';
+    return 'smugmug_media_type_settings';
   }
   
   /**
@@ -19,7 +19,7 @@ class SmugmugEmbedFieldSettings extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'smugmug_embed_field.settings',
+      'smugmug_media_type.settings',
     ];
   }
   
@@ -28,7 +28,7 @@ class SmugmugEmbedFieldSettings extends ConfigFormBase {
   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
-    $config = $this->config('smugmug_embed_field.settings');
+    $config = $this->config('smugmug_media_type.settings');
     $form['smugmug_api_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Smugmug API Key:'),
@@ -48,7 +48,7 @@ class SmugmugEmbedFieldSettings extends ConfigFormBase {
   * {@inheritdoc}
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('smugmug_embed_field.settings');
+    $config = $this->config('smugmug_media_type.settings');
     $config->set('smugmug_api_key', $form_state->getValue('smugmug_api_key'));
     $config->save();
     return parent::submitForm($form, $form_state);

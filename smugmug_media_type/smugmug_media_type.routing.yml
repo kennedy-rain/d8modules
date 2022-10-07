@@ -1,7 +1,7 @@
-smugmug_embed_field.settings:
+smugmug_media_type.settings:
   path: 'admin/config/media/smugmug_embed'
   defaults:
     _title: 'SmugMug Embed Settings'
-    _form: '\Drupal\smugmug_embed_field\Form\SmugMugEmbedFieldSettings'
+    _form: '\Drupal\smugmug_media_type\Form\SmugMugEmbedFieldSettings'
   requirements:
     _permission: 'access administration pages'

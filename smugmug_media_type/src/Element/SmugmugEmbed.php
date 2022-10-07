@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Element;
+namespace Drupal\smugmug_media_type\Element;
 
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Template\Attribute;

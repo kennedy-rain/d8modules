@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Plugin\Field\FieldFormatter;
+namespace Drupal\smugmug_media_type\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
@@ -9,17 +9,17 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
-use Drupal\smugmug_embed_field\ProviderManagerInterface;
+use Drupal\smugmug_media_type\ProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the thumbnail field formatter.
  *
  * @FieldFormatter(
- *   id = "smugmug_embed_field_thumbnail",
+ *   id = "smugmug_media_type_thumbnail",
  *   label = @Translation("Thumbnail"),
  *   field_types = {
- *     "smugmug_embed_field"
+ *     "smugmug_media_type"
  *   }
  * )
  */
@@ -28,7 +28,7 @@ class Thumbnail extends FormatterBase implements ContainerFactoryPluginInterface
   /**
    * The embed provider plugin manager.
    *
-   * @var \Drupal\smugmug_embed_field\ProviderManagerInterface
+   * @var \Drupal\smugmug_media_type\ProviderManagerInterface
    */
   protected $providerManager;
 
@@ -59,7 +59,7 @@ class Thumbnail extends FormatterBase implements ContainerFactoryPluginInterface
    *   The view mode.
    * @param array $third_party_settings
    *   Third party settings.
-   * @param \Drupal\smugmug_embed_field\ProviderManagerInterface $provider_manager
+   * @param \Drupal\smugmug_media_type\ProviderManagerInterface $provider_manager
    *   The smugmug embed provider manager.
    */
   public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, $settings, $label, $view_mode, $third_party_settings, ProviderManagerInterface $provider_manager) {
@@ -79,7 +79,7 @@ class Thumbnail extends FormatterBase implements ContainerFactoryPluginInterface
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('smugmug_embed_field.provider_manager'),
+      $container->get('smugmug_media_type.provider_manager'),
     );
   }
 

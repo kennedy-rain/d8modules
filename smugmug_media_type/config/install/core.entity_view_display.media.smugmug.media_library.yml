@@ -3,19 +3,19 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
-    - field.field.media.smugmug.field_media_smugmug_embed_field
+    - field.field.media.smugmug.field_media_smugmug_media_type
     - image.style.thumbnail
     - media.type.smugmug
   module:
     - field_formatter_class
-    - smugmug_embed_field
+    - smugmug_media_type
 id: media.smugmug.media_library
 targetEntityType: media
 bundle: smugmug
 mode: media_library
 content:
-  field_media_smugmug_embed_field:
-    type: smugmug_embed_field_thumbnail
+  field_media_smugmug_media_type:
+    type: smugmug_media_type_thumbnail
     weight: 0
     region: content
     label: hidden

@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.media.field_media_smugmug_embed_field
+    - field.storage.media.field_media_smugmug_media_type
     - media.type.smugmug
   module:
-    - smugmug_embed_field
-id: media.smugmug.field_media_smugmug_embed_field
-field_name: field_media_smugmug_embed_field
+    - smugmug_media_type
+id: media.smugmug.field_media_smugmug_media_type
+field_name: field_media_smugmug_media_type
 entity_type: media
 bundle: smugmug
 label: 'Image Url'
@@ -18,4 +18,4 @@ default_value: {  }
 default_value_callback: ''
 settings:
   allowed_providers: {  }
-field_type: smugmug_embed_field
+field_type: smugmug_media_type

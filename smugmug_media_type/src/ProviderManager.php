@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field;
+namespace Drupal\smugmug_media_type;
 
 use Drupal\Component\Plugin\Mapper\MapperInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -16,8 +16,8 @@ class ProviderManager extends DefaultPluginManager implements ProviderManagerInt
    * {@inheritdoc}
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/smugmug_embed_field/Provider', $namespaces, $module_handler, 'Drupal\smugmug_embed_field\ProviderPluginInterface', 'Drupal\smugmug_embed_field\Annotation\ImageEmbedProvider');
-    $this->alterInfo('smugmug_embed_field_provider_info');
+    parent::__construct('Plugin/smugmug_media_type/Provider', $namespaces, $module_handler, 'Drupal\smugmug_media_type\ProviderPluginInterface', 'Drupal\smugmug_media_type\Annotation\ImageEmbedProvider');
+    $this->alterInfo('smugmug_media_type_provider_info');
   }
 
   /**

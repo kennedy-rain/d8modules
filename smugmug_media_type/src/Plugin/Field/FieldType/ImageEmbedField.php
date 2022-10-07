@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Plugin\Field\FieldType;
+namespace Drupal\smugmug_media_type\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -9,15 +9,15 @@ use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\TypedData\TraversableTypedDataInterface;
 
 /**
- * Plugin implementation of the smugmug_embed_field field type.
+ * Plugin implementation of the smugmug_media_type field type.
  *
  * @FieldType(
- *   id = "smugmug_embed_field",
+ *   id = "smugmug_media_type",
  *   label = @Translation("Smugmug Embed"),
  *   description = @Translation("Stores a smugmug image and then outputs some embed code."),
  *   category = @Translation("Media"),
- *   default_widget = "smugmug_embed_field_textfield",
- *   default_formatter = "smugmug_embed_field_image",
+ *   default_widget = "smugmug_media_type_textfield",
+ *   default_formatter = "smugmug_media_type_image",
  *   constraints = {"SmugmugEmbedValidation" = {}}
  * )
  */
@@ -26,7 +26,7 @@ class ImageEmbedField extends FieldItemBase {
   /**
    * The embed provider plugin manager.
    *
-   * @var \Drupal\smugmug_embed_field\ProviderManagerInterface
+   * @var \Drupal\smugmug_media_type\ProviderManagerInterface
    */
   protected $providerManager;
 
@@ -42,7 +42,7 @@ class ImageEmbedField extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function createInstance($definition, $name = NULL, TraversableTypedDataInterface $parent = NULL) {
-    $provider_manager = \Drupal::service('smugmug_embed_field.provider_manager');
+    $provider_manager = \Drupal::service('smugmug_media_type.provider_manager');
     return new static($definition, $name, $parent, $provider_manager);
   }
 

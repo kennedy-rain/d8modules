@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Plugin\Validation\Constraint;
+namespace Drupal\smugmug_media_type\Plugin\Validation\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 

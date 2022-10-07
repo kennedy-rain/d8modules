@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\smugmug_embed_field\Plugin\media\Source;
+namespace Drupal\smugmug_media_type\Plugin\media\Source;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
@@ -8,17 +8,17 @@ use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaTypeInterface;
-use Drupal\smugmug_embed_field\ProviderManagerInterface;
+use Drupal\smugmug_media_type\ProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides media source plugin for image embed field.
  *
  * @MediaSource(
- *   id = "smugmug_embed_field",
+ *   id = "smugmug_media_type",
  *   label = @Translation("Smugmug embed field"),
- *   description = @Translation("Enables smugmug_embed_field integration with media."),
- *   allowed_field_types = {"smugmug_embed_field"},
+ *   description = @Translation("Enables smugmug_media_type integration with media."),
+ *   allowed_field_types = {"smugmug_media_type"},
  *   default_thumbnail_filename = "no-thumbnail.png"
  * )
  */
@@ -27,7 +27,7 @@ class SmugmugEmbedField extends MediaSourceBase {
   /**
    * The image provider manager.
    *
-   * @var \Drupal\smugmug_embed_field\ProviderManagerInterface
+   * @var \Drupal\smugmug_media_type\ProviderManagerInterface
    */
   protected $providerManager;
 
@@ -55,7 +55,7 @@ class SmugmugEmbedField extends MediaSourceBase {
    *   Config field type manager service.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   Config factory service.
-   * @param \Drupal\smugmug_embed_field\ProviderManagerInterface $provider_manager
+   * @param \Drupal\smugmug_media_type\ProviderManagerInterface $provider_manager
    *   The video provider manager.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, FieldTypePluginManagerInterface $field_type_manager, ConfigFactoryInterface $config_factory, ProviderManagerInterface $provider_manager) {
@@ -76,7 +76,7 @@ class SmugmugEmbedField extends MediaSourceBase {
       $container->get('entity_field.manager'),
       $container->get('plugin.manager.field.field_type'),
       $container->get('config.factory'),
-      $container->get('smugmug_embed_field.provider_manager')
+      $container->get('smugmug_media_type.provider_manager')
     );
   }
 
@@ -85,7 +85,7 @@ class SmugmugEmbedField extends MediaSourceBase {
    */
   public function defaultConfiguration() {
     return [
-      'source_field' => 'field_media_smugmug_embed_field',
+      'source_field' => 'field_media_smugmug_media_type',
     ];
   }
 
@@ -209,7 +209,7 @@ class SmugmugEmbedField extends MediaSourceBase {
    * {@inheritdoc}
    */
   public function getSourceFieldDefinition(MediaTypeInterface $type) {
-    $field = !empty($this->configuration['source_field']) ? $this->configuration['source_field'] : 'field_media_smugmug_embed_field';
+    $field = !empty($this->configuration['source_field']) ? $this->configuration['source_field'] : 'field_media_smugmug_media_type';
     if ($field) {
       // Be sure that the suggested source field actually exists.
       $fields = $this->entityFieldManager->getFieldDefinitions('media', $type->id());

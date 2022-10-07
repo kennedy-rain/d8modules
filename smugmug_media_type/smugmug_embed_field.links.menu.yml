@@ -1,4 +1,0 @@
-smugmug_embed_field.settings:
-  title: Smugmug Settings
-  route_name: smugmug_embed_field.settings
-  parent: system.admin_config_media

@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.small_100x100_
-    - field.field.media.smugmug.field_media_smugmug_embed_field
+    - field.field.media.smugmug.field_media_smugmug_media_type
     - image.style.thumbnail
     - media.type.smugmug
   module:
     - field_formatter_class
     - layout_builder
-    - smugmug_embed_field
+    - smugmug_media_type
 third_party_settings:
   layout_builder:
     allow_custom: false
@@ -19,7 +19,7 @@ targetEntityType: media
 bundle: smugmug
 mode: small_100x100_
 content:
-  field_media_smugmug_embed_field:
+  field_media_smugmug_media_type:
     label: visually_hidden
     weight: 0
     settings:
@@ -29,7 +29,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    type: smugmug_embed_field_image
+    type: smugmug_media_type_image
     region: content
 hidden:
   created: true

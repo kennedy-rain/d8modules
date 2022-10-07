@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\smugmug_embed_field\Form;
+namespace Drupal\smugmug_media_type\Form;
 
 use Drupal\media_library\Form\AddFormBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\smugmug_embed_field\Plugin\media\Source\SmugmugEmbedField;
+use Drupal\smugmug_media_type\Plugin\media\Source\SmugmugEmbedField;
 use Drupal\media_library\MediaLibraryUiBuilder;
 use Drupal\media_library\OpenerResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

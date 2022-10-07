@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field;
+namespace Drupal\smugmug_media_type;
 
 /**
  * Interface for the class that gathers the provider plugins.
@@ -34,7 +34,7 @@ interface ProviderManagerInterface {
    * @param string $user_input
    *   The user input to test against the plugins.
    *
-   * @return \Drupal\smugmug_embed_field\ProviderPluginInterface|bool
+   * @return \Drupal\smugmug_media_type\ProviderPluginInterface|bool
    *   The relevant plugin or FALSE on failure.
    */
   public function filterApplicableDefinitions(array $definitions, $user_input);
@@ -45,7 +45,7 @@ interface ProviderManagerInterface {
    * @param string $input
    *   Input provided from a field.
    *
-   * @return \Drupal\smugmug_embed_field\ProviderPluginInterface|bool
+   * @return \Drupal\smugmug_media_type\ProviderPluginInterface|bool
    *   The loaded plugin.
    */
   public function loadProviderFromInput($input);

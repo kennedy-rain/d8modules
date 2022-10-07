@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\smugmug_embed_field\Annotation;
+namespace Drupal\smugmug_media_type\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
