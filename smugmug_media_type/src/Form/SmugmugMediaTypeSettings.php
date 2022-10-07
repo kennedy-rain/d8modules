@@ -5,7 +5,7 @@ namespace Drupal\smugmug_media_type\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
-class SmugmugEmbedFieldSettings extends ConfigFormBase {
+class SmugmugMediaTypeSettings extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
@@ -31,9 +31,9 @@ class SmugmugEmbedFieldSettings extends ConfigFormBase {
     $config = $this->config('smugmug_media_type.settings');
     $form['smugmug_api_key'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Smugmug API Key:'),
+      '#title' => $this->t('SmugMug API Key:'),
       '#default_value' => "",
-      '#description' => $this->t('Smugmug Api Key, This will appear empty even when a key is saved'),
+      '#description' => $this->t('SmugMug Api Key, This will appear empty even when a key is saved'),
     ];
     return $form;
   }
