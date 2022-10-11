@@ -3,66 +3,38 @@
 /* ## Flip-Cards
 
 /* -------------------------------------- */
-body {
+.flip-card .body {
 	margin: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: left;
 	height: 100vh;
-	font-family: "Montserrat", sans-serif;
   }
 
-  .wrapper {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
-  }
 
-  .card {
-	width: 420px;
-	height: 340px;
+  .flip-card {
+	width: 450px;
+	height: 300px;
 	margin: 1em;
 	perspective: 1500px;
+    background-color: #fff;
   }
-  .card .content {
+  .flip-card .content {
 	position: relative;
 	width: 100%;
 	height: 100%;
-	transform-style: preserve-3d;
-	transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
   }
 
-  .more {
-	display: none;
-  }
-  .more:checked ~ .content {
-	transform: rotateY(180deg);
-  }
-
-  .front,
-  .back {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	backface-visibility: hidden;
-	transform-style: preserve-3d;
-	border-radius: 6px;
-  }
-  .front .inner,
-  .back .inner {
-	height: 100%;
-	display: grid;
-	padding: 1.5em;
-	transform: translateZ(80px) scale(0.94);
+  .flip-card.back .info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #355cc9;
   }
 
-  .front {
-	background-color: #fff;
-	background-size: cover;
-	background-position: center center;
+  .flip-card_label{
+
   }
 
 .button {
@@ -109,23 +81,23 @@ body {
 
     /* Front panel and back background Colors */
 
-    .flip_cards_main.Red { background: #CC0000; }
+    .flip-card_main.Red { background: #CC0000; }
 
-    .flip_cards_main.Green { background: #00854d; }
+    .flip-card_main.Green { background: #00854d; }
 
-    .flip_cards_main.Maroon { background: #7C2529; }
+    .flip-card_main.Maroon { background: #7C2529; }
 
-    .flip_cards_main.Navy { background: #003D4C; }
+    .flip-card_main.Navy { background: #003D4C; }
 
 
 
     /* Button Colors */
 
-    .flip_cards_button.Green { border-color: #00854d; }
+    .flip-card_button.Green { border-color: #00854d; }
 
-    .flip_cards_button.Maroon{ border-color: #7C2529; }
+    .flip-card_button.Maroon{ border-color: #7C2529; }
 
-    .flip_cards_button.Navy { border-color: #003D4C; }
+    .flip-card_button.Navy { border-color: #003D4C; }
 
-    .flip_cards_button.Red { border-color: #CC0000; }
+    .flip-card_button.Red { border-color: #CC0000; }
 
