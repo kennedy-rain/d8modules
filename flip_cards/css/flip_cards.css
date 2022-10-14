@@ -13,27 +13,34 @@
   }
 
 
-  .flip-card {
+.flip-card {
 	width: 450px;
 	height: 300px;
 	margin: 1em;
 	perspective: 1500px;
-    background-color: #fff;
-  }
-  .flip-card .content {
+	background-color: #fff;
+}
+
+.flip-card_img img {
+	object-fit: cover;
+	width: 100%;
+	height: 480px;
+}
+  
+.flip-card .content {
 	position: relative;
 	width: 100%;
 	height: 100%;
-  }
+ }
 
-  .flip-card.back .info {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #355cc9;
-  }
+.flip-card.back .info {
+	position: relative;
+	display: flex;
+	align-items: center;
+	color: #355cc9;
+}
 
-  .button {
+.button {
 	background-color: #CC0000;
 	border: none;
 	color: white;
@@ -45,55 +52,69 @@
 	margin: 4px 2px;
 	cursor: pointer;
 	border-radius: 12px;
-  }
-	.button:hover {
-		background-color: transparent;
-		box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-		text-shadow: none;
-		border: solid 2px #CC0000;
-		color: #CC0000;
-	  }
+}
 
+.button:hover {
+	background-color: transparent;
+	box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+	text-shadow: none;
+	border: solid 2px #CC0000;
+	color: #CC0000;
+}
 
-    /* Front panel Colors */
+/*  Colors */
 
-    .flip-card_label.Red {
-		background-color: #CC0000;
-		opacity: 0.5;
-	}
+.flip-card_label.Red {
+	background-color: #CC0000;
+	opacity: 0.5;
+}
 
-    .flip-card_label.Green {
-		background-color: #00854d;
-		opacity: 0.5;
-	}
+.flip-card_label.Green {
+	background-color: #00854d;
+	opacity: 0.5;
+}
 
-    .flip-card_label.Maroon {
-		background-color: #7C2529;
-		opacity: 0.5;
-	}
+.flip-card_label.Maroon {
+	background-color: #7C2529;
+	opacity: 0.5;
+}
 
-    .flip-card_label.Navy {
-		background-color: #003D4C;
-		opacity: 0.5;
-	}
+.flip-card_label.Navy {
+	background-color: #003D4C;
+	opacity: 0.5;
+}
 
-	/* Back of card colors */
+.flip-card_back.Red { 
+	background-color: #CC0000; 
+}
 
-    .flip-card_back.Red { background-color: #CC0000; }
+.flip-card_back.Green { 
+	background-color: #00854d;
+ }
 
-    .flip-card_back.Green { background-color: #00854d; }ß
+.flip-card_back.Maroon { 
+	background-color: #7C2529;
+}
 
-    .flip-card_back.Maroon { background-color: #7C2529; }
+.flip-card_back.Navy { 
+	background-color: #003D4C; 
+}
 
-    .flip-card_back.Navy { background-color: #003D4C; }
+/* Button Colors */
 
-    /* Button Colors */
+.flip-card_button.Green { 
+	background-color: #00854d; 
+}
 
-    .flip-card_button.Green { background-color: #00854d; }
+.flip-card_button.Maroon { 
+	background-color: #7C2529; 
+}
 
-    .flip-card_button.Maroon{ background-color: #7C2529; }
+.flip-card_button.Navy { 
+	background-color: #003D4C; 
+}
 
-    .flip-card_button.Navy { background-color: #003D4C; }
-
-    .flip-card_button.Red { background-color: #CC0000; }
+.flip-card_button.Red { 
+	background-color: #CC0000; 
+}
 
