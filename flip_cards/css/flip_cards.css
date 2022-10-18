@@ -33,7 +33,7 @@
 	height: 100%;
  }
 
-.flip-card.back .info {
+.flip-card_back {
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -61,6 +61,26 @@
 	text-shadow: none;
 	border: solid 2px #CC0000;
 	color: #CC0000;
+}
+/* flip transition */
+.flip_card {
+	transition: 0.7s;
+	-webkit-transform-origin: 100% 200px;
+	-webkit-transform-style: preserve-3d;
+	position: relative;
+	height: 400px;
+}
+
+.on {
+	-webkit-transform: rotateY(-180deg);
+}
+
+.off {
+	-webkit-transform: rotateY(0deg);
+}
+
+.flip_card .flip-card_back  {
+	-webkit-transform: rotateY(180deg);
 }
 
 /*  Colors */
