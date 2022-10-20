@@ -1,285 +1,120 @@
 /* -------------------------------------- */
 
-/* ## Bean Cards
+/* ## Flip-Cards
 
 /* -------------------------------------- */
+.flip-card.body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: left;
+	height: 100vh;
+  }
+
+
+.flip-card {
+	width: 450px;
+	height: 300px;
+	margin: 1em;
+	perspective: 1500px;
+	background-color: #fff;
+}
+
+.flip-card_img img {
+	object-fit: cover;
+	width: 100%;
+	height: 480px;
+}
+  
+.flip-card .content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+ }
+
+.flip-card.back .info {
+	position: relative;
+	display: flex;
+	align-items: center;
+	color: #355cc9;
+}
+
+.button {
+	background-color: #CC0000;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 12px;
+}
+
+.button:hover {
+	background-color: transparent;
+	box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+	text-shadow: none;
+	border: solid 2px #CC0000;
+	color: #CC0000;
+}
+
+/*  Colors */
+
+.flip-card_label.Red {
+	background-color: #CC0000;
+	opacity: 0.5;
+}
+
+.flip-card_label.Green {
+	background-color: #00854d;
+	opacity: 0.5;
+}
+
+.flip-card_label.Maroon {
+	background-color: #7C2529;
+	opacity: 0.5;
+}
+
+.flip-card_label.Navy {
+	background-color: #003D4C;
+	opacity: 0.5;
+}
+
+.flip-card_back.Red { 
+	background-color: #CC0000; 
+}
+
+.flip-card_back.Green { 
+	background-color: #00854d;
+ }
+
+.flip-card_back.Maroon { 
+	background-color: #7C2529;
+}
+
+.flip-card_back.Navy { 
+	background-color: #003D4C; 
+}
+
+/* Button Colors */
+
+.flip-card_button.Green { 
+	background-color: #00854d; 
+}
 
-.bean-card {
+.flip-card_button.Maroon { 
+	background-color: #7C2529; 
+}
 
-    position: relative;
+.flip-card_button.Navy { 
+	background-color: #003D4C; 
+}
 
-    justify-content: center;
+.flip-card_button.Red { 
+	background-color: #CC0000; 
+}
 
-    border-radius: 3px;
-
-    color: #ffffff;
-
-    margin-bottom: 1rem;
-
-    }
-
-    /* Old bean-card body css
-
-    .bean-card_text {
-
-    position: relative;
-
-    color: #ffffff;
-
-    padding-top: 22%;
-
-    border: 1px solid #eee;
-
-    height: 180px;
-
-    margin-bottom: 25px;
-
-    margin-right: 25px;
-
-    } */
-
-    .bean-card.bean-card_width_full {
-
-    display: block;
-
-    }
-
-    a.bean-card_link {
-
-    display: block;
-
-    position: relative;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    border-radius: 3px;
-
-    overflow: hidden;
-
-    }
-
-
-
-    .bean-card a:hover {
-
-    box-shadow: 0 0 5px 1px #7a99ac;
-
-    }
-
-
-
-    /* Used for image card */
-
-    .bean-card_img img {
-
-    width: 100%;
-
-    }
-
-    .bean-card_label {
-
-    display: flex;
-
-    padding: 0.75rem 1rem;
-
-    justify-content: center;
-
-    background: #cc0000;
-
-    font-size: 1.5rem;
-
-    }
-
-    .bean-card_label p {
-
-    margin: 0;
-
-    line-height: 1.45;
-
-    }
-
-
-
-    .bean-card_label div {
-
-    margin: 0;
-
-    }
-
-
-
-    /* Used for content card */
-
-    .bean-card_body {
-
-    color: black;
-
-    padding: 0.5rem 0.5rem 0 0.5rem;
-
-    border: 3px solid #CC0000;
-
-    }
-
-
-
-    /* Fontawesome icons - this isn't being used (used declaration on line: 842)
-
-    .fontawesome-icons {
-
-    font-family: 'FontAwesome';
-
-    } */
-
-
-
-    div.fontawesome-icon i {
-
-    font-style: normal;
-
-    }
-
-    /* Colors */
-
-    .bean-card_label.Blue { background: #006ba6; }
-
-    .bean-card_label.Green { background: #00854d; }
-
-    .bean-card_label.Dark-Red { background: #7C2529; }
-
-    .bean-card_label.Dark-Blue { background: #003D4C; }
-
-    .bean-card_label.Dark-Green { background: #3E4827; }
-
-    .bean-card_label.Brown { background: #8b5b29; }
-
-    .bean-card_label.Grey { background: #707372; }
-
-
-
-    /* Changes color of border depending on selected label color (content cards) */
-
-    .bean-card_body.Blue { border-color: #006ba6; }
-
-    .bean-card_body.Green { border-color: #00854d; }
-
-    .bean-card_body.Dark-Red { border-color: #7C2529; }
-
-    .bean-card_body.Dark-Blue { border-color: #003D4C; }
-
-    .bean-card_body.Dark-Green { border-color: #3E4827; }
-
-    .bean-card_body.Brown { border-color: #8b5b29; }
-
-    .bean-card_body.Grey { border-color: #707372; }
-
-    /* Overlay */
-
-    /* Overlay needs a minimum height in case there is no image. */
-
-    .bean-card_label.Dark-Overlay_Left,
-
-    .bean-card_label.Dark-Overlay_Bottom {
-
-    min-height: 100px;
-
-    background: #efefef;
-
-    }
-
-    .bean-card_label.Dark-Overlay_Left,
-
-    .bean-card_label.Dark-Overlay_Bottom {
-
-    position: absolute;
-
-    text-align: left;
-
-    background: rgba(0, 0, 0, 0.75);
-
-    }
-
-    .bean-card_label.Dark-Overlay_Left {
-
-    left: 0; bottom: 20%;
-
-    max-width: 90%;
-
-    }
-
-    .bean-card_label.Dark-Overlay_Bottom {
-
-    left: 0; bottom: 0; right: 0;
-
-    width: 100%;
-
-    }
-
-    /* Text Size */
-
-    .fontawesome-icons {
-
-    font-family: FontAwesome;
-
-    }
-
-    .bean-card_label.Small {
-
-    font-size: 1rem !important;
-
-    }
-
-
-
-    .bean-card_label.Medium {
-
-    font-size: 1.5rem !important;
-
-    }
-
-    .bean-card_label.Large {
-
-    font-size: 2rem !important;
-
-    }
-
-    .bean-card_label.Small div.fontawesome-icons {
-
-    margin-right: 0.5rem;
-
-    padding-right: 5px;
-
-    }
-
-    .bean-card_label.Medium div.fontawesome-icons {
-
-    margin-right: 1rem;
-
-    padding-right: 5px;
-
-    }
-
-    .bean-card_label.Large div.fontawesome-icons {
-
-    margin-right: 1.25rem;
-
-    padding-right: 5px;
-
-    }
-
-
-
-    /* Kill external link icon */
-
-    #section-content .bean-card a.external:after { display: none; }
-
-
-
-    /* Hamburger Menu */
-
-    .navbar-toggler:not(:disabled):not(.disabled) {
-
-    margin-top: -23px;
-
-    }
