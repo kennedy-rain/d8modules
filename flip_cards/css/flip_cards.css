@@ -12,19 +12,25 @@
 	height: 100vh;
   }
 
-
 .flip-card {
-	width: 450px;
-	height: 300px;
+	height: 100%;
+	width: 100%;
 	margin: 1em;
-	perspective: 1500px;
 	background-color: #fff;
+	transition: transform 0.7s;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+	position: relative;
+}
+
+.flip-card_img {
+	height: 100%;
 }
 
 .flip-card_img img {
 	object-fit: cover;
 	width: 100%;
-	height: 480px;
+	height: 100%;
 }
 
 .flip-card .content {
@@ -33,14 +39,26 @@
 	height: 100%;
  }
 
+.flip-card_front {
+	position: absolute;
+	-webkit-backface-visibility: hidden;
+  	backface-visibility: hidden;
+	width: 100%;
+	height: 100%;
+ }
+
 .flip-card_back {
-	position: relative;
+	position: absolute;
 	display: flex;
 	align-items: center;
 	color: #355cc9;
+	-webkit-backface-visibility: hidden;
+  	backface-visibility: hidden;
+	width: 100%;
+	height: 100%;
 }
 
-.button {
+.flip-card_button {
 	background-color: #CC0000;
 	border: none;
 	color: white;
@@ -52,9 +70,10 @@
 	margin: 4px 2px;
 	cursor: pointer;
 	border-radius: 12px;
+	border: solid 2px transparent;
 }
 
-.button:hover {
+.flip-card_button:hover {
 	background-color: transparent;
 	box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 	transition: 0.3s ease-in-out;
@@ -63,25 +82,33 @@
 	color: #CC0000;
 }
 /* flip transition */
-.flip_card {
-	transition: 0.7s;
-	-webkit-transform-origin: 100% 200px;
-	-webkit-transform-style: preserve-3d;
-	position: relative;
+
+.flip-card_toggle {
+	display: none;
+}
+
+.flip-card_box {
+	background-color: transparent;
 	height: 400px;
+	width: 100%;
+	perspective: 1500px;
 }
 
-.on {
-	-webkit-transform: rotateY(-180deg);
-}
 
-.off {
-	-webkit-transform: rotateY(0deg);
-}
-
-.flip_card .flip-card_back  {
+.flip-card_box input:checked + label {
 	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
 }
+.flip-card_box input:checked .flip-card_button {
+	-webkit-transform: rotateY(0deg);
+	transform: rotateY(0deg);
+}
+
+.flip-card_back  {
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+
 
 /*  Colors */
 
