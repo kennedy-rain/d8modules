@@ -14,7 +14,6 @@
 
 .flip-card {
 	height: 100%;
-	width: 100%;
 	margin: 1em;
 	background-color: #fff;
 	transition: transform 0.7s;
@@ -46,15 +45,40 @@
 	width: 100%;
  }
 
+ .flip-card_label.Large p {
+	font-size: 2rem !important;
+ }
+
+ .flip-card_label.Medium p {
+	font-size: 1.5rem !important;
+ }
+
+ .flip-card_label.Small p {
+	font-size: 1rem !important;
+ }
+
+ .flip-card_label p {
+	margin: 0;
+	line-height: 1.45;
+ }
+
+ .flip-card_label {
+	display: grid;
+	padding: 0.75rem 1rem;
+	justify-content: center;
+	color: #ffffff;
+ }
+
 .flip-card_back {
 	position: absolute;
 	display: flex;
 	align-items: center;
-	color: #355cc9;
+	color: #ffffff;
 	-webkit-backface-visibility: hidden;
   	backface-visibility: hidden;
 	width: 100%;
 	height: 100%;
+	padding: 1em;
 }
 
 .flip-card_button {
@@ -83,7 +107,7 @@ p.flip-card_button {
 
 .flip-card_box {
 	background-color: transparent;
-	height: 400px;
+	height: 480px;
 	width: 100%;
 	perspective: 1500px;
 }
@@ -102,28 +126,28 @@ p.flip-card_button {
 
 /*  Colors */
 
-.flip-card .bean-card_label.Red {
+.flip-card .flip-card_label.Red {
         position: absolute;
         background: rgba(204,0,0,0.8);
         bottom: 0;
         width: 100%;
 }
 
-.flip-card .bean-card_label.Green {
+.flip-card .flip-card_label.Green {
+        position: absolute;
+        background: #00854d;
+        bottom: 0;
+        width: 100%;
+}
+
+.flip-card .flip-card_label.Dark.Red {
         position: absolute;
         background: rgba(124,37,41,0.8);
         bottom: 0;
         width: 100%;
 }
 
-.flip-card .bean-card_label.Dark.Red {
-        position: absolute;
-        background: rgba(124,37,41,0.8);
-        bottom: 0;
-        width: 100%;
-}
-
-.flip-card .bean-card_label.Dark.Blue {
+.flip-card .flip-card_label.Dark.Blue {
         position: absolute;
         background: rgba(0,61,76,0.8);
         bottom: 0;
@@ -138,11 +162,11 @@ p.flip-card_button {
 	background-color: #00854d;
  }
 
-.flip-card_back.Maroon {
+.flip-card_back.Dark.Red {
 	background-color: #7C2529;
 }
 
-.flip-card_back.Navy {
+.flip-card_back.Dark.Blue {
 	background-color: #003D4C;
 }
 
@@ -152,11 +176,11 @@ p.flip-card_button {
 	background-color: #00854d;
 }
 
-.flip-card_button.Maroon {
+.flip-card_button.Dark.Red {
 	background-color: #7C2529;
 }
 
-.flip-card_button.Navy {
+.flip-card_button.Dark.Blue {
 	background-color: #003D4C;
 }
 
