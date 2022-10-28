@@ -83,9 +83,6 @@
 }
 /* flip transition */
 
-.flip-card_toggle {
-	display: none;
-}
 
 .flip-card_box {
 	background-color: transparent;
@@ -95,13 +92,9 @@
 }
 
 
-.flip-card_box input:checked + label {
+.flip-card_box .flipped {
 	-webkit-transform: rotateY(180deg);
 	transform: rotateY(180deg);
-}
-.flip-card_box input:checked .flip-card_button {
-	-webkit-transform: rotateY(0deg);
-	transform: rotateY(0deg);
 }
 
 .flip-card_back  {
