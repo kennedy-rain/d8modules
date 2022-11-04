@@ -20,12 +20,16 @@
 	transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
 	position: relative;
+	-webkit-transform:translate3d(0,0,0); /* Fix flash at end of Safari transition */
+}
+
+.flip-card_img, .flip-card_img div, .flip-card_img article {
+	height: 100%;
 }
 
 .flip-card_img img {
 	object-fit: cover;
-	width: 100%;
-	height: 480px;
+	height: 100%;
 }
 
 .flip-card article:not(.isu-user):not(.isu-search_collapse) {
@@ -43,6 +47,7 @@
 	-webkit-backface-visibility: hidden;
   	backface-visibility: hidden;
 	width: 100%;
+	height: 100%;
  }
 
  .flip-card_label.Large p {
@@ -67,6 +72,7 @@
 	padding: 0.75rem 1rem;
 	justify-content: center;
 	color: #ffffff;
+	text-align: center;
  }
 
 .flip-card_back {
@@ -78,11 +84,28 @@
   	backface-visibility: hidden;
 	width: 100%;
 	height: 100%;
-	padding: 1em;
+	padding: 1.5em;
+	overflow-y: scroll;
+	scrollbar-color: white transparent;/* Firefox scrollbar */
+}
+.flip-card_back > * {
+	margin-top: auto;
+	margin-bottom: auto;
+} 
+
+/* Chromium based scrollbar */
+.flip-card_back::-webkit-scrollbar {
+	background: transparent;
+}
+.flip-card_back::-webkit-scrollbar-thumb {
+	background: white;
+	border-radius: 10px;
+}
+.flip-card_back::-webkit-scrollbar-track {
+	background-color: transparent;
 }
 
 .flip-card_button {
-	background-color: #CC0000;
 	color: white;
 	font-weight: 700;
 	border-radius: 3px;
@@ -90,12 +113,6 @@
 	transition: background 0.2s ease;
 	padding: 7px;
 	white-space: break-spaces;	
-}
-
-.flip-card_button:hover {
-	transition: 0.3s ease-in-out;
-	border: solid 2px #CC0000;
-	color: #ffffff;
 }
 
 p.flip-card_button {
@@ -107,7 +124,7 @@ p.flip-card_button {
 
 .flip-card_box {
 	background-color: transparent;
-	height: 550px;
+	height: 480px;
 	width: 100%;
 	perspective: 1500px;
 }
@@ -119,8 +136,19 @@ p.flip-card_button {
 }
 
 .flip-card_back  {
-	-webkit-transform: rotateY(180deg);
-	transform: rotateY(180deg);
+	-webkit-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
+}
+
+.flip-card_img img {
+	transition: 0s;
+	opacity: 1;
+}
+
+.flip-card_box .flipped .flip-card_img img {
+	transition: 0.8s;
+	visibility: hidden;
+	opacity: 0;
 }
 
 
@@ -168,23 +196,5 @@ p.flip-card_button {
 
 .flip-card_back.Dark.Blue {
 	background-color: #003D4C;
-}
-
-/* Button Colors */
-
-.flip-card_button.Green {
-	background-color: #00854d;
-}
-
-.flip-card_button.Dark.Red {
-	background-color: #7C2529;
-}
-
-.flip-card_button.Dark.Blue {
-	background-color: #003D4C;
-}
-
-.flip-card_button.Red {
-	background-color: #CC0000;
 }
 
