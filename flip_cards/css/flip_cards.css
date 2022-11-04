@@ -219,8 +219,8 @@ p.flip-card_button {
 
 .flip-card .flip-card_label.Green {
         position: absolute;
-        background: #00854d;
-        bottom: 0;
+        background: rgba(0,133,77,0.8);
+	bottom: 0;
         width: 100%;
 }
 
