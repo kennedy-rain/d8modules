@@ -113,6 +113,10 @@
 	color: #ebebeb;
 }
 
+.flip-card_back.Red a:hover {
+	text-decoration: none;
+}
+
 .flip-card_back.Green a {
 	color: #fff;
 }
