@@ -93,6 +93,42 @@
 	margin-bottom: auto;
 } 
 
+.flip-card_back.Dark.Red a {
+	color: #ebebeb;
+}
+
+.flip-card_back.Dark.Red a:hover {
+	color: #f1be48;
+}
+
+.flip-card_back.Dark.Blue a {
+	color: #ebebeb;
+}
+
+.flip-card_back.Dark.Blue a:hover {
+	color: #f1be48;
+}
+
+.flip-card_back.Red a {
+	color: #ebebeb;
+}
+
+.flip-card_back.Green a {
+	color: #fff;
+}
+
+.flip-card_back.Green a:hover {
+	text-decoration: none;
+}
+
+.flip-card_back.Dark.Blue a {
+	color: #f1be48;
+}
+
+.flip-card_back.Dark.Blue a:hover {
+	color: #ebebeb;
+}
+
 /* Chromium based scrollbar */
 .flip-card_back::-webkit-scrollbar {
 	background: transparent;
@@ -118,6 +154,22 @@
 p.flip-card_button {
 	text-align: center;
 } 
+
+.flip-card_button .btn.btn-success {
+	border: 1px solid #fff;
+}
+
+.flip-card_button .btn.btn-secondary {
+	border: 1px solid #ebebeb;
+}
+
+.flip-card_button .btn.btn-primary {
+	border: 1px solid #f1be48;
+}
+
+..flip-card_button .btn.btn-outline-danger:hover {
+	border-color: $fff;
+}
 
 /* flip transition */
 
@@ -184,17 +236,21 @@ p.flip-card_button {
 
 .flip-card_back.Red {
 	background-color: #CC0000;
+	border: 2px solid #cc0000;
 }
 
 .flip-card_back.Green {
 	background-color: #00854d;
+	border: 2px solid #00854d;
  }
 
 .flip-card_back.Dark.Red {
 	background-color: #7C2529;
+	border: 2px solid #7c2529;
 }
 
 .flip-card_back.Dark.Blue {
 	background-color: #003D4C;
+	border: 2px solid #003d4c;
 }
 
