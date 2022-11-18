@@ -266,6 +266,15 @@ function staff_profile_primary_node_presave($entity) {
     }
     $entity->setOwner($owner);
     $entity->setTitle($entity->field_staff_profile_pref_name->value . ' ' . $entity->field_staff_profile_last_name->value);
+
+    //Convert SmugMug URL into just the SmugMug ID value
+    $smugmugID = $entity->field_staff_profile_smugmug->value;
+    preg_match('/^https?:\/\/(isuextensionimages\.)?smugmug.com\/[A-Za-z0-9\-\_\/]*i\-(?<id>[A-Za-z0-9]+)(\/A)?$/', $smugmugID, $matches);
+    $smugmugID = isset($matches['id']) ? 'i-' . $matches['id'] : $smugmugID;
+    //if (substr($smugmugID, -2) == '/A') {
+    //  $smugmugID = substr($smugmugID, 0, strlen($smugmugID) - 2);
+    //}
+    $entity->field_staff_profile_smugmug->value = $smugmugID;
   }
 }
 

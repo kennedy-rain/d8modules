@@ -3,10 +3,10 @@
 /*
  * Implements hook_ENTITY_TYPE_update()
  */
-function flip_cards_block_content_update(Drupal\Core\Entity\EntityInterface $entity){
+function flip_cards_block_content_update(Drupal\Core\Entity\EntityInterface $entity) {
 	// Clear cache if BlockContent is of type 'content_card'
   if ($entity->bundle() == 'flip_cards') {
-	\Drupal::service('cache.render')->invalidateAll();
+	  \Drupal::service('cache.render')->invalidateAll();
   }
 }
 
@@ -17,9 +17,9 @@ function flip_cards_theme_suggestions_block_alter(&$suggestions, $variables) {
   }
 }
 
-function flip_cards_preprocess_block(&$variables)
-{
-  if (substr($variables['plugin_id'], 0, 23) == 'flip_cards') {
+function flip_cards_preprocess_block(&$variables) {
+  //Layout builder flipcards have $variables['plugin_id'], custom block library uses uuid, need to check bundle for them
+  if ($variables['plugin_id'] == 'inline_block:flip_cards' || ($variables ?? 'elements' ?? 'content' ?? '#block_content'->bundle() == 'flip_cards')) {
     $variables['#attached']['library'][] = 'flip_cards/flip_cards';
     $variables['attributes']['class'][] = 'flip_cards';
   }
