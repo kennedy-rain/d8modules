@@ -10,7 +10,7 @@ dependencies:
 third_party_settings:
   allowed_formats:
     allowed_formats:
-      - basic
+      - wysiwyg
 id: block_content.flip_cards.field_flip_card_back
 field_name: field_flip_card_back
 entity_type: block_content
