@@ -22,7 +22,7 @@ class RegionalDirectorPanel extends ControllerBase {
 
   public function panel() {
     $user = User::load(\Drupal::currentUser()->id());
-    $counties = RegionalDirectorPanel::getCountiesServed($user->getUsername());
+    $counties = RegionalDirectorPanel::getCountiesServed($user->getAccountName());
     $result = [];
     foreach ($counties as $key => $county) {
       $result[$county->label()] = array(
