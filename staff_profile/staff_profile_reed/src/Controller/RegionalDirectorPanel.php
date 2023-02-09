@@ -13,7 +13,7 @@ class RegionalDirectorPanel extends ControllerBase {
   private function getCountiesServed($netid) {
     $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['field_staff_profile_netid' => $netid]);
     if ($node = reset($nodes)) {
-      return $node->field_staff_profile_cty_author->referencedEntities();
+      return $node->field_staff_profile_cty_served->referencedEntities();
     } else {
       return [];
     }
