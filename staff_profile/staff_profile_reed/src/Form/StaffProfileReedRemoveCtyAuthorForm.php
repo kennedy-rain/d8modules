@@ -19,8 +19,7 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
 
   //TODO: Look for a way to add this as a controller for staff_profile to automatically pick up entity
   function __construct(EntityRepository $repo, EntityTypeBundleInfo $bundle_info, Time $time) {
-    $entityManager = \Drupal::entityManager();
-    parent::__construct($entityManager);
+    parent::__construct($repo, $bundle_info, $time);
 
     $this->setEntityTypeManager(\Drupal::entityTypeManager());
     $this->setModuleHandler(\Drupal::moduleHandler());
@@ -62,27 +61,27 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
     $params['name'] = $this->entity->label();
     $params['netid'] = $this->entity->field_staff_profile_email->value;
     $params['county'] = $this->county->label();
-    $params['reg_director'] = \Drupal::currentUser()->getUsername();
+    $params['reg_director'] = \Drupal::currentUser()->getAccountName();
     $send = false; //TODO: Set to true to send emails, default false to prevent spam from being sent
 
     //Send to regional director
     $director_key = 'remove_staff_profile_editor_cty_reg_director';
     $reg_director_email = \Drupal::currentUser()->getEmail();
-    $reg_director_email = 'eit_tcgerwig@iastate.edu'; //TODO Remove on production
+    $reg_director_email = 'bwebster@iastate.edu'; //TODO Remove on production
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
     $reg_dir_result = $mailManager->mail($module, $director_key, $reg_director_email, $langcode, $params, NULL, $send);
 
     //Send to extweb
     $extweb_key = 'remove_staff_profile_editor_cty_extweb';
     $extweb_email = 'extensionweb@iastate.edu';
-    $extweb_email = 'eit_tcgerwig@iastate.edu'; //TODO Remove on production
+    $extweb_email = 'bwebster@iastate.edu'; //TODO Remove on production
     $langcode = 'en';
     $ext_result = $mailManager->mail($module, $extweb_key, $extweb_email, $langcode, $params, NULL, $send);
 
     if (!array_key_exists('result', $reg_dir_result) || !array_key_exists('result', $ext_result)) {
-      drupal_set_message(t('There was a problem sending notification emails to' . (!array_key_exists('result', $reg_dir_result) ? " Regional Director" . (!array_key_exists('result', $ext_result) && !array_key_exists('result', $reg_dir_result) ? "," : "") : "") . (!array_key_exists('result', $ext_result) ? " ExtensionWeb" : "")), 'error');
+      \Drupal::messenger()->addStatus(t('There was a problem sending notification emails to' . (!array_key_exists('result', $reg_dir_result) ? " Regional Director" . (!array_key_exists('result', $ext_result) && !array_key_exists('result', $reg_dir_result) ? "," : "") : "") . (!array_key_exists('result', $ext_result) ? " ExtensionWeb" : "")), 'error');
     } else {
-      drupal_set_message(t('Notification emails sent.'));
+      \Drupal::messenger()->addStatus(t('Notification emails sent.'));
     }
 
     $this->logger('staff_profile_reed')->notice('Removed %title from county editor in %cty county', array('%title' => $this->entity->label(), '%cty' => $this->county->label()));
