@@ -121,7 +121,11 @@ class ProgramOfferingBlocks extends BlockBase
           $display_event = FALSE;
         }
       }
-
+$site_name = \Drupal::config('system.site')->get('name');
+$additional_counties = explode(';', $event["Additional_Counties__c"]);
+//if (strpos($site_name, ' County') !== false && count($additional_counties) > 10 ) {
+//  $display_event = false;
+//}
       if ($display_event) {
         if ($count < $max_events) {
           $start_date = strtotime($event['Next_Start_Date__c']);
@@ -133,6 +137,9 @@ class ProgramOfferingBlocks extends BlockBase
           $results .= $this->format_title($event, $config) . PHP_EOL;
           $results .= '    <div class="event_venue">';
           $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
+if (strpos($site_name, ' County') !== false && count($additional_counties) > 10 ) {
+  $results .= ' <span style="color:pink; font-size:0.8em;">(' . count($additional_counties) . ')</span>';
+}
           $results .= '</div>' . PHP_EOL;
 
           $startDate = date($config['format_with_time'], strtotime($event['Next_Start_Date__c']));
