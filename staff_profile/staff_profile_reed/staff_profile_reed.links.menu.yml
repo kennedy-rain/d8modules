@@ -1,6 +1,6 @@
-staff_profile_reed.regional_director_panel:
-  title: 'Regional Director Control Panel'
+staff_profile_reed.regional_director_portal:
+  title: 'Regional Director Portal'
   parent: main
   menu_name: main
-  route_name: staff_profile_reed.regional_director_panel
+  url: internal:/regional-director-portal
   weight: 10

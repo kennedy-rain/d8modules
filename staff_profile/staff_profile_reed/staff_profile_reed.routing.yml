@@ -1,5 +1,5 @@
 staff_profile_reed.regional_director_panel:
-  path: '/admin/regional_director_panel'
+  path: county-web-authors
   defaults:
     _controller: '\Drupal\staff_profile_reed\Controller\RegionalDirectorPanel::panel'
     _title: 'County Web Authors'
