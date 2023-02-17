@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_teaser
     - field.storage.node.field_thumbnail
+    - image.style.news_article_grid_
     - image.style.news_articles_homepage_
     - image.style.thumbnail
     - node.type.news_article
@@ -684,7 +685,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<div class=\"card\">\r\n  <div class=\"card-body\">\r\n    <h3 class=\"card-title\">{{ title }}</h3>\r\n    <div>{{ field_teaser }}</div>\r\n</div>\r\n<div class=\"card-footer\">\r\n<a href=\"{{ view_node }}\" class=\"btn btn-outline-danger\">Read More</a></div>\r\n </div>"
+            text: "<div class=\"card\">\r\n  <div class=\"card-body\">\r\n    <h3 class=\"card-title\">{{ title }}</h3>\r\n    <div>{{ field_teaser }}</div>\r\n  </div>\r\n  <div class=\"card-footer\">\r\n    <a href=\"{{ view_node }}\" class=\"btn btn-outline-danger\" aria-label=\"{{ title }}\">Read More</a>\r\n  </div>\r\n</div>"
             make_link: false
             path: ''
             absolute: false
@@ -782,7 +783,7 @@ display:
             preserve_tags: ''
             html: false
           element_type: ''
-          element_class: ''
+          element_class: news-page-thumbnail
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
@@ -797,7 +798,7 @@ display:
           type: media_thumbnail
           settings:
             image_link: ''
-            image_style: news_articles_homepage_
+            image_style: news_article_grid_
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -887,7 +888,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{{ created }} <br />{{ title }}\r\n"
+            text: '<em>{{ created }} </em><br /><b>{{ title }}</b>'
             make_link: false
             path: ''
             absolute: false
@@ -1025,52 +1026,16 @@ display:
             offset_label: Offset
           quantity: 9
       style:
-        type: table
+        type: grid
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
-          columns:
-            field_thumbnail: field_thumbnail
-            title: title
-            created: title
-            field_teaser: title
-          default: '-1'
-          info:
-            field_thumbnail:
-              sortable: false
-              default_sort_order: asc
-              align: views-align-left
-              separator: ''
-              empty_column: false
-              responsive: ''
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            created:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_teaser:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          override: true
-          sticky: false
-          summary: ''
-          empty_table: false
-          caption: ''
-          description: ''
+          columns: 1
+          automatic_width: true
+          alignment: horizontal
+          row_class_custom: ''
+          row_class_default: true
+          col_class_custom: ''
+          col_class_default: true
       row:
         type: fields
         options: {  }
