@@ -7,18 +7,18 @@ use \Drupal\user\Entity\User;
  * Regional Director Panels
  */
 class CountyWebAuthors extends ControllerBase {
+
   /**
-   * Get tids of counties that regional director has listed as web editor for
+   * Return the Taxomomy ids of counties that regional director serves
    */
   private function getCountiesServed($netid) {
-    $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['field_staff_profile_netid' => $netid]);
+    $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'staff_profile', 'field_staff_profile_netid' => $netid]);
     if ($node = reset($nodes)) {
       return $node->field_staff_profile_cty_served->referencedEntities();
     } else {
       return [];
     }
   }
-
 
   public function panel() {
     $user = User::load(\Drupal::currentUser()->id());
