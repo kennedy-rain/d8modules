@@ -6,7 +6,7 @@ staff_profile_reed.portal_page:
 staff_profile_reed.county_web_authors:
   path: county-web-authors
   defaults:
-    _controller: '\Drupal\staff_profile_reed\Controller\RegionalDirectorPanel::panel'
+    _controller: '\Drupal\staff_profile_reed\Controller\CountyWebAuthors::panel'
     _title: 'County Web Authors'
   requirements:
     _role: 'regional_director'

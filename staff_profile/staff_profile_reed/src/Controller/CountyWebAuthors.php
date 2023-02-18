@@ -6,7 +6,7 @@ use \Drupal\user\Entity\User;
 /**
  * Regional Director Panels
  */
-class RegionalDirectorPanel extends ControllerBase {
+class CountyWebAuthors extends ControllerBase {
   /**
    * Get tids of counties that regional director has listed as web editor for
    */
@@ -22,7 +22,7 @@ class RegionalDirectorPanel extends ControllerBase {
 
   public function panel() {
     $user = User::load(\Drupal::currentUser()->id());
-    $counties = RegionalDirectorPanel::getCountiesServed($user->getAccountName());
+    $counties = CountyWebAuthors::getCountiesServed($user->getAccountName());
     $result = [];
     foreach ($counties as $key => $county) {
       $result[$county->label()] = array(
