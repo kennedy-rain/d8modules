@@ -36,7 +36,7 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
   //Fix Incoming
   //https://www.drupal.org/project/drupal/issues/2582295
   public function getCancelUrl() {
-    return new Url('staff_profile_reed.regional_director_panel');
+    return new Url('staff_profile_reed.county_web_authors');
   }
 
   public function getConfirmText() {
@@ -85,6 +85,6 @@ class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
     }
 
     $this->logger('staff_profile_reed')->notice('Removed %title from county editor in %cty county', array('%title' => $this->entity->label(), '%cty' => $this->county->label()));
-    $form_state->setRedirect('staff_profile_reed.regional_director_panel');
+    $form_state->setRedirect('staff_profile_reed.county_web_authors');
   }
 }

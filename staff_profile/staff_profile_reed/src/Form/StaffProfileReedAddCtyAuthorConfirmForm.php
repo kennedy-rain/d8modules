@@ -35,7 +35,7 @@ class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBa
   }
 
   public function getCancelUrl() {
-    return new Url('staff_profile_reed.regional_director_panel');
+    return new Url('staff_profile_reed.county_web_authors');
   }
 
   public function getConfirmText() {
@@ -98,6 +98,6 @@ class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBa
     } else {
       \Drupal::messenger()->addStatus(('Notification emails sent.'));
     }
-    $form_state->setRedirect('staff_profile_reed.regional_director_panel');
+    $form_state->setRedirect('staff_profile_reed.county_web_authors');
   }
 }

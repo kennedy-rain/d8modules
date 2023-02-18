@@ -3,7 +3,7 @@ staff_profile_reed.portal_page:
   requirements:
     _role: 'regional_director'
 
-staff_profile_reed.regional_director_panel:
+staff_profile_reed.county_web_authors:
   path: county-web-authors
   defaults:
     _controller: '\Drupal\staff_profile_reed\Controller\RegionalDirectorPanel::panel'
