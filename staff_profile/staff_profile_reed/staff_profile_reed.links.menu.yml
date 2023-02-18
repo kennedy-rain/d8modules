@@ -2,5 +2,5 @@ staff_profile_reed.regional_director_portal:
   title: 'Regional Director Portal'
   parent: main
   menu_name: main
-  url: internal:/regional-director-portal
+  route_name: staff_profile_reed.portal_page
   weight: 10
