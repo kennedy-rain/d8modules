@@ -2,8 +2,6 @@ staff_profile_reed.portal_page:
   path: regional-director-portal
   requirements:
     _role: 'regional_director'
-  options:
-    no_cache: 'TRUE'
 
 staff_profile_reed.regional_director_panel:
   path: county-web-authors
