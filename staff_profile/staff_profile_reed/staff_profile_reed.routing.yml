@@ -16,7 +16,7 @@ staff_profile_reed.county_web_authors:
 entity.staff_profile_reed.remove_cty_author_form:
   path: '/staff_profile/{node}/remove_cty_author/{cty}'
   defaults:
-    _form: '\Drupal\staff_profile_reed\Form\StaffProfileReedRemoveCtyAuthorForm'
+    _form: '\Drupal\staff_profile_reed\Form\CountyWebAuthorsConfirmRemove'
     _title: 'Remove County Author'
     _entity_form: staff_profile.remove_cty_author
   requirements:
@@ -33,7 +33,7 @@ entity.staff_profile_reed.remove_cty_author_form:
 entity.staff_profile_reed.add_cty_author_form:
   path: '/staff_profile/{node}/add_cty_author/{cty}'
   defaults:
-    _form: '\Drupal\staff_profile_reed\Form\StaffProfileReedAddCtyAuthorConfirmForm'
+    _form: '\Drupal\staff_profile_reed\Form\CountyWebAuthorsConfirmAdd'
     _title: 'Add County Author'
     _entity_form: staff_profile.add_cty_author
   requirements:

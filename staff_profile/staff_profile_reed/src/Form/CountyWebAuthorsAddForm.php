@@ -5,7 +5,7 @@ use \Drupal\Core\Form\FormBase;
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\taxonomy\Entity\Term;
 
-class StaffProfileReedAddCtyEditorForm extends FormBase {
+class CountyWebAuthorsAddForm extends FormBase {
   /**
    * {@inheritdoc}
    */
@@ -38,7 +38,7 @@ class StaffProfileReedAddCtyEditorForm extends FormBase {
 
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $message = parent::validateForm($form, $form_state);
-    $netid = str_replace('@iastate.edu', '', $form_state->getValue('netid'));
+    $netid = str_replace('@iastate.edu', '', strtolower($form_state->getValue('netid')));
     $form_state->setValue('netid', $netid);
 
     $staff_profiles = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['field_staff_profile_netid' => $netid]);

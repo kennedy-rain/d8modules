@@ -9,8 +9,8 @@ function staff_profile_reed_install() {
   $staff_profile_type = $def_manager->getEntityType('staff_profile');
   $node_type = $def_manager->getEntityType('node');
 
-  $node_type->setFormClass('add_cty_author', 'Drupal\staff_profile_reed\Forms\StaffProfileReedAddCtyAuthorConfirmForm');
-  $node_type->setFormClass('remove_cty_author', 'Drupal\staff_profile_reed\Forms\StaffProfileReedRemoveCtyAuthorForm');
+  $node_type->setFormClass('add_cty_author', 'Drupal\staff_profile_reed\Forms\CountyWebAuthorsConfirmAdd');
+  $node_type->setFormClass('remove_cty_author', 'Drupal\staff_profile_reed\Forms\CountyWebAuthorsConfirmRemove');
   $node_type->setHandlerClass('route_provider', 'Drupal\staff_profile_reed\Controller\StaffProfileReedRouteController');
 
   $def_manager->updateEntityType($node_type);

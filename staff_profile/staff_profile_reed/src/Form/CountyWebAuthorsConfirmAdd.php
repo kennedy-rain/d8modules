@@ -11,7 +11,7 @@ use Drupal\Core\Entity\EntityRepository;
 use Drupal\Core\Entity\EntityTypeBundleInfo;
 use Drupal\Component\Datetime\Time;
 
-class StaffProfileReedAddCtyAuthorConfirmForm extends ContentEntityConfirmFormBase {
+class CountyWebAuthorsConfirmAdd extends ContentEntityConfirmFormBase {
 
   private  $county;
 

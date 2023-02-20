@@ -13,7 +13,7 @@ use Drupal\Component\Datetime\Time;
 /**
  * @ingroup staff_profile_reed
  */
-class StaffProfileReedRemoveCtyAuthorForm extends ContentEntityConfirmFormBase {
+class CountyWebAuthorsConfirmRemove extends ContentEntityConfirmFormBase {
   //County to be removed
   private  $county;
 
