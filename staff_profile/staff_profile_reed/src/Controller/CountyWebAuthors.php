@@ -32,7 +32,7 @@ class CountyWebAuthors extends ControllerBase {
       $result[$county->label()]['view'] = [
         '#type' => 'view',
         '#name' => 'regional_director_county',
-        '#display_id' => 'block_1',
+        '#display_id' => 'county_web_authors',
         '#arguments' => [$county->id()],
         '#embed' => TRUE,
       ];

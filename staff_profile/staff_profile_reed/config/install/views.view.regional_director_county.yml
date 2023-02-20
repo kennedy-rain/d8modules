@@ -551,8 +551,8 @@ display:
         - 'config:field.storage.node.field_staff_profile_cty_author'
         - 'config:field.storage.node.field_staff_profile_email'
         - 'config:field.storage.node.field_staff_profile_quals'
-  block_1:
-    id: block_1
+  county_web_authors:
+    id: county_web_authors
     display_title: Block
     display_plugin: block
     position: 1

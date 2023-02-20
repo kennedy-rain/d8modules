@@ -38,7 +38,9 @@ class StaffProfileReedAddCtyEditorForm extends FormBase {
 
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $message = parent::validateForm($form, $form_state);
-    $netid = $form_state->getValue('netid');
+    $netid = str_replace('@iastate.edu', '', $form_state->getValue('netid'));
+    $form_state->setValue('netid', $netid);
+
     $staff_profiles = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['field_staff_profile_netid' => $netid]);
     if (count($staff_profiles) == 0) {
       $form_state->setErrorByName('', $this->t('Staff Profile Not found with given netid'));
