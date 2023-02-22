@@ -123,9 +123,9 @@ class ProgramOfferingBlocks extends BlockBase
       }
 $site_name = \Drupal::config('system.site')->get('name');
 $additional_counties = explode(';', $event["Additional_Counties__c"]);
-//if (strpos($site_name, ' County') !== false && count($additional_counties) > 10 ) {
-//  $display_event = false;
-//}
+if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $max_events == 4) {
+  $display_event = false;
+}
       if ($display_event) {
         if ($count < $max_events) {
           $start_date = strtotime($event['Next_Start_Date__c']);
