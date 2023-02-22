@@ -159,7 +159,11 @@ if (strpos($site_name, ' County') !== false && count($additional_counties) > 10 
     }
 
     if (!empty($config['show_more_page']) && !empty($config['show_more_text']) && $count > $max_events) {
-      $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $config['show_more_page'] . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
+      // remove leading slash (/) from 'show_more_page value
+      $show_more_page = $config['show_more_page'];
+      $show_more_page = substr($show_more_page, 0, 1) == '/' ? substr($show_more_page, 1, strlen($show_more_page) - 1) : $show_more_page;
+
+      $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
     }
 
     return [
