@@ -48,6 +48,7 @@ class ProgramOfferingBlocks extends BlockBase
     $id = $this->getDerivativeID();
     $config = $this->getConfiguration();
     $module_config = \Drupal::config('program_offering_blocks.settings');
+    $site_name = \Drupal::config('system.site')->get('name');
 
     // Show annoncement if there is one
     if (!empty($config['announcement_text'])) {
@@ -81,9 +82,83 @@ class ProgramOfferingBlocks extends BlockBase
     ini_set('default_socket_timeout', $default_socket_timeout);
     $json_events = json_decode($buffer, TRUE);
 
+    // Show all upcoming events, not just the next one
+    $all_events = [];
+    foreach ($json_events as $event) {
+      if (!empty($event['Second_Session_Date_Time__c'])) {
+        $event['Name_Placeholder__c'] = $event['Name_Placeholder__c'] . ' - Series';
+      }
+      $all_events[] = $event;
+
+$additional_counties = explode(';', $event["Additional_Counties__c"]);
+if (strpos($site_name, ' County') !== false && count($additional_counties) > 50 ) {
+  continue;
+}
+
+      $event['Name_Placeholder__c'] = $event['Name_Placeholder__c'] . '*';
+      $next_session = $event['Next_Start_Date__c'];
+
+      if (!empty($event['Second_Session_Date_Time__c']) && $event['Second_Session_Date_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Second_Session_Date_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Third_Session_Begining_Date_and_Time__c']) && $event['Third_Session_Begining_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Third_Session_Begining_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Fourth_Session_Beginning_Date_and_Time__c']) && $event['Fourth_Session_Beginning_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Fourth_Session_Beginning_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Fifth_Session_Beginning_Date_and_Time__c']) && $event['Fifth_Session_Beginning_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Fifth_Session_Beginning_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Sixth_Session_Beginning_Date_and_Time__c']) && $event['Sixth_Session_Beginning_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Sixth_Session_Beginning_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Seventh_Session_Beginning_Date_and_Time__c']) && $event['Seventh_Session_Beginning_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Seventh_Session_Beginning_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Eighth_Session_Beginning_Date_and_Time__c']) && $event['Eighth_Session_Beginning_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Eighth_Session_Beginning_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Ninth_Session_Beginning_Date_and_Time__c']) && $event['Ninth_Session_Beginning_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Ninth_Session_Beginning_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Tenth_Session_Beginning_Date_and_Time__c']) && $event['Tenth_Session_Beginning_Date_and_Time__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Tenth_Session_Beginning_Date_and_Time__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Eleventh_Session_Start_Date__c']) && $event['Eleventh_Session_Start_Date__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Eleventh_Session_Start_Date__c'];
+        $all_events[] = $event;
+      }
+
+      if (!empty($event['Twelfth_Session_Start_Date__c']) && $event['Twelfth_Session_Start_Date__c'] > $next_session) {
+        $event['Next_Start_Date__c'] = $event['Twelfth_Session_Start_Date__c'];
+        $all_events[] = $event;
+      }
+
+      usort($all_events, 'self::cmp_array');
+    }
+
     $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
 
-    foreach ($json_events as $event) {
+    foreach ($all_events as $event) {
       $display_event = TRUE;
       if (!empty($config['program_area']) && $config['program_area'] != $event['PrimaryProgramUnit__c']) {
         $display_event = FALSE;
@@ -121,7 +196,6 @@ class ProgramOfferingBlocks extends BlockBase
           $display_event = FALSE;
         }
       }
-$site_name = \Drupal::config('system.site')->get('name');
 $additional_counties = explode(';', $event["Additional_Counties__c"]);
 if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $max_events == 4) {
   $display_event = false;
@@ -436,5 +510,13 @@ if (strpos($site_name, ' County') !== false && count($additional_counties) > 10 
       }
     }
     return $found_term;
+  }
+
+  private static function cmp_array($a, $b) {
+    if ($a['Next_Start_Date__c'] == $b['Next_Start_Date__c']) {
+      return 0;
+    }
+
+    return ($a['Next_Start_Date__c'] < $b['Next_Start_Date__c']) ? -1 : 1;
   }
 }
