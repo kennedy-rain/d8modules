@@ -320,6 +320,9 @@ function staff_profile_primary_web_editor_training() {
     // Get taxonomy term id, and skip record if it's not found
     $course = 0;
     switch ($training['coursemoduleid']) {
+      case '10712':  // Drupal 8/9/10
+        $course = 114;
+        break;
       case '1041':  // Drupal 7
         $course = 113;
         break;
