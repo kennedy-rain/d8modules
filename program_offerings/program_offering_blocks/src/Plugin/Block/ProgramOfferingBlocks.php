@@ -4,6 +4,7 @@ namespace Drupal\program_offering_blocks\Plugin\Block;
 
 use DateInterval;
 use DateTime;
+use Drupal;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
@@ -48,6 +49,8 @@ class ProgramOfferingBlocks extends BlockBase
     $id = $this->getDerivativeID();
     $config = $this->getConfiguration();
     $module_config = \Drupal::config('program_offering_blocks.settings');
+    $site_name = \Drupal::config('system.site')->get('name');
+    $is_front_page = Drupal::service('path.matcher')->isFrontPage();
 
     // Show annoncement if there is one
     if (!empty($config['announcement_text'])) {
@@ -122,6 +125,12 @@ class ProgramOfferingBlocks extends BlockBase
         }
       }
 
+      // Hide statewide events from home page
+      $additional_counties = explode(';', $event["Additional_Counties__c"]);
+      if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $is_front_page) {
+        $display_event = false;
+      }
+
       if ($display_event) {
         if ($count < $max_events) {
           $start_date = strtotime($event['Next_Start_Date__c']);
@@ -152,7 +161,11 @@ class ProgramOfferingBlocks extends BlockBase
     }
 
     if (!empty($config['show_more_page']) && !empty($config['show_more_text']) && $count > $max_events) {
-      $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $config['show_more_page'] . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
+      // remove leading slash (/) from 'show_more_page value
+      $show_more_page = $config['show_more_page'];
+      $show_more_page = substr($show_more_page, 0, 1) == '/' ? substr($show_more_page, 1, strlen($show_more_page) - 1) : $show_more_page;
+
+      $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
     }
 
     return [
