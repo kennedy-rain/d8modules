@@ -4,6 +4,7 @@ namespace Drupal\program_offering_blocks\Plugin\Block;
 
 use DateInterval;
 use DateTime;
+use Drupal;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
@@ -49,6 +50,7 @@ class ProgramOfferingBlocks extends BlockBase
     $config = $this->getConfiguration();
     $module_config = \Drupal::config('program_offering_blocks.settings');
     $site_name = \Drupal::config('system.site')->get('name');
+    $is_front_page = Drupal::service('path.matcher')->isFrontPage();
 
     // Show annoncement if there is one
     if (!empty($config['announcement_text'])) {
@@ -125,7 +127,7 @@ class ProgramOfferingBlocks extends BlockBase
 
       // Hide statewide events from home page
       $additional_counties = explode(';', $event["Additional_Counties__c"]);
-      if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $max_events == 4) {
+      if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $is_front_page) {
         $display_event = false;
       }
 
