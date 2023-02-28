@@ -4,6 +4,7 @@ namespace Drupal\program_offering_blocks\Plugin\Block;
 
 use DateInterval;
 use DateTime;
+use Drupal;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
@@ -49,6 +50,7 @@ class ProgramOfferingBlocks extends BlockBase
     $config = $this->getConfiguration();
     $module_config = \Drupal::config('program_offering_blocks.settings');
     $site_name = \Drupal::config('system.site')->get('name');
+    $is_front_page = Drupal::service('path.matcher')->isFrontPage();
 
     // Show annoncement if there is one
     if (!empty($config['announcement_text'])) {
@@ -196,10 +198,13 @@ if (strpos($site_name, ' County') !== false && count($additional_counties) > 50 
           $display_event = FALSE;
         }
       }
-$additional_counties = explode(';', $event["Additional_Counties__c"]);
-if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $max_events == 4) {
-  $display_event = false;
-}
+
+      // Hide statewide events from home page
+      $additional_counties = explode(';', $event["Additional_Counties__c"]);
+      if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $is_front_page) {
+        $display_event = false;
+      }
+
       if ($display_event) {
         if ($count < $max_events) {
           $start_date = strtotime($event['Next_Start_Date__c']);
@@ -211,9 +216,6 @@ if (strpos($site_name, ' County') !== false && count($additional_counties) > 50 
           $results .= $this->format_title($event, $config) . PHP_EOL;
           $results .= '    <div class="event_venue">';
           $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
-if (strpos($site_name, ' County') !== false && count($additional_counties) > 10 ) {
-  $results .= ' <span style="color:pink; font-size:0.8em;">(' . count($additional_counties) . ')</span>';
-}
           $results .= '</div>' . PHP_EOL;
 
           $startDate = date($config['format_with_time'], strtotime($event['Next_Start_Date__c']));
