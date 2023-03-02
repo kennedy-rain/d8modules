@@ -12,11 +12,11 @@ use Drupal\smugmug_media_type\ProviderManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides media source plugin for image embed field.
+ * Provides media source plugin for smugmug embed field.
  *
  * @MediaSource(
  *   id = "smugmug_media_type",
- *   label = @Translation("Smugmug embed field"),
+ *   label = @Translation("SmugMug"),
  *   description = @Translation("Enables smugmug_media_type integration with media."),
  *   allowed_field_types = {"smugmug_media_type"},
  *   default_thumbnail_filename = "no-thumbnail.png"
@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SmugmugEmbedField extends MediaSourceBase {
 
   /**
-   * The image provider manager.
+   * The smugmug provider manager.
    *
    * @var \Drupal\smugmug_media_type\ProviderManagerInterface
    */
