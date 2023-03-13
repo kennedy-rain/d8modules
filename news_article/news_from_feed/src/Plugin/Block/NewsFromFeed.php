@@ -52,7 +52,7 @@ class NewsFromFeed extends BlockBase
       }
 
       $results .= '      <li class="col-md-6 col-lg-4 mb-3">' . PHP_EOL;
-      $results .= '        <img src="' . $node->node->ThumbnailImage->src . '" width="480" height="320" alt="scones" loading="lazy" />' . PHP_EOL;
+      $results .= '        <img src="' . $node->node->ThumbnailImage->src . '" width="480" height="320" alt="' . $node->node->ThumbnailImage->alt . '" loading="lazy" />' . PHP_EOL;
       $results .= '        <div class="card">' . PHP_EOL;
       $results .= '          <div class="card-body">' . PHP_EOL;
       $results .= '            <h3 class="card-title">' . $node->node->title . '</h3>' . PHP_EOL;
