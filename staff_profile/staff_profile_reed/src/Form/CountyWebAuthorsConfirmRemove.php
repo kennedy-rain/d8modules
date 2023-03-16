@@ -44,7 +44,8 @@ class CountyWebAuthorsConfirmRemove extends ContentEntityConfirmFormBase {
   }
 
   public function getDescription() {
-    return $this->t('Removes staff_profile from users authorized in %cty county Web Editors.', array('%cty' => $this->county->label()));
+    //return $this->t('Removes staff_profile from users authorized in %cty county Web Editors.', array('%cty' => $this->county->label()));
+    return '';
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {

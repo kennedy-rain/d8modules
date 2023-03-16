@@ -39,12 +39,15 @@ class CountyWebAuthorsConfirmAdd extends ContentEntityConfirmFormBase {
   }
 
   public function getConfirmText() {
-    return $this->t('Add from County');
+    return $this->t('Add to County');
   }
 
+
   public function getDescription() {
-    return $this->t('Adds staff_profile from users authorized in county Web Editors.');
+    //return $this->t('Adds staff_profile from users authorized in county Web Editors.');
+    return '';
   }
+
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $web_editor_qual = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => 'Web Editor', 'vid' => 'editor_qualifications']);
