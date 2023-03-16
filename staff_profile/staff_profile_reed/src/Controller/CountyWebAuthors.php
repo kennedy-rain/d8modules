@@ -8,21 +8,9 @@ use \Drupal\user\Entity\User;
  */
 class CountyWebAuthors extends ControllerBase {
 
-  /**
-   * Return the Taxomomy ids of counties that regional director serves
-   */
-  private function getCountiesServed($netid) {
-    $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'staff_profile', 'field_staff_profile_netid' => $netid]);
-    if ($node = reset($nodes)) {
-      return $node->field_staff_profile_cty_served->referencedEntities();
-    } else {
-      return [];
-    }
-  }
-
   public function panel() {
-    $user = User::load(\Drupal::currentUser()->id());
-    $counties = CountyWebAuthors::getCountiesServed($user->getAccountName());
+    $counties = \Drupal::service('staff_profile_reed.helper_functions')->getCountiesServed();
+
     $result = [];
     foreach ($counties as $key => $county) {
       $result[$county->label()] = array(

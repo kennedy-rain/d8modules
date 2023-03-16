@@ -209,7 +209,7 @@ function staff_profile_primary_profile_from_database () {
     $mynode->save();
 
     // Check if this user is a Regional Director
-    if ($profile->DepartmentID == '30310' && (strpos($jobtitle, 'Assistant Director County Serv') !== false || strpos($jobtitle, 'Regional Extension Education') !== false || $jobtitle == 'County Services - Regional Dir') || $jobtitle == 'Regional Director' || $jobtitle == 'Associate Director County Serv') {
+    if ($profile->DepartmentID == '30310' && (strpos($jobtitle, 'Assistant Director County Serv') !== false || strpos($jobtitle, 'Regional Extension Education') !== false || $jobtitle == 'County Services - Regional Dir') || $jobtitle == 'Regional Director' || $jobtitle == 'Associate Director County Serv'|| strpos($jobtitle, 'Director of Field Operations') !== false) {
     //if ($profile->DepartmentID == '30310') {
       $regional_directors[] = $profile->email;
     }
@@ -229,6 +229,9 @@ function staff_profile_primary_profile_from_database () {
   $userids = \Drupal::entityQuery('user') ->condition('status', 1) ->condition('roles', 'regional_director') ->execute();
   $users = User::loadMultiple($userids);
   foreach($users as $user){
+    if ($user->id() == 1) {
+      continue;
+    }
     $email =  $user->get('mail')->getString();
     if (!in_array($email, $regional_directors)) {
       $user->removeRole('regional_director');
