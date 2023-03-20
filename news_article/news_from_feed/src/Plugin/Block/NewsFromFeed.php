@@ -42,6 +42,7 @@ class NewsFromFeed extends BlockBase
     //}
 
     $results = PHP_EOL . '<div id="news_from_feed">' . PHP_EOL;
+    $results .= '  <p style="text-align:center;">Learn how ISU Extension and Outreach engages Iowans in solving today\'s problems<br>and preparing for a thriving future.</p>' . PHP_EOL;
     $results .= '  <div class="item-list">' . PHP_EOL;
     $results .= '    <ul class="list-unstyled row">' . PHP_EOL;
     $count = 0;
