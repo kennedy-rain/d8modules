@@ -51,6 +51,7 @@ class ProgramOfferingBlocks extends BlockBase
     $module_config = \Drupal::config('program_offering_blocks.settings');
     $site_name = \Drupal::config('system.site')->get('name');
     $is_front_page = Drupal::service('path.matcher')->isFrontPage();
+    $is_county_site = strpos($site_name, ' County') !== false;
 
     // Show annoncement if there is one
     if (!empty($config['announcement_text'])) {
@@ -127,7 +128,8 @@ class ProgramOfferingBlocks extends BlockBase
 
       // Hide statewide events from home page
       $additional_counties = explode(';', $event["Additional_Counties__c"]);
-      if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $is_front_page) {
+      //if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $is_front_page) {
+      if ($is_county_site && count($additional_counties) > 50  && $is_front_page) {
         $display_event = false;
       }
 
@@ -160,7 +162,7 @@ class ProgramOfferingBlocks extends BlockBase
       $results .= '<script>document.getElementById("block-programofferingblock' . $id . '").style.display = "none";</script>';
     }
 
-    if (!empty($config['show_more_page']) && !empty($config['show_more_text']) && $count > $max_events) {
+    if (!empty($config['show_more_page']) && !empty($config['show_more_text']) && ($count > $max_events || ($is_county_site && $is_front_page))) {
       // remove leading slash (/) from 'show_more_page value
       $show_more_page = $config['show_more_page'];
       $show_more_page = substr($show_more_page, 0, 1) == '/' ? substr($show_more_page, 1, strlen($show_more_page) - 1) : $show_more_page;
