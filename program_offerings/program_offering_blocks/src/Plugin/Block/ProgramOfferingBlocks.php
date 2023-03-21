@@ -18,6 +18,7 @@ use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Drupal\program_offering_blocks\Controller\Helpers;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * Provides a 'ProgramOfferingBlocks' block plugin.
@@ -32,6 +33,21 @@ use Drupal\program_offering_blocks\Controller\Helpers;
 
 class ProgramOfferingBlocks extends BlockBase
 {
+  // Set the Field_Names for the session start times, comes from MyData
+  const FIELD_NAMES = [
+    'Start_Time_and_Date__c',
+    'Second_Session_Date_Time__c',
+    'Third_Session_Begining_Date_and_Time__c',
+    'Fourth_Session_Beginning_Date_and_Time__c',
+    'Fifth_Session_Beginning_Date_and_Time__c',
+    'Sixth_Session_Beginning_Date_and_Time__c',
+    'Seventh_Session_Beginning_Date_and_Time__c',
+    'Eighth_Session_Beginning_Date_and_Time__c',
+    'Ninth_Session_Beginning_Date_and_Time__c',
+    'Tenth_Session_Beginning_Date_and_Time__c',
+    'Eleventh_Session_Start_Date__c',
+    'Twelfth_Session_Start_Date__c',
+  ];
 
   /**
    * {@inheritdoc}
@@ -86,78 +102,7 @@ class ProgramOfferingBlocks extends BlockBase
     $json_events = json_decode($buffer, TRUE);
 
     // Show all upcoming events, not just the next one
-    $all_events = [];
-    foreach ($json_events as $event) {
-      if (!empty($event['Second_Session_Date_Time__c'])) {
-        $event['Name_Placeholder__c'] = $event['Name_Placeholder__c'] . ' - Series';
-      }
-      $all_events[] = $event;
-
-$additional_counties = explode(';', $event["Additional_Counties__c"]);
-if (strpos($site_name, ' County') !== false && count($additional_counties) > 50 ) {
-  continue;
-}
-
-      $event['Name_Placeholder__c'] = $event['Name_Placeholder__c'] . '*';
-      $next_session = $event['Next_Start_Date__c'];
-
-      if (!empty($event['Second_Session_Date_Time__c']) && $event['Second_Session_Date_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Second_Session_Date_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Third_Session_Begining_Date_and_Time__c']) && $event['Third_Session_Begining_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Third_Session_Begining_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Fourth_Session_Beginning_Date_and_Time__c']) && $event['Fourth_Session_Beginning_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Fourth_Session_Beginning_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Fifth_Session_Beginning_Date_and_Time__c']) && $event['Fifth_Session_Beginning_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Fifth_Session_Beginning_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Sixth_Session_Beginning_Date_and_Time__c']) && $event['Sixth_Session_Beginning_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Sixth_Session_Beginning_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Seventh_Session_Beginning_Date_and_Time__c']) && $event['Seventh_Session_Beginning_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Seventh_Session_Beginning_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Eighth_Session_Beginning_Date_and_Time__c']) && $event['Eighth_Session_Beginning_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Eighth_Session_Beginning_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Ninth_Session_Beginning_Date_and_Time__c']) && $event['Ninth_Session_Beginning_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Ninth_Session_Beginning_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Tenth_Session_Beginning_Date_and_Time__c']) && $event['Tenth_Session_Beginning_Date_and_Time__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Tenth_Session_Beginning_Date_and_Time__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Eleventh_Session_Start_Date__c']) && $event['Eleventh_Session_Start_Date__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Eleventh_Session_Start_Date__c'];
-        $all_events[] = $event;
-      }
-
-      if (!empty($event['Twelfth_Session_Start_Date__c']) && $event['Twelfth_Session_Start_Date__c'] > $next_session) {
-        $event['Next_Start_Date__c'] = $event['Twelfth_Session_Start_Date__c'];
-        $all_events[] = $event;
-      }
-
-      usort($all_events, 'self::cmp_array');
-    }
+    $all_events = self::include_series_events($json_events, $is_county_site);
 
     $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
 
@@ -202,7 +147,6 @@ if (strpos($site_name, ' County') !== false && count($additional_counties) > 50 
 
       // Hide statewide events from home page
       $additional_counties = explode(';', $event["Additional_Counties__c"]);
-      //if (strpos($site_name, ' County') !== false && count($additional_counties) > 50  && $is_front_page) {
       if ($is_county_site && count($additional_counties) > 50  && $is_front_page) {
         $display_event = false;
       }
@@ -216,6 +160,9 @@ if (strpos($site_name, ' County') !== false && count($additional_counties) > 50 
             <span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span></div>';
 
           $results .= $this->format_title($event, $config) . PHP_EOL;
+          if (!empty($event['series_info'])) {
+            $results .= '    <div class="event_series">' . $event['series_info'] . '</div>' . PHP_EOL;
+          }
           $results .= '    <div class="event_venue">';
           $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
           $results .= '</div>' . PHP_EOL;
@@ -516,11 +463,72 @@ if (strpos($site_name, ' County') !== false && count($additional_counties) > 50 
     return $found_term;
   }
 
-  private static function cmp_array($a, $b) {
+  /**
+   * Compare function, used to sort array of events, used by usort() in include_series_events()
+   */
+  private static function cmp_array($a, $b)
+  {
     if ($a['Next_Start_Date__c'] == $b['Next_Start_Date__c']) {
       return 0;
     }
 
     return ($a['Next_Start_Date__c'] < $b['Next_Start_Date__c']) ? -1 : 1;
+  }
+
+  /**
+   * Include all upcoming sessions in the list of events, not just the next series
+   */
+  private static function include_series_events($json_events, $is_county_site)
+  {
+    $all_events = [];
+
+    // Step through the original list of  events
+    foreach ($json_events as $event) {
+
+      // Set some variables, and handle the next event
+      $series_dates = self::get_series_dates($event);
+      $series_length = count($series_dates);
+      $next_session = $event['Next_Start_Date__c'];
+      $event['series_info'] = $series_length > 1 ? sprintf('Multipart Series (%d of %d)', (array_search($event['Next_Start_Date__c'], $series_dates) + 1), $series_length) : '';
+
+      $all_events[] = $event;
+
+      /*
+      // This would hide future sessions for statewide events.
+      $additional_counties = explode(';', $event["Additional_Counties__c"]);
+      if ($is_county_site && count($additional_counties) > 50) {
+        continue;
+      }
+      */
+
+      // Step through the $series dates, and include all future dates
+      foreach ($series_dates as $series_date) {
+        if ($series_date > $next_session) {
+          $event['Next_Start_Date__c'] = $series_date;
+          $event['series_info'] = $series_length > 1 ? sprintf('Multipart Series (%d of %d)', (array_search($series_date, $series_dates) + 1), $series_length) : '';
+          $all_events[] = $event;
+          $next_session = $series_date;
+        }
+      }
+    }
+
+    usort($all_events, 'self::cmp_array');
+    return $all_events;
+  }
+
+  private static function get_series_dates($event)
+  {
+    $series_dates = [];
+
+    // Set through the field names, if the field has a value, add that value to the $series_dates array
+    foreach (self::FIELD_NAMES as $field_name) {
+      if (!empty($event[$field_name])) {
+        $series_dates[] = $event[$field_name];
+      }
+    }
+
+    // Sort the array and return it
+    sort($series_dates);
+    return $series_dates;
   }
 }
