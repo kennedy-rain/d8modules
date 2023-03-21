@@ -15,16 +15,28 @@ settings:
   allowed_values:
     -
       value: bean-card_red
-      label: Red
+      label: 'Full Red'
     -
       value: bean-card_green
-      label: Green
+      label: 'Full Green'
     -
       value: bean-card_dark-red
-      label: 'Dark Red'
+      label: 'Full Dk Red'
     -
       value: bean-card_dark-blue
-      label: 'Dark Blue'
+      label: 'Full Dk Blue'
+    -
+      value: bean-card-half_red
+      label: 'Partial Red'
+    -
+      value: bean-card-half_green
+      label: 'Partial Green'
+    -
+      value: bean-card-half_dark-red
+      label: 'Partial Dk Red'
+    -
+      value: bean-card-half_dark-blue
+      label: 'Partial Dk Blue'
   allowed_values_function: ''
 module: options
 locked: false
