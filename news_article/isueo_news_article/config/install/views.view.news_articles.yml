@@ -724,7 +724,9 @@ display:
           hide_alter_empty: false
       defaults:
         title: false
+        css_class: false
         fields: false
+      css_class: ext-news-feed
       display_extenders: {  }
       block_hide_empty: true
     cache_metadata:
