@@ -35,6 +35,9 @@ class NewsFromFeed extends BlockBase
    */
   public function build()
   {
+    // Do NOT cache a page with this block on it
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
     $obj = $this->news_from_feed_parse_json();
 
     //if (count($obj) == 0) {
