@@ -3,37 +3,33 @@
 use Drupal\node\Entity\Node;
 
 /**
-* Implements hook_form_alter().
-*/
+ * Implements hook_form_alter().
+ */
 
-function protect_nodes_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  //Drupal::logger('protect_nodes')->info('In hook_form_alter: ' . $form_id);
+function protect_nodes_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+  $config = Drupal::configFactory()->get('protect_nodes.settings');
+  $protected_urls = explode(PHP_EOL, $config->get('protected_urls'));
 
-  //if ($form_id == 'node_staff_profile_delete_form') {
   if (strpos($form_id, 'node') !== false && strpos($form_id, 'delete_form') !== false && $form_id != "node_type_delete_form") {
 
-  $node = Node::load($form_state->getFormObject()->getEntity()->id());
-  //Drupal::logger('protect_nodes')->info(json_encode($form['actions']));
+    $node = Node::load($form_state->getFormObject()->getEntity()->id());
+    $url = Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
+    if (in_array($url, $protected_urls)) {
 
-  $results = '<ul>';
-  $results .= '<li>' . $form_id . '</li>';
-  $results .= '<li>' . $node->id() . '</li>';
-  $results .= '<li>' . $node->getTitle() . '</li>';
-  $results .= '<li>' . Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id()) . '</li>';
-  $results .= '<li>' . $node->getType() . '</li>';
-  $results .= '</ul>';
+      $results = '<p class="protect_nodes">';
+      $results .= '<strong>' . $node->getTitle() . '</strong>';
+      $results .= ' is a required page on this site, and can not be deleted';
+      $results .= '</p>' . PHP_EOL;
 
-    $form['protect_nodes'] = array(
-      '#markup' => $results,
-      '#weight' => -10,
-    );
+      $form['protect_nodes'] = array(
+        '#markup' => $results,
+        '#weight' => -10,
+      );
 
-    $form['actions']['cancel']['#title'] = t('Go back');
-    //$form['actions']['Cancel']['#value'] = t('Go back');
-    //$form['cancel']['#value'] = t('Go back');
-    unset($form['description']);
-    unset($form['actions']['submit']);
+      $form['actions']['cancel']['#title'] = t('Go back');
+      unset($form['description']);
+      unset($form['actions']['submit']);
+    }
   }
 }
-
-

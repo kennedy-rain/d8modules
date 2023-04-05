@@ -36,6 +36,7 @@ class SettingsForm extends ConfigFormBase {
         '#description' => $this->t('Example: <br/>&nbsp;&nbsp;/homepage<br/>&nbsp;&nbsp;/events<br/>Separate each url with a new line'),
         '#size' => 64,
         '#default_value' => !empty($config->get('protected_urls')) ? preg_replace('/,/',"\r\n",$config->get('protected_urls')) : '',
+        //'#default_value' => $config->get('protected_urls'),
         '#required' => TRUE,
       );
 
@@ -47,8 +48,15 @@ class SettingsForm extends ConfigFormBase {
      */
     public function submitForm(array &$form, FormStateInterface $form_state) {
       parent::submitForm($form, $form_state);
+
+      $urls = explode(PHP_EOL, trim($form_state->getValue('protected_urls')));
+      $trimmed_urls = [];
+      foreach($urls as $url) {
+        $trimmed_urls[] = trim($url);
+      }
       //If checked, run sync
       $this->config('protect_nodes.settings')
+        //->set('protected_urls', implode(',', $trimmed_urls))
         //->set('protected_urls', trim($form_state->getValue('protected_urls')))
         ->set('protected_urls', preg_replace('/\s+(?=[hw])/',',',trim($form_state->getValue('protected_urls'))))
         ->save();
