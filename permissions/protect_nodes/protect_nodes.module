@@ -9,6 +9,11 @@ use Drupal\node\Entity\Node;
 
 function protect_nodes_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
+  // Don't restrict adminn, it's their foot :-)
+  if (Drupal::currentUser()->id() == 1) {
+    //return;
+  }
+
   // Get protected urls
   $config = Drupal::configFactory()->get('protect_nodes.settings');
   $protected_urls = explode(',', $config->get('protected_urls'));
