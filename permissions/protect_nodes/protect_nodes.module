@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Core\Entity\EntityForm;
 use Drupal\node\Entity\Node;
 
 /**
@@ -8,28 +9,49 @@ use Drupal\node\Entity\Node;
 
 function protect_nodes_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
+  // Get protected urls
   $config = Drupal::configFactory()->get('protect_nodes.settings');
-  $protected_urls = explode(PHP_EOL, $config->get('protected_urls'));
+  $protected_urls = explode(',', $config->get('protected_urls'));
 
-  if (strpos($form_id, 'node') !== false && strpos($form_id, 'delete_form') !== false && $form_id != "node_type_delete_form") {
-
+  // Check if its a Node form, and if so, get the URL
+  $url = '';
+  if ($form_state->getFormObject() instanceof EntityForm) {
     $node = Node::load($form_state->getFormObject()->getEntity()->id());
-    $url = Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
-    if (in_array($url, $protected_urls)) {
+    if (!empty($node)) {
+      $url = Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
+    }
+  }
 
+  // Check if it's a node delete form
+  if (strpos($form_id, 'node') !== false && strpos($form_id, 'delete_form') !== false && $form_id != "node_type_delete_form") {
+    // Check if this node is protected
+    if (in_array($url, $protected_urls)) {
+      // Construct message
       $results = '<p class="protect_nodes">';
       $results .= '<strong>' . $node->getTitle() . '</strong>';
       $results .= ' is a required page on this site, and can not be deleted';
       $results .= '</p>' . PHP_EOL;
 
+      // Display message
       $form['protect_nodes'] = array(
         '#markup' => $results,
         '#weight' => -10,
       );
 
+      // Don't allow deleting this node
       $form['actions']['cancel']['#title'] = t('Go back');
       unset($form['description']);
       unset($form['actions']['submit']);
+    }
+  }
+
+  // Check if it's a node edit form
+  if (strpos($form_id, 'node') !== false && strpos($form_id, 'edit_form') !== false && $form_id != "node_type_edit_form") {
+    //Check if the title and url path are protected
+    if (in_array($url, $protected_urls)) {
+      // Don't allow changing title or url path
+      $form['title']['widget']['#disabled'] = TRUE;
+      unset($form['path']);
     }
   }
 }

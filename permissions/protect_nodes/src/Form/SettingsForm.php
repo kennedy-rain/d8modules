@@ -56,9 +56,7 @@ class SettingsForm extends ConfigFormBase {
       }
       //If checked, run sync
       $this->config('protect_nodes.settings')
-        //->set('protected_urls', implode(',', $trimmed_urls))
-        //->set('protected_urls', trim($form_state->getValue('protected_urls')))
-        ->set('protected_urls', preg_replace('/\s+(?=[hw])/',',',trim($form_state->getValue('protected_urls'))))
+        ->set('protected_urls', implode(',', $trimmed_urls))
         ->save();
   }
 }
