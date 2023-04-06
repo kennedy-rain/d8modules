@@ -4,6 +4,6 @@ protect_nodes.settings_form:
     _form: '\Drupal\protect_nodes\Form\SettingsForm'
     _title: 'Protect Nodes Settings'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer content'
   options:
     _admin-route: TRUE
