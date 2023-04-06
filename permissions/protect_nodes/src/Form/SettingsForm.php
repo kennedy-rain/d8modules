@@ -36,7 +36,14 @@ class SettingsForm extends ConfigFormBase {
         '#description' => $this->t('Example (Separate each url with a new line): <br/>&nbsp;&nbsp;/homepage<br/>&nbsp;&nbsp;/events'),
         '#size' => 64,
         '#default_value' => !empty($config->get('protect_nodes')) ? preg_replace('/,/',"\r\n",$config->get('protect_nodes')) : '',
-        '#required' => TRUE,
+      );
+
+      $form['protect_titles'] = array(
+        '#type' => 'textarea',
+        '#title' => $this->t('Prevents users from changing the title and/or URL'),
+        '#description' => $this->t('Example (Separate each url with a new line): <br/>&nbsp;&nbsp;/homepage<br/>&nbsp;&nbsp;/events'),
+        '#size' => 64,
+        '#default_value' => !empty($config->get('protect_titles')) ? preg_replace('/,/',"\r\n",$config->get('protect_titles')) : '',
       );
 
       return parent::buildForm($form, $form_state);
@@ -48,14 +55,21 @@ class SettingsForm extends ConfigFormBase {
     public function submitForm(array &$form, FormStateInterface $form_state) {
       parent::submitForm($form, $form_state);
 
-      $urls = explode(PHP_EOL, trim($form_state->getValue('protect_nodes')));
-      $trimmed_urls = [];
-      foreach($urls as $url) {
-        $trimmed_urls[] = trim($url);
+      $nodes = explode(PHP_EOL, trim($form_state->getValue('protect_nodes')));
+      $trimmed_nodes = [];
+      foreach($nodes as $nodes) {
+        $trimmed_nodes[] = trim($nodes);
+      }
+
+      $titles = explode(PHP_EOL, trim($form_state->getValue('protect_titles')));
+      $trimmed_titles = [];
+      foreach($titles as $titles) {
+        $trimmed_titles[] = trim($titles);
       }
       //If checked, run sync
       $this->config('protect_nodes.settings')
-        ->set('protect_nodes', implode(',', $trimmed_urls))
+        ->set('protect_nodes', implode(',', $trimmed_nodes))
+        ->set('protect_titles', implode(',', $trimmed_titles))
         ->save();
   }
 }

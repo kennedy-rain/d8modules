@@ -11,12 +11,13 @@ function protect_nodes_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 {
   // Don't restrict adminn, it's their foot :-)
   if (Drupal::currentUser()->id() == 1) {
-    //return;
+    return;
   }
 
   // Get protected urls
   $config = Drupal::configFactory()->get('protect_nodes.settings');
   $protected_nodes = explode(',', $config->get('protect_nodes'));
+  $protected_titles = explode(',', $config->get('protect_titles'));
 
   // Check if its a Node form, and if so, get the URL
   $url = '';
@@ -53,7 +54,7 @@ function protect_nodes_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
   // Check if it's a node edit form
   if (strpos($form_id, 'node') !== false && strpos($form_id, 'edit_form') !== false && $form_id != "node_type_edit_form") {
     //Check if the title and url path are protected
-    if (in_array($url, $protected_nodes)) {
+    if (in_array($url, $protected_nodes) || in_array($url, $protected_titles)) {
       // Don't allow changing title or url path
       $form['title']['widget']['#disabled'] = TRUE;
       unset($form['path']);
