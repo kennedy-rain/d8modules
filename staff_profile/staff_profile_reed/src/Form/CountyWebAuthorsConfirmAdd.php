@@ -75,14 +75,14 @@ class CountyWebAuthorsConfirmAdd extends ContentEntityConfirmFormBase {
     //Send to staff_profile
     $staff_profile_key = 'request_staff_profile_editor_training_profile';
     $staff_profile_email = $this->entity->field_staff_profile_email->value;
-    $staff_profile_email = 'extensionweb@iastate.edu'; //TODO Remove in production
+    //$staff_profile_email = 'extensionweb@iastate.edu'; //TODO Remove in production
     $langcode = $this->entity->getOwner()->getPreferredLangcode();
     $staff_profile_result = $mailManager->mail($module, $staff_profile_key, $staff_profile_email, $langcode, $params, NULL, $send);
 
     //Send to regional director
     $director_key = 'request_staff_profile_editor_training_reg_director';
     $reg_director_email = \Drupal::currentUser()->getEmail();
-    $reg_director_email = 'extensionweb@iastate.edu'; //TODO remove in production
+    //$reg_director_email = 'extensionweb@iastate.edu'; //TODO remove in production
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
     $reg_dir_result = $mailManager->mail($module, $director_key, $reg_director_email, $langcode, $params, NULL, $send);
 

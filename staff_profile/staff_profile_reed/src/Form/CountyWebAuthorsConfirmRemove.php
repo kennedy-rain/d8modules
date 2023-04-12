@@ -68,7 +68,7 @@ class CountyWebAuthorsConfirmRemove extends ContentEntityConfirmFormBase {
     //Send to regional director
     $director_key = 'remove_staff_profile_editor_cty_reg_director';
     $reg_director_email = \Drupal::currentUser()->getEmail();
-    $reg_director_email = 'extensionweb@iastate.edu'; //TODO Remove on production
+    //$reg_director_email = 'extensionweb@iastate.edu'; //TODO Remove on production
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
     $reg_dir_result = $mailManager->mail($module, $director_key, $reg_director_email, $langcode, $params, NULL, $send);
 
