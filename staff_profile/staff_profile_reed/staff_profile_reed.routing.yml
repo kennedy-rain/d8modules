@@ -23,6 +23,16 @@ staff_profile_reed.county_staff:
   options:
     no_cache: 'TRUE'
 
+staff_profile_reed.council_members:
+  path: council-members
+  defaults:
+    _controller: '\Drupal\staff_profile_reed\Controller\CouncilMembers::panel'
+    _title: 'Council Members'
+  requirements:
+    _role: 'regional_director'
+  options:
+    no_cache: 'TRUE'
+
 entity.staff_profile_reed.remove_cty_author_form:
   path: '/staff_profile/{node}/remove_cty_author/{cty}'
   defaults:
