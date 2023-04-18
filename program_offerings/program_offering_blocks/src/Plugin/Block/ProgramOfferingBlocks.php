@@ -489,7 +489,7 @@ class ProgramOfferingBlocks extends BlockBase
       $series_dates = self::get_series_dates($event);
       $series_length = count($series_dates);
       $next_session = $event['Next_Start_Date__c'];
-      $event['series_info'] = $series_length > 1 ? sprintf('Multipart Series (%d of %d)', (array_search($event['Next_Start_Date__c'], $series_dates) + 1), $series_length) : '';
+      $event['series_info'] = $series_length > 1 ? sprintf('Session %d of %d', (array_search($event['Next_Start_Date__c'], $series_dates) + 1), $series_length) : '';
 
       $all_events[] = $event;
 
@@ -505,7 +505,7 @@ class ProgramOfferingBlocks extends BlockBase
       foreach ($series_dates as $series_date) {
         if ($series_date > $next_session) {
           $event['Next_Start_Date__c'] = $series_date;
-          $event['series_info'] = $series_length > 1 ? sprintf('Multipart Series (%d of %d)', (array_search($series_date, $series_dates) + 1), $series_length) : '';
+          $event['series_info'] = $series_length > 1 ? sprintf('Session %d of %d', (array_search($series_date, $series_dates) + 1), $series_length) : '';
           $all_events[] = $event;
           $next_session = $series_date;
         }
