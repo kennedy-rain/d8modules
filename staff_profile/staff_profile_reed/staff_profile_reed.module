@@ -15,7 +15,7 @@ function staff_profile_reed_entity_operation_alter(array &$operations, EntityInt
     if (in_array('regional_director', $roles)) {
       $operations = [];
       $operations['remove_cty_author'] = array(
-        'title' => t('Remove County Author'),
+        'title' => t('Remove County Editor'),
         'weight' => -10,
         'url' => Url::fromRoute("entity.staff_profile_reed.remove_cty_author_form", array(
               'node' => $entity->id(),
