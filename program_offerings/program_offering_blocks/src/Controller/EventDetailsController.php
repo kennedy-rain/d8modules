@@ -72,7 +72,7 @@ class EventDetailsController extends ControllerBase
           $results .= '  <div class="event_contact_phone">' . $event['Contact_Information_Phone__c'] . '</div>' . PHP_EOL;
         }
 
-        if ($event['Contact_Person__c'] <> $event['Primary_Instructor_Presenter__c']) {
+        if (!empty($event['Primary_Instructor_Presenter__c']) && ($event['Contact_Person__c'] <> $event['Primary_Instructor_Presenter__c'])) {
           $results .= '  <div class="event_contact_label">Primary Instructor:</div>' . PHP_EOL;
           $results .= '  <div class="event_contact_name">' . $event['Instructor_Information_Name__c'] . '</div>' . PHP_EOL;
           $results .= '  <div class="event_contact_email"><a href="mailto:' . $event['Instructor_Information_Email__c']  . '">' . $event['Instructor_Information_Email__c'] . '</a></div>' . PHP_EOL;
