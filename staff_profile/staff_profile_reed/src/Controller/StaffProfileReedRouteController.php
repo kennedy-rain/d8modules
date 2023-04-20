@@ -17,11 +17,11 @@ class StaffProfileReedRouteController extends DefaultHtmlRouteProvider {
    */
   public function getRoutes(EntityTypeInterface $entity_type) {
     $collection = parent::getRoutes($entity_type);
-    if ($add_cty_author = $this->getAddCtyAuthorRoute($entity_type)) {
-      $collection->add("entity.{$entity_type_id}.add_cty_author");
+    if ($add_cty_editor = $this->getAddCtyEditorRoute($entity_type)) {
+      $collection->add("entity.{$entity_type_id}.add_cty_editor");
     }
-    if ($remove_cty_author = $this->getRemoveCtyAuthorRoute($entity_type)) {
-      $collection->add("entity.{$entity_type_id}.remove_cty_author");
+    if ($remove_cty_editor = $this->getRemoveCtyEditorRoute($entity_type)) {
+      $collection->add("entity.{$entity_type_id}.remove_cty_editor");
     }
 
     return $collection;
@@ -30,18 +30,18 @@ class StaffProfileReedRouteController extends DefaultHtmlRouteProvider {
   /**
    * {@inheritdoc}
    */
-  protected function getAddCtyAuthorRoute(EntityTypeInterface $entity_type) {
+  protected function getAddCtyEditorRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->bundle() == "staff_profile") {
-      $route = \Drupal::service('router.route_provider')->getRouteByName('entity.staff_profile_reed.add_cty_author_form');
+      $route = \Drupal::service('router.route_provider')->getRouteByName('entity.staff_profile_reed.add_cty_editor_form');
     }
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getRemoveCtyAuthorRoute(EntityTypeInterface $entity_type) {
+  protected function getRemoveCtyEditorRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->bundle() == "staff_profile") {
-      $route = \Drupal::service('router.route_provider')->getRouteByName('entity.staff_profile_reed.remove_cty_author_form');
+      $route = \Drupal::service('router.route_provider')->getRouteByName('entity.staff_profile_reed.remove_cty_editor_form');
     }
   }
 }

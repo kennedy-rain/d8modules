@@ -3,7 +3,7 @@
 namespace Drupal\staff_profile_reed\Utils;
 
 use Drupal;
-use Drupal\staff_profile_reed\Controller\CountyWebAuthors;
+use Drupal\staff_profile_reed\Controller\CountyWebEditors;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\User;
 
