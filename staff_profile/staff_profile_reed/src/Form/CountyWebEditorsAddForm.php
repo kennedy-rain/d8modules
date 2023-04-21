@@ -5,7 +5,7 @@ use \Drupal\Core\Form\FormBase;
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\taxonomy\Entity\Term;
 
-class CountyWebAuthorsAddForm extends FormBase {
+class CountyWebEditorsAddForm extends FormBase {
   /**
    * {@inheritdoc}
    */
@@ -31,7 +31,7 @@ class CountyWebAuthorsAddForm extends FormBase {
     ];
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add County Author')
+      '#value' => $this->t('Add County Editor')
     ];
     return $form;
   }
@@ -62,7 +62,7 @@ class CountyWebAuthorsAddForm extends FormBase {
     $tid = $form_state->getValue('cty');
     $staff_profiles = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['field_staff_profile_netid' => $netid]);;
     if ($staff_profile = reset($staff_profiles)) {
-      $form_state->setRedirect('entity.staff_profile_reed.add_cty_author_form', array(
+      $form_state->setRedirect('entity.staff_profile_reed.add_cty_editor_form', array(
         'node' => $staff_profile->id(),
         'cty' => $tid
       ));

@@ -13,7 +13,7 @@ use Drupal\Component\Datetime\Time;
 /**
  * @ingroup staff_profile_reed
  */
-class CountyWebAuthorsConfirmRemove extends ContentEntityConfirmFormBase {
+class CountyWebEditorsConfirmRemove extends ContentEntityConfirmFormBase {
   //County to be removed
   private  $county;
 
@@ -36,7 +36,7 @@ class CountyWebAuthorsConfirmRemove extends ContentEntityConfirmFormBase {
   //Fix Incoming
   //https://www.drupal.org/project/drupal/issues/2582295
   public function getCancelUrl() {
-    return new Url('staff_profile_reed.county_web_authors');
+    return new Url('staff_profile_reed.county_web_editors');
   }
 
   public function getConfirmText() {
@@ -85,6 +85,6 @@ class CountyWebAuthorsConfirmRemove extends ContentEntityConfirmFormBase {
     }
 
     $this->logger('staff_profile_reed')->notice('Removed %title from county editor in %cty county', array('%title' => $this->entity->label(), '%cty' => $this->county->label()));
-    $form_state->setRedirect('staff_profile_reed.county_web_authors');
+    $form_state->setRedirect('staff_profile_reed.county_web_editors');
   }
 }
