@@ -32,10 +32,15 @@ class JsonApiController {
       $myNode = $node->toArray();
       $taxonomyTerm = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($myNode['field_educational_program'][0]['term_id']);
 
+      // Get the sessions from Layout Builder
+      $layout = $node->get('layout_builder__layout');
+      $sections = $layout->getSections();
+
       $educationalPrograms[] = [
 
         'nodeID' => $node->id(),
         'nodeURL' => substr(\Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id()), 1),
+        'nodeSections' => count($sections),
         //'title' => $node->getTitle(),
         'termID' => $myNode['field_educational_program'][0]['term_id'],
         'termRedirected' => $myNode['field_educational_program'][0]['auto_redirect'],
