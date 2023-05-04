@@ -6,7 +6,7 @@ use \Drupal\user\Entity\User;
 /**
  * Regional Director Panels
  */
-class CountyWebAuthors extends ControllerBase {
+class CountyWebEditors extends ControllerBase {
 
   public function panel() {
     $counties = \Drupal::service('staff_profile_reed.helper_functions')->getCountiesServed();
@@ -20,11 +20,11 @@ class CountyWebAuthors extends ControllerBase {
       $result[$county->label()]['view'] = [
         '#type' => 'view',
         '#name' => 'regional_director_county',
-        '#display_id' => 'county_web_authors',
+        '#display_id' => 'county_web_editors',
         '#arguments' => [$county->id()],
         '#embed' => TRUE,
       ];
-      $result[$county->label()]['add-form'] = \Drupal::formBuilder()->getForm('\Drupal\staff_profile_reed\Form\CountyWebAuthorsAddForm');
+      $result[$county->label()]['add-form'] = \Drupal::formBuilder()->getForm('\Drupal\staff_profile_reed\Form\CountyWebEditorsAddForm');
       $result[$county->label()]['add-form']['cty']['#value'] = $county->id();
       $result[$county->label()]['add-form']['cty']['#default_value'] = $county->id();
     }

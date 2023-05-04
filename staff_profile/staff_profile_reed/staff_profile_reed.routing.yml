@@ -3,11 +3,11 @@ staff_profile_reed.portal_page:
   requirements:
     _role: 'regional_director'
 
-staff_profile_reed.county_web_authors:
-  path: county-web-authors
+staff_profile_reed.county_web_editors:
+  path: county-web-editors
   defaults:
-    _controller: '\Drupal\staff_profile_reed\Controller\CountyWebAuthors::panel'
-    _title: 'County Web Authors'
+    _controller: '\Drupal\staff_profile_reed\Controller\CountyWebEditors::panel'
+    _title: 'County Web Editors'
   requirements:
     _role: 'regional_director'
   options:
@@ -23,12 +23,22 @@ staff_profile_reed.county_staff:
   options:
     no_cache: 'TRUE'
 
-entity.staff_profile_reed.remove_cty_author_form:
-  path: '/staff_profile/{node}/remove_cty_author/{cty}'
+staff_profile_reed.council_members:
+  path: council-members
   defaults:
-    _form: '\Drupal\staff_profile_reed\Form\CountyWebAuthorsConfirmRemove'
-    _title: 'Remove County Author'
-    _entity_form: staff_profile.remove_cty_author
+    _controller: '\Drupal\staff_profile_reed\Controller\CouncilMembers::panel'
+    _title: 'Council Members'
+  requirements:
+    _role: 'regional_director'
+  options:
+    no_cache: 'TRUE'
+
+entity.staff_profile_reed.remove_cty_editor_form:
+  path: '/staff_profile/{node}/remove_cty_editor/{cty}'
+  defaults:
+    _form: '\Drupal\staff_profile_reed\Form\CountyWebEditorsConfirmRemove'
+    _title: 'Remove County Editor'
+    _entity_form: staff_profile.remove_cty_editor
   requirements:
     _role: 'regional_director'
     _content_type: 'staff_profile'
@@ -40,12 +50,12 @@ entity.staff_profile_reed.remove_cty_author_form:
       cty:
         type: taxonomy
 
-entity.staff_profile_reed.add_cty_author_form:
-  path: '/staff_profile/{node}/add_cty_author/{cty}'
+entity.staff_profile_reed.add_cty_editor_form:
+  path: '/staff_profile/{node}/add_cty_editor/{cty}'
   defaults:
-    _form: '\Drupal\staff_profile_reed\Form\CountyWebAuthorsConfirmAdd'
-    _title: 'Add County Author'
-    _entity_form: staff_profile.add_cty_author
+    _form: '\Drupal\staff_profile_reed\Form\CountyWebEditorsConfirmAdd'
+    _title: 'Add County Editor'
+    _entity_form: staff_profile.add_cty_editor
   requirements:
     _role: 'regional_director'
     _content_type: 'staff_profile'

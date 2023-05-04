@@ -11,7 +11,7 @@ use Drupal\Core\Entity\EntityRepository;
 use Drupal\Core\Entity\EntityTypeBundleInfo;
 use Drupal\Component\Datetime\Time;
 
-class CountyWebAuthorsConfirmAdd extends ContentEntityConfirmFormBase {
+class CountyWebEditorsConfirmAdd extends ContentEntityConfirmFormBase {
 
   private  $county;
 
@@ -35,7 +35,7 @@ class CountyWebAuthorsConfirmAdd extends ContentEntityConfirmFormBase {
   }
 
   public function getCancelUrl() {
-    return new Url('staff_profile_reed.county_web_authors');
+    return new Url('staff_profile_reed.county_web_editors');
   }
 
   public function getConfirmText() {
@@ -100,6 +100,6 @@ class CountyWebAuthorsConfirmAdd extends ContentEntityConfirmFormBase {
     } else {
       \Drupal::messenger()->addStatus(('Notification emails sent.'));
     }
-    $form_state->setRedirect('staff_profile_reed.county_web_authors');
+    $form_state->setRedirect('staff_profile_reed.county_web_editors');
   }
 }

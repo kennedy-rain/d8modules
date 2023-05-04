@@ -13,18 +13,16 @@ class CountyStaff extends ControllerBase {
 
     $result = [];
 
-    $result['#markup'] = '<p>These are the staff members housed in each county.<br/>
-      We should have info here about how to remove staff, maybe a link to a MyExtension page?<br/>
-      What about a link to county web authors?</p>';
+    $result['#markup'] = '<p>These are the staff members housed in each county.</p>';
 
     foreach ($counties as $key => $county) {
       $result[$county->label()] = array(
         '#type' => 'fieldset',
         "#title" => $this->t($county->label())
       );
-      $result[$county->label()]['description'] = [
-        '#markup' => '<p>Could also put links or info about ' . $this->t($county->label()) . ' County here</p>',
-      ];
+      //$result[$county->label()]['description'] = [
+        //'#markup' => '<p>Could also put links or info about ' . $this->t($county->label()) . ' County here</p>',
+      //];
       $result[$county->label()]['view'] = [
         '#type' => 'view',
         '#name' => 'regional_director_county',
