@@ -58,7 +58,8 @@ function protect_nodes_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     if (in_array($url, $protected_nodes) || in_array($url, $protected_titles)) {
       // Don't allow changing title or url path
       $form['title']['widget']['#disabled'] = TRUE;
-      unset($form['path']);
+      unset($form['path']); // Remove URL ALIAS (path) options
+      unset($form['status']); // Remove status/published checkbox
     }
   }
 
