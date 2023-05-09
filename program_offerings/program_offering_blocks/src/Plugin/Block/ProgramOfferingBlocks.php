@@ -118,6 +118,11 @@ class ProgramOfferingBlocks extends BlockBase
         $display_event = FALSE;
       }
 
+      // Do we only display statewide/campus/multi-state events
+      if (array_key_exists('only_statewide_campus', $config) && $config['only_statewide_campus'] &&  !($event['Account__c'] == '0014600001eraRNAAY' || $event['Account__c'] == '0014600001er8DDAAY' || $event['Account__c'] == '0014p00001k0CdgAAE')) {
+        $display_event = FALSE;
+      }
+
       // Skip nonpublic events unless "show_nonpublic_events" checkbox is selected in block config
       if ($event['Public_Event__c'] == '0' && !$config['show_nonpublic_events']) {
         $display_event = FALSE;
@@ -283,6 +288,13 @@ class ProgramOfferingBlocks extends BlockBase
       '#default_value' => $config['only_planned_programs'],
     );
 
+    $form['only_statewide_campus'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Show Only Statewide/Campus/Multi-state Events'),
+      '#description' => t('When checked, only show events that are Statewide, Campus, or Multi-state'),
+      '#default_value' => empty($config['only_statewide_campus']) ? false : $config['only_statewide_campus'],
+    );
+
     $form['program_area'] = array(
       '#type' => 'select',
       '#options' => [
@@ -345,6 +357,7 @@ class ProgramOfferingBlocks extends BlockBase
     $this->configuration['announcement_text'] = $values['announcement_text'];
     $this->configuration['show_nonpublic_events'] = $values['show_nonpublic_events'];
     $this->configuration['only_planned_programs'] = $values['only_planned_programs'];
+    $this->configuration['only_statewide_campus'] = $values['only_statewide_campus'];
     $this->configuration['program_area'] = $values['program_area'];
     $this->configuration['county'] = array_key_exists('county', $values) ? $values['county'] : '';
     $this->configuration['placement'] = $values['placement'];
@@ -366,6 +379,7 @@ class ProgramOfferingBlocks extends BlockBase
       'announcement_text' => '',
       'show_nonpublic_events' => FALSE,
       'only_planned_programs' => FALSE,
+      'only_statewide_campus' => FALSE,
       'program_area' => '',
       'county' => '',
       'placement' => '',
