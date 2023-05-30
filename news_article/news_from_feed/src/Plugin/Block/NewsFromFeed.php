@@ -38,6 +38,13 @@ class NewsFromFeed extends BlockBase
     // Do NOT cache a page with this block on it
     \Drupal::service('page_cache_kill_switch')->trigger();
 
+    if (is_null($this->configuration['max_articles']) || empty($this->configuration['max_articles'])) {
+      $max_articles = PHP_INT_MAX;
+    } else {
+      $max_articles = intval($this->configuration['max_articles']);
+    }
+
+    $categories = empty(trim($this->configuration['categories'])) ? [] : explode(', ', trim($this->configuration['categories']));
     $obj = $this->news_from_feed_parse_json();
 
     //if (count($obj) == 0) {
@@ -45,13 +52,20 @@ class NewsFromFeed extends BlockBase
     //}
 
     $results = PHP_EOL . '<div id="news_from_feed">' . PHP_EOL;
-    $results .= '  <p class="header" style="text-align:center;">Learn how ISU Extension and Outreach engages Iowans in solving today\'s problems<br>and preparing for a thriving future.</p>' . PHP_EOL;
+    if (!empty($this->configuration['header'])) {
+      $results .= '  <p class="header" style="text-align:center;">' . $this->configuration['header'] . '</p>' . PHP_EOL;
+    }
+
     $results .= '  <div class="item-list">' . PHP_EOL;
     $results .= '    <ul class="list-unstyled row">' . PHP_EOL;
     $count = 0;
     foreach ($obj->nodes as $node) {
+      $node_categories = empty($node->node->Category) ? [] : explode(', ', $node->node->Category);
+      if (count($categories) > 0 && count($node_categories) > 0 && count(array_intersect($categories, $node_categories)) == 0) {
+        continue;
+      }
       $count++;
-      if ($count > 3) {
+      if ($count > $max_articles) {
         break;
       }
 
@@ -69,7 +83,6 @@ class NewsFromFeed extends BlockBase
       $results .= '          </div>' . PHP_EOL;
       $results .= '        </div>' . PHP_EOL;
       $results .= '      </li>' . PHP_EOL;
-
     }
     $results .= '    </ul>' . PHP_EOL;
     $results .= '  </div>' . PHP_EOL;
@@ -79,6 +92,47 @@ class NewsFromFeed extends BlockBase
       '#markup' => $this->t($results),
     ];
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockForm($form, FormStateInterface $form_state)
+  {
+    $form['header'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Header'),
+      '#description' => $this->t('Text to be displayed at the top of the block, before the articles'),
+      '#default_value' => $this->configuration['header'],
+    ];
+    $form['max_articles'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Articles to display'),
+      '#description' => $this->t('Maximum number of articles, blank or 0 means display them all'),
+      '#default_value' => is_null($this->configuration['max_articles']) ? 3 : $this->configuration['max_articles'],
+    ];
+    $form['categories'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Categories'),
+      '#description' => $this->t('Categories to include, separate with commas, blank means display them all<br/>Must match exactly what comes from the news feed<br/>Example: Crops, Livestock, Environment'),
+      '#default_value' => $this->configuration['categories'],
+      '#size' => 256,
+      '#maxlength' => 256,
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockSubmit($form, FormStateInterface $form_state)
+  {
+    $values = $form_state->getValues();
+    $this->configuration['max_articles'] = $values['max_articles'];
+    $this->configuration['header'] = $values['header'];
+    $this->configuration['categories'] = $values['categories'];
+  }
+
 
   /**
    * @return int
@@ -101,5 +155,4 @@ class NewsFromFeed extends BlockBase
     }
     return $parsed_json;
   }
-
 }
