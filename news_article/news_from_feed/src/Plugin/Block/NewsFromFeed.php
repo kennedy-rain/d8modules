@@ -44,7 +44,7 @@ class NewsFromFeed extends BlockBase
       $max_articles = intval($this->configuration['max_articles']);
     }
 
-    $categories = empty(trim($this->configuration['categories'])) ? [] : explode(', ', trim($this->configuration['categories']));
+    $categories = $this->get_categories();
     $obj = $this->news_from_feed_parse_json();
 
     //if (count($obj) == 0) {
@@ -154,5 +154,22 @@ class NewsFromFeed extends BlockBase
       $parsed_json = json_decode($json, false);
     }
     return $parsed_json;
+  }
+
+  function get_categories() {
+    $categories = [];
+    if (empty(trim($this->configuration['categories']))) {
+      return $categories;
+    }
+
+    foreach (explode(',', trim($this->configuration['categories'])) as $category) {
+      $category = trim($category);
+      if (!empty($category)) {
+        $categories[] = $category;
+      }
+    }
+
+    return $categories;
+
   }
 }
