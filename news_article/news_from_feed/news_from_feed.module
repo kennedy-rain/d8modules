@@ -8,7 +8,7 @@ use Drupal\node\Entity\Node;
  */
 function news_from_feed_preprocess_block(&$variables) {
   //check block type
-  if ($variables['plugin_id'] = 'news_from_feed') {
+  if ($variables['plugin_id'] == 'news_from_feed') {
     $variables['#attached']['library'][] = 'news_from_feed/news_from_feed';
   }
 }
