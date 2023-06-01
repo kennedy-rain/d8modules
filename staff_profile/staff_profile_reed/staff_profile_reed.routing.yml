@@ -1,5 +1,5 @@
-staff_profile_reed.portal_page:
-  path: regional-director-portal
+staff_profile_reed.dashboard_page:
+  path: regional-director-dashboard
   requirements:
     _role: 'regional_director'
 
