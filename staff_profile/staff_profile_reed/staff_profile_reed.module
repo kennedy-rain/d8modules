@@ -40,7 +40,7 @@ function staff_profile_reed_mail($key, &$message, $params) {
       $message['from'] = \Drupal::config('system.site')->get('mail');
       if ($params['needstraining']) {
         $message['subject'] = t('Web Editor Training Requested', $options);
-        $message['body'][] = t('Notice: You have been added to the @county county web editors. Web Editor training has been requested for you to complete.', array('@county' => trim($params['county'])));
+        $message['body'][] = t('Notice: It\'s been requested that you be given web editor rights for @county county. To complete this request, you must take the Web Editor Training at https://moodle.extension.iastate.edu/course/view.php?id=211', array('@county' => trim($params['county'])));
       } else {
         $message['subject'] = t('Web Editor Access Given', $options);
         $message['body'][] = t('Notice: You have been added to the @county county web editors. No additional action is needed.', array('@county' => trim($params['county'])));
