@@ -38,8 +38,15 @@ function staff_profile_reed_mail($key, &$message, $params) {
     case 'request_staff_profile_editor_training_profile':
       //Sent to user that had staff_profile added
       $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('Web Editor Training Requested', $options);
-      $message['body'][] = t('Notice: You have been added to the @county county web editors.' . ($params['needstraining'] ? " Web Editor training has been requested for you to complete." : " No additional action is needed."), array('@county' => trim($params['county'])));
+      if ($params['needstraining']) {
+        $message['subject'] = t('Web Editor Training Requested', $options);
+        $message['body'][] = t('Notice: You have been added to the @county county web editors. Web Editor training has been requested for you to complete.', array('@county' => trim($params['county'])));
+      } else {
+        $message['subject'] = t('Web Editor Access Given', $options);
+        $message['body'][] = t('Notice: You have been added to the @county county web editors. No additional action is needed.', array('@county' => trim($params['county'])));
+      }
+      //$message['subject'] = t('Web Editor Training Requested', $options);
+      //$message['body'][] = t('Notice: You have been added to the @county county web editors.' . ($params['needstraining'] ? " Web Editor training has been requested for you to complete." : " No additional action is needed."), array('@county' => trim($params['county'])));
       break;
     case 'request_staff_profile_editor_training_reg_director':
       //Sent to regional director that added staff_profile to county
