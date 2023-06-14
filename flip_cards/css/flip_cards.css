@@ -207,11 +207,13 @@ p.flip-card_button {
 	opacity: 0;
 }
 
-.flip-card li {
+.flip-card_back li {
 	list-style-type: none;
 	text-align: center;
 	border-bottom: 1px solid #f1be48;
 	padding: 1rem;
+	display: inline-block;
+	width: 100%;
 }
 
 .flip-card li:last-child {
