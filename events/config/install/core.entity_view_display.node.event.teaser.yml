@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.event.body
+    - field.field.node.event.field_event_account
+    - field.field.node.event.field_event_additional_counties
+    - field.field.node.event.field_event_audiences
+    - field.field.node.event.field_event_contact_email
+    - field.field.node.event.field_event_contact_name
+    - field.field.node.event.field_event_contact_phone
+    - field.field.node.event.field_event_end_dates
+    - field.field.node.event.field_event_instructor_email
+    - field.field.node.event.field_event_instructor_name
+    - field.field.node.event.field_event_instructor_phone
+    - field.field.node.event.field_event_mydata_id
+    - field.field.node.event.field_event_next_start_date
+    - field.field.node.event.field_event_program_area
+    - field.field.node.event.field_event_start_dates
+    - node.type.event
+  module:
+    - text
+    - user
+id: node.event.teaser
+targetEntityType: node
+bundle: event
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_event_account: true
+  field_event_additional_counties: true
+  field_event_audiences: true
+  field_event_contact_email: true
+  field_event_contact_name: true
+  field_event_contact_phone: true
+  field_event_end_dates: true
+  field_event_instructor_email: true
+  field_event_instructor_name: true
+  field_event_instructor_phone: true
+  field_event_mydata_id: true
+  field_event_next_start_date: true
+  field_event_program_area: true
+  field_event_start_dates: true
