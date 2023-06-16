@@ -22,7 +22,11 @@ dependencies:
     - field.field.node.event.field_event_mydata_id
     - field.field.node.event.field_event_next_start_date
     - field.field.node.event.field_event_program_area
+    - field.field.node.event.field_event_program_id
+    - field.field.node.event.field_event_program_name
+    - field.field.node.event.field_event_program_url
     - field.field.node.event.field_event_start_dates
+    - field.field.node.event.field_event_url
     - node.type.event
   module:
     - text
@@ -64,4 +68,8 @@ hidden:
   field_event_mydata_id: true
   field_event_next_start_date: true
   field_event_program_area: true
+  field_event_program_id: true
+  field_event_program_name: true
+  field_event_program_url: true
   field_event_start_dates: true
+  field_event_url: true

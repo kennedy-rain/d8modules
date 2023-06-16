@@ -21,10 +21,15 @@ dependencies:
     - field.field.node.event.field_event_mydata_id
     - field.field.node.event.field_event_next_start_date
     - field.field.node.event.field_event_program_area
+    - field.field.node.event.field_event_program_id
+    - field.field.node.event.field_event_program_name
+    - field.field.node.event.field_event_program_url
     - field.field.node.event.field_event_start_dates
+    - field.field.node.event.field_event_url
     - node.type.event
   module:
     - datetime
+    - link
     - path
     - scheduler
     - text
@@ -197,11 +202,43 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_event_program_id:
+    type: string_textfield
+    weight: 144
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_event_program_name:
+    type: string_textfield
+    weight: 145
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_event_program_url:
+    type: link_default
+    weight: 146
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
   field_event_start_dates:
     type: datetime_default
     weight: 126
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_event_url:
+    type: link_default
+    weight: 147
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   path:
     type: path
