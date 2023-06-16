@@ -13,6 +13,11 @@ dependencies:
     - field.field.node.event.field_event_instructor_email
     - field.field.node.event.field_event_instructor_name
     - field.field.node.event.field_event_instructor_phone
+    - field.field.node.event.field_event_location_city
+    - field.field.node.event.field_event_location_site
+    - field.field.node.event.field_event_location_state
+    - field.field.node.event.field_event_location_street
+    - field.field.node.event.field_event_location_zip
     - field.field.node.event.field_event_mydata_id
     - field.field.node.event.field_event_next_start_date
     - field.field.node.event.field_event_program_area
@@ -114,6 +119,46 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 115
+    region: content
+  field_event_location_city:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 121
+    region: content
+  field_event_location_site:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 119
+    region: content
+  field_event_location_state:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 122
+    region: content
+  field_event_location_street:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 120
+    region: content
+  field_event_location_zip:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 123
     region: content
   field_event_mydata_id:
     type: string

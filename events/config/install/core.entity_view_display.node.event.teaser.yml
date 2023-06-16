@@ -14,6 +14,11 @@ dependencies:
     - field.field.node.event.field_event_instructor_email
     - field.field.node.event.field_event_instructor_name
     - field.field.node.event.field_event_instructor_phone
+    - field.field.node.event.field_event_location_city
+    - field.field.node.event.field_event_location_site
+    - field.field.node.event.field_event_location_state
+    - field.field.node.event.field_event_location_street
+    - field.field.node.event.field_event_location_zip
     - field.field.node.event.field_event_mydata_id
     - field.field.node.event.field_event_next_start_date
     - field.field.node.event.field_event_program_area
@@ -51,6 +56,11 @@ hidden:
   field_event_instructor_email: true
   field_event_instructor_name: true
   field_event_instructor_phone: true
+  field_event_location_city: true
+  field_event_location_site: true
+  field_event_location_state: true
+  field_event_location_street: true
+  field_event_location_zip: true
   field_event_mydata_id: true
   field_event_next_start_date: true
   field_event_program_area: true
