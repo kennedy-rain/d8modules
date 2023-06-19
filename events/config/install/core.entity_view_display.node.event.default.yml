@@ -24,6 +24,9 @@ dependencies:
     - field.field.node.event.field_event_program_id
     - field.field.node.event.field_event_program_name
     - field.field.node.event.field_event_program_url
+    - field.field.node.event.field_event_registration_deadlin
+    - field.field.node.event.field_event_registration_opens
+    - field.field.node.event.field_event_registration_url
     - field.field.node.event.field_event_start_dates
     - field.field.node.event.field_event_url
     - node.type.event
@@ -217,6 +220,36 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 126
+    region: content
+  field_event_registration_deadlin:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 130
+    region: content
+  field_event_registration_opens:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 129
+    region: content
+  field_event_registration_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 128
     region: content
   field_event_start_dates:
     type: datetime_default

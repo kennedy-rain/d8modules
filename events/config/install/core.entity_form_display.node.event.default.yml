@@ -24,6 +24,9 @@ dependencies:
     - field.field.node.event.field_event_program_id
     - field.field.node.event.field_event_program_name
     - field.field.node.event.field_event_program_url
+    - field.field.node.event.field_event_registration_deadlin
+    - field.field.node.event.field_event_registration_opens
+    - field.field.node.event.field_event_registration_url
     - field.field.node.event.field_event_start_dates
     - field.field.node.event.field_event_url
     - node.type.event
@@ -221,6 +224,26 @@ content:
   field_event_program_url:
     type: link_default
     weight: 146
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_event_registration_deadlin:
+    type: datetime_default
+    weight: 150
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_event_registration_opens:
+    type: datetime_default
+    weight: 149
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_event_registration_url:
+    type: link_default
+    weight: 148
     region: content
     settings:
       placeholder_url: ''

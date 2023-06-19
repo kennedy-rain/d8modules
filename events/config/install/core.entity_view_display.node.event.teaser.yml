@@ -25,6 +25,9 @@ dependencies:
     - field.field.node.event.field_event_program_id
     - field.field.node.event.field_event_program_name
     - field.field.node.event.field_event_program_url
+    - field.field.node.event.field_event_registration_deadlin
+    - field.field.node.event.field_event_registration_opens
+    - field.field.node.event.field_event_registration_url
     - field.field.node.event.field_event_start_dates
     - field.field.node.event.field_event_url
     - node.type.event
@@ -71,5 +74,8 @@ hidden:
   field_event_program_id: true
   field_event_program_name: true
   field_event_program_url: true
+  field_event_registration_deadlin: true
+  field_event_registration_opens: true
+  field_event_registration_url: true
   field_event_start_dates: true
   field_event_url: true
