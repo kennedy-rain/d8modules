@@ -7,71 +7,38 @@ use \Drupal\taxonomy\Entity\Term;
  * Implements hook_rebuild().
  */
 
-function events_rebuild()
+function programs_rebuild()
 {
-  events_getevents();
+  programs_getprograms();
 }
 
 /**
  * Implements hook_cron().
  */
 
-function events_cron()
+function programs_cron()
 {
-  events_getevents();
-
-  //$queue = Drupal::queue('events');
-  /*
-    // Short-running operation example, not using a queue:
-    // Delete all expired records since the last cron run.
-    $expires = \Drupal::state()->get('mymodule.last_check', 0);
-    \Drupal::database()->delete('mymodule_table')
-      ->condition('expires', $expires, '>=')
-      ->execute();
-    \Drupal::state()->set('mymodule.last_check', REQUEST_TIME);
-
-    // Long-running operation example, leveraging a queue:
-    // Queue news feeds for updates once their refresh interval has elapsed.
-    $queue = \Drupal::queue('aggregator_feeds');
-    $ids = \Drupal::entityTypeManager()->getStorage('aggregator_feed')->getFeedIdsToRefresh();
-    foreach (Feed::loadMultiple($ids) as $feed) {
-      if ($queue->createItem($feed)) {
-        // Add timestamp to avoid queueing item more than once.
-        $feed->setQueuedTime(REQUEST_TIME);
-        $feed->save();
-      }
-    }
-    $ids = \Drupal::entityQuery('aggregator_feed')
-      ->condition('queued', REQUEST_TIME - (3600 * 6), '<')
-      ->execute();
-    if ($ids) {
-      $feeds = Feed::loadMultiple($ids);
-      foreach ($feeds as $feed) {
-        $feed->setQueuedTime(0);
-        $feed->save();
-      }
-    }
-  */
+  programs_getprograms();
 }
 
 
-function events_getevents()
+function programs_getprograms()
 {
 
   // Get the events feed, if it's empty, wait 1 second and try again
-  $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/UpcomingProgramOfferings.json');
+  $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
 
   if ($raw === false || strlen($raw) < 100000) {
     sleep(1);
     Drupal::logger('events')->info('Empty feed: wait 1 second and try again');
-    $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/UpcomingProgramOfferings.json');
+    $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
   }
-  $events = json_decode($raw, true);
-  $eventIds = [];
+  $programs = json_decode($raw, true);
+  $programIds = [];
   $nodeIds = [];
-  $min_events = 1000;
-  if (count($events) < $min_events) {
-    Drupal::logger('events')->info('Less than ' . $min_events . ' events, exiting');
+  $min_programs = 100;
+  if (!is_array($programs) || count($programs) < $min_programs) {
+    Drupal::logger('programs')->info('Less than ' . $min_programs . ' programs, exiting');
     return;
   }
 
@@ -97,11 +64,13 @@ function events_getevents()
   }
 
   // Get all existing nodes
-  $nids = \Drupal::entityQuery('node')->condition('type', 'event')->execute();
+  $nids = \Drupal::entityQuery('node')->condition('type', 'program')->execute();
   $nodes =  Node::loadMultiple($nids);
   foreach ($nodes as $node) {
-    $nodeIds[] = $node->field_event_mydata_id->value;
+    $nodeIds[] = $node->field_program_mydata_id->value;
   }
+
+/*
 
   // Step through the events feed
   foreach ($events as $event) {
@@ -279,53 +248,6 @@ function events_getevents()
       //$node->delete();
     }
   }
+*/
 }
 
-function event_get_dates($event)
-{
-  // Set the Field_Names for the session start times, comes from MyData
-  $field_names = [
-    ['Start_Time_and_Date__c', 'End_Date_and_Time__c',],
-    ['Second_Session_Date_Time__c', 'Second_Session_End_Date_Time__c',],
-    ['Third_Session_Begining_Date_and_Time__c', 'Third_Session_End_Date_and_Time__c',],
-    ['Fourth_Session_Beginning_Date_and_Time__c', 'Fourth_Session_End_Date_and_Time__c',],
-    ['Fifth_Session_Beginning_Date_and_Time__c', 'Fifth_Session_End_Date_and_Time__c',],
-    ['Sixth_Session_Beginning_Date_and_Time__c', 'Sixth_Session_End_Date_and_Time__c',],
-    ['Seventh_Session_Beginning_Date_and_Time__c', 'Seventh_Session_End_Date_and_Time__c',],
-    ['Eighth_Session_Beginning_Date_and_Time__c', 'Eighth_Session_End_Date_and_Time__c',],
-    ['Ninth_Session_Beginning_Date_and_Time__c', 'Ninth_Session_End_Date_and_Time__c',],
-    ['Tenth_Session_Beginning_Date_and_Time__c', 'Tenth_Session_End_Date_and_Time__c',],
-    ['Eleventh_Session_Start_Date__c', 'Eleventh_Session_End_Date__c',],
-    ['Twelfth_Session_Start_Date__c', 'Twelfth_Session_End_Date__c',],
-  ];
-  $sessions = [];
-
-  foreach ($field_names as $fields) {
-    if (!empty($event[$fields[0]])) {
-      $sessions[] = [str_replace('Z', '', $event[$fields[0]]), str_replace('Z', '', $event[$fields[1]])];
-    }
-  }
-  usort($sessions, 'event_cmp_array');
-
-  $startDates = [];
-  $endDates = [];
-
-  foreach ($sessions as $session) {
-    $startDates[] = $session[0];
-    $endDates[] = $session[1];
-  }
-
-  return [$startDates, $endDates];
-}
-
-/**
- * Compare function, used to sort array of events, used by usort() in include_series_events()
- */
-function event_cmp_array($a, $b)
-{
-  if ($a[0] == $b[0]) {
-    return 0;
-  }
-
-  return ($a[0] < $b[0]) ? -1 : 1;
-}
