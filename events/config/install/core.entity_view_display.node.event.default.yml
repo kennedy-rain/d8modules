@@ -249,7 +249,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 128
+    weight: 131
     region: content
   field_event_start_dates:
     type: datetime_default
