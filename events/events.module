@@ -96,17 +96,12 @@ function events_getevents()
     $program_areas[$term->name] = $term->tid;
   }
 
-  //Drupal::logger('blah')->info(count($counties) . ' - ' . count($intended_audiences) . ' - ' . count($program_areas));
-  //return;
-
   // Get all existing nodes
   $nids = \Drupal::entityQuery('node')->condition('type', 'event')->execute();
   $nodes =  Node::loadMultiple($nids);
   foreach ($nodes as $node) {
     $nodeIds[] = $node->field_event_mydata_id->value;
   }
-  Drupal::logger('blah')->info('Nodes: ' . count($nodeIds));
-  Drupal::logger('blah')->info('Events: ' . count($events));
 
   // Step through the events feed
   foreach ($events as $event) {
@@ -252,7 +247,6 @@ function events_getevents()
     }
     if ($mynode->get('field_event_program_area')->getString() != $term) {
       $mynode->set('field_event_program_area', $term);
-      Drupal::logger('blah')->info('Saving: ' . $event['Id']);
       $save = true;
     }
 
@@ -262,33 +256,14 @@ function events_getevents()
     foreach (explode(';', $event['Audiences__c']) as $audience) {
         if (!array_key_exists($audience, $intended_audiences)) {
           $intended_audiences[$audience] = Term::create(['name' => $audience, 'vid' => 'intended_audiences'])->save();
-        Drupal::logger('blah')->info($audience);
         }
         $terms[] = $intended_audiences[$audience];
       }
     }
     if ($mynode->get('field_event_audiences')->getString() != implode(', ', $terms)) {
-      Drupal::logger('blah')->info($mynode->get('field_event_audiences')->getString() . ' - ' . implode(', ', $terms));
       $mynode->set('field_event_audiences', $terms);
-      //$mynode->set('field_event_audiences', implode(', ', $terms));
       $save = true;
     }
-
-    /*
-    //event_handle_taxonomy($event['Audiences__c'], 'intended_audiences');
-    //event_handle_taxonomy($event['PrimaryProgramUnit__c'], 'program_areas');
-    $fields = [
-      'field_event_audiences' => ['Audiences__c', 'intended_audiences'],
-      'field_event_program_area' => ['PrimaryProgramUnic__c', 'program_areas']
-    ];
-    foreach ($fields as $key => $value) {
-      $taxonomy = [];
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($value[1]);
-      foreach ($terms as $term) {
-        $taxonomy[$term->name] = $term->tid;
-      }
-    }
-    */
 
     // Only save if there has been a changed, this saves a ton of time
     if ($save) {
