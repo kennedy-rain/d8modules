@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.program.body
+    - field.field.node.program.field_program_contact_email
+    - field.field.node.program.field_program_contact_name
+    - field.field.node.program.field_program_contact_phone
+    - field.field.node.program.field_program_critical_issue
+    - field.field.node.program.field_program_interest_areas
+    - field.field.node.program.field_program_mydata_id
+    - field.field.node.program.field_program_program_area
+    - field.field.node.program.field_program_search_terms
+    - field.field.node.program.field_program_title_filter
+    - field.field.node.program.field_program_website
+    - node.type.program
+  module:
+    - text
+    - user
+id: node.program.teaser
+targetEntityType: node
+bundle: program
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_program_contact_email: true
+  field_program_contact_name: true
+  field_program_contact_phone: true
+  field_program_critical_issue: true
+  field_program_interest_areas: true
+  field_program_mydata_id: true
+  field_program_program_area: true
+  field_program_search_terms: true
+  field_program_title_filter: true
+  field_program_website: true

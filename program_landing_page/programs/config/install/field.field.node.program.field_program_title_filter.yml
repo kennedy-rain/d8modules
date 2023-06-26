@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_program_title_filter
+    - node.type.program
+id: node.program.field_program_title_filter
+field_name: field_program_title_filter
+entity_type: node
+bundle: program
+label: 'Program Title Filter'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
