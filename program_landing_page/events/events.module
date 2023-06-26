@@ -57,7 +57,6 @@ function events_cron()
 
 function events_getevents()
 {
-
   // Get the events feed, if it's empty, wait 1 second and try again
   $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/UpcomingProgramOfferings.json');
 
@@ -123,6 +122,14 @@ function events_getevents()
       $mynode = Node::create(array('type' => 'event', 'title' => html_entity_decode($event['Name_Placeholder__c']), 'field_event_mydata_id' => $event['Id'],));
       $save = true;
     }
+
+    // Handle Title
+    if ($mynode->getTitle() != html_entity_decode($event['Name_Placeholder__c'])) {
+      $mynode->setTitle(html_entity_decode($event['Name_Placeholder__c']));
+      $save = true;
+    }
+
+    // Handle Cancelled Programs
     if ($event['Cancelled_Program__c'] && $mynode->isPublished()) {
       $mynode->setUnpublished();
       $save = true;

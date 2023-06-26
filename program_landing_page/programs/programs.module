@@ -25,12 +25,12 @@ function programs_cron()
 function programs_getprograms()
 {
 
-  // Get the events feed, if it's empty, wait 1 second and try again
+  // Get the programs feed, if it's empty, wait 1 second and try again
   $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
 
   if ($raw === false || strlen($raw) < 100000) {
     sleep(1);
-    Drupal::logger('events')->info('Empty feed: wait 1 second and try again');
+    Drupal::logger('programs')->info('Empty feed: wait 1 second and try again');
     $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
   }
   $programs = json_decode($raw, true);
@@ -42,6 +42,7 @@ function programs_getprograms()
     return;
   }
 
+  /*
   // Get the taxonomy terms for Counties
   $counties = [];
   $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('counties_in_iowa');
@@ -50,12 +51,9 @@ function programs_getprograms()
     if ($term->name == 'Pottawattamie - West') $term->name = 'West Pottawattamie';
     $counties[$term->name] = $term->tid;
   }
+  */
 
-  $intended_audiences = [];
-  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('intended_audiences');
-  foreach ($terms as $term) {
-    $intended_audiences[$term->name] = $term->tid;
-  }
+  $intended_audiences = programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
 
   $program_areas = [];
   $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('program_areas');
@@ -63,35 +61,177 @@ function programs_getprograms()
     $program_areas[$term->name] = $term->tid;
   }
 
-  // Get all existing nodes
-  $nids = \Drupal::entityQuery('node')->condition('type', 'program')->execute();
-  $nodes =  Node::loadMultiple($nids);
-  foreach ($nodes as $node) {
-    $nodeIds[] = $node->field_program_mydata_id->value;
+  $critical_issues = [];
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('critical_issues');
+  foreach ($terms as $term) {
+    $critical_issues[$term->name] = $term->tid;
   }
 
-/*
+  $interest_areas = [];
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('interest_areas');
+  foreach ($terms as $term) {
+    $interest_areas[$term->name] = $term->tid;
+  }
 
-  // Step through the events feed
-  foreach ($events as $event) {
+    $fields_single_entity_reference = [
+      'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', &$program_areas],
+      'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', &$critical_issues],
+      'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', &$interest_areas],
+    ];
 
-    $eventIds[] = $event['Id'];
+  // Get all existing nodes
+  $nids = \Drupal::entityQuery('node')->condition('type', 'program')->execute();
+  $tmpnodes =  Node::loadMultiple($nids);
+  $nodes = [];
+  foreach ($tmpnodes as $node) {
+    $nodeIds[] = $node->field_program_mydata_id->value;
+    $nodes[$node->field_program_mydata_id->value] = $node;
+  }
+
+  // Record types to include in the catalog
+  $types = ['012460000012EiaAAE'];
+
+  // Step through the programs feed
+  foreach ($programs as $program) {
+    if (!$program['Show_on_Program_Catalog__c'] || !in_array($program['RecordTypeId'], $types)) {
+      continue;
+    }
+
+    $programIds[] = $program['Id'];
     $mynode = null;
     $save = false;
 
-    // Check for existing node for this event
+    /*
+    // Check for existing node for this program
     foreach ($nodes as $node) {
-      if ($node->field_event_mydata_id->value == $event['Id']) {
+      if ($node->field_program_mydata_id->value == $program['Id']) {
         $mynode = $node;
         break;
       }
     }
-
-    // Create node if one's not found
-    if ($mynode == null) {
-      $mynode = Node::create(array('type' => 'event', 'title' => html_entity_decode($event['Name_Placeholder__c']), 'field_event_mydata_id' => $event['Id'],));
+    */
+    if (!empty($nodes[$program['Id']])) {
+      $mynode = $nodes[$program['Id']];
+    } else {
+      $mynode = Node::create(array('type' => 'program', 'title' => html_entity_decode($program['Name']), 'field_program_mydata_id' => $program['Id'],));
       $save = true;
     }
+    // Handle Body
+    $body = '';
+    if (!empty($program['Web_Description__c'])) {
+      $body = $program['Web_Description__c'];
+    } elseif (!empty($program['hed__Extended_Description__c'])) {
+      $body = $program['hed__Extended_Description__c'];
+    } else {
+      $body = $program['hed__Description__c'];
+    }
+    if (!empty($program['Smugmug_ID__c'])) {
+      $body = '<img class="educational_program_image" src="https://photos.smugmug.com/photos/' . $program['Smugmug_ID__c'] . '/0/XL/' . $program['Smugmug_ID__c'] . '-XL.jpg" alt="" />' . $body . '<div class="clearer"></div>';
+    }
+    $mynode->body->format = 'basic';
+    if (!empty($program['Intended_Audiences__c'])) {
+      $body .= '<p><b>Intended Audiences:</b><br />' . str_replace(';', ', ', $program['Intended_Audiences__c']) . '</p>';
+    }
+    if ($mynode->body->value != $body) {
+      $mynode->body->value = $body;
+      $mynode->body->format = 'basic';
+      $save = true;
+    }
+
+    if ($mynode->body->summary != $program['hed__Description__c']) {
+      $mynode->body->summary = $program['hed__Description__c'];
+      $save = true;
+    }
+
+
+
+    // Handle the text fields using an array and a loop
+    $fields = [
+      //'field_program_contact_name' => 'Contact_Information_Name__c',
+      'field_program_contact_phone' => 'Primary_Contact__r.Phone',
+      'field_program_search_terms' => 'Search_Terms__c',
+      'field_program_title_filter' => 'Name'
+      //'field_event_program_name' => '',
+    ];
+    foreach ($fields as $key => $value) {
+      if ($mynode->get($key)->getString() != $program[$value]) {
+        $mynode->set($key, $program[$value]);
+        $save = true;
+      }
+    }
+
+
+    // Handle website link
+    $mynode->field_website = array();
+    $website = $program['Planned_Program_Website__c'];
+    if (!empty($website)) {
+      if ('htt' != substr($website, 0, 3)) {
+        $website = 'https://' . $website;
+      }
+    }
+    if ($mynode->get('field_program_website')->uri != $website) {
+      Drupal::logger('blah')->info('I am here');
+      $mynode->set('field_program_website', ['uri' => $website, 'title' => 'More about ' . $program['Name']]);
+      $save = true;
+    }
+
+    /*
+    // Handle Program Area
+    $term = 0;
+    if (!empty($program['hed__Account__r.Name'])) {
+      if (!array_key_exists($program['hed__Account__r.Name'], $program_areas)) {
+        $program_areas[$program['hed__Account__r.Name']] = Term::create(['name' => $program['hed__Account__r.Name'], 'vid' => 'program_areas'])->save();
+      }
+      $term = $program_areas[$program['hed__Account__r.Name']];
+    }
+    if ($mynode->get('field_program_program_area')->getString() != $term) {
+      $mynode->set('field_program_program_area', $term);
+      $save = true;
+    }
+    */
+
+    foreach ($fields_single_entity_reference as $key => $value) {
+      $terms = [];
+      if (!empty($program[$value[0]])) {
+        foreach (explode(';', $program[$value[0]]) as $new_term) {
+        if (!array_key_exists($new_term, $value[2])) {
+          $value[2][$new_term] = Term::create(['name' => $new_term, 'vid' => $value[1]])->save();
+        }
+        $terms[] = $value[2][$new_term];
+        }
+      }
+      if ($mynode->get($key)->getString() != implode(', ', $terms)) {
+        $mynode->set($key, $terms);
+        $save = true;
+      }
+    }
+    /*
+    // Handle Intended Audiences
+    $terms = [];
+      if (!empty($event['Audiences__c'])) {
+    foreach (explode(';', $event['Audiences__c']) as $audience) {
+        if (!array_key_exists($audience, $intended_audiences)) {
+          $intended_audiences[$audience] = Term::create(['name' => $audience, 'vid' => 'intended_audiences'])->save();
+        }
+        $terms[] = $intended_audiences[$audience];
+      }
+    }
+    if ($mynode->get('field_event_audiences')->getString() != implode(', ', $terms)) {
+      $mynode->set('field_event_audiences', $terms);
+      $save = true;
+    }
+    */
+
+    // Only save if there has been a changed, this saves a ton of time
+    if ($save) {
+      $mynode->save();
+    }
+  }
+
+  Drupal::logger('blah')->info('Nodes: ' . count($nodeIds) . ' Programs: ' . count($programIds));
+
+  /*
+    // Create node if one's not found
     if ($event['Cancelled_Program__c'] && $mynode->isPublished()) {
       $mynode->setUnpublished();
       $save = true;
@@ -233,13 +373,10 @@ function programs_getprograms()
       $mynode->set('field_event_audiences', $terms);
       $save = true;
     }
-
-    // Only save if there has been a changed, this saves a ton of time
-    if ($save) {
-      $mynode->save();
-    }
   }
+*/
 
+  /*
   // Find and unpublish deleted events
   $deleted = array_diff($nodeIds, $eventIds);
   foreach ($nodes as $node) {
@@ -248,6 +385,32 @@ function programs_getprograms()
       //$node->delete();
     }
   }
-*/
+  */
 }
 
+
+// Get all taxonomy terms in a taxonomy, including new ones that might be in the feed...
+function programs_get_taxonomomy_terms($taxonomy_id, $feed, $field) {
+  // Load Existing terms
+  $found = [];
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($taxonomy_id);
+  foreach ($terms as $term) {
+    $found[$term->name] = $term->tid;
+  }
+
+  // Check the feed for new terms, and create them if necessary
+  foreach($feed as $item) {
+    if (!empty($item[$field])) {
+      $blah = explode(';', $item[$field]);
+      foreach ($blah as $i) {
+        if (!array_key_exists($i, $found)) {
+          $new = Term::create(['name' => $i, 'vid' => $taxonomy_id]);
+          $new->save();
+          $found[$i] = $new->id();
+        }
+      }
+    }
+  }
+
+  return $found;
+}
