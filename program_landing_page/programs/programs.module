@@ -53,7 +53,6 @@ function programs_getprograms()
   }
   */
 
-  $intended_audiences = programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
 
   $program_areas = [];
   $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('program_areas');
@@ -72,11 +71,15 @@ function programs_getprograms()
   foreach ($terms as $term) {
     $interest_areas[$term->name] = $term->tid;
   }
+  $intended_audiences = programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
+  $program_areas = programs_get_taxonomomy_terms('program_areas', $programs, 'hed__Account__r.Name');
+  $critical_issues = programs_get_taxonomomy_terms('critical_issues', $programs, 'Critical_Issue__c');
+  $interest_areas = programs_get_taxonomomy_terms('interest_areas', $programs, 'Related_Interest_Areas__c');
 
   $fields_single_entity_reference = [
-    'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', &$program_areas],
-    'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', &$critical_issues],
-    'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', &$interest_areas],
+    'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', $program_areas],
+    'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', $critical_issues],
+    'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', $interest_areas],
   ];
 
   // Get all existing nodes
@@ -177,7 +180,6 @@ function programs_getprograms()
       }
     }
     if ($mynode->get('field_program_website')->uri != $website) {
-      Drupal::logger('blah')->info('I am here');
       $mynode->set('field_program_website', ['uri' => $website, 'title' => 'More about ' . $program['Name']]);
       $save = true;
     }
@@ -201,6 +203,21 @@ function programs_getprograms()
       $terms = [];
       if (!empty($program[$value[0]])) {
         foreach (explode(';', $program[$value[0]]) as $new_term) {
+          if (array_key_exists($new_term, $value[2])) {
+            $terms[] = $value[2][$new_term];
+          }
+        }
+      }
+      if ($mynode->get($key)->getString() != implode(', ', $terms)) {
+        $mynode->set($key, $terms);
+        $save = true;
+      }
+    }
+    /*
+    foreach ($fields_single_entity_reference as $key => $value) {
+      $terms = [];
+      if (!empty($program[$value[0]])) {
+        foreach (explode(';', $program[$value[0]]) as $new_term) {
           if (!array_key_exists($new_term, $value[2])) {
             $value[2][$new_term] = Term::create(['name' => $new_term, 'vid' => $value[1]])->save();
           }
@@ -212,6 +229,7 @@ function programs_getprograms()
         $save = true;
       }
     }
+    */
     /*
     // Handle Intended Audiences
     $terms = [];
@@ -234,8 +252,6 @@ function programs_getprograms()
       $mynode->save();
     }
   }
-
-  Drupal::logger('blah')->info('Nodes: ' . count($nodeIds) . ' Programs: ' . count($programIds));
 
   /*
     // Create node if one's not found
@@ -407,14 +423,14 @@ function programs_get_taxonomomy_terms($taxonomy_id, $feed, $field)
   }
 
   // Check the feed for new terms, and create them if necessary
-  foreach ($feed as $item) {
-    if (!empty($item[$field])) {
-      $blah = explode(';', $item[$field]);
-      foreach ($blah as $i) {
-        if (!array_key_exists($i, $found)) {
-          $new = Term::create(['name' => $i, 'vid' => $taxonomy_id]);
+  foreach ($feed as $element) {
+    if (!empty($element[$field])) {
+      $feed_items = explode(';', $element[$field]);
+      foreach ($feed_items as $element) {
+        if (!str_contains($element, ' County Extension') && !array_key_exists($element, $found)) {
+          $new = Term::create(['name' => $element, 'vid' => $taxonomy_id]);
           $new->save();
-          $found[$i] = $new->id();
+          $found[$element] = $new->id();
         }
       }
     }
