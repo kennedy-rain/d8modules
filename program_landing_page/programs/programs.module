@@ -2,7 +2,6 @@
 
 use \Drupal\node\Entity\Node;
 use \Drupal\taxonomy\Entity\Term;
-use \Drupal\taxonomy\Entity\Vocabulary;
 
 /**
  * Implements hook_rebuild().
@@ -54,7 +53,7 @@ function programs_getprograms()
   }
   */
 
-  $intended_audiences = programs_get_taxonomomy_terms('intended_audiences', 'Intended Audiences', $programs, 'Intended_Audiences__c');
+  $intended_audiences = programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
 
   $program_areas = [];
   $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('program_areas');
@@ -398,13 +397,8 @@ function programs_getprograms()
 
 
 // Get all taxonomy terms in a taxonomy, including new ones that might be in the feed...
-function programs_get_taxonomomy_terms($taxonomy_id, $taxonomy_name, $feed, $field)
+function programs_get_taxonomomy_terms($taxonomy_id, $feed, $field)
 {
-  // Make sure Vocabulary exits
-  if (!Vocabulary::load($taxonomy_id)) {
-    Vocabulary::create(['vid' => $taxonomy_id, 'description' => '', 'name' => $taxonomy_name,])->save();
-  }
-
   // Load Existing terms
   $found = [];
   $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($taxonomy_id);

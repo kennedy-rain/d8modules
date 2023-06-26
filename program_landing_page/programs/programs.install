@@ -1,0 +1,22 @@
+<?php
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+* Implements hook_install().
+*/
+function programs_install() {
+  $taxonomies = [
+    ['intended_audiences' => 'Intended Audiences'],
+    ['program_areas' => 'Program Areas'],
+    ['critical_issues' => 'Critical Issues'],
+    ['interest_areas' => 'Interest Areas'],
+  ];
+
+  foreach ($taxonomies as $key => $value) {
+  // Make sure Vocabulary exits
+  if (!Vocabulary::load($key)) {
+    Vocabulary::create(['vid' => $key, 'description' => '', 'name' => $value,])->save();
+  }
+  }
+
+}
