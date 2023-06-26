@@ -73,11 +73,11 @@ function programs_getprograms()
     $interest_areas[$term->name] = $term->tid;
   }
 
-    $fields_single_entity_reference = [
-      'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', &$program_areas],
-      'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', &$critical_issues],
-      'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', &$interest_areas],
-    ];
+  $fields_single_entity_reference = [
+    'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', &$program_areas],
+    'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', &$critical_issues],
+    'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', &$interest_areas],
+  ];
 
   // Get all existing nodes
   $nids = \Drupal::entityQuery('node')->condition('type', 'program')->execute();
@@ -116,6 +116,13 @@ function programs_getprograms()
       $mynode = Node::create(array('type' => 'program', 'title' => html_entity_decode($program['Name']), 'field_program_mydata_id' => $program['Id'],));
       $save = true;
     }
+
+    // Handle Title
+    if ($mynode->getTitle() != html_entity_decode($program['Name'])) {
+      $mynode->setTitle(html_entity_decode($program['Name']));
+      $save = true;
+    }
+
     // Handle Body
     $body = '';
     if (!empty($program['Web_Description__c'])) {
@@ -194,10 +201,10 @@ function programs_getprograms()
       $terms = [];
       if (!empty($program[$value[0]])) {
         foreach (explode(';', $program[$value[0]]) as $new_term) {
-        if (!array_key_exists($new_term, $value[2])) {
-          $value[2][$new_term] = Term::create(['name' => $new_term, 'vid' => $value[1]])->save();
-        }
-        $terms[] = $value[2][$new_term];
+          if (!array_key_exists($new_term, $value[2])) {
+            $value[2][$new_term] = Term::create(['name' => $new_term, 'vid' => $value[1]])->save();
+          }
+          $terms[] = $value[2][$new_term];
         }
       }
       if ($mynode->get($key)->getString() != implode(', ', $terms)) {
@@ -390,7 +397,8 @@ function programs_getprograms()
 
 
 // Get all taxonomy terms in a taxonomy, including new ones that might be in the feed...
-function programs_get_taxonomomy_terms($taxonomy_id, $feed, $field) {
+function programs_get_taxonomomy_terms($taxonomy_id, $feed, $field)
+{
   // Load Existing terms
   $found = [];
   $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($taxonomy_id);
@@ -399,7 +407,7 @@ function programs_get_taxonomomy_terms($taxonomy_id, $feed, $field) {
   }
 
   // Check the feed for new terms, and create them if necessary
-  foreach($feed as $item) {
+  foreach ($feed as $item) {
     if (!empty($item[$field])) {
       $blah = explode(';', $item[$field]);
       foreach ($blah as $i) {
