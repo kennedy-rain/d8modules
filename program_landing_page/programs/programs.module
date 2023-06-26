@@ -1,12 +1,10 @@
 <?php
-
 use \Drupal\node\Entity\Node;
 use \Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_rebuild().
  */
-
 function programs_rebuild()
 {
   programs_getprograms();
@@ -15,16 +13,13 @@ function programs_rebuild()
 /**
  * Implements hook_cron().
  */
-
 function programs_cron()
 {
   programs_getprograms();
 }
 
-
 function programs_getprograms()
 {
-
   // Get the programs feed, if it's empty, wait 1 second and try again
   $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
 
@@ -42,45 +37,10 @@ function programs_getprograms()
     return;
   }
 
-  /*
-  // Get the taxonomy terms for Counties
-  $counties = [];
-  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('counties_in_iowa');
-  foreach ($terms as $term) {
-    if ($term->name == 'Pottawattamie - East') $term->name = 'East Pottawattamie';
-    if ($term->name == 'Pottawattamie - West') $term->name = 'West Pottawattamie';
-    $counties[$term->name] = $term->tid;
-  }
-  */
-
-
-  $program_areas = [];
-  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('program_areas');
-  foreach ($terms as $term) {
-    $program_areas[$term->name] = $term->tid;
-  }
-
-  $critical_issues = [];
-  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('critical_issues');
-  foreach ($terms as $term) {
-    $critical_issues[$term->name] = $term->tid;
-  }
-
-  $interest_areas = [];
-  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('interest_areas');
-  foreach ($terms as $term) {
-    $interest_areas[$term->name] = $term->tid;
-  }
   $intended_audiences = programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
   $program_areas = programs_get_taxonomomy_terms('program_areas', $programs, 'hed__Account__r.Name');
   $critical_issues = programs_get_taxonomomy_terms('critical_issues', $programs, 'Critical_Issue__c');
   $interest_areas = programs_get_taxonomomy_terms('interest_areas', $programs, 'Related_Interest_Areas__c');
-
-  $fields_single_entity_reference = [
-    'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', $program_areas],
-    'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', $critical_issues],
-    'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', $interest_areas],
-  ];
 
   // Get all existing nodes
   $nids = \Drupal::entityQuery('node')->condition('type', 'program')->execute();
@@ -104,15 +64,6 @@ function programs_getprograms()
     $mynode = null;
     $save = false;
 
-    /*
-    // Check for existing node for this program
-    foreach ($nodes as $node) {
-      if ($node->field_program_mydata_id->value == $program['Id']) {
-        $mynode = $node;
-        break;
-      }
-    }
-    */
     if (!empty($nodes[$program['Id']])) {
       $mynode = $nodes[$program['Id']];
     } else {
@@ -184,20 +135,11 @@ function programs_getprograms()
       $save = true;
     }
 
-    /*
-    // Handle Program Area
-    $term = 0;
-    if (!empty($program['hed__Account__r.Name'])) {
-      if (!array_key_exists($program['hed__Account__r.Name'], $program_areas)) {
-        $program_areas[$program['hed__Account__r.Name']] = Term::create(['name' => $program['hed__Account__r.Name'], 'vid' => 'program_areas'])->save();
-      }
-      $term = $program_areas[$program['hed__Account__r.Name']];
-    }
-    if ($mynode->get('field_program_program_area')->getString() != $term) {
-      $mynode->set('field_program_program_area', $term);
-      $save = true;
-    }
-    */
+    $fields_single_entity_reference = [
+      'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', $program_areas],
+      'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', $critical_issues],
+      'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', $interest_areas],
+    ];
 
     foreach ($fields_single_entity_reference as $key => $value) {
       $terms = [];
@@ -213,202 +155,12 @@ function programs_getprograms()
         $save = true;
       }
     }
-    /*
-    foreach ($fields_single_entity_reference as $key => $value) {
-      $terms = [];
-      if (!empty($program[$value[0]])) {
-        foreach (explode(';', $program[$value[0]]) as $new_term) {
-          if (!array_key_exists($new_term, $value[2])) {
-            $value[2][$new_term] = Term::create(['name' => $new_term, 'vid' => $value[1]])->save();
-          }
-          $terms[] = $value[2][$new_term];
-        }
-      }
-      if ($mynode->get($key)->getString() != implode(', ', $terms)) {
-        $mynode->set($key, $terms);
-        $save = true;
-      }
-    }
-    */
-    /*
-    // Handle Intended Audiences
-    $terms = [];
-      if (!empty($event['Audiences__c'])) {
-    foreach (explode(';', $event['Audiences__c']) as $audience) {
-        if (!array_key_exists($audience, $intended_audiences)) {
-          $intended_audiences[$audience] = Term::create(['name' => $audience, 'vid' => 'intended_audiences'])->save();
-        }
-        $terms[] = $intended_audiences[$audience];
-      }
-    }
-    if ($mynode->get('field_event_audiences')->getString() != implode(', ', $terms)) {
-      $mynode->set('field_event_audiences', $terms);
-      $save = true;
-    }
-    */
 
     // Only save if there has been a changed, this saves a ton of time
     if ($save) {
       $mynode->save();
     }
   }
-
-  /*
-    // Create node if one's not found
-    if ($event['Cancelled_Program__c'] && $mynode->isPublished()) {
-      $mynode->setUnpublished();
-      $save = true;
-    }
-
-    if (!$mynode->isPublished()) {
-      $mynode->setPublished();
-      $save = true;
-    }
-
-    // Handle the body
-    $body = '';
-    if (strlen($event['Program_Description__c']) > 0) {
-      $body .= '<div>' . $event['Program_Description__c'] . '</div>' . PHP_EOL;
-    }
-    if (strlen($event['Planned_Program__r.Web_Description__c']) > 0) {
-      $body .= '<div>' . $event['Planned_Program__r.Web_Description__c'] . '</div>' . PHP_EOL;
-    }
-    if ($mynode->body->value != $body) {
-      $mynode->body->value = $body;
-      $mynode->body->format = 'full_html';
-      $save = true;
-    }
-
-    // Handle the text fields using an array and a loop
-    $fields = [
-      'field_event_contact_name' => 'Contact_Information_Name__c',
-      'field_event_contact_email' => 'Contact_Information_Email__c',
-      'field_event_contact_phone' => 'Contact_Information_Phone__c',
-      'field_event_instructor_name' => 'Instructor_Information_Name__c',
-      'field_event_instructor_email' => 'Instructor_Information_Email__c',
-      'field_event_instructor_phone' => 'Instructor_Information_Phone__c',
-      'field_event_location_site' => 'Event_Location_Site_Building__c',
-      'field_event_location_street' => 'Event_Location_Street_Address__c',
-      'field_event_location_city' => 'Event_Location__c',
-      'field_event_location_state' => 'Program_State__c',
-      'field_event_location_zip' => 'Event_Location_Zip_Code__c',
-      'field_event_program_id' => 'Planned_Program__c',
-      //'field_event_program_name' => '',
-    ];
-    foreach ($fields as $key => $value) {
-      if ($mynode->get($key)->getString() != $event[$value]) {
-        $mynode->set($key, $event[$value]);
-        $save = true;
-      }
-    }
-
-    $fields = [
-      'field_event_program_url' => 'Planned_Program_Website__c',
-      'field_event_url' => 'Program_Offering_Website__c',
-      'field_event_registration_url' => 'Registration_Link__c',
-    ];
-    foreach ($fields as $key => $value) {
-      if ($mynode->get($key)->uri != $event[$value]) {
-        $mynode->set($key, ['uri' => $event[$value]]);
-        $save = true;
-      }
-    }
-
-    $fields = [
-      'field_event_registration_opens' => 'Registration_Opens__c',
-      'field_event_registration_deadlin' => 'Registration_Deadline__c',
-      'field_event_next_start_date' => 'Next_Start_Date__c',
-    ];
-    foreach ($fields as $key => $value) {
-      if ($mynode->get($key)->getString() != str_replace('Z', '', $event[$value])) {
-        $mynode->set($key, str_replace('Z', '', $event[$value]));
-        $save = true;
-      }
-    }
-
-    // Handle Start/End Dates
-    $sessions = event_get_dates($event);
-    $count = 0;
-    $existingStartDates = $mynode->get('field_event_start_dates')->getString();
-    $existingEndDates = $mynode->get('field_event_end_dates')->getString();
-    $newStartDates = implode(', ', $sessions[0]);
-    $newEndDates = implode(', ', $sessions[1]);
-    //if (count(explode(', ', $existingStartDates)) > 1) {
-    if ($existingStartDates != $newStartDates) {
-      $mynode->set('field_event_start_dates', $sessions[0]);
-      $mynode->set('field_event_end_dates', $sessions[1]);
-      $save = true;
-    }
-    if ($existingEndDates != $newEndDates) {
-      $mynode->set('field_event_end_dates', $sessions[1]);
-      $save = true;
-    }
-
-    // Handle Account (Host County)
-    $host = 0;
-    $acctName = str_replace(' County Extension', '', $event['Account__c.Name']);
-    if (array_key_exists($acctName, $counties)) {
-      $host = $counties[$acctName];
-    }
-    if ($mynode->get('field_event_account')->getString() != $host) {
-      $mynode->set('field_event_account', $host);
-      $save = true;
-    }
-
-    // Handle Additional Counties
-    $feed_counties = explode(';', $event['Additional_Counties__c']);
-    $new_counties = [];
-    foreach ($feed_counties as $county) {
-      $county = str_replace(' County', '', $county);
-      if (array_key_exists($county, $counties)) {
-        $new_counties[] = $counties[$county];
-      }
-    }
-    if ($mynode->get('field_event_additional_counties')->getString() != implode(', ', $new_counties)) {
-      $mynode->set('field_event_additional_counties', $new_counties);
-      $save = true;
-    }
-
-    // Handle Program Area
-    $term = 0;
-    if (!empty($event['PrimaryProgramUnit__c'])) {
-      if (!array_key_exists($event['PrimaryProgramUnit__c'], $program_areas)) {
-        $program_areas[$event['PrimaryProgramUnit__c']] = Term::create(['name' => $event['PrimaryProgramUnit__c'], 'vid' => 'program_areas'])->save();
-      }
-      $term = $program_areas[$event['PrimaryProgramUnit__c']];
-    }
-    if ($mynode->get('field_event_program_area')->getString() != $term) {
-      $mynode->set('field_event_program_area', $term);
-      $save = true;
-    }
-
-    // Handle Intended Audiences
-    $terms = [];
-      if (!empty($event['Audiences__c'])) {
-    foreach (explode(';', $event['Audiences__c']) as $audience) {
-        if (!array_key_exists($audience, $intended_audiences)) {
-          $intended_audiences[$audience] = Term::create(['name' => $audience, 'vid' => 'intended_audiences'])->save();
-        }
-        $terms[] = $intended_audiences[$audience];
-      }
-    }
-    if ($mynode->get('field_event_audiences')->getString() != implode(', ', $terms)) {
-      $mynode->set('field_event_audiences', $terms);
-      $save = true;
-    }
-  }
-*/
-
-  /*
-  // Find and unpublish deleted events
-  $deleted = array_diff($nodeIds, $eventIds);
-  foreach ($nodes as $node) {
-    if (in_array($node->field_event_mydata_id->value, $deleted) && $node->isPublished()) {
-      $node->setUnpublished()->save();
-      //$node->delete();
-    }
-  }
-  */
 }
 
 
