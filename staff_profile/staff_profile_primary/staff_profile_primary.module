@@ -209,7 +209,7 @@ function staff_profile_primary_profile_from_database () {
     $mynode->save();
 
     // Check if this user is a Regional Director
-    if ($profile->DepartmentID == '30310' && (strpos($jobtitle, 'Assistant Director County Serv') !== false || strpos($jobtitle, 'Regional Extension Education') !== false || $jobtitle == 'County Services - Regional Dir') || $jobtitle == 'Regional Director' || $jobtitle == 'Associate Director County Serv'|| strpos($jobtitle, 'Director of Field Operations') !== false) {
+    if ($profile->DepartmentID == '30310' && (strpos($jobtitle, 'Assistant Director County Serv') !== false || strpos($jobtitle, 'Regional Extension Education') !== false || $jobtitle == 'County Services - Regional Dir') || $jobtitle == 'Regional Director' || $jobtitle == 'Associate Director County Serv' || strpos($jobtitle, 'Director of Field Operations') !== false || strpos($jobtitle, 'Assistant Vice President for C - Administration') !== false || strpos($jobtitle, 'Senior Manager Information') !== false) {
     //if ($profile->DepartmentID == '30310') {
       $regional_directors[] = $profile->email;
     }

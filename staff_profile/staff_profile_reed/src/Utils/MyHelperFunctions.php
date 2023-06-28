@@ -37,7 +37,12 @@ class MyHelperFunctions
     $counties = [];
     switch ($username) {
       case 'adminn':
-        // Untested, but should work
+        $counties = $this->overrideCounties('all');
+        break;
+      case 'mmauton':
+        $counties = $this->overrideCounties('all');
+        break;
+      case 'andwelch':
         $counties = $this->overrideCounties('all');
         break;
       case 'bwhaley':
