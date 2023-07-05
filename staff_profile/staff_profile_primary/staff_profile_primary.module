@@ -62,6 +62,19 @@ function staff_profile_primary_profile_from_database () {
     $address_fixes[strtolower($k)] = $v;
   }
 
+  // Find Regional Director overrides and excludes
+  $regional_directors_overrides = array();
+  $regional_directors_exclude = array();
+  $temp_fixes = explode("\r\n", $primary_config->get('reed_overrides'));
+  foreach($temp_fixes as $temp_fix) {
+    list($k, $v) = explode('|', $temp_fix);
+    if (strtolower(trim($v)) == 'none') {
+      $regional_directors_exclude[] = strtolower(trim($k)) . '@iastate.edu';
+    } else {
+      $regional_directors_overrides[] = strtolower(trim($k)) . '@iastate.edu';
+    }
+  }
+
   // Get the database login informatio out of config
   $encrypt_profile = EncryptionProfile::load($primary_config->get('sync_encrypt_profile'));
   $db_password = \Drupal::service('encryption')->decrypt( $primary_config->get('db_password'), $encrypt_profile);
@@ -209,7 +222,8 @@ function staff_profile_primary_profile_from_database () {
     $mynode->save();
 
     // Check if this user is a Regional Director
-    if ($profile->DepartmentID == '30310' && (strpos($jobtitle, 'Assistant Director County Serv') !== false || strpos($jobtitle, 'Regional Extension Education') !== false || $jobtitle == 'County Services - Regional Dir') || $jobtitle == 'Regional Director' || $jobtitle == 'Associate Director County Serv' || strpos($jobtitle, 'Director of Field Operations') !== false || strpos($jobtitle, 'Assistant Vice President for C - Administration') !== false || strpos($jobtitle, 'Senior Manager Information') !== false) {
+    //if ($profile->DepartmentID == '30310' && (strpos($jobtitle, 'Assistant Director County Serv') !== false || strpos($jobtitle, 'Regional Extension Education') !== false || $jobtitle == 'County Services - Regional Dir') || $jobtitle == 'Regional Director' || $jobtitle == 'Associate Director County Serv' || strpos($jobtitle, 'Director of Field Operations') !== false || strpos($jobtitle, 'Assistant Vice President for C - Administration') !== false || strpos($jobtitle, 'Senior Manager Information') !== false) {
+    if ($profile->DepartmentID == '30310' && (strpos($jobtitle, 'Assistant Director County Serv') !== false || strpos($jobtitle, 'Regional Extension Education') !== false || $jobtitle == 'County Services - Regional Dir') || $jobtitle == 'Regional Director' || $jobtitle == 'Associate Director County Serv' || strpos($jobtitle, 'Director of Field Operations') !== false) {
     //if ($profile->DepartmentID == '30310') {
       $regional_directors[] = $profile->email;
     }
@@ -224,6 +238,10 @@ function staff_profile_primary_profile_from_database () {
       $node->save();
     }
   }
+
+  // Use Regional Director overrides and excludes
+  $regional_directors = array_unique(array_merge($regional_directors, $regional_directors_overrides));
+  $regional_directors = array_diff($regional_directors, $regional_directors_exclude);
 
   // Remove Regional Director Role from users that don't have regional director in Staff database
   $userids = \Drupal::entityQuery('user') ->condition('status', 1) ->condition('roles', 'regional_director') ->execute();
