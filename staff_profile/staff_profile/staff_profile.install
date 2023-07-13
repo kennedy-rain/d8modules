@@ -116,6 +116,7 @@ function staff_profile_update_9001(&$sandbox)
   _staff_profile_change_taxonomy_term('4-H Youth', '4-H Youth Development', 'program_areas');
   _staff_profile_change_taxonomy_term('Agriculture', 'Agriculture and Natural Resources', 'program_areas');
   _staff_profile_change_taxonomy_term('Business & Industry', '', 'program_areas');
+  _staff_profile_change_taxonomy_term('Communities', 'Community and Economic Development', 'program_areas');
 }
 
 /*
