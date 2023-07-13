@@ -4,6 +4,7 @@ use \Drupal\node\Entity\Node;
 use \Drupal\user\Entity\User;
 use \Drupal\Component\Utility\Random;
 use \Drupal\encrypt\Entity\EncryptionProfile;
+use \Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_rebuild()
@@ -208,14 +209,27 @@ function staff_profile_primary_profile_from_database () {
     $mynode->field_staff_profile_pgm_areas = [array()];
     $temp_array = explode(', ', $profile->ProgramAreas);
     foreach ($temp_array as $index => $temp_term) {
+      if (empty($temp_term)) {
+        continue;
+      }
+      if ($temp_term == '4-H Youth') $temp_term = '4-H Youth Development';
+      if ($temp_term == 'Agriculture') $temp_term = 'Agriculture and Natural Resources';
+
       $taxon = $taxonomyStorage->loadByProperties([
-            'name' => $temp_term,
-            'vid' => 'program_areas'
+        'name' => $temp_term,
+        'vid' => 'program_areas'
       ]);
-      if (!empty($taxon) && array_keys($taxon)[0] > 0) {
-        $mynode->field_staff_profile_pgm_areas[] = ['target_id' => array_keys($taxon)[0]];
+      if (empty($taxon)) {
+        $new = Term::create(['name' => $temp_term, 'vid' => 'program_areas']);
+        $new->save();
+        $mynode->field_staff_profile_pgm_areas[] = ['target_id' => $new->id()];
+      } else {
+        if (!empty($taxon) && array_keys($taxon)[0] > 0) {
+          $mynode->field_staff_profile_pgm_areas[] = ['target_id' => array_keys($taxon)[0]];
+        }
       }
     }
+
 
     $mynode->field_staff_profile_stale->value = FALSE;
     $mynode->setPublished();
