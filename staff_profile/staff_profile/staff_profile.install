@@ -151,6 +151,6 @@ function _staff_profile_change_taxonomy_term($old_name, $new_name, $vid)
       }
     }
   } else {
-        Drupal::messenger()->addMessage('Not found: ' . $old_name);
+    Drupal::messenger()->addMessage('Not found: ' . $old_name);
   }
 }
