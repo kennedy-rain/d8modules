@@ -87,6 +87,7 @@
 	padding: 1.5em;
 	overflow-y: scroll;
 	scrollbar-color: white transparent;/* Firefox scrollbar */
+	overflow: auto;
 }
 
 .flip-card_back > * {
