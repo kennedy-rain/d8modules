@@ -46,6 +46,16 @@ function staff_profile_install()
     $vocab->save();
   }
 
+  $vid = 'staff_positions';
+  if (!isset($vocabs[$vid])) {
+    $vocab = Vocabulary::create(array(
+      'vid' => $vid,
+      'description' => 'Possible Staff Positions',
+      'name' => 'Staff Positions',
+    ));
+    $vocab->save();
+  }
+
   $vid = 'editor_qualifications';
   $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
   if (!isset($vocabs[$vid])) {

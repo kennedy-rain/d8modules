@@ -191,6 +191,9 @@ function staff_profile_primary_profile_from_database()
     $base_county = (!empty($taxonomy) ? array_keys($taxonomy)[0] : 0);
     $mynode->field_staff_profile_base_county = [['target_id' => $base_county]];
 
+    $tmp_position = _staff_profile_primary_get_position($profile, $jobtitle);
+    $mynode->field_staff_profile_position = [['target_id' => $tmp_position !== false ? $tmp_position : null]];
+
     $mynode->field_staff_profile_college->value = $profile->CollegeName;
     $mynode->field_staff_profile_location->value = $profile->Location;
 
@@ -432,4 +435,27 @@ function staff_profile_primary_web_editor_training()
       }
     }
   }
+}
+
+/*
+ * Figure out staff position based on jobtitle, returns the taxonomy/vocabulary id of the position term
+ *
+ * TODO: This should lookup values in a taxonomy, not return hard coded values!
+ */
+function _staff_profile_primary_get_position($profile, $jobtitle = '')
+{
+  if (
+    ($profile->DepartmentID == '30310'
+      && (strpos($jobtitle, 'Assistant Director County Serv') !== false
+        || strpos($jobtitle, 'Regional Extension Education') !== false
+        || $jobtitle == 'County Services - Regional Dir'))
+    || $jobtitle == 'Regional Director'
+    || $jobtitle == 'Associate Director County Serv'
+    || strpos($jobtitle, 'Director of Field Operations') !== false
+  ) {
+    return 180;
+  } elseif ($profile->Location == 'FLD-ISU-PD' && !empty($profile->CountyName)) {
+    return 181;
+  }
+  return false;
 }
