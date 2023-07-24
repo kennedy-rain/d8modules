@@ -93,6 +93,10 @@
 .flip-card_back > * {
 	margin-top: auto;
 	margin-bottom: auto;
+}
+
+.flip-card_back ul {
+	padding-left: 0rem;
 } 
 
 .flip-card_back.Dark.Red a {
