@@ -98,6 +98,7 @@ third_party_settings:
         - field_staff_profile_departmentid
         - field_staff_profile_pgm_areas
         - field_staff_profile_job_title
+        - field_staff_profile_position
         - field_staff_profile_base_county
         - field_staff_profile_cty_served
         - field_staff_profile_staffid
@@ -188,7 +189,7 @@ content:
     third_party_settings: {  }
   field_staff_profile_base_county:
     type: options_select
-    weight: 27
+    weight: 28
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -214,7 +215,7 @@ content:
     third_party_settings: {  }
   field_staff_profile_cty_served:
     type: options_buttons
-    weight: 28
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -293,7 +294,7 @@ content:
     third_party_settings: {  }
   field_staff_profile_position:
     type: options_select
-    weight: 14
+    weight: 27
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -355,7 +356,7 @@ content:
     third_party_settings: {  }
   field_staff_profile_staffid:
     type: number
-    weight: 29
+    weight: 30
     region: content
     settings:
       placeholder: ''

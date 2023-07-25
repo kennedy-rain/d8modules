@@ -1,3 +1,4 @@
+langcode: en
 status: true
 dependencies:
   config:
@@ -156,14 +157,6 @@ content:
         class: ''
     weight: 5
     region: content
-  field_staff_profile_position:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 10
-    region: content
   field_staff_profile_pref_phone:
     type: string
     label: hidden
@@ -218,6 +211,7 @@ hidden:
   field_staff_profile_last_name: true
   field_staff_profile_netid: true
   field_staff_profile_phone: true
+  field_staff_profile_position: true
   field_staff_profile_pref_name: true
   field_staff_profile_quals: true
   field_staff_profile_site_author: true
