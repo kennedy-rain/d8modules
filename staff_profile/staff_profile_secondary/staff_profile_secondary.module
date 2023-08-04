@@ -6,21 +6,24 @@ use \Drupal\taxonomy\Entity\Term;
 /**
  * Implements hook_rebuild().
  */
-function staff_profile_secondary_rebuild() {
+function staff_profile_secondary_rebuild()
+{
   staff_profile_secondary_handle_feeds();
 }
 
 /**
  * Implements hook_cron().
  */
-function staff_profile_secondary_cron() {
+function staff_profile_secondary_cron()
+{
   staff_profile_secondary_handle_feeds();
 }
 
 /**
  * Pull in the feeds
  */
-function staff_profile_secondary_handle_feeds() {
+function staff_profile_secondary_handle_feeds()
+{
   $config = \Drupal::config('staff_profile_secondary.settings');
   if (empty($config->get('sync_url'))) {
     \Drupal::logger('staff_profile_secondary')->warning('Need to set a URL for the JSON feed to Sync from Staff Directory');
@@ -104,8 +107,8 @@ function staff_profile_secondary_handle_feeds() {
       $taxonomy = array();
       if (!empty($profile['field_staff_profile_base_county'])) {
         $taxonomy = $taxonomyStorage->loadByProperties([
-            'name' => str_replace('&#039;', '\'', $profile['field_staff_profile_base_county']),
-            'vid' => 'counties_in_iowa'
+          'name' => str_replace('&#039;', '\'', $profile['field_staff_profile_base_county']),
+          'vid' => 'counties_in_iowa'
         ]);
       }
       $base_county = (!empty($taxonomy) ? array_keys($taxonomy)[0] : 0);
@@ -141,8 +144,8 @@ function staff_profile_secondary_handle_feeds() {
       $temp_array = explode(', ', str_replace('&#039;', '\'', $profile['field_staff_profile_cty_served']));
       foreach ($temp_array as $index => $temp_term) {
         $taxon = $taxonomyStorage->loadByProperties([
-            'name' => $temp_term,
-            'vid' => 'counties_in_iowa'
+          'name' => $temp_term,
+          'vid' => 'counties_in_iowa'
         ]);
         if (!empty($taxon) && array_keys($taxon)[0] > 0) {
           $mynode->field_staff_profile_cty_served[] = ['target_id' => array_keys($taxon)[0]];
@@ -159,8 +162,8 @@ function staff_profile_secondary_handle_feeds() {
         }
 
         $taxon = $taxonomyStorage->loadByProperties([
-            'name' => $temp_term,
-            'vid' => 'teams_groups'
+          'name' => $temp_term,
+          'vid' => 'teams_groups'
         ]);
         if (!empty($taxon) && array_keys($taxon)[0] > 0) {
           //Team-group exists in taxon, add to staff profile
@@ -172,8 +175,8 @@ function staff_profile_secondary_handle_feeds() {
             'vid' => 'teams_groups'
           ])->save();
           $taxon = $taxonomyStorage->loadByProperties([
-              'name' => $temp_term,
-              'vid' => 'teams_groups'
+            'name' => $temp_term,
+            'vid' => 'teams_groups'
           ]);
           $mynode->field_staff_profile_teams_groups[] = ['target_id' => array_keys($taxon)[0]];
         }
