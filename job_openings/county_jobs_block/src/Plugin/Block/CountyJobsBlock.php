@@ -30,7 +30,17 @@ class CountyJobsBlock extends BlockBase
     $feed_url = str_replace(' ', '+', $feed_url);
     $results = '';
 
-    $openings = json_decode(file_get_contents($feed_url), true);
+    $all_listings = json_decode(file_get_contents($feed_url), true);
+    $listings = [];
+    foreach ($all_listings as $listing) {
+      if (empty($config['county'])) {
+        $listings[] = $listing;
+      } else {
+        if ($listing['field_base_county'] == $config['county']) {
+          $listings[] = $listing;
+        }
+      }
+    }
 
     $results .= '<ul class="job-links">' . PHP_EOL;
     $results .= '  <li><a href="https://www.extension.iastate.edu/jobs/">County Job Openings</a></li>' . PHP_EOL;
@@ -38,17 +48,17 @@ class CountyJobsBlock extends BlockBase
     $results .= '  <li><a href="https://www.extension.iastate.edu/diversity/">Diversity and Civil Rights</a></li>' . PHP_EOL;
     $results .= '</ul>' . PHP_EOL;
 
-    if (empty($openings)) {
+    if (empty($listings)) {
       $results .= '<p>No job openings at this time</p>' . PHP_EOL;
     } else {
       $results .= PHP_EOL . '<ul class="county-job-openings">' . PHP_EOL;
-      foreach ($openings as $opening) {
+      foreach ($listings as $listing) {
         $results .= '  <li>' . PHP_EOL;
-        $results .= '    <a href="' . $opening['view_node'] . '">' . trim($opening['title']) . '</a><br />' . PHP_EOL;
-        $results .= '    ' . $opening['field_town_city'] . ', IA<br />' . PHP_EOL;
-        $results .= '    ' . $opening['field_base_county'] . ' County Extension Office<br />' . PHP_EOL;
-        $results .= '    <em>Application Deadline:</em> ' . $opening['field_application_deadline_date'] .
-          ($opening['field_open_until_filled']  === 'True' ? ' This position will remain open until filled' : '') .
+        $results .= '    <a href="' . $listing['view_node'] . '">' . trim($listing['title']) . '</a><br />' . PHP_EOL;
+        $results .= '    ' . $listing['field_town_city'] . ', IA<br />' . PHP_EOL;
+        $results .= '    ' . $listing['field_base_county'] . ' County Extension Office<br />' . PHP_EOL;
+        $results .= '    <em>Application Deadline:</em> ' . $listing['field_application_deadline_date'] .
+          ($listing['field_open_until_filled']  === 'True' ? ' This position will remain open until filled' : '') .
           '<br />' . PHP_EOL;
         $results .= '  </li>' . PHP_EOL;
       }
@@ -85,6 +95,24 @@ class CountyJobsBlock extends BlockBase
       '#default_value' => !empty($config['feed_url']) ? $config['feed_url'] : self::FEED_URL,
     );
 
+    // Get the list of Iowa Counties
+    $taxonomy_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'counties_in_iowa']);
+    if (sizeof($taxonomy_terms) > 0) {
+      $counties = array('' => 'Include All');
+      foreach ($taxonomy_terms as $taxonomy_term) {
+        $counties[$taxonomy_term->label()] = $taxonomy_term->label();
+      }
+
+      $form['county'] = array(
+        '#type' => 'select',
+        '#options' => $counties,
+        '#title' => t('Limit By county'),
+        '#description' => t('If something is selected, then only show events for that county'),
+        '#default_value' => $config['county'],
+      );
+    }
+
+
     return $form;
   }
 
@@ -96,6 +124,7 @@ class CountyJobsBlock extends BlockBase
     $values = $form_state->getValues();
 
     $this->configuration['feed_url'] = $values['feed_url'];
+    $this->configuration['county'] = array_key_exists('county', $values) ? $values['county'] : '';
   }
 
   /**
