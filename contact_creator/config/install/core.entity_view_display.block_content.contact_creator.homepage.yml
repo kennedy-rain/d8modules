@@ -5,7 +5,7 @@ dependencies:
     - block_content.type.contact_creator
     - core.entity_view_mode.block_content.homepage
     - field.field.block_content.contact_creator.field_contact_creator_address
-    - field.field.block_content.contact_creator.field_contact_creator_email
+    - field.field.block_content.contact_creator.field_contact_creator_emai
     - field.field.block_content.contact_creator.field_contact_creator_hours
     - field.field.block_content.contact_creator.field_contact_creator_phone
     - field.field.block_content.contact_creator.field_contact_creator_phone_2
@@ -19,22 +19,28 @@ third_party_settings:
     enabled: false
     allow_custom: false
   field_group:
-    group_contact_information:
+    group_contact_creator_add:
       children:
         - field_contact_creator_address
-        - field_contact_creator_email
+        - field_contact_creator_emai
         - field_contact_creator_phone
         - field_contact_creator_phone_2
-      label: 'Contact Information'
+      label: 'Contact Information:'
       parent_name: ''
       region: content
       weight: 1
-      format_type: fieldset
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        description: ''
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: block_content.contact_creator.homepage
 targetEntityType: block_content
 bundle: contact_creator
@@ -47,11 +53,10 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_contact_creator_email:
-    type: string
+  field_contact_creator_emai:
+    type: email_mailto
     label: hidden
-    settings:
-      link_to_entity: false
+    settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
@@ -61,7 +66,7 @@ content:
     settings: {  }
     third_party_settings:
       field_formatter_class:
-        class: office-hours
+        class: ''
     weight: 0
     region: content
   field_contact_creator_phone:

@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - block_content.type.contact_creator
-    - field.storage.block_content.field_contact_creator_email
-id: block_content.contact_creator.field_contact_creator_email
-field_name: field_contact_creator_email
+    - field.storage.block_content.field_contact_creator_emai
+id: block_content.contact_creator.field_contact_creator_emai
+field_name: field_contact_creator_emai
 entity_type: block_content
 bundle: contact_creator
 label: Email
@@ -15,4 +15,4 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: email
