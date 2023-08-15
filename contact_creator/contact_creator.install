@@ -30,11 +30,10 @@ use function Drupal\Core\Session\user_role_permissions;
     ],
   ]);
   $block->save();
- }
 
-// Set up permissions for content editors
-  user_role_grant_permissions('content_editor', [
-    'create contact_creator block content',
-    'delete own contact_creator block content',
-  ]);
-}
+  // Set up permissions for content editors
+    user_role_grant_permissions('content_editor', [
+      'create contact_creator block content',
+      'delete own contact_creator block content',
+    ]);
+  }

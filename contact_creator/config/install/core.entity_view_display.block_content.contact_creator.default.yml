@@ -4,7 +4,7 @@ dependencies:
   config:
     - block_content.type.contact_creator
     - field.field.block_content.contact_creator.field_contact_creator_address
-    - field.field.block_content.contact_creator.field_contact_creator_emai
+    - field.field.block_content.contact_creator.field_contact_creator_email
     - field.field.block_content.contact_creator.field_contact_creator_hours
     - field.field.block_content.contact_creator.field_contact_creator_phone
     - field.field.block_content.contact_creator.field_contact_creator_phone_2
@@ -23,7 +23,7 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_contact_creator_emai:
+  field_contact_creator_email:
     type: basic_string
     label: above
     settings: {  }

@@ -5,7 +5,7 @@ dependencies:
     - block_content.type.contact_creator
     - core.entity_view_mode.block_content.homepage
     - field.field.block_content.contact_creator.field_contact_creator_address
-    - field.field.block_content.contact_creator.field_contact_creator_emai
+    - field.field.block_content.contact_creator.field_contact_creator_email
     - field.field.block_content.contact_creator.field_contact_creator_hours
     - field.field.block_content.contact_creator.field_contact_creator_phone
     - field.field.block_content.contact_creator.field_contact_creator_phone_2
@@ -22,7 +22,7 @@ third_party_settings:
     group_contact_creator_add:
       children:
         - field_contact_creator_address
-        - field_contact_creator_emai
+        - field_contact_creator_email
         - field_contact_creator_phone
         - field_contact_creator_phone_2
       label: 'Contact Information:'
@@ -53,7 +53,7 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_contact_creator_emai:
+  field_contact_creator_email:
     type: email_mailto
     label: hidden
     settings: {  }
