@@ -136,7 +136,7 @@ class ImportForm extends FormBase {
     }
   }
 
-  function loadVocabFromFile($path, $vid, $name) {
+  static function loadVocabFromFile($path, $vid, $name) {
     if ($file = fopen($path, 'r')) {
       $count_added = 0;
       $count_skipped = 0;
