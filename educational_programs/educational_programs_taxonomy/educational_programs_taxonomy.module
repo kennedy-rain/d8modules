@@ -93,7 +93,7 @@ function educational_programs_taxonomy_handle_feeds()
   $all_terms = $taxonomyStorage->loadByProperties(['vid' => $vid]);
   foreach ($all_terms as $term) {
     if ($term->getChangedTime() < $now && $term->isPublished()) {
-      $term->setPublished(false);
+      $term->setUnpublished();
       $term->setChangedTime($now);
       $term->save();
     }
