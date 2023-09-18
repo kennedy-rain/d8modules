@@ -48,7 +48,7 @@ a.publication-title:hover {
 
 nav.slick__arrow {
 	position: sticky;
-	transform: translateY(-472%);
+	transform: translateY(-392%);
 }
 
 button.slick-next.slick-arrow {
@@ -96,4 +96,5 @@ button.slick-next, button.slick-prev {
 	content: '\f054';
 	font-family: 'FontAwesome';
 	font-size: 22px;
+	color: #fff;
 }
