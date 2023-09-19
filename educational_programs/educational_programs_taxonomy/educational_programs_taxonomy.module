@@ -72,7 +72,7 @@ function educational_programs_taxonomy_handle_feeds()
     // Check if this Program already exists
     $exists = false;
     foreach ($all_terms as $existing_term) {
-      if (strpos($existing_term->getDescription(), $program['Id']) !== false) {
+      if (!empty($existing_term->getDescription()) && strpos($existing_term->getDescription(), $program['Id']) !== false) {
         $exists = true;
         $existing_term->setName($program['Name']);
         $existing_term->parent = [$parent_id];
