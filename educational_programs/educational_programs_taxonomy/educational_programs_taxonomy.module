@@ -62,7 +62,7 @@ function educational_programs_taxonomy_handle_feeds()
     } else {
       $parent_term = reset($query);
       if ($parent_term->getChangedTime() < $now) {
-        $parent_term->setPublished(true);
+        $parent_term->setPublished();
         $parent_term->setChangedTime($now);
         $parent_term->save();
       }
@@ -76,7 +76,7 @@ function educational_programs_taxonomy_handle_feeds()
         $exists = true;
         $existing_term->setName($program['Name']);
         $existing_term->parent = [$parent_id];
-        $existing_term->setPublished(true);
+        $existing_term->setPublished();
         $existing_term->setChangedTime($now);
         $existing_term->save();
         break;

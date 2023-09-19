@@ -163,7 +163,7 @@ function educational_programs_page_check_published_nodes()
 	foreach ($nodes as $node) {
 		// Check if node label is in array of term names, if not unpublish and save node
 		if (!in_array(Term::load($node->get('field_educational_program')[0]->get('term_id')->getValue())->getName(), $term_names)) {
-			$node->setPublished(false);
+			$node->setUnpublished();
 			$node->save();
 		}
 	}
