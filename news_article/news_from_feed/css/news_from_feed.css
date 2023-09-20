@@ -33,9 +33,9 @@
 	}
 
 	#news_from_feed img {
-		float: left;
-		max-width: 35%;
-		max-height: 90%
+		max-height: 50%;
+		width: 100%;
+		object-fit: cover;
 	}
 
 	#news_from_feed li.col-md-6.col-lg-4.mb-3 {
@@ -46,11 +46,12 @@
 
 	#news_from_feed .card {
 		text-align: left;
-		height: 90%;
+		height: 100%;
 	}
 
 	#news_from_feed .card-title {
 		margin: 0px;
+		padding-bottom: 20px;
 	}
 }
 
