@@ -6,7 +6,7 @@ use Drupal;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Field\FieldFilteredMarkup;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\views\Entity\View;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 /**
  * Provides a 'Staff Field Specialist Map' Block.
@@ -27,24 +27,23 @@ class StaffFieldSpecialistMap extends BlockBase
   {
     $results = '';
 
-    //$blah = View::load('staff_directory')->
-    //$results = json_encode($blah);
     // See: https://pixelthis.gr/content/drupal-9-gettings-views-custom-block-di-using-drupal-core-render-class
-    $blah = \Drupal\views\Views::getView('staff_directory');
-    $blah->setDisplay('block_2');
-    $blah->execute();
-    $view_result = $blah->result;
+    $field_staff_view = \Drupal\views\Views::getView('staff_directory');
+    $field_staff_view->setDisplay('block_2');
+    $field_staff_view->execute();
+    $view_result = $field_staff_view->result;
     $field_specialists = [];
 
     foreach ($view_result as $staff) {
       $field_specialists[] = intval($staff->nid);
-      $results .= '<br />' . $staff->nid;
     }
-    $results .= '<br />' . json_encode($field_specialists);
 
     $nodes = Drupal\node\Entity\Node::loadMultiple($field_specialists);
+    $styles = $this->getDefaultStyles();
+    $styles .= '#Story polygon{fill: #286461}';
 
-    $results .= '<br />' . count($nodes);
+
+    $results .= '<br />' . ISUEOHelpers::map_get_svg($styles);
 
     //Add allowed tags for svg map
     $tags = FieldFilteredMarkup::allowedTags();
@@ -65,62 +64,13 @@ class StaffFieldSpecialistMap extends BlockBase
     return 0;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function blockForm($form, FormStateInterface $form_state)
+  private function getDefaultStyles()
   {
-    $config = $this->getConfiguration();
+    $styles = '/* Added by staff_field_specialist_map */' . PHP_EOL;
+    $styles .= 'svg {max-width:800px;}' . PHP_EOL;
+    $styles .= 'g.RegionNumber {display:none;}' . PHP_EOL;
+    $styles .= '#Region_1 polygon, #Region_2 polygon, #Region_3 polygon, #Region_4 polygon, #Region_5 polygon, #Region_6 polygon, #Region_7 polygon, #Region_8 polygon, #Region_9 polygon, #Region_10 polygon, #Region_11 polygon, #Region_12 polygon, #Region_13 polygon, #Region_14 polygon, #Region_15 polygon, #Region_16 polygon, #Region_17 polygon, #Region_18 polygon, #Region_19 polygon, #Region_20 polygon, #Region_21 polygon, #Region_22 polygon, #Region_23 polygon, #Region_24 polygon, #Region_25 polygon, #Region_26 polygon, #Region_27 polygon {fill:#ffffff; stroke:black;}' . PHP_EOL;
 
-    $form['max_size'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Maximum Width of Map, in pixels'),
-      //'#description' => t('Zero (0) means display all events'),
-      '#size' => 15,
-      '#default_value' => $config['max_size'],
-    );
-
-    $form['base_color'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Color to shade the Base County'),
-      //'#description' => t('Zero (0) means display all events'),
-      '#size' => 15,
-      '#default_value' => $config['base_color'],
-    );
-
-    $form['served_color'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Color to shade the Counties Served'),
-      //'#description' => t('Zero (0) means display all events'),
-      '#size' => 15,
-      '#default_value' => $config['served_color'],
-    );
-
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function blockSubmit($form, FormStateInterface $form_state)
-  {
-    $values = $form_state->getValues();
-
-    $this->configuration['max_size'] = $values['max_size'];
-    $this->configuration['base_color'] = $values['base_color'];
-    $this->configuration['served_color'] = $values['served_color'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function defaultConfiguration()
-  {
-    return array(
-      'max_size' => '400',
-      'base_color' => '#CC0000',
-      'served_color' => '#F1BE48',
-
-    );
+    return $styles;
   }
 }
