@@ -25,6 +25,11 @@ class StaffFieldSpecialistMap extends BlockBase
    */
   public function build()
   {
+    $colors = ['#c8102e', '#7c2529', '#4a4a4a', '#f5f5f5', '#ebebeb', '#008540', ];
+    $colors = ['#c8102e', '#7c2529', '#c84a4a', '#f5c8f5', '#ebebc8', '#008540', ];
+    $number_of_colors = count($colors);
+    $count = 0;
+
     $results = '';
 
     // See: https://pixelthis.gr/content/drupal-9-gettings-views-custom-block-di-using-drupal-core-render-class
@@ -38,10 +43,18 @@ class StaffFieldSpecialistMap extends BlockBase
       $field_specialists[] = intval($staff->nid);
     }
 
+
     $nodes = Drupal\node\Entity\Node::loadMultiple($field_specialists);
     $styles = $this->getDefaultStyles();
-    $styles .= '#Story polygon{fill: #286461}';
 
+    foreach ($nodes as $node) {
+      $color = $colors[$count % $number_of_colors];
+      $counties_served = $node->get('field_staff_profile_cty_served');
+      foreach ($counties_served as $county) {
+        $styles .= '#' . $this->fixCounty($county->entity->label()) . ' polygon{fill: ' . $color . '}' . PHP_EOL;
+      }
+      $count = $count + 1;
+    }
 
     $results .= '<br />' . ISUEOHelpers::map_get_svg($styles);
 
@@ -72,5 +85,15 @@ class StaffFieldSpecialistMap extends BlockBase
     $styles .= '#Region_1 polygon, #Region_2 polygon, #Region_3 polygon, #Region_4 polygon, #Region_5 polygon, #Region_6 polygon, #Region_7 polygon, #Region_8 polygon, #Region_9 polygon, #Region_10 polygon, #Region_11 polygon, #Region_12 polygon, #Region_13 polygon, #Region_14 polygon, #Region_15 polygon, #Region_16 polygon, #Region_17 polygon, #Region_18 polygon, #Region_19 polygon, #Region_20 polygon, #Region_21 polygon, #Region_22 polygon, #Region_23 polygon, #Region_24 polygon, #Region_25 polygon, #Region_26 polygon, #Region_27 polygon {fill:#ffffff; stroke:black;}' . PHP_EOL;
 
     return $styles;
+  }
+
+  private function fixCounty($county_name)
+  {
+    $county_name = str_replace(' ', '_', $county_name);
+    $county_name = str_replace('\'', '', $county_name);
+    $county_name = str_replace('Pottawattamie_-_West', 'West_Pottawattamie', $county_name);
+    $county_name = str_replace('Pottawattamie_-_East', 'East_Pottawattamie', $county_name);
+
+    return $county_name;
   }
 }
