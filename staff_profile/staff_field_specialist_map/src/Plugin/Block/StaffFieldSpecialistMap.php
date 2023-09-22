@@ -25,9 +25,6 @@ class StaffFieldSpecialistMap extends BlockBase
   public function build()
   {
     // Set up some initial values for variables
-    $colors = ['#c8102e', '#7c2529', '#4a4a4a', '#f5f5f5', '#ebebeb', '#008540', ];
-    //$colors = ['#c8102e', '#7c2529', '#c84a4a', '#f5c8f5', '#ebebc8', '#008540', ];
-    $number_of_colors = count($colors);
     $count = 0;
     $styles = $this->getDefaultStyles();
     $links = [];
@@ -49,7 +46,7 @@ class StaffFieldSpecialistMap extends BlockBase
 
     // Step through the nodes, each node is a field specialist
     foreach ($nodes as $node) {
-      $color = $colors[$count % $number_of_colors];
+      $color = ISUEOHelpers::map_get_colorcode($count);
       $counties_served = $node->get('field_staff_profile_cty_served');
 
       // Step through the counties served, and add a style that fill the background for those counties

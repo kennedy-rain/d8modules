@@ -19,4 +19,16 @@ class ISUEOHelpers {
     return $mapCode;
   }
 
+  // Return a color code from an array
+  public static function map_get_colorcode($count, $colors = []) {
+    // Set up some initial values for variables
+    if (empty($colors)) {
+      $colors = ['#c8102e', '#7c2529', '#4a4a4a', '#f5f5f5', '#ebebeb', '#008540', ];
+      //$colors = ['#c8102e', '#7c2529', '#c84a4a', '#f5c8f5', '#ebebc8', '#008540', ];
+    }
+    $number_of_colors = count($colors);
+
+    return $colors[$count % $number_of_colors];
+  }
+
 }
