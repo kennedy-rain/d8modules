@@ -24,6 +24,9 @@ class StaffFieldSpecialistMap extends BlockBase
    */
   public function build()
   {
+    // Do NOT cache a page with this block on it
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
     // Set up some initial values for variables
     $count = 0;
     $styles = $this->getDefaultStyles();
