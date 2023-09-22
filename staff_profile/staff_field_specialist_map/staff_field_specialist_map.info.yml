@@ -1,7 +1,7 @@
-name: 'Staff Profile Map'
+name: 'Staff Field Specialist Map'
 type: module
 core_version_requirement: ^8 || ^9
-description: 'Generates a map based on the base county and counties served fields'
+description: 'Generates a map based on counties served by field specialists'
 version: '8.x-1.1-dev'
 package: 'ISUEO'
 dependencies:
