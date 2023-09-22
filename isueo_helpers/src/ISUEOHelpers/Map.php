@@ -1,9 +1,8 @@
 <?php
 
-namespace Drupal\isueo_helpers;
-//use Drupal\Core\Controller\ControllerBase;
+namespace Drupal\isueo_helpers\ISUEOHelpers;
 
-class ISUEOHelpers {
+class Map {
 
   // Return a map as an svg file, after applying any given styles
   public static function map_get_svg($styles = '', $links = [])  {

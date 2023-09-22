@@ -46,7 +46,7 @@ class StaffFieldSpecialistMap extends BlockBase
 
     // Step through the nodes, each node is a field specialist
     foreach ($nodes as $node) {
-      $color = ISUEOHelpers::map_get_colorcode($count);
+      $color = ISUEOHelpers\Map::map_get_colorcode($count);
       $counties_served = $node->get('field_staff_profile_cty_served');
 
       // Step through the counties served, and add a style that fill the background for those counties
@@ -59,7 +59,7 @@ class StaffFieldSpecialistMap extends BlockBase
     }
 
     // Get the map, with our custom styles applied
-    $results .= '<br />' . ISUEOHelpers::map_get_svg($styles, $links);
+    $results .= '<br />' . ISUEOHelpers\Map::map_get_svg($styles, $links);
 
     //Add allowed tags for svg map
     $tags = FieldFilteredMarkup::allowedTags();
