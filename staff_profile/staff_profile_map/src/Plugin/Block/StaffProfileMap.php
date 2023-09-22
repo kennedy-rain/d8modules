@@ -60,7 +60,7 @@ class StaffProfileMap extends BlockBase
 
     //Add the map to results when appropriate
     if ($displayMap) {
-      $results .= ISUEOHelpers::map_get_svg($styles);
+      $results .= ISUEOHelpers\Map::map_get_svg($styles);
     }
 
     return [
