@@ -26,10 +26,11 @@ class StaffFieldSpecialistMap extends BlockBase
   {
     // Set up some initial values for variables
     $colors = ['#c8102e', '#7c2529', '#4a4a4a', '#f5f5f5', '#ebebeb', '#008540', ];
-    $colors = ['#c8102e', '#7c2529', '#c84a4a', '#f5c8f5', '#ebebc8', '#008540', ];
+    //$colors = ['#c8102e', '#7c2529', '#c84a4a', '#f5c8f5', '#ebebc8', '#008540', ];
     $number_of_colors = count($colors);
     $count = 0;
     $styles = $this->getDefaultStyles();
+    $links = [];
     $results = '';
 
     // Get a list of nodes returned by the Field Specialist View
@@ -53,13 +54,15 @@ class StaffFieldSpecialistMap extends BlockBase
 
       // Step through the counties served, and add a style that fill the background for those counties
       foreach ($counties_served as $county) {
-        $styles .= '#' . $this->fixCounty($county->entity->label()) . ' polygon{fill: ' . $color . '}' . PHP_EOL;
+        $county_name = $this->fixCounty($county->entity->label());
+        $styles .= '#' . $county_name . ' polygon{fill: ' . $color . '}' . PHP_EOL;
+        $links[$county_name] = $node->toUrl()->toString();
       }
       $count = $count + 1;
     }
 
     // Get the map, with our custom styles applied
-    $results .= '<br />' . ISUEOHelpers::map_get_svg($styles);
+    $results .= '<br />' . ISUEOHelpers::map_get_svg($styles, $links);
 
     //Add allowed tags for svg map
     $tags = FieldFilteredMarkup::allowedTags();
