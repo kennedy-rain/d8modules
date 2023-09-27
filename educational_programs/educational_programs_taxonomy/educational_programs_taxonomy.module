@@ -2,6 +2,7 @@
 
 use \Drupal\node\Entity\Node;
 use \Drupal\taxonomy\Entity\Term;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 /**
  * Implements hook_rebuild().
@@ -34,7 +35,7 @@ function educational_programs_taxonomy_handle_feeds()
   $all_terms = $taxonomyStorage->loadByProperties(['vid' => $vid]);
 
   // Get the feed from MyData
-  $fromFeed = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
+  $fromFeed = ISUEOHelpers\Files::file_from_datastore('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
   $fromFeed = str_replace('\u0026#039;', '\'', $fromFeed);
   $programs = json_decode($fromFeed, TRUE);
 
