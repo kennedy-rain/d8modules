@@ -10,3 +10,4 @@ dependencies:
   - slick:slick_ui
   - slick_views:slick_views
   - blazy:blazy
+  - d8modules:isueo_helpers

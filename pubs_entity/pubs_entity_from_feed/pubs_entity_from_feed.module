@@ -23,6 +23,7 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 //use Drupal\node\Entity\Node;
 //use Drupal\node\NodeInterface;
 use Drupal\pubs_entity_type\Entity\PubsEntity;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 //use \Drupal\pubs_entity_type\Form;
 
@@ -78,7 +79,7 @@ function pubs_entity_from_feed_form_pubs_entity_settings_validate(&$form, FormSt
 function pubs_entity_from_feed_rebuild() {
   $config = \Drupal::config('pubs_entity_type.settings');
   $feed_url = $config->get('pubs_json_feed');
-  $raw = file_get_contents($feed_url);
+  $raw = ISUEOHelpers\Files::fetch_url($feed_url);
   $products = json_decode($raw, TRUE);
   $count = 0;
 
