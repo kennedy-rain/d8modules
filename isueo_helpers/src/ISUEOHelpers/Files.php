@@ -30,7 +30,6 @@ class Files
       $url = str_replace('https://', 'https://' . $creds, $url);
     }
 
-    Drupal::logger('isueo_helpers')->info($url);
     return file_get_contents($url);
   }
 }
