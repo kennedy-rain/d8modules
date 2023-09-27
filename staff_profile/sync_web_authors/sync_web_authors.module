@@ -31,7 +31,7 @@ function sync_web_authors_users() {
 
   // Get profiles from feed
   $feedurl = $config->get('sync_url');
-  $fromFeed = ISUEOHelpers\Files::file_get_from_datastore($feedurl);
+  $fromFeed = ISUEOHelpers\Files::fetch_url($feedurl);
   $profiles = json_decode($fromFeed, TRUE);
 
   $handled = [];

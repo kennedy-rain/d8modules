@@ -26,7 +26,7 @@ class CouncilMembers extends BlockBase
   {
     $council_members = [];
     $counties = \Drupal::service('staff_profile_reed.helper_functions')->getCountiesServed();
-    $raw = json_decode(ISUEOHelpers\Files::file_get_from_datastore('https://datastore.exnet.iastate.edu/mydata/ExtensionCouncilMembers.json'), true);
+    $raw = json_decode(ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/ExtensionCouncilMembers.json'), true);
     foreach ($raw as $member) {
       $member['Client_County__c'] = str_replace('East Pottawattamie', 'Pottawattamie - East', $member['Client_County__c']);
       $member['Client_County__c'] = str_replace('West Pottawattamie', 'Pottawattamie - West', $member['Client_County__c']);

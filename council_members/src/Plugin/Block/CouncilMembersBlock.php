@@ -35,7 +35,7 @@ class CouncilMembersBlock extends BlockBase
     // Make sure we have a County name and a URL for the feed
     if (!empty($county_name) && !empty($feed_url)) {
       $local_members = array();
-      $active_council_members = json_decode(ISUEOHelpers\Files::file_get_from_datastore($feed_url), true);
+      $active_council_members = json_decode(ISUEOHelpers\Files::fetch_url($feed_url), true);
       $results .= '<p class="council_note">(Number) is the year the term expires</p>';
       $results .= '<ul class="council_list">' . PHP_EOL;
 

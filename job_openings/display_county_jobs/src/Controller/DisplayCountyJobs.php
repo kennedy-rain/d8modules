@@ -26,7 +26,7 @@ class DisplayCountyJobs extends ControllerBase
     \Drupal::service('page_cache_kill_switch')->trigger();
     $config = Drupal::config('display_county_jobs.settings');
     $feed_url = str_replace(' ', '+', $config->get('feed_url'));
-    $openings = json_decode(ISUEOHelpers\Files::file_get_from_url($feed_url), true);
+    $openings = json_decode(ISUEOHelpers\Files::fetch_url($feed_url), true);
     $site_name = \Drupal::config("system.site")->get('name');
 
     $results = '</ul>' . PHP_EOL;

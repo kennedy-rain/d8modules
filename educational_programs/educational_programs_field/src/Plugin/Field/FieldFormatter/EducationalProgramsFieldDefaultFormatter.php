@@ -37,7 +37,7 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase {
     $elements = array();
 
     // Get the feed from MyData
-    $fromFeed = ISUEOHelpers\Files::file_get_from_datastore('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
+    $fromFeed = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
     $fromFeed = str_replace('\u0026#039;', '\'', $fromFeed);
     $programs = json_decode($fromFeed, TRUE);
 

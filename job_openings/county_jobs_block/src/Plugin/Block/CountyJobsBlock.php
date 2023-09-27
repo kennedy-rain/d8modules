@@ -31,7 +31,7 @@ class CountyJobsBlock extends BlockBase
     $feed_url = str_replace(' ', '+', $feed_url);
     $results = '';
 
-    $all_listings = json_decode(ISUEOHelpers\Files::file_get_from_url($feed_url), true);
+    $all_listings = json_decode(ISUEOHelpers\Files::fetch_url($feed_url), true);
     $listings = [];
     foreach ($all_listings as $listing) {
       if (empty($config['county'])) {
