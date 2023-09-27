@@ -9,7 +9,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
-
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
@@ -100,7 +100,7 @@ class ProgramOfferingBlocks extends BlockBase
     // Set the timeout to 2 seconds, Get the events from the JSON feed, then reset timeout to previous value
     $default_socket_timeout = ini_get('default_socket_timeout');
     ini_set('default_socket_timeout', 2);
-    $buffer = file_get_contents($module_config->get('url') . '?time=' . time());
+    $buffer = ISUEOHelpers\Files::file_from_datastore($module_config->get('url') . '?time=' . time());
     ini_set('default_socket_timeout', $default_socket_timeout);
     $json_events = json_decode($buffer, TRUE);
 

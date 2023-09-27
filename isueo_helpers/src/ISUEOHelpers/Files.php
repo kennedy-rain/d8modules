@@ -30,13 +30,13 @@ class Files {
     // Insert the credentials and get file
     $path = str_replace('https://', 'https://' . $creds, $path);
 
-    return $path;
     return Files::file_get_from_url($path, $cache_key, $cache_minutes);
   }
 
   // Get a file from a URL
   // TODO: Add some sort of caching mechanism
   public static function file_get_from_url($url, string $cache_key = '', int $cache_minutes = 0) {
+    Drupal::logger('isueo_helpers')->info($url);
     return file_get_contents($url);
   }
 

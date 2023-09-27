@@ -3,6 +3,7 @@
 namespace Drupal\program_offering_blocks\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 /**
  * Provides route responses for the program_offering_blocks  module.
@@ -26,7 +27,7 @@ class EventDetailsController extends ControllerBase
 
     //    $eventID = intval($eventID);
     $module_config = \Drupal::config('program_offering_blocks.settings');
-    $buffer = file_get_contents($module_config->get('url'));
+    $buffer = ISUEOHelpers\Files::file_from_datastore($module_config->get('url'));
     $program_offerings = json_decode($buffer, TRUE);
 
     foreach ($program_offerings as $event) {
