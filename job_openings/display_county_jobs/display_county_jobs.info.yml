@@ -3,3 +3,5 @@ description: Module to create a page to display job openings for a county
 package: ISUEO
 type: module
 core_version_requirement: ^8 || ^9
+dependencies:
+  - d8modules:isueo_helpers

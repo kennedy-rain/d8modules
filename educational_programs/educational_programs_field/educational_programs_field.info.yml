@@ -7,3 +7,4 @@ dependencies:
   - drupal:field
   - drupal:system
   - d8modules:educational_programs_taxonomy
+  - d8modules:isueo_helpers

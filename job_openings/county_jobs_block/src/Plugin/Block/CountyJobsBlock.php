@@ -5,6 +5,7 @@ namespace Drupal\county_jobs_block\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Field\FieldFilteredMarkup;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 /**
  * Provides a Jobs Block from a feed
@@ -30,7 +31,7 @@ class CountyJobsBlock extends BlockBase
     $feed_url = str_replace(' ', '+', $feed_url);
     $results = '';
 
-    $all_listings = json_decode(file_get_contents($feed_url), true);
+    $all_listings = json_decode(ISUEOHelpers\Files::file_get_from_url($feed_url), true);
     $listings = [];
     foreach ($all_listings as $listing) {
       if (empty($config['county'])) {
