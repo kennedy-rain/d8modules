@@ -8,7 +8,7 @@ use Drupal\Core\Site\Settings;
 class Files {
 
   // Get a file from the datastore
-  public static function file_from_datastore(string $path, string $cache_key = '', int $cache_minutes = 0) : string {
+  public static function file_get_from_datastore(string $path, string $cache_key = '', int $cache_minutes = 0) : string {
     // Get credentials for the datastore
     $creds = Settings::get('datastore_creds');
     if (empty($creds)) {
