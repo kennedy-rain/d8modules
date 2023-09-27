@@ -5,6 +5,7 @@ use \Drupal\user\Entity\User;
 use \Drupal\Component\Utility\Random;
 use \Drupal\encrypt\Entity\EncryptionProfile;
 use \Drupal\taxonomy\Entity\Term;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 /**
  * Implements hook_rebuild()
@@ -376,7 +377,7 @@ function rand_string($strength = 40)
 // This function helps take Web Editor Training functions from Moodle, and puts it into the staff directory
 function staff_profile_primary_web_editor_training()
 {
-  $buffer = file_get_contents('https://datastore.exnet.iastate.edu/StaffDir/WebEditorTraining.json');
+  $buffer = ISUEOHelpers\Files::file_get_from_datastore('https://datastore.exnet.iastate.edu/StaffDir/WebEditorTraining.json');
   $json_trainings = json_decode($buffer, TRUE);
 
   foreach ($json_trainings as $training) {
