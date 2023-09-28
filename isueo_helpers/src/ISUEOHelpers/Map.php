@@ -22,7 +22,7 @@ class Map {
   public static function map_get_colorcode($count, $colors = []) {
     // Set up some initial values for variables
     if (empty($colors)) {
-      $colors = ['#a2a569', '#cac747', '#9b945f', '#aca39a', '#7a99ac', '#f1be48', '#318abb', '#a5463a', '#ce7549', '#eed484', '#b9975b', ];
+      $colors = ['#c8102e', '#a2a569', '#cac747', '#9b945f', '#aca39a', '#7a99ac', '#f1be48', '#318abb', '#a5463a', '#ce7549', '#eed484', '#b9975b', ];
       //$colors = ['#c8102e', '#7c2529', '#c84a4a', '#f5c8f5', '#ebebc8', '#008540', ];
     }
     $number_of_colors = count($colors);
