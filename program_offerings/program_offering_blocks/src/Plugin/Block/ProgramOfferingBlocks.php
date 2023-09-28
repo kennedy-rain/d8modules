@@ -100,7 +100,7 @@ class ProgramOfferingBlocks extends BlockBase
     // Set the timeout to 2 seconds, Get the events from the JSON feed, then reset timeout to previous value
     $default_socket_timeout = ini_get('default_socket_timeout');
     ini_set('default_socket_timeout', 2);
-    $buffer = ISUEOHelpers\Files::fetch_url($module_config->get('url') . '?time=' . time());
+    $buffer = ISUEOHelpers\Files::fetch_url($module_config->get('url') . '?time=' . time(), true);
     ini_set('default_socket_timeout', $default_socket_timeout);
     $json_events = json_decode($buffer, TRUE);
 
