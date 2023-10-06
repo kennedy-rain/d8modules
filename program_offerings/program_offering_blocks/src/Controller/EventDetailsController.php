@@ -27,7 +27,7 @@ class EventDetailsController extends ControllerBase
 
     //    $eventID = intval($eventID);
     $module_config = \Drupal::config('program_offering_blocks.settings');
-    $buffer = ISUEOHelpers\Files::fetch_url($module_config->get('url'));
+    $buffer = ISUEOHelpers\Files::fetch_url($module_config->get('url'), true);
     $program_offerings = json_decode($buffer, TRUE);
 
     foreach ($program_offerings as $event) {
