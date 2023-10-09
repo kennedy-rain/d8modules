@@ -7,3 +7,4 @@ package: 'ISUEO'
 dependencies:
   - staff_profile:staff_profile
   - metatag:metatag
+  - d8modules:isueo_helpers

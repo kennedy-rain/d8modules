@@ -8,6 +8,8 @@ use Drupal\block_content\Entity\BlockContentType;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use function Drupal\Core\Session\user_role_permissions;
+use Drupal\isueo_helpers\ISUEOHelpers;
+use GuzzleHttp\Promise\Is;
 
 // ADD NEW UPDATES HERE
 // function section_lib_importer_update_8001() {
@@ -478,7 +480,7 @@ function addSectionTemplates($templates) {
     if (count($lib_templates) == 0) {
       //Load images and set them to be used as thumbnails
       $file_loc = \Drupal::service('file_system')->realpath(drupal_get_path('module', 'section_lib_importer')) . '/resources/' . $sectlibtemplate['filename'];
-      $file_data = file_get_contents($file_loc);
+      $file_data = ISUEOHelpers\Files::fetch_url($file_loc);
       $file_saved = file_save_data($file_data, "public://section_library/" . $sectlibtemplate['filename'], FileSystemInterface::EXISTS_REPLACE);
 
       $data = [

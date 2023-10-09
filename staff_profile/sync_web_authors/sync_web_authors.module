@@ -2,6 +2,7 @@
 
 use \Drupal\node\Entity\Node;
 use \Drupal\user\Entity\User;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 
 /**
@@ -30,7 +31,7 @@ function sync_web_authors_users() {
 
   // Get profiles from feed
   $feedurl = $config->get('sync_url');
-  $fromFeed = file_get_contents($feedurl);
+  $fromFeed = ISUEOHelpers\Files::fetch_url($feedurl);
   $profiles = json_decode($fromFeed, TRUE);
 
   $handled = [];

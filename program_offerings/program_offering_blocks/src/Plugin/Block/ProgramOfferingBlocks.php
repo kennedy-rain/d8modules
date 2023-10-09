@@ -9,7 +9,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
-
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
@@ -92,12 +92,15 @@ class ProgramOfferingBlocks extends BlockBase
     // Combine all search filters, into a $search_terms array()
     $string_of_search_terms = $this->build_search_string(!empty($node->field_event_title_filter->value) ? $node->field_event_title_filter->value : '', $config['title_search']);
     $string_of_search_terms = $this->build_search_string($string_of_search_terms, $querystring_filter);
-    $search_terms_array = explode('|', $string_of_search_terms);
+    $search_terms_array = [];
+    if (!empty($string_of_search_terms)) {
+      $search_terms_array = explode('|', $string_of_search_terms);
+    }
 
     // Set the timeout to 2 seconds, Get the events from the JSON feed, then reset timeout to previous value
     $default_socket_timeout = ini_get('default_socket_timeout');
     ini_set('default_socket_timeout', 2);
-    $buffer = file_get_contents($module_config->get('url'));
+    $buffer = ISUEOHelpers\Files::fetch_url($module_config->get('url') . '?time=' . time(), true);
     ini_set('default_socket_timeout', $default_socket_timeout);
     $json_events = json_decode($buffer, TRUE);
 
@@ -134,6 +137,7 @@ class ProgramOfferingBlocks extends BlockBase
         }
       }
 
+      $tmpstr = $event['Additional_Counties__c'];
       if (!empty($config['county'])) {
         $search_county = strtolower($config['county']) . ' county';
         if ($search_county == 'pottawattamie - west county') {
@@ -144,16 +148,18 @@ class ProgramOfferingBlocks extends BlockBase
         }
         if (
           !(strpos(strtolower($event['Account__c.Name']), $search_county) !== FALSE)
-          && !(strpos(strtolower($event['Additional_Counties__c']), $search_county) !== FALSE)
+          && !(!empty($tmpstr) && strpos(strtolower($tmpstr), $search_county) !== FALSE)
         ) {
           $display_event = FALSE;
         }
       }
 
-      // Hide statewide events from home page
-      $additional_counties = explode(';', $event["Additional_Counties__c"]);
-      if ($is_county_site && count($additional_counties) > 50  && $is_front_page) {
-        $display_event = false;
+      if (!empty($tmpstr)) {
+        // Hide statewide events from home page
+        $additional_counties = explode(';', $tmpstr);
+        if ($is_county_site && count($additional_counties) > 50  && $is_front_page) {
+          $display_event = false;
+        }
       }
 
       if ($display_event) {
@@ -193,7 +199,8 @@ class ProgramOfferingBlocks extends BlockBase
       $show_more_page = $config['show_more_page'];
       $show_more_page = substr($show_more_page, 0, 1) == '/' ? substr($show_more_page, 1, strlen($show_more_page) - 1) : $show_more_page;
 
-      $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . '?filter=' . urlencode($string_of_search_terms) . '">' . $config['show_more_text'] . '</a><br />';
+      $tmpfilter = !empty($string_of_search_terms) ? '?filter=' . urlencode($string_of_search_terms) : '';
+      $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . $tmpfilter . '">' . $config['show_more_text'] . '</a><br />';
     }
 
     return [
@@ -449,8 +456,12 @@ class ProgramOfferingBlocks extends BlockBase
   private function build_search_string($str1, $str2)
   {
     $return_string = '';
-    $str1 = trim(strtolower($str1));
-    $str2 = trim(strtolower($str2));
+    if (!empty($str1)) {
+      $str1 = trim(strtolower($str1));
+    }
+    if (!empty($str2)) {
+      $str2 = trim(strtolower($str2));
+    }
     if (!empty($str1) && !empty($str2)) {
       $return_string = $str1 . '|' . $str2;
     } elseif (!empty($str1)) {

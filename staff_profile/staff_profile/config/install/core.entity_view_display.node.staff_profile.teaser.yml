@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.staff_profile.field_staff_profile_netid
     - field.field.node.staff_profile.field_staff_profile_pgm_areas
     - field.field.node.staff_profile.field_staff_profile_phone
+    - field.field.node.staff_profile.field_staff_profile_position
     - field.field.node.staff_profile.field_staff_profile_pref_name
     - field.field.node.staff_profile.field_staff_profile_pref_phone
     - field.field.node.staff_profile.field_staff_profile_pref_title
@@ -43,17 +44,17 @@ bundle: staff_profile
 mode: teaser
 content:
   body:
-    label: hidden
     type: text_summary_or_trimmed
-    weight: 101
+    label: hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
+    weight: 101
     region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
   field_staff_profile_addr: true
@@ -73,6 +74,7 @@ hidden:
   field_staff_profile_netid: true
   field_staff_profile_pgm_areas: true
   field_staff_profile_phone: true
+  field_staff_profile_position: true
   field_staff_profile_pref_name: true
   field_staff_profile_pref_phone: true
   field_staff_profile_pref_title: true

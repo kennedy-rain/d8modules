@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.staff_profile.field_staff_profile_netid
     - field.field.node.staff_profile.field_staff_profile_pgm_areas
     - field.field.node.staff_profile.field_staff_profile_phone
+    - field.field.node.staff_profile.field_staff_profile_position
     - field.field.node.staff_profile.field_staff_profile_pref_name
     - field.field.node.staff_profile.field_staff_profile_pref_phone
     - field.field.node.staff_profile.field_staff_profile_pref_title
@@ -190,7 +191,7 @@ content:
     region: content
   field_staff_profile_teams_groups:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: false
     third_party_settings:
@@ -210,6 +211,7 @@ hidden:
   field_staff_profile_last_name: true
   field_staff_profile_netid: true
   field_staff_profile_phone: true
+  field_staff_profile_position: true
   field_staff_profile_pref_name: true
   field_staff_profile_quals: true
   field_staff_profile_site_author: true
