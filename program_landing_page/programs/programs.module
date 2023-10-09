@@ -1,6 +1,7 @@
 <?php
-use \Drupal\node\Entity\Node;
-use \Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\isueo_helpers\ISUEOHelpers;
 
 /**
  * Implements hook_rebuild().
@@ -21,12 +22,12 @@ function programs_cron()
 function programs_getprograms()
 {
   // Get the programs feed, if it's empty, wait 1 second and try again
-  $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
+  $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
 
   if ($raw === false || strlen($raw) < 100000) {
     sleep(1);
     Drupal::logger('programs')->info('Empty feed: wait 1 second and try again');
-    $raw = file_get_contents('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
+    $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
   }
   $programs = json_decode($raw, true);
   $programIds = [];
