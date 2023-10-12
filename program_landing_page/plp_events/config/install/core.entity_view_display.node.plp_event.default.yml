@@ -24,9 +24,9 @@ dependencies:
     - field.field.node.plp_event.field_plp_event_program_id
     - field.field.node.plp_event.field_plp_event_program_name
     - field.field.node.plp_event.field_plp_event_program_url
-    - field.field.node.plp_event.field_plp_event_registration_deadlin
-    - field.field.node.plp_event.field_plp_event_registration_opens
-    - field.field.node.plp_event.field_plp_event_registration_url
+    - field.field.node.plp_event.field_plp_event_reg_closes
+    - field.field.node.plp_event.field_plp_event_reg_opens
+    - field.field.node.plp_event.field_plp_event_reg_url
     - field.field.node.plp_event.field_plp_event_start_dates
     - field.field.node.plp_event.field_plp_event_url
     - node.type.plp_event
@@ -221,7 +221,7 @@ content:
     third_party_settings: {  }
     weight: 126
     region: content
-  field_plp_event_registration_deadlin:
+  field_plp_event_reg_closes:
     type: datetime_default
     label: above
     settings:
@@ -230,7 +230,7 @@ content:
     third_party_settings: {  }
     weight: 130
     region: content
-  field_plp_event_registration_opens:
+  field_plp_event_reg_opens:
     type: datetime_default
     label: above
     settings:
@@ -239,7 +239,7 @@ content:
     third_party_settings: {  }
     weight: 129
     region: content
-  field_plp_event_registration_url:
+  field_plp_event_reg_url:
     type: link
     label: above
     settings:

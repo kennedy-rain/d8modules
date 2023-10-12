@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_registration_url
+    - field.storage.node.field_plp_event_reg_url
     - node.type.plp_event
   module:
     - link
-id: node.plp_event.field_plp_event_registration_url
-field_name: field_plp_event_registration_url
+id: node.plp_event.field_plp_event_reg_url
+field_name: field_plp_event_reg_url
 entity_type: node
 bundle: event
 label: 'Event Registration URL'

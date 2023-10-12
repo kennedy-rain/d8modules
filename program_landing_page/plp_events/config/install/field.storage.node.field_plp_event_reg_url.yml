@@ -4,8 +4,8 @@ dependencies:
   module:
     - link
     - node
-id: node.field_plp_event_registration_url
-field_name: field_plp_event_registration_url
+id: node.field_plp_event_reg_url
+field_name: field_plp_event_reg_url
 entity_type: node
 type: link
 settings: {  }

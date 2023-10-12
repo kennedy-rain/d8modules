@@ -181,7 +181,7 @@ function plp_events_getevents()
     $fields = [
       'field_plp_event_program_url' => 'Planned_Program_Website__c',
       'field_plp_event_url' => 'Program_Offering_Website__c',
-      'field_plp_event_registration_url' => 'Registration_Link__c',
+      'field_plp_event_reg_url' => 'Registration_Link__c',
     ];
     foreach ($fields as $key => $value) {
       if ($mynode->get($key)->uri != $event[$value]) {
@@ -191,8 +191,8 @@ function plp_events_getevents()
     }
 
     $fields = [
-      'field_plp_event_registration_opens' => 'Registration_Opens__c',
-      'field_plp_event_registration_deadlin' => 'Registration_Deadline__c',
+      'field_plp_event_reg_opens' => 'Registration_Opens__c',
+      'field_plp_event_reg_closes' => 'Registration_Deadline__c',
       'field_plp_event_next_start_date' => 'Next_Start_Date__c',
     ];
     foreach ($fields as $key => $value) {

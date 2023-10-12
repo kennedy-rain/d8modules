@@ -4,8 +4,8 @@ dependencies:
   module:
     - datetime
     - node
-id: node.field_plp_event_registration_deadlin
-field_name: field_plp_event_registration_deadlin
+id: node.field_plp_event_reg_closes
+field_name: field_plp_event_reg_closes
 entity_type: node
 type: datetime
 settings:

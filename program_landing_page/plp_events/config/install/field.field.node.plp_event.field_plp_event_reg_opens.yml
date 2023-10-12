@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_registration_deadlin
+    - field.storage.node.field_plp_event_reg_opens
     - node.type.plp_event
   module:
     - datetime
-id: node.plp_event.field_plp_event_registration_deadlin
-field_name: field_plp_event_registration_deadlin
+id: node.plp_event.field_plp_event_reg_opens
+field_name: field_plp_event_reg_opens
 entity_type: node
 bundle: event
-label: 'Event Registration Deadline'
+label: 'Event Registration Opens'
 description: ''
 required: false
 translatable: false
