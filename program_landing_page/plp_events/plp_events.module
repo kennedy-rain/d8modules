@@ -100,7 +100,7 @@ function plp_events_getevents()
   $nids = \Drupal::entityQuery('node')->condition('type', 'event')->execute();
   $nodes =  Node::loadMultiple($nids);
   foreach ($nodes as $node) {
-    $nodeIds[] = $node->field_event_mydata_id->value;
+    $nodeIds[] = $node->field_plp_event_mydata_id->value;
   }
 
   // Step through the events feed
@@ -112,7 +112,7 @@ function plp_events_getevents()
 
     // Check for existing node for this event
     foreach ($nodes as $node) {
-      if ($node->field_event_mydata_id->value == $event['Id']) {
+      if ($node->field_plp_event_mydata_id->value == $event['Id']) {
         $mynode = $node;
         break;
       }
@@ -120,7 +120,7 @@ function plp_events_getevents()
 
     // Create node if one's not found
     if ($mynode == null) {
-      $mynode = Node::create(array('type' => 'event', 'title' => html_entity_decode($event['Name_Placeholder__c']), 'field_event_mydata_id' => $event['Id'],));
+      $mynode = Node::create(array('type' => 'event', 'title' => html_entity_decode($event['Name_Placeholder__c']), 'field_plp_event_mydata_id' => $event['Id'],));
       $save = true;
     }
 
@@ -157,19 +157,19 @@ function plp_events_getevents()
 
     // Handle the text fields using an array and a loop
     $fields = [
-      'field_event_contact_name' => 'Contact_Information_Name__c',
-      'field_event_contact_email' => 'Contact_Information_Email__c',
-      'field_event_contact_phone' => 'Contact_Information_Phone__c',
-      'field_event_instructor_name' => 'Instructor_Information_Name__c',
-      'field_event_instructor_email' => 'Instructor_Information_Email__c',
-      'field_event_instructor_phone' => 'Instructor_Information_Phone__c',
-      'field_event_location_site' => 'Event_Location_Site_Building__c',
-      'field_event_location_street' => 'Event_Location_Street_Address__c',
-      'field_event_location_city' => 'Event_Location__c',
-      'field_event_location_state' => 'Program_State__c',
-      'field_event_location_zip' => 'Event_Location_Zip_Code__c',
-      'field_event_program_id' => 'Planned_Program__c',
-      //'field_event_program_name' => '',
+      'field_plp_event_contact_name' => 'Contact_Information_Name__c',
+      'field_plp_event_contact_email' => 'Contact_Information_Email__c',
+      'field_plp_event_contact_phone' => 'Contact_Information_Phone__c',
+      'field_plp_event_instructor_name' => 'Instructor_Information_Name__c',
+      'field_plp_event_instructor_email' => 'Instructor_Information_Email__c',
+      'field_plp_event_instructor_phone' => 'Instructor_Information_Phone__c',
+      'field_plp_event_location_site' => 'Event_Location_Site_Building__c',
+      'field_plp_event_location_street' => 'Event_Location_Street_Address__c',
+      'field_plp_event_location_city' => 'Event_Location__c',
+      'field_plp_event_location_state' => 'Program_State__c',
+      'field_plp_event_location_zip' => 'Event_Location_Zip_Code__c',
+      'field_plp_event_program_id' => 'Planned_Program__c',
+      //'field_plp_event_program_name' => '',
     ];
     foreach ($fields as $key => $value) {
       if ($mynode->get($key)->getString() != $event[$value]) {
@@ -179,9 +179,9 @@ function plp_events_getevents()
     }
 
     $fields = [
-      'field_event_program_url' => 'Planned_Program_Website__c',
-      'field_event_url' => 'Program_Offering_Website__c',
-      'field_event_registration_url' => 'Registration_Link__c',
+      'field_plp_event_program_url' => 'Planned_Program_Website__c',
+      'field_plp_event_url' => 'Program_Offering_Website__c',
+      'field_plp_event_registration_url' => 'Registration_Link__c',
     ];
     foreach ($fields as $key => $value) {
       if ($mynode->get($key)->uri != $event[$value]) {
@@ -191,9 +191,9 @@ function plp_events_getevents()
     }
 
     $fields = [
-      'field_event_registration_opens' => 'Registration_Opens__c',
-      'field_event_registration_deadlin' => 'Registration_Deadline__c',
-      'field_event_next_start_date' => 'Next_Start_Date__c',
+      'field_plp_event_registration_opens' => 'Registration_Opens__c',
+      'field_plp_event_registration_deadlin' => 'Registration_Deadline__c',
+      'field_plp_event_next_start_date' => 'Next_Start_Date__c',
     ];
     foreach ($fields as $key => $value) {
       if ($mynode->get($key)->getString() != str_replace('Z', '', $event[$value])) {
@@ -205,18 +205,18 @@ function plp_events_getevents()
     // Handle Start/End Dates
     $sessions = event_get_dates($event);
     $count = 0;
-    $existingStartDates = $mynode->get('field_event_start_dates')->getString();
-    $existingEndDates = $mynode->get('field_event_end_dates')->getString();
+    $existingStartDates = $mynode->get('field_plp_event_start_dates')->getString();
+    $existingEndDates = $mynode->get('field_plp_event_end_dates')->getString();
     $newStartDates = implode(', ', $sessions[0]);
     $newEndDates = implode(', ', $sessions[1]);
     //if (count(explode(', ', $existingStartDates)) > 1) {
     if ($existingStartDates != $newStartDates) {
-      $mynode->set('field_event_start_dates', $sessions[0]);
-      $mynode->set('field_event_end_dates', $sessions[1]);
+      $mynode->set('field_plp_event_start_dates', $sessions[0]);
+      $mynode->set('field_plp_event_end_dates', $sessions[1]);
       $save = true;
     }
     if ($existingEndDates != $newEndDates) {
-      $mynode->set('field_event_end_dates', $sessions[1]);
+      $mynode->set('field_plp_event_end_dates', $sessions[1]);
       $save = true;
     }
 
@@ -226,8 +226,8 @@ function plp_events_getevents()
     if (array_key_exists($acctName, $counties)) {
       $host = $counties[$acctName];
     }
-    if ($mynode->get('field_event_account')->getString() != $host) {
-      $mynode->set('field_event_account', $host);
+    if ($mynode->get('field_plp_event_account')->getString() != $host) {
+      $mynode->set('field_plp_event_account', $host);
       $save = true;
     }
 
@@ -240,8 +240,8 @@ function plp_events_getevents()
         $new_counties[] = $counties[$county];
       }
     }
-    if ($mynode->get('field_event_additional_counties')->getString() != implode(', ', $new_counties)) {
-      $mynode->set('field_event_additional_counties', $new_counties);
+    if ($mynode->get('field_plp_event_additional_counties')->getString() != implode(', ', $new_counties)) {
+      $mynode->set('field_plp_event_additional_counties', $new_counties);
       $save = true;
     }
 
@@ -253,8 +253,8 @@ function plp_events_getevents()
       }
       $term = $program_areas[$event['PrimaryProgramUnit__c']];
     }
-    if ($mynode->get('field_event_program_area')->getString() != $term) {
-      $mynode->set('field_event_program_area', $term);
+    if ($mynode->get('field_plp_event_program_area')->getString() != $term) {
+      $mynode->set('field_plp_event_program_area', $term);
       $save = true;
     }
 
@@ -268,8 +268,8 @@ function plp_events_getevents()
         $terms[] = $intended_audiences[$audience];
       }
     }
-    if ($mynode->get('field_event_audiences')->getString() != implode(', ', $terms)) {
-      $mynode->set('field_event_audiences', $terms);
+    if ($mynode->get('field_plp_event_audiences')->getString() != implode(', ', $terms)) {
+      $mynode->set('field_plp_event_audiences', $terms);
       $save = true;
     }
 
@@ -282,7 +282,7 @@ function plp_events_getevents()
   // Find and unpublish deleted events
   $deleted = array_diff($nodeIds, $eventIds);
   foreach ($nodes as $node) {
-    if (in_array($node->field_event_mydata_id->value, $deleted) && $node->isPublished()) {
+    if (in_array($node->field_plp_event_mydata_id->value, $deleted) && $node->isPublished()) {
       $node->setUnpublished()->save();
       //$node->delete();
     }
@@ -292,7 +292,7 @@ function plp_events_getevents()
 function event_get_dates($event)
 {
   // Set the Field_Names for the session start times, comes from MyData
-  $field_names = [
+  $field_plp_names = [
     ['Start_Time_and_Date__c', 'End_Date_and_Time__c',],
     ['Second_Session_Date_Time__c', 'Second_Session_End_Date_Time__c',],
     ['Third_Session_Begining_Date_and_Time__c', 'Third_Session_End_Date_and_Time__c',],
@@ -308,7 +308,7 @@ function event_get_dates($event)
   ];
   $sessions = [];
 
-  foreach ($field_names as $fields) {
+  foreach ($field_plp_names as $fields) {
     if (!empty($event[$fields[0]])) {
       $sessions[] = [str_replace('Z', '', $event[$fields[0]]), str_replace('Z', '', $event[$fields[1]])];
     }
