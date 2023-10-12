@@ -63,7 +63,7 @@ function plp_events_getevents()
 
   if ($raw === false || strlen($raw) < 100000) {
     sleep(1);
-    Drupal::logger('events')->info('Empty feed: wait 1 second and try again');
+    Drupal::logger('plp_events')->info('Empty feed: wait 1 second and try again');
     $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/UpcomingProgramOfferings.json');
   }
   $events = json_decode($raw, true);
@@ -71,7 +71,7 @@ function plp_events_getevents()
   $nodeIds = [];
   $min_events = 1000;
   if (!is_array($events) || count($events) < $min_events) {
-    Drupal::logger('events')->info('Less than ' . $min_events . ' events, exiting');
+    Drupal::logger('plp_events')->info('Less than ' . $min_events . ' events, exiting');
     return;
   }
 
