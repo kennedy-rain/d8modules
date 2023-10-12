@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_program_mydata_id
-field_name: field_program_mydata_id
+id: node.field_plp_program_title_filter
+field_name: field_plp_program_title_filter
 entity_type: node
 type: string
 settings:

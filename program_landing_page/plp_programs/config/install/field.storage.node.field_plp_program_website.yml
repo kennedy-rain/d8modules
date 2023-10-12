@@ -2,16 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - link
     - node
-id: node.field_program_contact_name
-field_name: field_program_contact_name
+id: node.field_plp_program_website
+field_name: field_plp_program_website
 entity_type: node
-type: string
-settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
-module: core
+type: link
+settings: {  }
+module: link
 locked: false
 cardinality: 1
 translatable: true

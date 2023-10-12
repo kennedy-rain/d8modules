@@ -3,16 +3,16 @@ status: true
 dependencies:
   config:
     - field.field.node.plp_program.body
-    - field.field.node.plp_program.field_program_contact_email
-    - field.field.node.plp_program.field_program_contact_name
-    - field.field.node.plp_program.field_program_contact_phone
-    - field.field.node.plp_program.field_program_critical_issue
-    - field.field.node.plp_program.field_program_interest_areas
-    - field.field.node.plp_program.field_program_mydata_id
-    - field.field.node.plp_program.field_program_program_area
-    - field.field.node.plp_program.field_program_search_terms
-    - field.field.node.plp_program.field_program_title_filter
-    - field.field.node.plp_program.field_program_website
+    - field.field.node.plp_program.field_plp_program_contact_email
+    - field.field.node.plp_program.field_plp_program_contact_name
+    - field.field.node.plp_program.field_plp_program_contact_phone
+    - field.field.node.plp_program.field_plp_program_critical_issue
+    - field.field.node.plp_program.field_plp_program_interest_areas
+    - field.field.node.plp_program.field_plp_program_mydata_id
+    - field.field.node.plp_program.field_plp_program_program_area
+    - field.field.node.plp_program.field_plp_program_search_terms
+    - field.field.node.plp_program.field_plp_program_title_filter
+    - field.field.node.plp_program.field_plp_program_website
     - node.type.plp_program
   module:
     - link
@@ -40,7 +40,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_program_contact_email:
+  field_plp_program_contact_email:
     type: email_default
     weight: 122
     region: content
@@ -48,7 +48,7 @@ content:
       placeholder: ''
       size: 60
     third_party_settings: {  }
-  field_program_contact_name:
+  field_plp_program_contact_name:
     type: string_textfield
     weight: 123
     region: content
@@ -56,7 +56,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_contact_phone:
+  field_plp_program_contact_phone:
     type: string_textfield
     weight: 124
     region: content
@@ -64,7 +64,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_critical_issue:
+  field_plp_program_critical_issue:
     type: entity_reference_autocomplete
     weight: 125
     region: content
@@ -74,7 +74,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_interest_areas:
+  field_plp_program_interest_areas:
     type: entity_reference_autocomplete
     weight: 127
     region: content
@@ -84,7 +84,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_mydata_id:
+  field_plp_program_mydata_id:
     type: string_textfield
     weight: 128
     region: content
@@ -92,7 +92,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_program_area:
+  field_plp_program_program_area:
     type: entity_reference_autocomplete
     weight: 129
     region: content
@@ -102,7 +102,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_search_terms:
+  field_plp_program_search_terms:
     type: string_textarea
     weight: 130
     region: content
@@ -110,7 +110,7 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_program_title_filter:
+  field_plp_program_title_filter:
     type: string_textfield
     weight: 132
     region: content
@@ -118,7 +118,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_website:
+  field_plp_program_website:
     type: link_default
     weight: 131
     region: content

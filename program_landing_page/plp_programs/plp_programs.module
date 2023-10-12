@@ -48,8 +48,8 @@ function plp_programs_getprograms()
   $tmpnodes =  Node::loadMultiple($nids);
   $nodes = [];
   foreach ($tmpnodes as $node) {
-    $nodeIds[] = $node->field_program_mydata_id->value;
-    $nodes[$node->field_program_mydata_id->value] = $node;
+    $nodeIds[] = $node->field_plp_program_mydata_id->value;
+    $nodes[$node->field_plp_program_mydata_id->value] = $node;
   }
 
   // Record types to include in the catalog
@@ -68,7 +68,7 @@ function plp_programs_getprograms()
     if (!empty($nodes[$program['Id']])) {
       $mynode = $nodes[$program['Id']];
     } else {
-      $mynode = Node::create(array('type' => 'plp_program', 'title' => html_entity_decode($program['Name']), 'field_program_mydata_id' => $program['Id'],));
+      $mynode = Node::create(array('type' => 'plp_program', 'title' => html_entity_decode($program['Name']), 'field_plp_program_mydata_id' => $program['Id'],));
       $save = true;
     }
 
@@ -109,10 +109,10 @@ function plp_programs_getprograms()
 
     // Handle the text fields using an array and a loop
     $fields = [
-      //'field_program_contact_name' => 'Contact_Information_Name__c',
-      'field_program_contact_phone' => 'Primary_Contact__r.Phone',
-      'field_program_search_terms' => 'Search_Terms__c',
-      'field_program_title_filter' => 'Name'
+      //'field_plp_program_contact_name' => 'Contact_Information_Name__c',
+      'field_plp_program_contact_phone' => 'Primary_Contact__r.Phone',
+      'field_plp_program_search_terms' => 'Search_Terms__c',
+      'field_plp_program_title_filter' => 'Name'
       //'field_event_program_name' => '',
     ];
     foreach ($fields as $key => $value) {
@@ -131,15 +131,15 @@ function plp_programs_getprograms()
         $website = 'https://' . $website;
       }
     }
-    if ($mynode->get('field_program_website')->uri != $website) {
-      $mynode->set('field_program_website', ['uri' => $website, 'title' => 'More about ' . $program['Name']]);
+    if ($mynode->get('field_plp_program_website')->uri != $website) {
+      $mynode->set('field_plp_program_website', ['uri' => $website, 'title' => 'More about ' . $program['Name']]);
       $save = true;
     }
 
     $fields_single_entity_reference = [
-      'field_program_program_area' => ['hed__Account__r.Name', 'program_areas', $program_areas],
-      'field_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', $critical_issues],
-      'field_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', $interest_areas],
+      'field_plp_program_program_area' => ['hed__Account__r.Name', 'program_areas', $program_areas],
+      'field_plp_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', $critical_issues],
+      'field_plp_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', $interest_areas],
     ];
 
     foreach ($fields_single_entity_reference as $key => $value) {

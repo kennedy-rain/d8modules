@@ -3,11 +3,12 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_program_contact_email
-field_name: field_program_contact_email
+id: node.field_plp_program_search_terms
+field_name: field_plp_program_search_terms
 entity_type: node
-type: email
-settings: {  }
+type: string_long
+settings:
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

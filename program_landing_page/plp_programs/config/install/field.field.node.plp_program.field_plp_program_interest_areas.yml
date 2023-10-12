@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_program_interest_areas
+    - field.storage.node.field_plp_program_interest_areas
     - node.type.plp_program
-id: node.plp_program.field_program_interest_areas
-field_name: field_program_interest_areas
+id: node.plp_program.field_plp_program_interest_areas
+field_name: field_plp_program_interest_areas
 entity_type: node
 bundle: plp_program
 label: 'Program Interest Areas'
