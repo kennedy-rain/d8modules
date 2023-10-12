@@ -6,27 +6,27 @@ use Drupal\isueo_helpers\ISUEOHelpers;
 /**
  * Implements hook_rebuild().
  */
-function programs_rebuild()
+function plp_programs_rebuild()
 {
-  programs_getprograms();
+  plp_programs_getprograms();
 }
 
 /**
  * Implements hook_cron().
  */
-function programs_cron()
+function plp_programs_cron()
 {
-  programs_getprograms();
+  plp_programs_getprograms();
 }
 
-function programs_getprograms()
+function plp_programs_getprograms()
 {
   // Get the programs feed, if it's empty, wait 1 second and try again
   $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
 
   if ($raw === false || strlen($raw) < 100000) {
     sleep(1);
-    Drupal::logger('programs')->info('Empty feed: wait 1 second and try again');
+    Drupal::logger('plp_programs')->info('Empty feed: wait 1 second and try again');
     $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
   }
   $programs = json_decode($raw, true);
@@ -34,14 +34,14 @@ function programs_getprograms()
   $nodeIds = [];
   $min_programs = 100;
   if (!is_array($programs) || count($programs) < $min_programs) {
-    Drupal::logger('programs')->info('Less than ' . $min_programs . ' programs, exiting');
+    Drupal::logger('plp_programs')->info('Less than ' . $min_programs . ' programs, exiting');
     return;
   }
 
-  $intended_audiences = programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
-  $program_areas = programs_get_taxonomomy_terms('program_areas', $programs, 'hed__Account__r.Name');
-  $critical_issues = programs_get_taxonomomy_terms('critical_issues', $programs, 'Critical_Issue__c');
-  $interest_areas = programs_get_taxonomomy_terms('interest_areas', $programs, 'Related_Interest_Areas__c');
+  $intended_audiences = plp_programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
+  $program_areas = plp_programs_get_taxonomomy_terms('program_areas', $programs, 'hed__Account__r.Name');
+  $critical_issues = plp_programs_get_taxonomomy_terms('critical_issues', $programs, 'Critical_Issue__c');
+  $interest_areas = plp_programs_get_taxonomomy_terms('interest_areas', $programs, 'Related_Interest_Areas__c');
 
   // Get all existing nodes
   $nids = \Drupal::entityQuery('node')->condition('type', 'program')->execute();
@@ -166,7 +166,7 @@ function programs_getprograms()
 
 
 // Get all taxonomy terms in a taxonomy, including new ones that might be in the feed...
-function programs_get_taxonomomy_terms($taxonomy_id, $feed, $field)
+function plp_programs_get_taxonomomy_terms($taxonomy_id, $feed, $field)
 {
   // Load Existing terms
   $found = [];

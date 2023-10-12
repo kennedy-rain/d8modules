@@ -5,7 +5,7 @@ use \Drupal\taxonomy\Entity\Vocabulary;
 /**
  * Implements hook_install().
  */
-function programs_install()
+function plp_programs_install()
 {
   // Define Vocabularies/taxonomies
   $vocabularies = [
