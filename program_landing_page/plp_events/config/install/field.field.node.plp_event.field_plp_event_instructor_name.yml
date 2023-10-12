@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_instructor_phone
-    - node.type.event
-id: node.event.field_plp_event_instructor_phone
-field_name: field_plp_event_instructor_phone
+    - field.storage.node.field_plp_event_instructor_name
+    - node.type.plp_event
+id: node.plp_event.field_plp_event_instructor_name
+field_name: field_plp_event_instructor_name
 entity_type: node
 bundle: event
-label: 'Event Instructor Phone'
+label: 'Event Instructor Name'
 description: ''
 required: false
 translatable: false

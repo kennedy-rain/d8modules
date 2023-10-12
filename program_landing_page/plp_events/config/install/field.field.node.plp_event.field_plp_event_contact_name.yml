@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_contact_email
-    - node.type.event
-id: node.event.field_plp_event_contact_email
-field_name: field_plp_event_contact_email
+    - field.storage.node.field_plp_event_contact_name
+    - node.type.plp_event
+id: node.plp_event.field_plp_event_contact_name
+field_name: field_plp_event_contact_name
 entity_type: node
 bundle: event
-label: 'Event Contact Email'
+label: 'Event Contact Name'
 description: ''
 required: false
 translatable: false

@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_registration_opens
-    - node.type.event
+    - field.storage.node.field_plp_event_start_dates
+    - node.type.plp_event
   module:
     - datetime
-id: node.event.field_plp_event_registration_opens
-field_name: field_plp_event_registration_opens
+id: node.plp_event.field_plp_event_start_dates
+field_name: field_plp_event_start_dates
 entity_type: node
 bundle: event
-label: 'Event Registration Opens'
+label: 'Event Start Dates'
 description: ''
 required: false
 translatable: false

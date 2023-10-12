@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_account
-    - node.type.event
-    - taxonomy.vocabulary.counties_in_iowa
-id: node.event.field_plp_event_account
-field_name: field_plp_event_account
+    - field.storage.node.field_plp_event_audiences
+    - node.type.plp_event
+    - taxonomy.vocabulary.intended_audiences
+id: node.plp_event.field_plp_event_audiences
+field_name: field_plp_event_audiences
 entity_type: node
 bundle: event
-label: 'Event Account'
+label: 'Event Audiences'
 description: ''
 required: false
 translatable: false
@@ -19,10 +19,10 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      counties_in_iowa: counties_in_iowa
+      intended_audiences: intended_audiences
     sort:
       field: name
       direction: asc
-    auto_create: false
+    auto_create: true
     auto_create_bundle: ''
 field_type: entity_reference

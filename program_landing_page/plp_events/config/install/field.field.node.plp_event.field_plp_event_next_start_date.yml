@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_end_dates
-    - node.type.event
+    - field.storage.node.field_plp_event_next_start_date
+    - node.type.plp_event
   module:
     - datetime
-id: node.event.field_plp_event_end_dates
-field_name: field_plp_event_end_dates
+id: node.plp_event.field_plp_event_next_start_date
+field_name: field_plp_event_next_start_date
 entity_type: node
 bundle: event
-label: 'Event End Dates'
+label: 'Event Next Start Date'
 description: ''
 required: false
 translatable: false

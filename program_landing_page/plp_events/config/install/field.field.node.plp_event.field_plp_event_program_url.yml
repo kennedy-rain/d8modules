@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_plp_event_program_url
-    - node.type.event
+    - node.type.plp_event
   module:
     - link
-id: node.event.field_plp_event_program_url
+id: node.plp_event.field_plp_event_program_url
 field_name: field_plp_event_program_url
 entity_type: node
 bundle: event

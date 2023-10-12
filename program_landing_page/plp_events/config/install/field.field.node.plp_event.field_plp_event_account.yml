@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_program_area
-    - node.type.event
-    - taxonomy.vocabulary.program_areas
-id: node.event.field_plp_event_program_area
-field_name: field_plp_event_program_area
+    - field.storage.node.field_plp_event_account
+    - node.type.plp_event
+    - taxonomy.vocabulary.counties_in_iowa
+id: node.plp_event.field_plp_event_account
+field_name: field_plp_event_account
 entity_type: node
 bundle: event
-label: 'Event Program Area'
+label: 'Event Account'
 description: ''
 required: false
 translatable: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      program_areas: program_areas
+      counties_in_iowa: counties_in_iowa
     sort:
       field: name
       direction: asc

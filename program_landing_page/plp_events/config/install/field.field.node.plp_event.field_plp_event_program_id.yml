@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_event_contact_phone
-    - node.type.event
-id: node.event.field_plp_event_contact_phone
-field_name: field_plp_event_contact_phone
+    - field.storage.node.field_plp_event_program_id
+    - node.type.plp_event
+id: node.plp_event.field_plp_event_program_id
+field_name: field_plp_event_program_id
 entity_type: node
 bundle: event
-label: 'Event Contact Phone'
+label: 'Event Program ID'
 description: ''
 required: false
 translatable: false
