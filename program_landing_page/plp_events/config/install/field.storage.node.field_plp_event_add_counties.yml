@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - taxonomy
-id: node.field_plp_event_additional_counties
-field_name: field_plp_event_additional_counties
+id: node.field_plp_event_add_counties
+field_name: field_plp_event_add_counties
 entity_type: node
 type: entity_reference
 settings:

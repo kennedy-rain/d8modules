@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.node.plp_event.body
     - field.field.node.plp_event.field_plp_event_account
-    - field.field.node.plp_event.field_plp_event_additional_counties
+    - field.field.node.plp_event.field_plp_event_add_counties
     - field.field.node.plp_event.field_plp_event_audiences
     - field.field.node.plp_event.field_plp_event_contact_email
     - field.field.node.plp_event.field_plp_event_contact_name
@@ -67,7 +67,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_plp_event_additional_counties:
+  field_plp_event_add_counties:
     type: entity_reference_autocomplete
     weight: 123
     region: content

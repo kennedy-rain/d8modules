@@ -5,7 +5,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.plp_event.body
     - field.field.node.plp_event.field_plp_event_account
-    - field.field.node.plp_event.field_plp_event_additional_counties
+    - field.field.node.plp_event.field_plp_event_add_counties
     - field.field.node.plp_event.field_plp_event_audiences
     - field.field.node.plp_event.field_plp_event_contact_email
     - field.field.node.plp_event.field_plp_event_contact_name
@@ -54,7 +54,7 @@ content:
     region: content
 hidden:
   field_plp_event_account: true
-  field_plp_event_additional_counties: true
+  field_plp_event_add_counties: true
   field_plp_event_audiences: true
   field_plp_event_contact_email: true
   field_plp_event_contact_name: true
