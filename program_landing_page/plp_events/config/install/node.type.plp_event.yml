@@ -23,7 +23,7 @@ third_party_settings:
     unpublish_required: false
     unpublish_revision: false
 name: Event
-type: event
+type: plp_event
 description: ''
 help: ''
 new_revision: true

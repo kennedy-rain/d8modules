@@ -9,7 +9,7 @@ dependencies:
 id: node.plp_event.field_plp_event_reg_closes
 field_name: field_plp_event_reg_closes
 entity_type: node
-bundle: event
+bundle: plp_event
 label: 'Event Registration Closes'
 description: ''
 required: false

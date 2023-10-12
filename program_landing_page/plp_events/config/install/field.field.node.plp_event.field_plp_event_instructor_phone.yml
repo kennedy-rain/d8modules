@@ -7,7 +7,7 @@ dependencies:
 id: node.plp_event.field_plp_event_instructor_phone
 field_name: field_plp_event_instructor_phone
 entity_type: node
-bundle: event
+bundle: plp_event
 label: 'Event Instructor Phone'
 description: ''
 required: false

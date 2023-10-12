@@ -36,7 +36,7 @@ dependencies:
     - user
 id: node.plp_event.teaser
 targetEntityType: node
-bundle: event
+bundle: plp_event
 mode: teaser
 content:
   body:

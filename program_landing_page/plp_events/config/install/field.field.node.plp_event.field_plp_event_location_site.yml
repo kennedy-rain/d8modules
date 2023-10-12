@@ -7,7 +7,7 @@ dependencies:
 id: node.plp_event.field_plp_event_location_site
 field_name: field_plp_event_location_site
 entity_type: node
-bundle: event
+bundle: plp_event
 label: 'Event Location Site'
 description: ''
 required: false

@@ -38,7 +38,7 @@ dependencies:
     - text
 id: node.plp_event.default
 targetEntityType: node
-bundle: event
+bundle: plp_event
 mode: default
 content:
   body:

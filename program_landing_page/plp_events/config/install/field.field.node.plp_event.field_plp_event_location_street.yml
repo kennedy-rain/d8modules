@@ -7,7 +7,7 @@ dependencies:
 id: node.plp_event.field_plp_event_location_street
 field_name: field_plp_event_location_street
 entity_type: node
-bundle: event
+bundle: plp_event
 label: 'Event Location Street'
 description: ''
 required: false

@@ -8,7 +8,7 @@ dependencies:
 id: node.plp_event.field_plp_event_add_counties
 field_name: field_plp_event_add_counties
 entity_type: node
-bundle: event
+bundle: plp_event
 label: 'Event Additional Counties'
 description: ''
 required: false

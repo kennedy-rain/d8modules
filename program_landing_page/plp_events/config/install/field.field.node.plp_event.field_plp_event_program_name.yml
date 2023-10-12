@@ -7,7 +7,7 @@ dependencies:
 id: node.plp_event.field_plp_event_program_name
 field_name: field_plp_event_program_name
 entity_type: node
-bundle: event
+bundle: plp_event
 label: 'Event Program Name'
 description: ''
 required: false

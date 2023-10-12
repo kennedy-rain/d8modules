@@ -9,7 +9,7 @@ dependencies:
 id: node.plp_event.body
 field_name: body
 entity_type: node
-bundle: event
+bundle: plp_event
 label: Body
 description: ''
 required: false
