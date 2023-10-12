@@ -8,18 +8,18 @@ use Drupal\isueo_helpers\ISUEOHelpers;
  * Implements hook_rebuild().
  */
 
-function events_rebuild()
+function plp_events_rebuild()
 {
-  events_getevents();
+  plp_events_getevents();
 }
 
 /**
  * Implements hook_cron().
  */
 
-function events_cron()
+function plp_events_cron()
 {
-  events_getevents();
+  plp_events_getevents();
 
   //$queue = Drupal::queue('events');
   /*
@@ -56,7 +56,7 @@ function events_cron()
 }
 
 
-function events_getevents()
+function plp_events_getevents()
 {
   // Get the events feed, if it's empty, wait 1 second and try again
   $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/UpcomingProgramOfferings.json');
