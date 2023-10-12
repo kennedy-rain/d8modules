@@ -3,24 +3,24 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.program.body
-    - field.field.node.program.field_program_contact_email
-    - field.field.node.program.field_program_contact_name
-    - field.field.node.program.field_program_contact_phone
-    - field.field.node.program.field_program_critical_issue
-    - field.field.node.program.field_program_interest_areas
-    - field.field.node.program.field_program_mydata_id
-    - field.field.node.program.field_program_program_area
-    - field.field.node.program.field_program_search_terms
-    - field.field.node.program.field_program_title_filter
-    - field.field.node.program.field_program_website
-    - node.type.program
+    - field.field.node.plp_program.body
+    - field.field.node.plp_program.field_program_contact_email
+    - field.field.node.plp_program.field_program_contact_name
+    - field.field.node.plp_program.field_program_contact_phone
+    - field.field.node.plp_program.field_program_critical_issue
+    - field.field.node.plp_program.field_program_interest_areas
+    - field.field.node.plp_program.field_program_mydata_id
+    - field.field.node.plp_program.field_program_program_area
+    - field.field.node.plp_program.field_program_search_terms
+    - field.field.node.plp_program.field_program_title_filter
+    - field.field.node.plp_program.field_program_website
+    - node.type.plp_program
   module:
     - text
     - user
-id: node.program.teaser
+id: node.plp_program.teaser
 targetEntityType: node
-bundle: program
+bundle: plp_program
 mode: teaser
 content:
   body:

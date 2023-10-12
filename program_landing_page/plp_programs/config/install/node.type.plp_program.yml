@@ -23,7 +23,7 @@ third_party_settings:
     unpublish_required: false
     unpublish_revision: false
 name: Program
-type: program
+type: plp_program
 description: ''
 help: ''
 new_revision: true

@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_program_contact_email
-    - node.type.program
-id: node.program.field_program_contact_email
+    - node.type.plp_program
+id: node.plp_program.field_program_contact_email
 field_name: field_program_contact_email
 entity_type: node
-bundle: program
+bundle: plp_program
 label: 'Program Contact Email'
 description: ''
 required: false

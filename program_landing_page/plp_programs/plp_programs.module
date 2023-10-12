@@ -44,7 +44,7 @@ function plp_programs_getprograms()
   $interest_areas = plp_programs_get_taxonomomy_terms('interest_areas', $programs, 'Related_Interest_Areas__c');
 
   // Get all existing nodes
-  $nids = \Drupal::entityQuery('node')->condition('type', 'program')->execute();
+  $nids = \Drupal::entityQuery('node')->condition('type', 'plp_program')->execute();
   $tmpnodes =  Node::loadMultiple($nids);
   $nodes = [];
   foreach ($tmpnodes as $node) {
@@ -68,7 +68,7 @@ function plp_programs_getprograms()
     if (!empty($nodes[$program['Id']])) {
       $mynode = $nodes[$program['Id']];
     } else {
-      $mynode = Node::create(array('type' => 'program', 'title' => html_entity_decode($program['Name']), 'field_program_mydata_id' => $program['Id'],));
+      $mynode = Node::create(array('type' => 'plp_program', 'title' => html_entity_decode($program['Name']), 'field_program_mydata_id' => $program['Id'],));
       $save = true;
     }
 
