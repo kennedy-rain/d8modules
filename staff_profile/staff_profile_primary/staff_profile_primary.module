@@ -454,7 +454,7 @@ function _staff_profile_primary_get_position($profile, $jobtitle = '')
     || strpos($jobtitle, 'Director of Field Operations') !== false
   ) {
     return 180;
-  } elseif ($profile->Location == 'FLD-ISU-PD' && !empty($profile->CountyName)) {
+  } elseif ($profile->Location == 'FLD-ISU-PD' && !empty($profile->CountiesServed)) {
     return 181;
   }
   return false;
