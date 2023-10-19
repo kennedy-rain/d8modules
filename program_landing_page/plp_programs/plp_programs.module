@@ -1,4 +1,5 @@
 <?php
+
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\isueo_helpers\ISUEOHelpers;
@@ -38,10 +39,11 @@ function plp_programs_getprograms()
     return;
   }
 
-  $intended_audiences = plp_programs_get_taxonomomy_terms('intended_audiences', $programs, 'Intended_Audiences__c');
-  $program_areas = plp_programs_get_taxonomomy_terms('program_areas', $programs, 'hed__Account__r.Name');
-  $critical_issues = plp_programs_get_taxonomomy_terms('critical_issues', $programs, 'Critical_Issue__c');
-  $interest_areas = plp_programs_get_taxonomomy_terms('interest_areas', $programs, 'Related_Interest_Areas__c');
+  $intended_audiences = ISUEOHelpers\Taxonomy::get_terms('intended_audiences');
+  $program_areas = ISUEOHelpers\Taxonomy::get_terms('program_areas');
+  $critical_issues = ISUEOHelpers\Taxonomy::get_terms('critical_issues');
+  $interest_areas = ISUEOHelpers\Taxonomy::get_terms('interest_areas');
+
 
   // Get all existing nodes
   $nids = \Drupal::entityQuery('node')->condition('type', 'plp_program')->execute();
@@ -105,8 +107,6 @@ function plp_programs_getprograms()
       $save = true;
     }
 
-
-
     // Handle the text fields using an array and a loop
     $fields = [
       //'field_plp_program_contact_name' => 'Contact_Information_Name__c',
@@ -122,7 +122,6 @@ function plp_programs_getprograms()
       }
     }
 
-
     // Handle website link
     $mynode->field_website = array();
     $website = $program['Planned_Program_Website__c'];
@@ -136,19 +135,18 @@ function plp_programs_getprograms()
       $save = true;
     }
 
+    // Handle taxonomy lookup fields
     $fields_single_entity_reference = [
-      'field_plp_program_program_area' => ['hed__Account__r.Name', 'program_areas', $program_areas],
-      'field_plp_program_critical_issue' => ['Critical_Issue__c', 'critical_issues', $critical_issues],
-      'field_plp_program_interest_areas' => ['Related_Interest_Areas__c', 'interest_areas', $interest_areas],
+      'field_plp_program_program_area' => ['taxonomy_array' => &$program_areas, 'taxonomy_id' => 'program_areas', 'json_element' => 'hed__Account__r.Name'],
+      'field_plp_program_critical_issue' => ['taxonomy_array' => &$critical_issues, 'taxonomy_id' => 'critical_issues', 'json_element' => 'Critical_Issue__c'],
+      'field_plp_program_interest_areas' => ['taxonomy_array' => &$interest_areas, 'taxonomy_id' => 'interest_areas', 'json_element' => 'Related_Interest_Areas__c'],
     ];
-
     foreach ($fields_single_entity_reference as $key => $value) {
       $terms = [];
-      if (!empty($program[$value[0]])) {
-        foreach (explode(';', $program[$value[0]]) as $new_term) {
-          if (array_key_exists($new_term, $value[2])) {
-            $terms[] = $value[2][$new_term];
-          }
+      if (!empty($program[$value['json_element']])) {
+        foreach (explode(';', $program[$value['json_element']]) as $new_term) {
+          $term_id = ISUEOHelpers\Taxonomy::get_term_id($new_term, $value['taxonomy_array'], $value['taxonomy_id']);
+          $terms[] = $term_id;
         }
       }
       if ($mynode->get($key)->getString() != implode(', ', $terms)) {
@@ -162,32 +160,4 @@ function plp_programs_getprograms()
       $mynode->save();
     }
   }
-}
-
-
-// Get all taxonomy terms in a taxonomy, including new ones that might be in the feed...
-function plp_programs_get_taxonomomy_terms($taxonomy_id, $feed, $field)
-{
-  // Load Existing terms
-  $found = [];
-  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($taxonomy_id);
-  foreach ($terms as $term) {
-    $found[$term->name] = $term->tid;
-  }
-
-  // Check the feed for new terms, and create them if necessary
-  foreach ($feed as $element) {
-    if (!empty($element[$field])) {
-      $feed_items = explode(';', $element[$field]);
-      foreach ($feed_items as $element) {
-        if (!str_contains($element, ' County Extension') && !array_key_exists($element, $found)) {
-          $new = Term::create(['name' => $element, 'vid' => $taxonomy_id]);
-          $new->save();
-          $found[$element] = $new->id();
-        }
-      }
-    }
-  }
-
-  return $found;
 }
