@@ -69,7 +69,7 @@ class Files
       }
 
       // If the folder is writable, and we have valid results, then write the file to the cache folder
-      if (is_writable('/tmp/isueo_helpers') && count(json_decode($results, true)) > 0 ) {
+      if (!empty($results) && is_writable('/tmp/isueo_helpers') && !empty(json_decode($results, true))) {
         file_put_contents($cache_file_path, $results);
       }
 
