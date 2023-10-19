@@ -137,9 +137,10 @@ function plp_programs_getprograms()
 
     // Handle taxonomy lookup fields
     $fields_single_entity_reference = [
-      'field_plp_program_program_area' => ['taxonomy_array' => &$program_areas, 'taxonomy_id' => 'program_areas', 'json_element' => 'hed__Account__r.Name'],
+      'field_plp_program_audiences' => ['taxonomy_array' => &$intended_audiences, 'taxonomy_id' => 'intended_audiences', 'json_element' => 'Intended_Audiences__c'],
       'field_plp_program_critical_issue' => ['taxonomy_array' => &$critical_issues, 'taxonomy_id' => 'critical_issues', 'json_element' => 'Critical_Issue__c'],
       'field_plp_program_interest_areas' => ['taxonomy_array' => &$interest_areas, 'taxonomy_id' => 'interest_areas', 'json_element' => 'Related_Interest_Areas__c'],
+      'field_plp_program_program_area' => ['taxonomy_array' => &$program_areas, 'taxonomy_id' => 'program_areas', 'json_element' => 'hed__Account__r.Name'],
     ];
     foreach ($fields_single_entity_reference as $key => $value) {
       $terms = [];

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.plp_program.body
+    - field.field.node.plp_program.field_plp_program_audiences
     - field.field.node.plp_program.field_plp_program_contact_email
     - field.field.node.plp_program.field_plp_program_contact_name
     - field.field.node.plp_program.field_plp_program_contact_phone
@@ -29,6 +30,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 101
+    region: content
+  field_plp_program_audiences:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 113
     region: content
   field_plp_program_contact_email:
     type: basic_string
