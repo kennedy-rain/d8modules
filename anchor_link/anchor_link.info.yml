@@ -4,7 +4,7 @@ description: 'This plugin module adds the better link dialog and anchor related 
     (Note:Module has been modified with new CKEditor icon.)'
 package: CKEditor
 project: anchor_link
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - drupal:ckeditor
   - drupal:editor
