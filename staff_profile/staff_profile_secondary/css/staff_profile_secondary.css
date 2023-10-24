@@ -1,0 +1,29 @@
+:root {
+	--cardinal: #c8102e;
+	--gold: #f1be48;
+	--burgundy: #7c2529;
+	--dk-gray: #4a4a4a;
+	--lt-gray: #f5f5f5;
+	--md-gray: #ebebeb;
+	--midnight: #003d4c;
+	--green: #008540;
+}
+
+/* --------------------------------------  */
+/* ## STAFF VIEWS
+/* --------------------------------------  */
+.views-field.views-field-field-staff-profile-pref-phone {
+	margin: 12px;
+}
+.views-field.views-field-field-staff-profile-pref-phone h2 {
+	padding-bottom: 0px;
+}
+.views-field.views-field-field-staff-profile-smugmug {
+	border: 1px solid var(--md-gray);
+}
+
+/* This style is for staff views before they were changed to grid, eventually can be deleted */
+td.staff-view-smugmug img {
+	max-width: 100px;
+	margin: 10px 0px;
+}

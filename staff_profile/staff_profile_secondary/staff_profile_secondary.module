@@ -3,6 +3,7 @@
 use \Drupal\node\Entity\Node;
 use \Drupal\taxonomy\Entity\Term;
 use Drupal\isueo_helpers\ISUEOHelpers;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_rebuild().
@@ -246,5 +247,15 @@ function staff_profile_secondary_form_node_form_alter(&$form, &$form_state, $for
     $form['field_staff_profile_teams_groups']['widget']['#disabled'] = TRUE;
 
     $form['body']['widget']['#disabled'] = TRUE;
+  }
+}
+
+/**
+* Implements hook_views_pre_render().
+*/
+function staff_profile_secondary_pre_render(ViewExecutable $view) {
+  if (isset($view) && ($view->storage->id() == 'staff')) {
+    $view->element['#attached']['library'][] = 'staff_profile_secondary/staff_profile_secondary';
+    $view->element['attributes']['class'][] = 'staff_profile_secondary';
   }
 }
