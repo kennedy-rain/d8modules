@@ -1,0 +1,29 @@
+/* 
+ * Search css not specific to CSE
+ * can be found in
+ * iastate_theme/css/theme.css
+ * 
+ */
+ 
+/* --------------------------------------  */
+/* ## Google Custom Search Styles
+/* --------------------------------------  */
+.isu-socials-responsive #block-csesearchblock {
+	display: none;
+}
+#block-csesearchblock {
+	grid-column-start: 1;
+	grid-row-end: 1;
+	grid-column-end: 3;
+}
+
+/* --------------------------------------  */
+/* ## Responsive
+/* --------------------------------------  */
+@media screen and (max-width : 1199px) {
+    #block-csesearchblock {
+		position: absolute;
+		left: 0;
+		bottom: 13vh;
+	}
+}
