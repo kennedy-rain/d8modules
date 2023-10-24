@@ -169,6 +169,14 @@ function educational_programs_page_check_published_nodes()
 	}
 }
 
+/**
+ * Implements hook_preprocess_HOOK()
+ */
+function educational_programs_page_preprocess_node(&$variables)
+{
+    $variables['#attached']['library'][] = 'educational_programs_page/educational_programs_page';
+  }
+
 /* function educational_programs_page_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->bundle() == 'educational_programs_page') {
 	$child_term = Term::load($entity->get($field_name)[0]->get('term_id')->getValue());
