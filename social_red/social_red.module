@@ -5,8 +5,8 @@
  */
 function social_red_preprocess_block(&$variables)
 {
-  // Include the program_offering_blocks css file for the block
-  if (substr($variables['plugin_id'], 0, 23) == 'social_red') {
+  // Include the css file when the block is used
+  if ($vars['plugin_id'] == 'social_media_red_bar') {
     $variables['#attached']['library'][] = 'social_red/social_red';
     $variables['attributes']['class'][] = 'social_red';
   }
