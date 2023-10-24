@@ -254,8 +254,5 @@ function staff_profile_secondary_form_node_form_alter(&$form, &$form_state, $for
 * Implements hook_views_pre_render().
 */
 function staff_profile_secondary_pre_render(ViewExecutable $view) {
-  if (isset($view) && ($view->storage->id() == 'staff')) {
     $view->element['#attached']['library'][] = 'staff_profile_secondary/staff_profile_secondary';
-    $view->element['attributes']['class'][] = 'staff_profile_secondary';
   }
-}

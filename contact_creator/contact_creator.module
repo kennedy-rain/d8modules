@@ -15,9 +15,5 @@ function contact_creator_block_content_update(Drupal\Core\Entity\EntityInterface
  */
 function contact_creator_preprocess_block(&$variables)
 {
-  // Include the css when the block is used
-  if ($variables['plugin_id'] == 'contact_creator') {
     $variables['#attached']['library'][] = 'contact_creator/contact_creator';
-    $variables['attributes']['class'][] = 'contact_creator';
   }
-}

@@ -26,9 +26,5 @@
  */
 function cse_selector_preprocess_block(&$variables)
 {
-  // Include the css file when the block is used
-  if ($vars['plugin_id'] == 'cse_search_block') {
     $variables['#attached']['library'][] = 'cse_selector/cse_selector';
-    $variables['attributes']['class'][] = 'cse_selector';
   }
-}
