@@ -12,9 +12,5 @@ function links_block_theme_suggestions_block_alter(&$suggestions, $variables) {
  */
 function links_block_preprocess_block(&$variables)
 {
-  // Include the css file when the block is used
-  if ($vars['plugin_id'] == 'links_block') {
     $variables['#attached']['library'][] = 'links_block/links_block';
-    $variables['attributes']['class'][] = 'links_block';
   }
-}
