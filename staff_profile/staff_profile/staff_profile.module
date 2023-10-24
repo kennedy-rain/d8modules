@@ -73,7 +73,7 @@ function staff_profile_form_node_validate(&$form, FormStateInterface $form_state
 
   // If it's a new node, or the netID changed, then make sure this netID doesn't already have a node
   if ($is_new_node || $old_netid != $new_netid) {
-    $nids = \Drupal::entityQuery('node')->condition('type','staff_profile')
+    $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type','staff_profile')
       ->condition('field_staff_profile_netid', $new_netid)
       ->execute();
     if (!empty($nids)) {
