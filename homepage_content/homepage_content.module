@@ -7,7 +7,7 @@ use Drupal\node\Entity\Node;
 /**
  * Implements hook_preprocess_HOOK()
  */
-function social_red_preprocess_node(&$variables)
+function homepage_content_preprocess_node(&$variables)
 {
     $variables['#attached']['library'][] = 'homepage_content/homepage_content';
   }
