@@ -1,5 +1,11 @@
+/* --------------------------------------  */
+/* ## CONTACT BLOCK
+/* --------------------------------------  */
 .isu-footer_contact-address-title
 {
     font-weight:700;
     font-size: 16px;
+}
+.contact_hours_title.h3 {
+	color: var(--cardinal);
 }
