@@ -19,9 +19,9 @@ function content_bean_cards_theme_suggestions_block_alter(&$suggestions, $variab
 
 function content_bean_cards_preprocess_block(&$variables)
 {
-  // Include the program_offering_blocks css file for the block
-  if (substr($variables['plugin_id'], 0, 23) == 'content_bean_cards') {
-    $variables['#attached']['library'][] = 'content_bean_cards/content_bean_cards';
-    $variables['attributes']['class'][] = 'content_bean_cards';
+  // Include the css file when the block is used
+  if ($vars['plugin_id'] == 'social_media_red_bar') {
+    $variables['#attached']['library'][] = 'content_card/content_card';
+    $variables['attributes']['class'][] = 'content_card';
   }
 }
