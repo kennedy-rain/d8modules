@@ -172,9 +172,8 @@ function educational_programs_page_check_published_nodes()
 /**
  * Implements hook_preprocess_HOOK()
  */
-function educational_programs_page_preprocess_node(&$variables)
-{
-    $variables['#attached']['library'][] = 'educational_programs_page/educational_programs_page';
+function educational_programs_page_preprocess_node(&$variables) {
+    $variables['#attached']['library'][] = 'social_red/social_red';
   }
 
 /* function educational_programs_page_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
