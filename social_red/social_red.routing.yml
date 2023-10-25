@@ -1,7 +1,0 @@
-social_red.template:
-  path: "/admin/content/block-content/block/3"
-  defaults:
-    _controller: 'Drupal\social_red\Controller\SocialRedTemplate::socialRedTemplate'
-    _title: "Social media"
-  requirements:
-    _permission: "access content"
