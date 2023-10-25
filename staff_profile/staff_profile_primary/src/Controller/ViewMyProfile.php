@@ -33,6 +33,7 @@ class ViewMyProfile extends ControllerBase
     } else {
       // Get all the staff_profile nodes
       $nids = \Drupal::entityQuery('node')
+        ->accessCheck(false)
         ->condition('type', 'staff_profile')
         ->execute();
       $nodes = Node::loadMultiple($nids);
