@@ -479,7 +479,7 @@ function addSectionTemplates($templates) {
     }
     if (count($lib_templates) == 0) {
       //Load images and set them to be used as thumbnails
-      $file_loc = \Drupal::service('file_system')->realpath(\Drupal::service('extension.list.module')->getPathname('section_lib_importer')) . '/resources/' . $sectlibtemplate['filename'];
+      $file_loc = \Drupal::service('file_system')->realpath(\Drupal::service('extension.list.module')->getPath('section_lib_importer')) . '/resources/' . $sectlibtemplate['filename'];
       $file_data = ISUEOHelpers\Files::fetch_url($file_loc);
       $file_saved = \Drupal::service('file.repository')->writeData($file_data, "public://section_library/" . $sectlibtemplate['filename'], FileSystemInterface::EXISTS_REPLACE);
 
