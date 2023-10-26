@@ -8,8 +8,8 @@ use Drupal\Core\Menu\MenuLinkTree;
 
 function educational_programs_page_field_widget_educational_programs_field_default_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context)
 {
-	// Query entitys that are of educational_programs_page
-	$nids = \Drupal::entityQuery('node')->condition('type', 'educational_programs_page')->execute();
+	// Query entities that are of educational_programs_page
+	$nids = \Drupal::entityQuery('node')->accessCheck(FALSE)->condition('type', 'educational_programs_page')->execute();
 	$nodes = Node::loadMultiple($nids);
 
 	// Gather all active edu_prog_page node ids and add them to an array
