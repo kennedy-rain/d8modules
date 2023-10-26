@@ -97,11 +97,10 @@
 	.isu-social-menu-red #dropdownMenuButton {
 		font-size: 12px;
 	}
-}
-
-@media screen and (max-width : 1199px) {
-	.isu-social-menu-red #dropdownMenuButton:hover {
-		color: var(--burgundy);
+	#block-socialmediared {
+		position: absolute;
+		z-index: 1000;
+		left: 0;
 	}
 	.isu-social-menu-red .dropdown-menu, .isu-social-menu-red a {
 		position: absolute;
@@ -112,10 +111,11 @@
 		min-width: 400px;
 		min-height: 100px;
 	}
-	#block-socialmediared {
-		position: absolute;
-		z-index: 1000;
-		left: 0;
+}
+
+@media screen and (max-width : 1199px) {
+	.isu-social-menu-red #dropdownMenuButton:hover {
+		color: var(--burgundy);
 	}
 	.isu-social-menu-red a {
 		position: relative;
