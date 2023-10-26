@@ -262,11 +262,6 @@ function staff_profile_secondary_pre_render(ViewExecutable $view) {
 /**
  * Implements hook_preprocess_HOOK()
  */
-function staff_profile_secondary_preprocess_node(&$variables)
-{
-  // Include the css file when the block is used
-  if ($vars['plugin_id'] == 'social_media_red_bar') {
-    $variables['#attached']['library'][] = 'social_red/social_red';
-    $variables['attributes']['class'][] = 'social_red';
-  }
+function staff_profile_secondary_preprocess_node(&$variables) {
+    $variables['#attached']['library'][] = 'staff_profile_secondary/staff_profile_secondary';
 }
