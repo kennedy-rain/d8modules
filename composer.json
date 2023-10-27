@@ -4,10 +4,10 @@
   "description": "Modules for Drupal 8",
   "require": {
     "drupal/address": "^1.7",
-    "drupal/allowed_formats": "^1.2",
+    "drupal/allowed_formats": "^1.2 || ^3.0",
     "drupal/ds": "^3.9",
     "drupal/encrypt": "^3.0@RC",
-    "drupal/field_delimiter": "^1.0",
+    "drupal/field_delimiter": "^1.0 || ^2.0",
     "drupal/field_formatter_class": "^1.1",
     "drupal/field_group": "^3.0",
     "drupal/fontawesome": "^2.16",
