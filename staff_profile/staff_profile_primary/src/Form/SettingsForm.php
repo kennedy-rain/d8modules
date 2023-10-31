@@ -103,7 +103,7 @@ class SettingsForm extends ConfigFormBase {
       );
 
       // List of encryption profiles for selector
-      $encrypt_ids = \Drupal::entityQuery('encryption_profile')->execute();
+      $encrypt_ids = \Drupal::entityQuery('encryption_profile')->accessCheck(false)->execute();
       $encrypt_list = array();
 
       if (empty($encrypt_ids)) {
