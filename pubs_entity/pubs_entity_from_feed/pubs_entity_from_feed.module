@@ -85,7 +85,7 @@ function pubs_entity_from_feed_rebuild() {
 
   foreach ($products as $product) {
     $count--;
-    $found_entities = \Drupal::entityQuery('pubs_entity')->condition('field_product_id', $product['ProductID'])->execute();
+    $found_entities = \Drupal::entityQuery('pubs_entity')->accessCheck(false)->condition('field_product_id', $product['ProductID'])->execute();
 
     if (empty($found_entities)) {
       $myentity = PubsEntity::create([
@@ -111,7 +111,7 @@ function pubs_entity_from_feed_rebuild() {
   $mydate = new DrupalDateTime('now');
   $mydate->sub(new DateInterval('PT5M'));
 
-  $old_ids= \Drupal::entityQuery('pubs_entity')->condition('field_from_feed', TRUE)->condition('changed', $mydate->format('U'), '<')->execute();
+  $old_ids= \Drupal::entityQuery('pubs_entity')->accessCheck(false)->condition('field_from_feed', TRUE)->condition('changed', $mydate->format('U'), '<')->execute();
   $old_entities = PubsEntity::loadMultiple($old_ids);
   foreach($old_entities as $entity) {
     \Drupal::logger('pubs_entity_from_feed')->info($entity->get('name')->getString());
