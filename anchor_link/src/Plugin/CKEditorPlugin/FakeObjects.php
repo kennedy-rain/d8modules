@@ -21,7 +21,7 @@ class FakeObjects extends PluginBase implements CKEditorPluginInterface {
    * Implements \Drupal\ckeditor\Plugin\CKEditorPluginInterface::getFile().
    */
   public function getFile() {
-    return drupal_get_path('module', 'anchor_link') . '/js/plugins/fakeobjects/plugin.js';
+    return \Drupal::service('extension.list.module')->getPath('anchor_link') . '/js/plugins/fakeobjects/plugin.js';
   }
 
   /**
