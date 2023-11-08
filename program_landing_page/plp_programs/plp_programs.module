@@ -22,22 +22,51 @@ function plp_programs_cron()
 
 function plp_programs_getprograms()
 {
-  // Get the programs feed, if it's empty, wait 1 second and try again
-  $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
+  // Get the products/programs feed, if it's empty, wait 1 second and try again
+  $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json', true);
 
   if ($raw === false || strlen($raw) < 100000) {
     sleep(1);
     Drupal::logger('plp_programs')->info('Empty feed: wait 1 second and try again');
-    $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json');
+    $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json', true);
   }
-  $programs = json_decode($raw, true);
+  $products = json_decode($raw, true);
+  $programs = [];
+  $children = [];
+  $indicators = [];
   $programIds = [];
   $nodeIds = [];
   $min_programs = 100;
-  if (!is_array($programs) || count($programs) < $min_programs) {
+  if (!is_array($products) || count($products) < $min_programs) {
     Drupal::logger('plp_programs')->info('Less than ' . $min_programs . ' programs, exiting');
     return;
   }
+
+  // Record types to include in the catalog
+  $types = ['012460000012EiaAAE'];
+
+  // Step through products, looking for programs that should be included
+  foreach ($products as $product) {
+    if (!$product['Show_on_Program_Catalog__c'] || !in_array($product['RecordTypeId'], $types)) {
+      continue;
+    }
+    // Should it be included as a product, or as the child of a product
+    if (empty($product['Related_Program__c'])) {
+      $programs[$product['Id']] = $product;
+    } else {
+      $children[$product['Related_Program__c']][] = $product;
+    }
+  }
+
+  // Find indicators for the programs
+  $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalProgramsIndicatorConnectors.json');
+  $widgets = json_decode($raw, true);
+  foreach ($widgets as $widget) {
+    if (array_key_exists($widget['Related_Extension_Product__c'], $programs)) {
+      $indicators[$widget['Related_Extension_Product__c']][] = $widget;
+    }
+  }
+  Drupal::logger('blah')->info('Programs with indicatiors: ' . count($indicators));
 
   $intended_audiences = ISUEOHelpers\Taxonomy::get_terms('intended_audiences');
   $program_areas = ISUEOHelpers\Taxonomy::get_terms('program_areas');
@@ -54,14 +83,9 @@ function plp_programs_getprograms()
     $nodes[$node->field_plp_program_mydata_id->value] = $node;
   }
 
-  // Record types to include in the catalog
-  $types = ['012460000012EiaAAE'];
 
   // Step through the programs feed
   foreach ($programs as $program) {
-    if (!$program['Show_on_Program_Catalog__c'] || !in_array($program['RecordTypeId'], $types)) {
-      continue;
-    }
 
     $programIds[] = $program['Id'];
     $mynode = null;
