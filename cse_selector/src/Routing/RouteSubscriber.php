@@ -9,10 +9,10 @@ use Drupal\Core\Routing\RoutingEvents;
  * Listens to the dynamic route events.
  */
 class RouteSubscriber extends RouteSubscriberBase {
-//  public static function getSubscribedEvents() {
-//    $events[RoutingEvents::ALTER] = 'onAlterRoutes';
-//    return $events;
-//  }
+  public static function getSubscribedEvents() : array {
+    $events[RoutingEvents::ALTER] = 'onAlterRoutes';
+    return $events;
+  }
   protected function alterRoutes(RouteCollection $collection) {
     if ($route = $collection->get('cse_selector.cse_selector_search_results')) {
       $route->setPath(\Drupal::config('cse_selector.settings')->get('cse_selector_results_page_name'));
