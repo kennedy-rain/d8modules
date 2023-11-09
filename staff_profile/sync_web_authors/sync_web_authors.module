@@ -70,8 +70,7 @@ function sync_web_authors_users() {
   }
 
   // Get Stale Users
-  //$nids = \Drupal::entityQuery('user')->execute();
-  $nids = \Drupal::entityQuery('user')->condition('field_from_feed', 1)->condition('changed', $now, '<')->condition('status', 1)->execute();
+  $nids = \Drupal::entityQuery('user')->accessCheck(FALSE)->condition('field_from_feed', 1)->condition('changed', $now, '<')->condition('status', 1)->execute();
   $staleusers =  User::loadMultiple($nids);
   foreach ($staleusers as $user) {
     if ($user->id() == 1) continue;

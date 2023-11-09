@@ -22,7 +22,7 @@ function staff_profile_primary_rebuild()
   while ($line = fgets($file)) {
     $exploded = explode(':', $line);
 
-    $nids = \Drupal::entityQuery('node')->condition('type', 'staff_profile')->condition('field_staff_profile_netid', $exploded[0])->execute();
+    $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'staff_profile')->condition('field_staff_profile_netid', $exploded[0])->execute();
     $nodes =  Node::loadMultiple($nids);
     if (!empty($nodes)) {
       foreach ($nodes as $node) {
@@ -263,7 +263,7 @@ function staff_profile_primary_profile_from_database()
   $regional_directors = array_diff($regional_directors, $regional_directors_exclude);
 
   // Remove Regional Director Role from users that don't have regional director in Staff database
-  $userids = \Drupal::entityQuery('user')->condition('status', 1)->condition('roles', 'regional_director')->execute();
+  $userids = \Drupal::entityQuery('user')->accessCheck(false)->condition('status', 1)->condition('roles', 'regional_director')->execute();
   $users = User::loadMultiple($userids);
   foreach ($users as $user) {
     if ($user->id() == 1) {
@@ -279,7 +279,7 @@ function staff_profile_primary_profile_from_database()
 
   // Add Regional Director Role to users that need it
   foreach ($regional_directors as $director) {
-    $userids = \Drupal::entityQuery('user')->condition('status', 1)->condition('mail', $director)->execute();
+    $userids = \Drupal::entityQuery('user')->accessCheck(false)->condition('status', 1)->condition('mail', $director)->execute();
     $users = User::loadMultiple($userids);
     foreach ($users as $user) {
       if (!in_array('regional_director', $user->getRoles())) {

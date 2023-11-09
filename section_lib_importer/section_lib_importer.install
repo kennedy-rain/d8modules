@@ -22,7 +22,7 @@ function section_lib_importer_install() {
     'view section_library templates',
     'create basic_content block content',
     'delete any basic_content block content',
-    'Update any basic_content block content',
+    'update any basic_content block content',
   ]);
 
   //Prepare for images
@@ -479,9 +479,9 @@ function addSectionTemplates($templates) {
     }
     if (count($lib_templates) == 0) {
       //Load images and set them to be used as thumbnails
-      $file_loc = \Drupal::service('file_system')->realpath(drupal_get_path('module', 'section_lib_importer')) . '/resources/' . $sectlibtemplate['filename'];
+      $file_loc = \Drupal::service('file_system')->realpath(\Drupal::service('extension.list.module')->getPath('section_lib_importer')) . '/resources/' . $sectlibtemplate['filename'];
       $file_data = ISUEOHelpers\Files::fetch_url($file_loc);
-      $file_saved = file_save_data($file_data, "public://section_library/" . $sectlibtemplate['filename'], FileSystemInterface::EXISTS_REPLACE);
+      $file_saved = \Drupal::service('file.repository')->writeData($file_data, "public://section_library/" . $sectlibtemplate['filename'], FileSystemInterface::EXISTS_REPLACE);
 
       $data = [
         'type' => $sectlibtemplate['type'],
