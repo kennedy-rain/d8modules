@@ -33,7 +33,6 @@ function plp_programs_getprograms()
   $products = json_decode($raw, true);
   $programs = [];
   $children = [];
-  $indicators = [];
   $programIds = [];
   $nodeIds = [];
   $min_programs = 100;
@@ -58,15 +57,14 @@ function plp_programs_getprograms()
     }
   }
 
-  // Find indicators for the programs
-  $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalProgramsIndicatorConnectors.json');
-  $widgets = json_decode($raw, true);
-  foreach ($widgets as $widget) {
-    if (array_key_exists($widget['Related_Extension_Product__c'], $programs)) {
-      $indicators[$widget['Related_Extension_Product__c']][] = $widget;
-    }
-  }
-  Drupal::logger('blah')->info('Programs with indicatiors: ' . count($indicators));
+  $events = plp_programs_get_related_items('https://datastore.exnet.iastate.edu/mydata/UpcomingProgramOfferings.json', 'Planned_Program__c', $programs);
+  $measurements = plp_programs_get_related_items('https://datastore.exnet.iastate.edu/mydata/IndicatorMeasures.json', 'Planned_Program__c', $programs);
+  $indicators = plp_programs_get_related_items('https://datastore.exnet.iastate.edu/mydata/EducationalProgramsIndicatorConnectors.json', 'Related_Extension_Product__c', $programs);
+
+  Drupal::logger('blah')->info('Events: ' . count($events));
+  Drupal::logger('blah')->info('Children: ' . count($children));
+  Drupal::logger('blah')->info('Measurements: ' . count($measurements));
+  Drupal::logger('blah')->info('Indicators: ' . count($indicators));
 
   $intended_audiences = ISUEOHelpers\Taxonomy::get_terms('intended_audiences');
   $program_areas = ISUEOHelpers\Taxonomy::get_terms('program_areas');
@@ -185,4 +183,19 @@ function plp_programs_getprograms()
       $mynode->save();
     }
   }
+}
+
+function plp_programs_get_related_items(string $json_url, string $field_name, array $programs) {
+  $my_array = [];
+
+  // Find measurements for the programs
+  $raw = ISUEOHelpers\Files::fetch_url($json_url);
+  $widgets = json_decode($raw, true);
+  foreach ($widgets as $widget) {
+    if (array_key_exists($widget[$field_name], $programs)) {
+      $my_array[$widget[$field_name]][] = $widget;
+    }
+  }
+
+  return $my_array;
 }
