@@ -97,7 +97,7 @@ function plp_events_getevents()
   }
 
   // Get all existing nodes
-  $nids = \Drupal::entityQuery('node')->condition('type', 'plp_event')->execute();
+  $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'plp_event')->execute();
   $nodes =  Node::loadMultiple($nids);
   foreach ($nodes as $node) {
     $nodeIds[] = $node->field_plp_event_mydata_id->value;

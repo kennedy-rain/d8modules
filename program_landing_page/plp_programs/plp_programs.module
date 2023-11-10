@@ -75,7 +75,7 @@ function plp_programs_getprograms()
 
 
   // Get all existing nodes
-  $nids = \Drupal::entityQuery('node')->condition('type', 'plp_program')->execute();
+  $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'plp_program')->execute();
   $tmpnodes =  Node::loadMultiple($nids);
   $nodes = [];
   foreach ($tmpnodes as $node) {
