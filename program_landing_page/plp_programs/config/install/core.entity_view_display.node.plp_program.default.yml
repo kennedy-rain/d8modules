@@ -10,6 +10,9 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_critical_issue
     - field.field.node.plp_program.field_plp_program_interest_areas
     - field.field.node.plp_program.field_plp_program_mydata_id
+    - field.field.node.plp_program.field_plp_program_num_events
+    - field.field.node.plp_program.field_plp_program_num_indicators
+    - field.field.node.plp_program.field_plp_program_num_measures
     - field.field.node.plp_program.field_plp_program_program_area
     - field.field.node.plp_program.field_plp_program_search_terms
     - field.field.node.plp_program.field_plp_program_title_filter
@@ -85,6 +88,33 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 108
+    region: content
+  field_plp_program_num_events:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 114
+    region: content
+  field_plp_program_num_indicators:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 115
+    region: content
+  field_plp_program_num_measures:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 116
     region: content
   field_plp_program_program_area:
     type: entity_reference_label
