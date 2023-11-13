@@ -61,12 +61,6 @@ function plp_programs_getprograms()
   $measurements = plp_programs_get_related_items('https://datastore.exnet.iastate.edu/mydata/IndicatorMeasures.json', 'Planned_Program__c', $programs);
   $indicators = plp_programs_get_related_items('https://datastore.exnet.iastate.edu/mydata/EducationalProgramsIndicatorConnectors.json', 'Related_Extension_Product__c', $programs);
 
-  Drupal::logger('blah')->info('Programs: ' . count($programs));
-  Drupal::logger('blah')->info('Children: ' . count($children));
-  Drupal::logger('blah')->info('Events: ' . count($events));
-  Drupal::logger('blah')->info('Measurements: ' . count($measurements));
-  Drupal::logger('blah')->info('Indicators: ' . count($indicators));
-
   $intended_audiences = ISUEOHelpers\Taxonomy::get_terms('intended_audiences');
   $program_areas = ISUEOHelpers\Taxonomy::get_terms('program_areas');
   $critical_issues = ISUEOHelpers\Taxonomy::get_terms('critical_issues');
@@ -180,10 +174,17 @@ function plp_programs_getprograms()
     }
 
     // Handle number fields
-    $num = plp_programs_get_number_of_items($program['Id'], $events, $children);
-    if ($mynode->get('field_plp_program_num_events')->getString() != $num) {
-      $mynode->set('field_plp_program_num_events', $num);
-      $save = true;
+    $number_fields = [
+      'field_plp_program_num_events' => $events,
+      'field_plp_program_num_indicators' => $indicators,
+      'field_plp_program_num_measures' => $measurements,
+    ];
+    foreach ($number_fields as $key => $value) {
+      $num = plp_programs_get_number_of_items($program['Id'], $value, $children);
+      if ($mynode->get($key)->getString() != $num) {
+        $mynode->set($key, $num);
+        $save = true;
+      }
     }
 
     // Publish the node if it's unpublished
