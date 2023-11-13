@@ -24,12 +24,12 @@ function plp_programs_getprograms()
 {
   // Get the products/programs feed, if it's empty, wait 1 second and try again
   $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json', true);
-
   if ($raw === false || strlen($raw) < 100000) {
     sleep(1);
     Drupal::logger('plp_programs')->info('Empty feed: wait 1 second and try again');
     $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json', true);
   }
+
   $products = json_decode($raw, true);
   $programs = [];
   $children = [];
@@ -61,8 +61,9 @@ function plp_programs_getprograms()
   $measurements = plp_programs_get_related_items('https://datastore.exnet.iastate.edu/mydata/IndicatorMeasures.json', 'Planned_Program__c', $programs);
   $indicators = plp_programs_get_related_items('https://datastore.exnet.iastate.edu/mydata/EducationalProgramsIndicatorConnectors.json', 'Related_Extension_Product__c', $programs);
 
-  Drupal::logger('blah')->info('Events: ' . count($events));
+  Drupal::logger('blah')->info('Programs: ' . count($programs));
   Drupal::logger('blah')->info('Children: ' . count($children));
+  Drupal::logger('blah')->info('Events: ' . count($events));
   Drupal::logger('blah')->info('Measurements: ' . count($measurements));
   Drupal::logger('blah')->info('Indicators: ' . count($indicators));
 
@@ -178,11 +179,38 @@ function plp_programs_getprograms()
       }
     }
 
+    // Handle number fields
+    $num = plp_programs_get_number_of_items($program['Id'], $events, $children);
+    if ($mynode->get('field_plp_program_num_events')->getString() != $num) {
+      $mynode->set('field_plp_program_num_events', $num);
+      $save = true;
+    }
+
+    // Publish the node if it's unpublished
+    if (!$mynode->isPublished) {
+      $mynode->setPublished();
+      $save = true;
+    }
+
     // Only save if there has been a changed, this saves a ton of time
     if ($save) {
       $mynode->save();
     }
   }
+
+  //Drupal::logger('blah')->info('Children: ' . count($children));
+  return;
+
+  // Find and unpublish deleted programs
+  $deleted = array_diff($nodeIds, $programIds);
+  foreach ($nodes as $node) {
+    if (in_array($node->field_plp_program_mydata_id->value, $deleted) && $node->isPublished()) {
+      Drupal::logger('blah')->info('Going to delete:' . $node->id());
+      //$node->setUnpublished()->save();
+      //$node->delete();
+    }
+  }
+
 }
 
 function plp_programs_get_related_items(string $json_url, string $field_name, array $programs) {
@@ -192,10 +220,28 @@ function plp_programs_get_related_items(string $json_url, string $field_name, ar
   $raw = ISUEOHelpers\Files::fetch_url($json_url);
   $widgets = json_decode($raw, true);
   foreach ($widgets as $widget) {
-    if (array_key_exists($widget[$field_name], $programs)) {
       $my_array[$widget[$field_name]][] = $widget;
-    }
   }
 
   return $my_array;
+}
+
+function plp_programs_get_number_of_items(string $programid, array $items, array $children) {
+  $value = 0;
+
+  // Add in the number of items directly associated with this program
+  if (array_key_exists($programid, $items)) {
+    $value = $value + count($items[$programid]);
+  }
+
+  // Also add in the items associated with the children
+  if (array_key_exists($programid, $children)) {
+    foreach ($children[$programid] as $child) {
+      if (array_key_exists($child['Id'], $items)) {
+        $value = $value + count($items[$child['Id']]);
+      }
+    }
+  }
+
+  return $value;
 }
