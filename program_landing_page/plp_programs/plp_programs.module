@@ -76,7 +76,6 @@ function plp_programs_getprograms()
     $nodes[$node->field_plp_program_mydata_id->value] = $node;
   }
 
-
   // Step through the programs feed
   foreach ($programs as $program) {
 
@@ -199,19 +198,14 @@ function plp_programs_getprograms()
     }
   }
 
-  //Drupal::logger('blah')->info('Children: ' . count($children));
-  return;
-
   // Find and unpublish deleted programs
-  $deleted = array_diff($nodeIds, $programIds);
-  foreach ($nodes as $node) {
-    if (in_array($node->field_plp_program_mydata_id->value, $deleted) && $node->isPublished()) {
-      Drupal::logger('blah')->info('Going to delete:' . $node->id());
-      //$node->setUnpublished()->save();
-      //$node->delete();
-    }
-  }
+  $nodes_to_unpublish = array_diff($nodeIds, $programIds);
+  $nids = Drupal::entityQuery('node')->accessCheck(false)->condition('status', 1)->condition('field_plp_program_mydata_id', $nodes_to_unpublish, 'IN')->execute();
 
+  $tmpnodes =  Node::loadMultiple($nids);
+  foreach ($tmpnodes as $node) {
+    $node->setUnpublished()->save();
+  }
 }
 
 function plp_programs_get_related_items(string $json_url, string $field_name, array $programs) {
