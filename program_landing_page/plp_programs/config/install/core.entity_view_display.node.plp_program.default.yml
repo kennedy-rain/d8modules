@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_contact_name
     - field.field.node.plp_program.field_plp_program_contact_phone
     - field.field.node.plp_program.field_plp_program_critical_issue
+    - field.field.node.plp_program.field_plp_program_event_pgm_ids
     - field.field.node.plp_program.field_plp_program_interest_areas
     - field.field.node.plp_program.field_plp_program_mydata_id
     - field.field.node.plp_program.field_plp_program_num_events
@@ -72,6 +73,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 105
+    region: content
+  field_plp_program_event_pgm_ids:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 117
     region: content
   field_plp_program_interest_areas:
     type: entity_reference_label
