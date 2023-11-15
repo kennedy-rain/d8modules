@@ -203,29 +203,31 @@ function plp_programs_getprograms()
   // Find and unpublish deleted programs
   $nodes_to_unpublish = array_diff($nodeIds, $programIds);
   if (!empty($nodes_to_unpublish)) {
-  $nids = Drupal::entityQuery('node')->accessCheck(false)->condition('status', 1)->condition('field_plp_program_mydata_id', $nodes_to_unpublish, 'IN')->execute();
+    $nids = Drupal::entityQuery('node')->accessCheck(false)->condition('status', 1)->condition('field_plp_program_mydata_id', $nodes_to_unpublish, 'IN')->execute();
 
-  $tmpnodes =  Node::loadMultiple($nids);
-  foreach ($tmpnodes as $node) {
-    $node->setUnpublished()->save();
-  }
+    $tmpnodes =  Node::loadMultiple($nids);
+    foreach ($tmpnodes as $node) {
+      $node->setUnpublished()->save();
+    }
   }
 }
 
-function plp_programs_get_related_items(string $json_url, string $field_name, array $programs) {
+function plp_programs_get_related_items(string $json_url, string $field_name, array $programs)
+{
   $my_array = [];
 
   // Find measurements for the programs
   $raw = ISUEOHelpers\Files::fetch_url($json_url);
   $widgets = json_decode($raw, true);
   foreach ($widgets as $widget) {
-      $my_array[$widget[$field_name]][] = $widget;
+    $my_array[$widget[$field_name]][] = $widget;
   }
 
   return $my_array;
 }
 
-function plp_programs_get_number_of_items(string $programid, array $items, array $children) {
+function plp_programs_get_number_of_items(string $programid, array $items, array $children)
+{
   $value = 0;
 
   // Add in the number of items directly associated with this program
