@@ -22,7 +22,7 @@ function section_lib_importer_install() {
     'view section_library templates',
     'create basic_content block content',
     'delete any basic_content block content',
-    'Update any basic_content block content',
+    'update any basic_content block content',
   ]);
 
   //Prepare for images

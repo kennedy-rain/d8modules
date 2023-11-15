@@ -22,7 +22,7 @@ function staff_profile_primary_rebuild()
   while ($line = fgets($file)) {
     $exploded = explode(':', $line);
 
-    $nids = \Drupal::entityQuery('node')->condition('type', 'staff_profile')->condition('field_staff_profile_netid', $exploded[0])->execute();
+    $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'staff_profile')->condition('field_staff_profile_netid', $exploded[0])->execute();
     $nodes =  Node::loadMultiple($nids);
     if (!empty($nodes)) {
       foreach ($nodes as $node) {
