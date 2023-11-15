@@ -83,6 +83,15 @@ class ProgramOfferingBlocks extends BlockBase
     // Get the current node
     $node = \Drupal::routeMatch()->getParameter('node');
 
+    $program_ids = [];
+    //Check if we're limitting program id's
+    if (!empty($config['program_ids_field'])
+      && $node instanceof \Drupal\node\NodeInterface
+      && $node->hasField($config['program_ids_field'])
+      && !empty($node->get($config['program_ids_field'])->getString())) {
+        $program_ids = unserialize($node->get($config['program_ids_field'])->getString());
+    }
+
     // Check for a filter in the query string
     $querystring_filter = \Drupal::request()->query->get('filter');
     if (!empty($querystring_filter)) {
@@ -115,6 +124,10 @@ class ProgramOfferingBlocks extends BlockBase
         $display_event = FALSE;
       }
 
+      // Check for Program IDs
+      if ($program_ids && !in_array($event['Planned_Program__c'], $program_ids)) {
+        $display_event = FALSE;
+      }
       // Do we only display planned programs
       // This may someday need to be a separate function if we have to distingish the type of Associated Products, but this is OK for now
       if ($config['only_planned_programs'] && empty($event['All_Associated_Product_ID_s__c'])) {
@@ -265,6 +278,7 @@ class ProgramOfferingBlocks extends BlockBase
       '#description' => t('Path to add to base URL where all events are listed'),
       '#default_value' => $config['show_more_page'],
     );
+
     $form['show_more_text'] = array(
       '#type' => 'textfield',
       '#title' => t('Text for Show More Events Link'),
@@ -300,6 +314,13 @@ class ProgramOfferingBlocks extends BlockBase
       '#title' => t('Show Only Statewide/Campus/Multi-state Events'),
       '#description' => t('When checked, only show events that are Statewide, Campus, or Multi-state'),
       '#default_value' => empty($config['only_statewide_campus']) ? false : $config['only_statewide_campus'],
+    );
+
+    $form['program_ids_field'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Node Field Containing Program IDs'),
+      '#description' => t('This field from the node is for when you want to limit events based on the Program IDs they are associated with. The field should be formatted as a PHP Serialized Array. However, just the name of the field goes here, ie field_plp_program_event_pgm_ides'),
+      '#default_value' => $config['program_ids_field'],
     );
 
     $form['program_area'] = array(
@@ -365,6 +386,7 @@ class ProgramOfferingBlocks extends BlockBase
     $this->configuration['show_nonpublic_events'] = $values['show_nonpublic_events'];
     $this->configuration['only_planned_programs'] = $values['only_planned_programs'];
     $this->configuration['only_statewide_campus'] = $values['only_statewide_campus'];
+    $this->configuration['program_ids_field'] = $values['program_ids_field'];
     $this->configuration['program_area'] = $values['program_area'];
     $this->configuration['county'] = array_key_exists('county', $values) ? $values['county'] : '';
     $this->configuration['placement'] = $values['placement'];
@@ -387,6 +409,7 @@ class ProgramOfferingBlocks extends BlockBase
       'show_nonpublic_events' => FALSE,
       'only_planned_programs' => FALSE,
       'only_statewide_campus' => FALSE,
+      'program_ids_field' => '',
       'program_area' => '',
       'county' => '',
       'placement' => '',
