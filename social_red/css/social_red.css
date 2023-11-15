@@ -61,7 +61,7 @@
 	right: 0;
 	flex-wrap: wrap;
 	transition: max-height 1s;
-	padding: 1.5rem 1rem;
+	padding: .5rem .5rem;
 	display: none;
 	max-width: min-content;
 	right: 0;
