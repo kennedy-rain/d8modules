@@ -46,12 +46,14 @@ function plp_programs_getprograms()
 
   // Step through products, looking for programs that should be included
   foreach ($products as $product) {
-    if (!$product['Show_on_Program_Catalog__c'] || !in_array($product['RecordTypeId'], $types)) {
+    if (!in_array($product['RecordTypeId'], $types)) {
       continue;
     }
     // Should it be included as a product, or as the child of a product
     if (empty($product['Related_Program__c'])) {
-      $programs[$product['Id']] = $product;
+      if ($product['Show_on_Program_Catalog__c']) {
+        $programs[$product['Id']] = $product;
+      }
     } else {
       $children[$product['Related_Program__c']][] = $product;
     }

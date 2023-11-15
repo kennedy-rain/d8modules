@@ -10,7 +10,7 @@ entity_type: node
 bundle: plp_program
 label: 'Program MyData ID'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
