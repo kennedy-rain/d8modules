@@ -202,11 +202,13 @@ function plp_programs_getprograms()
 
   // Find and unpublish deleted programs
   $nodes_to_unpublish = array_diff($nodeIds, $programIds);
+  if (!empty($nodes_to_unpublish)) {
   $nids = Drupal::entityQuery('node')->accessCheck(false)->condition('status', 1)->condition('field_plp_program_mydata_id', $nodes_to_unpublish, 'IN')->execute();
 
   $tmpnodes =  Node::loadMultiple($nids);
   foreach ($tmpnodes as $node) {
     $node->setUnpublished()->save();
+  }
   }
 }
 
