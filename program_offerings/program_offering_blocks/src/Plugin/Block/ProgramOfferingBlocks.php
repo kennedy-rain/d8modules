@@ -82,6 +82,7 @@ class ProgramOfferingBlocks extends BlockBase
 
     // Get the current node
     $node = \Drupal::routeMatch()->getParameter('node');
+    $filtering_by_program_ids = false;
 
     $program_ids = [];
     //Check if we're limitting program id's
@@ -90,6 +91,17 @@ class ProgramOfferingBlocks extends BlockBase
       && $node->hasField($config['program_ids_field'])
       && !empty($node->get($config['program_ids_field'])->getString())) {
         $program_ids = unserialize($node->get($config['program_ids_field'])->getString());
+        $filtering_by_program_ids = true;
+    }
+
+    $referring_node_id = intval(Drupal::request()->query->get('referring_nid'));
+    if (!empty($referring_node_id) && !empty($config['program_ids_field'])) {
+      $referring_node = Drupal\node\Entity\Node::load($referring_node_id);
+      if ($referring_node != null && $referring_node->hasField($config['program_ids_field'])
+        && !empty($referring_node->get($config['program_ids_field'])->getString())){
+          $program_ids = unserialize($referring_node->get($config['program_ids_field'])->getString());
+          $results .= '<p class="node-title">' . $referring_node->getTitle() . '</p>' . PHP_EOL;
+      }
     }
 
     // Check for a filter in the query string
@@ -212,7 +224,12 @@ class ProgramOfferingBlocks extends BlockBase
       $show_more_page = $config['show_more_page'];
       $show_more_page = substr($show_more_page, 0, 1) == '/' ? substr($show_more_page, 1, strlen($show_more_page) - 1) : $show_more_page;
 
+      $tmpfilter = '';
       $tmpfilter = !empty($string_of_search_terms) ? '?filter=' . urlencode($string_of_search_terms) : '';
+      if ($filtering_by_program_ids) {
+        $tmpfilter .= (empty($tmpfilter) ? '?' : '&') . 'referring_nid=' . $node->id();
+      }
+
       $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . $tmpfilter . '">' . $config['show_more_text'] . '</a><br />';
     }
 
