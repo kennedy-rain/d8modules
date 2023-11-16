@@ -68,7 +68,6 @@ function plp_programs_getprograms()
   $critical_issues = ISUEOHelpers\Taxonomy::get_terms('critical_issues');
   $interest_areas = ISUEOHelpers\Taxonomy::get_terms('interest_areas');
 
-
   // Get all existing nodes
   $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'plp_program')->execute();
   $tmpnodes =  Node::loadMultiple($nids);
@@ -260,4 +259,23 @@ function plp_programs_get_number_of_items(string $programid, array $items, array
   }
 
   return $value;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+
+function plp_programs_preprocess_page_title(&$variables)
+{
+  // Try to put the program name into the title on the events page
+  $referring_node_id = intval(Drupal::request()->query->get('referring_nid'));
+  $current_node = \Drupal::request()->attributes->get('node');
+
+  if ($referring_node_id && $current_node && $current_node->bundle() == 'page') {
+    $referring_node = Node::load($referring_node_id);
+    if ($referring_node) {
+      $variables['title'] = 'Events for "' . $referring_node->getTitle() . '"';
+      $variables['#cache']['max-age'] = 0;
+    }
+  }
 }

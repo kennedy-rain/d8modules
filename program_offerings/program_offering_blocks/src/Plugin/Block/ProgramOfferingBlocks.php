@@ -100,7 +100,6 @@ class ProgramOfferingBlocks extends BlockBase
       if ($referring_node != null && $referring_node->hasField($config['program_ids_field'])
         && !empty($referring_node->get($config['program_ids_field'])->getString())){
           $program_ids = unserialize($referring_node->get($config['program_ids_field'])->getString());
-          $results .= '<p class="node-title">' . $referring_node->getTitle() . '</p>' . PHP_EOL;
       }
     }
 
