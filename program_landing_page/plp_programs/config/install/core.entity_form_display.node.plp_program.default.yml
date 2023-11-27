@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.plp_program.body
     - field.field.node.plp_program.field_plp_program_audiences
+    - field.field.node.plp_program.field_plp_program_children
     - field.field.node.plp_program.field_plp_program_contact_email
     - field.field.node.plp_program.field_plp_program_contact_name
     - field.field.node.plp_program.field_plp_program_contact_phone
@@ -48,6 +49,16 @@ content:
   field_plp_program_audiences:
     type: entity_reference_autocomplete
     weight: 133
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_plp_program_children:
+    type: entity_reference_autocomplete
+    weight: 138
     region: content
     settings:
       match_operator: CONTAINS

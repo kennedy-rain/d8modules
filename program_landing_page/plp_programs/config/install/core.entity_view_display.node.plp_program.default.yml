@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.plp_program.body
     - field.field.node.plp_program.field_plp_program_audiences
+    - field.field.node.plp_program.field_plp_program_children
     - field.field.node.plp_program.field_plp_program_contact_email
     - field.field.node.plp_program.field_plp_program_contact_name
     - field.field.node.plp_program.field_plp_program_contact_phone
@@ -42,6 +43,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 113
+    region: content
+  field_plp_program_children:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 118
     region: content
   field_plp_program_contact_email:
     type: basic_string

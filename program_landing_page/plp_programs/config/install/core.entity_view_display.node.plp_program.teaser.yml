@@ -5,6 +5,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.plp_program.body
     - field.field.node.plp_program.field_plp_program_audiences
+    - field.field.node.plp_program.field_plp_program_children
     - field.field.node.plp_program.field_plp_program_contact_email
     - field.field.node.plp_program.field_plp_program_contact_name
     - field.field.node.plp_program.field_plp_program_contact_phone
@@ -43,6 +44,7 @@ content:
     region: content
 hidden:
   field_plp_program_audiences: true
+  field_plp_program_children: true
   field_plp_program_contact_email: true
   field_plp_program_contact_name: true
   field_plp_program_contact_phone: true
