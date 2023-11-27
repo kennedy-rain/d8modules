@@ -4,6 +4,8 @@ use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\isueo_helpers\ISUEOHelpers;
 
+include_once('plp_programs.page.inc');
+
 /**
  * Implements hook_rebuild().
  */
@@ -68,14 +70,11 @@ function plp_programs_getprograms()
   $critical_issues = ISUEOHelpers\Taxonomy::get_terms('critical_issues');
   $interest_areas = ISUEOHelpers\Taxonomy::get_terms('interest_areas');
 
-  // Get all existing nodes
-  $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'plp_program')->execute();
-  $tmpnodes =  Node::loadMultiple($nids);
-  $nodes = [];
-  foreach ($tmpnodes as $node) {
-    $nodeIds[] = $node->field_plp_program_mydata_id->value;
-    $nodes[$node->field_plp_program_mydata_id->value] = $node;
-  }
+  // Get all existing program and child nodes
+  $nodes = plp_programs_get_existing_nodes('plp_program', 'field_plp_program_mydata_id');
+  $nodeIds = array_keys($nodes);
+  $child_nodes = plp_programs_get_existing_nodes('plp_child', 'field_plp_child_mydata_id');
+  $child_nodeIds = array_keys($child_nodes);
 
   // Step through the programs feed
   foreach ($programs as $program) {
@@ -202,6 +201,19 @@ function plp_programs_getprograms()
       $save = true;
     }
 
+    // Handle when a program shouldn't have children
+    if (!array_key_exists($program['Id'], $children) && !empty($mynode->field_plp_program_children[0])) {
+      $mynode->set('field_plp_program_children', []);
+      $save = true;
+    }
+
+    //if ($program['Id'] == 'a054p00000CyLhgAAF') {
+      if (!empty($mynode->field_plp_program_children[0])) {
+      echo $mynode->field_plp_program_children[0]->getString();
+      echo PHP_EOL;
+      }
+    //}
+
     // Publish the node if it's unpublished
     if (!$mynode->isPublished) {
       $mynode->setPublished();
@@ -224,41 +236,6 @@ function plp_programs_getprograms()
       $node->setUnpublished()->save();
     }
   }
-}
-
-function plp_programs_get_related_items(string $json_url, string $field_name, array $programs)
-{
-  $my_array = [];
-
-  // Find measurements for the programs
-  $raw = ISUEOHelpers\Files::fetch_url($json_url);
-  $widgets = json_decode($raw, true);
-  foreach ($widgets as $widget) {
-    $my_array[$widget[$field_name]][] = $widget;
-  }
-
-  return $my_array;
-}
-
-function plp_programs_get_number_of_items(string $programid, array $items, array $children)
-{
-  $value = 0;
-
-  // Add in the number of items directly associated with this program
-  if (array_key_exists($programid, $items)) {
-    $value = $value + count($items[$programid]);
-  }
-
-  // Also add in the items associated with the children
-  if (array_key_exists($programid, $children)) {
-    foreach ($children[$programid] as $child) {
-      if (array_key_exists($child['Id'], $items)) {
-        $value = $value + count($items[$child['Id']]);
-      }
-    }
-  }
-
-  return $value;
 }
 
 /**
