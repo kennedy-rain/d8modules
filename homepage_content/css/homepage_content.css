@@ -34,7 +34,7 @@
 /* --------------------------------------  */
 /* ## HOMEPAGE CONTENT
 /* --------------------------------------  */
-.node-type_homepage-ct .row {
+.node-type_homepage-ct.row {
 	margin-left: 0;
 	margin-right: 0;
 }
