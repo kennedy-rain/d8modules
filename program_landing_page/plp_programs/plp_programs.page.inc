@@ -86,27 +86,33 @@ function plp_programs_fix_url(string $website) {
   return $website;
 }
 
+// Handle the child nodes for programs
 function plp_programs_handle_children(array &$children, array $programs)
 {
+  // Initialize some variables
   $existing_children = [];
   $child_nodes = plp_programs_get_existing_nodes('plp_child', 'field_plp_child_mydata_id');
   $child_nodeIds = array_keys($child_nodes);
 
   foreach ($children as $key => $value) {
+    // Skip the children whan the program isn't in the PLP
     if (!array_key_exists($key, $programs)) {
       continue;
     }
 
     foreach ($value as $child) {
+      // Make sure the child should be shown
       if (!$child['Show_on_Program_Catalog__c']) {
         continue;
       }
 
+      // Initialize some child specific variables
       $child_id = $child['Id'];
       $existing_children[] = $child_id;
       $mynode = null;
       $save = false;
 
+      // Get the existing node, create a new one when necessary
       if (!empty($child_nodes[$child_id])) {
         $mynode = $child_nodes[$child_id];
       } else {
