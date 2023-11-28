@@ -73,8 +73,7 @@ function plp_programs_getprograms()
   // Get all existing program and child nodes
   $nodes = plp_programs_get_existing_nodes('plp_program', 'field_plp_program_mydata_id');
   $nodeIds = array_keys($nodes);
-  $child_nodes = plp_programs_get_existing_nodes('plp_child', 'field_plp_child_mydata_id');
-  $child_nodeIds = array_keys($child_nodes);
+  plp_programs_handle_children($children, $programs);
 
   // Step through the programs feed
   foreach ($programs as $program) {
@@ -125,13 +124,7 @@ function plp_programs_getprograms()
     }
 
     // Handle website link
-    $mynode->field_website = array();
-    $website = $program['Planned_Program_Website__c'];
-    if (!empty($website)) {
-      if ('htt' != substr($website, 0, 3)) {
-        $website = 'https://' . $website;
-      }
-    }
+    $website = empty($program['Planned_Program_Website__c']) ? '' : plp_programs_fix_url($program['Planned_Program_Website__c']);
     if ($mynode->get('field_plp_program_website')->uri != $website) {
       $mynode->set('field_plp_program_website', ['uri' => $website, 'title' => 'More about ' . $program['Name']]);
       $save = true;
@@ -171,7 +164,6 @@ function plp_programs_getprograms()
         $save = true;
       }
     }
-
 
     // Get list of programID's that should be include in event list
     $event_programs = [$program['Id']];
