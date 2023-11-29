@@ -87,16 +87,17 @@ function plp_programs_fix_url(string $website) {
 }
 
 // Handle the child nodes for programs
-function plp_programs_handle_children(array &$children, array $programs)
+function plp_programs_handle_children(array $children, array $programs)
 {
   // Initialize some variables
   $existing_children = [];
   $child_nodes = plp_programs_get_existing_nodes('plp_child', 'field_plp_child_mydata_id');
   $child_nodeIds = array_keys($child_nodes);
+  $program_child_nodes = [];
 
-  foreach ($children as $key => $value) {
+  foreach ($children as $program_id => $value) {
     // Skip the children whan the program isn't in the PLP
-    if (!array_key_exists($key, $programs)) {
+    if (!array_key_exists($program_id, $programs)) {
       continue;
     }
 
@@ -138,13 +139,22 @@ function plp_programs_handle_children(array &$children, array $programs)
       $website = empty($child['Planned_Program_Website__c']) ? '' : plp_programs_fix_url($child['Planned_Program_Website__c']);
       if ($mynode->get('field_plp_child_website')->uri != $website) {
         $mynode->set('field_plp_child_website', ['uri' => $website, 'title' => 'More about ' . $child['Name']]);
-        //$save = true;
+        $save = true;
+      }
+
+      // Publish the node if it's unpublished
+      if (!$mynode->isPublished) {
+        $mynode->setPublished();
+        $save = true;
       }
 
       // Only save if there has been a changed, this saves a ton of time
       if ($save) {
         $mynode->save();
       }
+
+      // Keep track of node numbers of children
+      $program_child_nodes[$program_id][] = $mynode->id();
     }
   }
 
@@ -158,4 +168,7 @@ function plp_programs_handle_children(array &$children, array $programs)
       $node->setUnpublished()->save();
     }
   }
+
+  // return the node numbers array
+  return $program_child_nodes;
 }

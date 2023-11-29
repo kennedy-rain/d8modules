@@ -1,7 +1,6 @@
 <?php
 
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\isueo_helpers\ISUEOHelpers;
 
 include_once('plp_programs.page.inc');
@@ -73,7 +72,7 @@ function plp_programs_getprograms()
   // Get all existing program and child nodes
   $nodes = plp_programs_get_existing_nodes('plp_program', 'field_plp_program_mydata_id');
   $nodeIds = array_keys($nodes);
-  plp_programs_handle_children($children, $programs);
+  $child_nodes = plp_programs_handle_children($children, $programs);
 
   // Step through the programs feed
   foreach ($programs as $program) {
@@ -180,17 +179,23 @@ function plp_programs_getprograms()
     }
 
     // Handle when a program shouldn't have children
-    if (!array_key_exists($program['Id'], $children) && !empty($mynode->field_plp_program_children[0])) {
+    if (!array_key_exists($program['Id'], $child_nodes) && !empty($mynode->field_plp_program_children[0])) {
       $mynode->set('field_plp_program_children', []);
       $save = true;
     }
 
-    //if ($program['Id'] == 'a054p00000CyLhgAAF') {
-      if (!empty($mynode->field_plp_program_children[0])) {
-      echo $mynode->field_plp_program_children[0]->getString();
-      echo PHP_EOL;
+    // Handle Program Children
+    if (array_key_exists($program['Id'], $child_nodes)) {
+      $tmp_existing_children = explode(', ', $mynode->field_plp_program_children->getString());
+      sort($tmp_existing_children);
+      $tmp_new_children = $child_nodes[$program['Id']];
+      sort($tmp_new_children);
+
+      if ($tmp_existing_children != $tmp_new_children) {
+        $mynode->set('field_plp_program_children', $tmp_new_children);
+        $save = true;
       }
-    //}
+    }
 
     // Publish the node if it's unpublished
     if (!$mynode->isPublished) {
@@ -207,7 +212,7 @@ function plp_programs_getprograms()
   // Find and unpublish deleted programs
   $nodes_to_unpublish = array_diff($nodeIds, $programIds);
   if (!empty($nodes_to_unpublish)) {
-    $nids = Drupal::entityQuery('node')->accessCheck(false)->condition('status', 1)->condition('field_plp_program_mydata_id', $nodes_to_unpublish, 'IN')->execute();
+    $nids = Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'plp_program')->condition('status', 1)->condition('field_plp_program_mydata_id', $nodes_to_unpublish, 'IN')->execute();
 
     $tmpnodes =  Node::loadMultiple($nids);
     foreach ($tmpnodes as $node) {
