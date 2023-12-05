@@ -198,3 +198,30 @@ function plp_programs_get_counties(array $programs_county_list, array $include_p
 
   return $tmpstring;
 }
+
+// Calculate the sort number for the program
+function plp_programs_sort_calculator($mynode, array $child_nodes, string $program_id) {
+  $tmpnum = 0;
+  // Handle premoted on counties
+  if (!empty($mynode->field_plp_program_on_counties->value)) {
+    $tmpstring = $mynode->field_plp_program_on_counties->value;
+    $tmpnum += count(explode(';', $tmpstring));
+  }
+
+  // Handle indicators and measurements
+  if (!empty($mynode->field_plp_program_num_indicators->value)) {
+    $tmpnum += 25;
+  }
+  if (!empty($mynode->field_plp_program_num_measures->value)) {
+    $tmpnum += 25;
+  }
+  if (!empty($mynode->field_plp_program_num_events->value)) {
+    $tmpnum += 75;
+  }
+
+  if (array_key_exists($program_id, $child_nodes)) {
+    $tmpnum += 20 * count($child_nodes[$program_id]);
+  }
+
+  return $tmpnum;
+}
