@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_num_events
     - field.field.node.plp_program.field_plp_program_num_indicators
     - field.field.node.plp_program.field_plp_program_num_measures
+    - field.field.node.plp_program.field_plp_program_on_counties
     - field.field.node.plp_program.field_plp_program_program_area
     - field.field.node.plp_program.field_plp_program_search_terms
     - field.field.node.plp_program.field_plp_program_title_filter
@@ -132,6 +133,13 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 116
+    region: content
+  field_plp_program_on_counties:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 119
     region: content
   field_plp_program_program_area:
     type: entity_reference_label

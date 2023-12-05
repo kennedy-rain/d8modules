@@ -172,3 +172,29 @@ function plp_programs_handle_children(array $children, array $programs)
   // return the node numbers array
   return $program_child_nodes;
 }
+
+// Return an array of counties that are in programs
+function plp_programs_get_counties(array $programs_county_list, array $include_programs) {
+  $tmpstring = '';
+  // Grab counties using this program
+  foreach ($include_programs as $programid) {
+    if (array_key_exists($programid, $programs_county_list)) {
+      if (!empty($programs_county_list[$programid][0]['countiesLocal'])) {
+        $tmpstring .= $programs_county_list[$programid][0]['countiesLocal'] . ';';
+      }
+      if (!empty($programs_county_list[$programid][0]['countiesRedirected'])) {
+        $tmpstring .= $programs_county_list[$programid][0]['countiesRedirected'] . ';';
+      }
+    }
+  }
+
+  // Remove trailing ';', remove duplicates, and sort
+  if (!empty($tmpstring)) {
+    $tmpstring = rtrim($tmpstring, ';');
+    $tmparray = array_unique(explode(';', $tmpstring));
+    sort($tmparray);
+    $tmpstring = implode(';', $tmparray);
+  }
+
+  return $tmpstring;
+}

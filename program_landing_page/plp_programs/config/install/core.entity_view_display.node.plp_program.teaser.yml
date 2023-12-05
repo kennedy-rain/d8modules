@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_num_events
     - field.field.node.plp_program.field_plp_program_num_indicators
     - field.field.node.plp_program.field_plp_program_num_measures
+    - field.field.node.plp_program.field_plp_program_on_counties
     - field.field.node.plp_program.field_plp_program_program_area
     - field.field.node.plp_program.field_plp_program_search_terms
     - field.field.node.plp_program.field_plp_program_title_filter
@@ -55,6 +56,7 @@ hidden:
   field_plp_program_num_events: true
   field_plp_program_num_indicators: true
   field_plp_program_num_measures: true
+  field_plp_program_on_counties: true
   field_plp_program_program_area: true
   field_plp_program_search_terms: true
   field_plp_program_title_filter: true
