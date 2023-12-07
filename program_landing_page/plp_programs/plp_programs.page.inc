@@ -200,27 +200,30 @@ function plp_programs_get_counties(array $programs_county_list, array $include_p
 }
 
 // Calculate the sort number for the program
-function plp_programs_sort_calculator($mynode, array $child_nodes, string $program_id) {
+function plp_programs_sort_calculator($mynode, array $child_nodes, string $program_id, $config) {
   $tmpnum = 0;
   // Handle premoted on counties
   if (!empty($mynode->field_plp_program_on_counties->value)) {
     $tmpstring = $mynode->field_plp_program_on_counties->value;
-    $tmpnum += count(explode(';', $tmpstring));
+    $tmpnum += $config->get('counties.county_boost') + ($config->get('counties.county_multiplier')* intval(count(explode(';', $tmpstring)) / $config->get('counties.county_interval')));
   }
 
   // Handle indicators and measurements
   if (!empty($mynode->field_plp_program_num_indicators->value)) {
-    $tmpnum += 25;
+    $tmpnum += $config->get('indicators.indicator_boost') + ($config->get('indicators.indicator_multiplier')* intval($mynode->field_plp_program_num_indicators->value / $config->get('indicators.indicator_interval')));
   }
   if (!empty($mynode->field_plp_program_num_measures->value)) {
-    $tmpnum += 25;
-  }
-  if (!empty($mynode->field_plp_program_num_events->value)) {
-    $tmpnum += 75;
+    $tmpnum += $config->get('measurements.measurement_boost') + ($config->get('measurements.measurement_multiplier')* intval($mynode->field_plp_program_num_measures->value / $config->get('measurements.measurement_interval')));
   }
 
+  // Handle events
+  if (!empty($mynode->field_plp_program_num_events->value)) {
+    $tmpnum += $config->get('events.event_boost') + ($config->get('events.event_multiplier')* intval($mynode->field_plp_program_num_events->value / $config->get('events.event_interval')));
+  }
+
+  // Handle children
   if (array_key_exists($program_id, $child_nodes)) {
-    $tmpnum += 20 * count($child_nodes[$program_id]);
+    $tmpnum += $config->get('children.child_boost') + ($config->get('children.child_multiplier')* intval(count($child_nodes[$program_id]) / $config->get('children.child_interval')));
   }
 
   return $tmpnum;

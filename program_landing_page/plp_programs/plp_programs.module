@@ -23,6 +23,8 @@ function plp_programs_cron()
 
 function plp_programs_getprograms()
 {
+  $config = Drupal::config('plp_programs.settings');
+
   // Get the products/programs feed, if it's empty, wait 1 second and try again
   $raw = ISUEOHelpers\Files::fetch_url('https://datastore.exnet.iastate.edu/mydata/EducationalPrograms.json', true);
   if ($raw === false || strlen($raw) < 100000) {
@@ -206,7 +208,7 @@ function plp_programs_getprograms()
     }
 
     // Calculate the sort number
-    $tmpnum = plp_programs_sort_calculator($mynode, $child_nodes, $program['Id']);
+    $tmpnum = plp_programs_sort_calculator($mynode, $child_nodes, $program['Id'], $config);
     if ($mynode->field_plp_program_sort_calc->value != $tmpnum) {
       $mynode->set('field_plp_program_sort_calc', $tmpnum);
       $save = true;
