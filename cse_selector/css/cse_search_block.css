@@ -28,6 +28,10 @@
 	grid-column-end: 3;
 }
 
+#block-csesearchblock .form-group {
+	margin-bottom: 0.5rem;
+}
+
 /* --------------------------------------  */
 /* ## Responsive
 /* --------------------------------------  */
