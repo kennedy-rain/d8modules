@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Constraints\Length;
  * @Block(
  *   id = "program_offering_blocks",
  *   admin_label = @Translation("Program Offering blocks"),
+ *   category = @Translation("Content block"),
  *   deriver = "Drupal\program_offering_blocks\Plugin\Derivative\ProgramOfferingBlocks"
  * )
  */

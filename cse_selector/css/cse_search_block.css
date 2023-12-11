@@ -28,13 +28,15 @@
 	grid-column-end: 3;
 }
 
+#block-csesearchblock .form-group {
+	margin-bottom: 0.5rem;
+}
+
 /* --------------------------------------  */
 /* ## Responsive
 /* --------------------------------------  */
 @media screen and (max-width : 1199px) {
     #block-csesearchblock {
-		position: absolute;
-		left: 0;
-		bottom: 13vh;
+		display: none;
 	}
 }
