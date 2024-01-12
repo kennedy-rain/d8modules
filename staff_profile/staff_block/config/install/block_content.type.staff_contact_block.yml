@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: staff_contact_block
+label: 'Staff Contact Block'
+revision: 0
+description: 'Easily add staff contact information that pulls from profiles to individual pages.'
