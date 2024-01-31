@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Implements hook_ENTITY_TYPE_update()
+ */
+function social_red_block_content_update(Drupal\Core\Entity\EntityInterface $entity){
+	// Clear cache if BlockContent is of type 'social_media_red_bar'
+	if ($entity->bundle() == 'social_media_red_bar') {
+	  \Drupal::service('cache.render')->invalidateAll();
+	}
+}
+
 /**
  * Implements hook_preprocess_HOOK()
  */
