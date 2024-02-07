@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.staff_profile.body
+    - field.field.node.staff_profile.field_custodian_of_public_record
     - field.field.node.staff_profile.field_staff_profile_addr
     - field.field.node.staff_profile.field_staff_profile_base_county
     - field.field.node.staff_profile.field_staff_profile_canonical
@@ -57,6 +58,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_custodian_of_public_record: true
   field_staff_profile_addr: true
   field_staff_profile_base_county: true
   field_staff_profile_canonical: true
