@@ -108,8 +108,6 @@ class ProgramOfferingBlocks extends BlockBase
     // Show all upcoming events, not just the next one
     $all_events = self::include_series_events($json_events, $is_county_site);
 
-    $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
-
     foreach ($all_events as $event) {
       $display_event = TRUE;
       if (!empty($config['program_area']) && $config['program_area'] != $event['PrimaryProgramUnit__c']) {
@@ -164,6 +162,10 @@ class ProgramOfferingBlocks extends BlockBase
       }
 
       if ($display_event) {
+        if ($count == 0) {
+          $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
+        }
+
         if ($count < $max_events) {
           $start_date = strtotime($event['Next_Start_Date__c']);
           $results .= '  <li class="event">' . PHP_EOL;
@@ -188,7 +190,11 @@ class ProgramOfferingBlocks extends BlockBase
       }
     }
 
-    $results .= '</ul>' . PHP_EOL;
+    if ($count > 0) {
+      $results .= '</ul>' . PHP_EOL;
+    } else {
+      $results .= '<p class="event_no_events">No upcoming events at this time</p>';
+    }
 
     // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
     if (0 == $count) {
