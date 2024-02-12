@@ -193,11 +193,13 @@ class ProgramOfferingBlocks extends BlockBase
     if ($count > 0) {
       $results .= '</ul>' . PHP_EOL;
     } else {
-      $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
-    }
+      if (!empty($config['no_upcoming_events'])) {
+       $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
+      }
 
-    // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
-    if (0 == $count) {
+      // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
+      // This only works when the block is placed on a page, with layout builder, it will show the above message
+      // Not sure this JavaScript is still working...
       $results .= '<script>document.getElementById("block-programofferingblock' . $id . '").style.display = "none";</script>';
     }
 
