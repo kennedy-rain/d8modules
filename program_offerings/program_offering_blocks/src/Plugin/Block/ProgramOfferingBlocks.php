@@ -193,7 +193,7 @@ class ProgramOfferingBlocks extends BlockBase
     if ($count > 0) {
       $results .= '</ul>' . PHP_EOL;
     } else {
-      $results .= '<p class="event_no_events">No upcoming events at this time</p>';
+      $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
     }
 
     // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
@@ -236,6 +236,15 @@ class ProgramOfferingBlocks extends BlockBase
       '#description' => t('Zero (0) means display all events'),
       '#size' => 15,
       '#default_value' => $config['max_events'],
+    );
+
+    $form['no_upcoming_events'] = array(
+      '#type' => 'textfield',
+      '#title' => t('No Upcoming Events '),
+      '#description' => t('Text to display if there is no upcoming events'),
+      '#size' => 75,
+      '#maxlength' => 300,
+      '#default_value' => $config['no_upcoming_events'],
     );
 
     $form['event_details_page'] = array(
@@ -363,6 +372,7 @@ class ProgramOfferingBlocks extends BlockBase
 
     $this->configuration['event_details_page'] = $values['event_details_page'];
     $this->configuration['max_events'] = $values['max_events'];
+    $this->configuration['no_upcoming_events'] = $values['no_upcoming_events'];
     $this->configuration['format_with_time'] = $values['format_with_time'];
     $this->configuration['format_without_time'] = $values['format_without_time'];
     $this->configuration['title_search'] = $values['title_search'];
@@ -385,6 +395,7 @@ class ProgramOfferingBlocks extends BlockBase
     return array(
       'event_details_page' => TRUE,
       'max_events' => 0,
+      'no_upcoming_events' => 'There are no upcoming events scheduled. Please check back later for updates.',
       'format_with_time' => 'M j, Y, g:i a',
       'format_without_time' => 'M j, Y',
       'title_search' => '',
