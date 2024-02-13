@@ -128,8 +128,6 @@ class ProgramOfferingBlocks extends BlockBase
     // Show all upcoming events, not just the next one
     $all_events = self::include_series_events($json_events, $is_county_site);
 
-    $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
-
     foreach ($all_events as $event) {
       $display_event = TRUE;
       if (!empty($config['program_area']) && $config['program_area'] != $event['PrimaryProgramUnit__c']) {
@@ -188,6 +186,10 @@ class ProgramOfferingBlocks extends BlockBase
       }
 
       if ($display_event) {
+        if ($count == 0) {
+          $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
+        }
+
         if ($count < $max_events) {
           $start_date = strtotime($event['Next_Start_Date__c']);
           $results .= '  <li class="event">' . PHP_EOL;
@@ -212,10 +214,16 @@ class ProgramOfferingBlocks extends BlockBase
       }
     }
 
-    $results .= '</ul>' . PHP_EOL;
+    if ($count > 0) {
+      $results .= '</ul>' . PHP_EOL;
+    } else {
+      if (!empty($config['no_upcoming_events'])) {
+       $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
+      }
 
-    // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
-    if (0 == $count) {
+      // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
+      // This only works when the block is placed on a page, with layout builder, it will show the above message
+      // Not sure this JavaScript is still working...
       $results .= '<script>document.getElementById("block-programofferingblock' . $id . '").style.display = "none";</script>';
     }
 
@@ -259,6 +267,15 @@ class ProgramOfferingBlocks extends BlockBase
       '#description' => t('Zero (0) means display all events'),
       '#size' => 15,
       '#default_value' => $config['max_events'],
+    );
+
+    $form['no_upcoming_events'] = array(
+      '#type' => 'textfield',
+      '#title' => t('No Upcoming Events '),
+      '#description' => t('Text to display if there is no upcoming events'),
+      '#size' => 75,
+      '#maxlength' => 300,
+      '#default_value' => $config['no_upcoming_events'],
     );
 
     $form['event_details_page'] = array(
@@ -394,6 +411,7 @@ class ProgramOfferingBlocks extends BlockBase
 
     $this->configuration['event_details_page'] = $values['event_details_page'];
     $this->configuration['max_events'] = $values['max_events'];
+    $this->configuration['no_upcoming_events'] = $values['no_upcoming_events'];
     $this->configuration['format_with_time'] = $values['format_with_time'];
     $this->configuration['format_without_time'] = $values['format_without_time'];
     $this->configuration['title_search'] = $values['title_search'];
@@ -417,6 +435,7 @@ class ProgramOfferingBlocks extends BlockBase
     return array(
       'event_details_page' => TRUE,
       'max_events' => 0,
+      'no_upcoming_events' => 'There are no upcoming events scheduled. Please check back later for updates.',
       'format_with_time' => 'M j, Y, g:i a',
       'format_without_time' => 'M j, Y',
       'title_search' => '',

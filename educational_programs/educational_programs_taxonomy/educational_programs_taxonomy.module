@@ -39,7 +39,10 @@ function educational_programs_taxonomy_handle_feeds()
   $fromFeed = str_replace('\u0026#039;', '\'', $fromFeed);
   $programs = json_decode($fromFeed, TRUE);
 
-  $types = ['012460000012EiaAAE', '0124p000000S43XAAS'];
+  // 0128Z000000yeo8QAA = Product Family Record Type
+  // 012460000012EiaAAE = Educational Program Record Type
+  // 0124p000000S43XAAS = Educational Service or Consultation
+  $types = ['0128Z000000yeo8QAA', '012460000012EiaAAE', '0124p000000S43XAAS'];
 
   // Make sure we have some programs to work with
   if (empty($programs) || count($programs) < 10) {

@@ -7,5 +7,6 @@ dependencies:
   - drupal:system
   - drupal:views
   - news_embed_field:news_embed_field
+  - view_unpublished:view_unpublished
   - pathauto:pathauto
   - blazy:blazy
