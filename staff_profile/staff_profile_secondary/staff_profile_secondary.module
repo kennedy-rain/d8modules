@@ -115,7 +115,7 @@ function staff_profile_secondary_handle_feeds()
       if (!empty($profile['field_custodian_of_public_record']) && $profile['field_custodian_of_public_record'] == 'Custodian of Public Record') {
         $mynode->field_custodian_of_public_record->value = true;
       } else {
-        $mynode->field_custodian_of_public_record->value = false;
+        $mynode->field_custodian_of_public_record->value = null;
       }
 
       // Handle staff Position
