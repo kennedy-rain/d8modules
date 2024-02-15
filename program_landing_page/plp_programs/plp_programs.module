@@ -45,7 +45,9 @@ function plp_programs_getprograms()
   }
 
   // Record types to include in the catalog
-  $types = ['012460000012EiaAAE'];
+  // 0128Z000000yeo8QAA = Product Family Record Type
+  // 012460000012EiaAAE = Educational Program Record Type
+  $types = ['0128Z000000yeo8QAA', '012460000012EiaAAE', ];
 
   // Step through products, looking for programs that should be included
   foreach ($products as $product) {
@@ -54,7 +56,7 @@ function plp_programs_getprograms()
     }
     // Should it be included as a product, or as the child of a product
     if (empty($product['Related_Program__c'])) {
-      if ($product['Show_on_Program_Catalog__c']) {
+      if ($product['Show_on_Program_Landing_Page__c']) {
         $programs[$product['Id']] = $product;
       }
     } else {
