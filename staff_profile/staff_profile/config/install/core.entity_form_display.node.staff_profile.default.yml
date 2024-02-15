@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.staff_profile.body
+    - field.field.node.staff_profile.field_custodian_of_public_record
     - field.field.node.staff_profile.field_staff_profile_addr
     - field.field.node.staff_profile.field_staff_profile_base_county
     - field.field.node.staff_profile.field_staff_profile_canonical
@@ -38,7 +39,6 @@ dependencies:
     - address
     - field_group
     - path
-    - scheduler
     - telephone
     - text
     - weight
@@ -121,6 +121,7 @@ third_party_settings:
         - field_staff_profile_pref_name
         - field_staff_profile_pref_phone
         - field_staff_profile_smugmug
+        - field_custodian_of_public_record
         - field_staff_profile_teams_groups
       label: 'Extra Staff Info'
       region: content
@@ -138,7 +139,7 @@ third_party_settings:
       label: 'Web Author Info'
       region: content
       parent_name: ''
-      weight: 13
+      weight: 12
       format_type: accordion
       format_settings:
         classes: staff-profile-web-author-info
@@ -177,15 +178,23 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_custodian_of_public_record:
+    type: boolean_checkbox
+    weight: 130
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_staff_profile_addr:
     type: address_default
     weight: 18
     region: content
-    settings: {  }
+    settings:
+      wrapper_type: details
     third_party_settings: {  }
   field_staff_profile_base_county:
     type: options_select
@@ -200,7 +209,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_staff_profile_cty_author:
-    type: options_buttons
+    type: options_select
     weight: 14
     region: content
     settings: {  }
@@ -323,7 +332,7 @@ content:
     third_party_settings: {  }
   field_staff_profile_quals:
     type: options_buttons
-    weight: 17
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -335,8 +344,8 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_staff_profile_site_author:
-    type: options_buttons
-    weight: 16
+    type: options_select
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -350,7 +359,7 @@ content:
     third_party_settings: {  }
   field_staff_profile_sort_order:
     type: weight_selector
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -363,45 +372,39 @@ content:
     third_party_settings: {  }
   field_staff_profile_teams_groups:
     type: options_select
-    weight: 130
+    weight: 131
     region: content
     settings: {  }
     third_party_settings: {  }
   field_staff_profile_web_amb:
-    type: options_buttons
-    weight: 15
+    type: options_select
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
-  publish_on:
-    type: datetime_timestamp_no_default
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 12
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true
@@ -416,7 +419,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
@@ -424,17 +427,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  unpublish_on:
-    type: datetime_timestamp_no_default
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   field_staff_profile_canonical: true
   field_staff_profile_stale: true
+  publish_on: true
+  unpublish_on: true

@@ -111,6 +111,13 @@ function staff_profile_secondary_handle_feeds()
         'postal_code' => $profile['field_staff_profile_addr_postal_code'],
       );
 
+      # Handle the Custodian of Public Record Field
+      if (!empty($profile['field_custodian_of_public_record']) && $profile['field_custodian_of_public_record'] == 'Custodian of Public Record') {
+        $mynode->field_custodian_of_public_record->value = true;
+      } else {
+        $mynode->field_custodian_of_public_record->value = null;
+      }
+
       // Handle staff Position
       $taxonomy = array();
       $position = 0;
@@ -245,6 +252,7 @@ function staff_profile_secondary_form_node_form_alter(&$form, &$form_state, $for
     $form['field_staff_profile_pref_phone']['widget'][0]['value']['#disabled'] = TRUE;
     $form['field_staff_profile_smugmug']['widget'][0]['value']['#disabled'] = TRUE;
     $form['field_staff_profile_teams_groups']['widget']['#disabled'] = TRUE;
+    $form['field_custodian_of_public_record']['widget']['#disabled'] = TRUE;
 
     $form['body']['widget']['#disabled'] = TRUE;
   }

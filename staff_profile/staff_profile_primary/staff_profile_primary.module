@@ -350,6 +350,11 @@ function staff_profile_primary_node_presave($entity)
     //  $smugmugID = substr($smugmugID, 0, strlen($smugmugID) - 2);
     //}
     $entity->field_staff_profile_smugmug->value = $smugmugID;
+
+    // In the Custodian of Public Record field, set a value of false to null
+    if ($entity->field_custodian_of_public_record->value == false) {
+      $entity->field_custodian_of_public_record->value=null;
+    }
   }
 }
 
