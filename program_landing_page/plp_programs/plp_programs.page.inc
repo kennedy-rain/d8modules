@@ -25,6 +25,10 @@ function plp_programs_get_related_items(string $json_url, string $field_name, ar
   $raw = ISUEOHelpers\Files::fetch_url($json_url);
   $widgets = json_decode($raw, true);
   foreach ($widgets as $widget) {
+    // HACK: Skip non-public events
+    if (array_key_exists('Public_Event__c', $widget) && empty($widget['Public_Event__c'])) {
+      continue;
+    }
     $my_array[$widget[$field_name]][] = $widget;
   }
 
