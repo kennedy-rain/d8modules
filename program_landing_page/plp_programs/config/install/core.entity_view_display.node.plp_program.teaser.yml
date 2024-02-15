@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_on_counties
     - field.field.node.plp_program.field_plp_program_program_area
     - field.field.node.plp_program.field_plp_program_search_terms
+    - field.field.node.plp_program.field_plp_program_sort_calc
     - field.field.node.plp_program.field_plp_program_title_filter
     - field.field.node.plp_program.field_plp_program_website
     - node.type.plp_program
@@ -59,5 +60,6 @@ hidden:
   field_plp_program_on_counties: true
   field_plp_program_program_area: true
   field_plp_program_search_terms: true
+  field_plp_program_sort_calc: true
   field_plp_program_title_filter: true
   field_plp_program_website: true

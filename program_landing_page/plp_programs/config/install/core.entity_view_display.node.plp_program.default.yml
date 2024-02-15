@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_on_counties
     - field.field.node.plp_program.field_plp_program_program_area
     - field.field.node.plp_program.field_plp_program_search_terms
+    - field.field.node.plp_program.field_plp_program_sort_calc
     - field.field.node.plp_program.field_plp_program_title_filter
     - field.field.node.plp_program.field_plp_program_website
     - node.type.plp_program
@@ -155,6 +156,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 110
+    region: content
+  field_plp_program_sort_calc:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 120
     region: content
   field_plp_program_title_filter:
     type: string
