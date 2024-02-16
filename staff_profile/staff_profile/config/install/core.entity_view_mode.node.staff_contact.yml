@@ -1,0 +1,13 @@
+uuid: e471e7a5-452a-417c-81fe-cb70638facca
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: z3QMCDQfcPL61M2sPpYTrJmDtm3nhjGeJzDk17IRJ6w
+id: node.staff_contact
+label: 'Staff Contact'
+description: ''
+targetEntityType: node
+cache: true
