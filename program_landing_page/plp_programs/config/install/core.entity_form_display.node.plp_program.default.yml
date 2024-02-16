@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.plp_program.body
     - field.field.node.plp_program.field_plp_program_audiences
+    - field.field.node.plp_program.field_plp_program_category
     - field.field.node.plp_program.field_plp_program_children
     - field.field.node.plp_program.field_plp_program_contact_email
     - field.field.node.plp_program.field_plp_program_contact_name
@@ -20,6 +21,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_search_terms
     - field.field.node.plp_program.field_plp_program_sort_calc
     - field.field.node.plp_program.field_plp_program_title_filter
+    - field.field.node.plp_program.field_plp_program_topics
     - field.field.node.plp_program.field_plp_program_website
     - node.type.plp_program
   module:
@@ -51,6 +53,16 @@ content:
   field_plp_program_audiences:
     type: entity_reference_autocomplete
     weight: 133
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_plp_program_category:
+    type: entity_reference_autocomplete
+    weight: 141
     region: content
     settings:
       match_operator: CONTAINS
@@ -187,6 +199,16 @@ content:
     weight: 132
     region: content
     settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_plp_program_topics:
+    type: entity_reference_autocomplete
+    weight: 142
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }

@@ -73,6 +73,7 @@ function plp_programs_getprograms()
   $program_areas = ISUEOHelpers\Taxonomy::get_terms('program_areas');
   $critical_issues = ISUEOHelpers\Taxonomy::get_terms('critical_issues');
   $interest_areas = ISUEOHelpers\Taxonomy::get_terms('interest_areas');
+  $categories_topics = ISUEOHelpers\Taxonomy::get_terms('categories_topics');
 
   // Get all existing program and child nodes
   $nodes = plp_programs_get_existing_nodes('plp_program', 'field_plp_program_mydata_id');
@@ -140,6 +141,8 @@ function plp_programs_getprograms()
       'field_plp_program_critical_issue' => ['taxonomy_array' => &$critical_issues, 'taxonomy_id' => 'critical_issues', 'json_element' => 'Critical_Issue__c'],
       'field_plp_program_interest_areas' => ['taxonomy_array' => &$interest_areas, 'taxonomy_id' => 'interest_areas', 'json_element' => 'Related_Interest_Areas__c'],
       'field_plp_program_program_area' => ['taxonomy_array' => &$program_areas, 'taxonomy_id' => 'program_areas', 'json_element' => 'hed__Account__r.Name'],
+      'field_plp_program_category' => ['taxonomy_array' => &$categories_topics, 'taxonomy_id' => 'categories_topics', 'json_element' => 'Program_landing_Page_Category__c'],
+      'field_plp_program_topics' => ['taxonomy_array' => &$categories_topics, 'taxonomy_id' => 'categories_topics', 'json_element' => 'Program_Landing_Page_Topic__c'],
     ];
     foreach ($fields_single_entity_reference as $key => $value) {
       $terms = [];

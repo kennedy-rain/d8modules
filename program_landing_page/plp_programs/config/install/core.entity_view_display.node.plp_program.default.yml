@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.plp_program.body
     - field.field.node.plp_program.field_plp_program_audiences
+    - field.field.node.plp_program.field_plp_program_category
     - field.field.node.plp_program.field_plp_program_children
     - field.field.node.plp_program.field_plp_program_contact_email
     - field.field.node.plp_program.field_plp_program_contact_name
@@ -20,6 +21,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_search_terms
     - field.field.node.plp_program.field_plp_program_sort_calc
     - field.field.node.plp_program.field_plp_program_title_filter
+    - field.field.node.plp_program.field_plp_program_topics
     - field.field.node.plp_program.field_plp_program_website
     - node.type.plp_program
   module:
@@ -45,6 +47,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 113
+    region: content
+  field_plp_program_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 121
     region: content
   field_plp_program_children:
     type: entity_reference_label
@@ -173,6 +183,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 112
+    region: content
+  field_plp_program_topics:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 122
     region: content
   field_plp_program_website:
     type: link
