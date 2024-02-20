@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.node.field_plp_program_category
     - node.type.plp_program
-    - taxonomy.vocabulary.categories_topics
 id: node.plp_program.field_plp_program_category
 field_name: field_plp_program_category
 entity_type: node
