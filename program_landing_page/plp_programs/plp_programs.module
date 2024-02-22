@@ -241,6 +241,7 @@ function plp_programs_getprograms()
       $node->setUnpublished()->save();
     }
   }
+  plp_programs_handle_topic_hierarchy($categories_topics, $programs);
 }
 
 /**

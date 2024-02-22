@@ -80,7 +80,8 @@ function plp_programs_generate_body(array $program)
 }
 
 // Returns a corrected (hopefully) URL
-function plp_programs_fix_url(string $website) {
+function plp_programs_fix_url(string $website)
+{
   if (!empty($website)) {
     if ('htt' != substr($website, 0, 3)) {
       $website = 'https://' . $website;
@@ -178,7 +179,8 @@ function plp_programs_handle_children(array $children, array $programs)
 }
 
 // Return an array of counties that are in programs
-function plp_programs_get_counties(array $programs_county_list, array $include_programs) {
+function plp_programs_get_counties(array $programs_county_list, array $include_programs)
+{
   $tmpstring = '';
   // Grab counties using this program
   foreach ($include_programs as $programid) {
@@ -204,31 +206,70 @@ function plp_programs_get_counties(array $programs_county_list, array $include_p
 }
 
 // Calculate the sort number for the program
-function plp_programs_sort_calculator($mynode, array $child_nodes, string $program_id, $config) {
+function plp_programs_sort_calculator($mynode, array $child_nodes, string $program_id, $config)
+{
   $tmpnum = 0;
   // Handle premoted on counties
   if (!empty($mynode->field_plp_program_on_counties->value)) {
     $tmpstring = $mynode->field_plp_program_on_counties->value;
-    $tmpnum += $config->get('counties.county_boost') + ($config->get('counties.county_multiplier')* intval(count(explode(';', $tmpstring)) / $config->get('counties.county_interval')));
+    $tmpnum += $config->get('counties.county_boost') + ($config->get('counties.county_multiplier') * intval(count(explode(';', $tmpstring)) / $config->get('counties.county_interval')));
   }
 
   // Handle indicators and measurements
   if (!empty($mynode->field_plp_program_num_indicators->value)) {
-    $tmpnum += $config->get('indicators.indicator_boost') + ($config->get('indicators.indicator_multiplier')* intval($mynode->field_plp_program_num_indicators->value / $config->get('indicators.indicator_interval')));
+    $tmpnum += $config->get('indicators.indicator_boost') + ($config->get('indicators.indicator_multiplier') * intval($mynode->field_plp_program_num_indicators->value / $config->get('indicators.indicator_interval')));
   }
   if (!empty($mynode->field_plp_program_num_measures->value)) {
-    $tmpnum += $config->get('measurements.measurement_boost') + ($config->get('measurements.measurement_multiplier')* intval($mynode->field_plp_program_num_measures->value / $config->get('measurements.measurement_interval')));
+    $tmpnum += $config->get('measurements.measurement_boost') + ($config->get('measurements.measurement_multiplier') * intval($mynode->field_plp_program_num_measures->value / $config->get('measurements.measurement_interval')));
   }
 
   // Handle events
   if (!empty($mynode->field_plp_program_num_events->value)) {
-    $tmpnum += $config->get('events.event_boost') + ($config->get('events.event_multiplier')* intval($mynode->field_plp_program_num_events->value / $config->get('events.event_interval')));
+    $tmpnum += $config->get('events.event_boost') + ($config->get('events.event_multiplier') * intval($mynode->field_plp_program_num_events->value / $config->get('events.event_interval')));
   }
 
   // Handle children
   if (array_key_exists($program_id, $child_nodes)) {
-    $tmpnum += $config->get('children.child_boost') + ($config->get('children.child_multiplier')* intval(count($child_nodes[$program_id]) / $config->get('children.child_interval')));
+    $tmpnum += $config->get('children.child_boost') + ($config->get('children.child_multiplier') * intval(count($child_nodes[$program_id]) / $config->get('children.child_interval')));
   }
 
   return $tmpnum;
+}
+
+// Handle hierarchy of categories and topics
+function plp_programs_handle_topic_hierarchy(array $categories_topics, array $programs)
+{
+  foreach ($programs as $program) {
+    // Get the ID of the category's taxonomy term
+    if (!empty($program['Program_landing_Page_Category__c'])) {
+      $category_id = $categories_topics[$program['Program_landing_Page_Category__c']];
+    } else {
+      continue;
+    }
+
+    // Step through each topic
+    $topics = empty($program['Program_Landing_Page_Topic__c']) ? [] : explode(';', $program['Program_Landing_Page_Topic__c']);
+    foreach ($topics as $topic) {
+      // Make sure we have a taxonomy term for this topic
+      if (!empty($topic) && array_key_exists($topic, $categories_topics)) {
+        // Get the taxonomy term
+        $parent_ids = [];
+        $term = Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->load($categories_topics[$topic]);
+
+        // Build an array of the parent ids
+        foreach ($term->parent as $parent) {
+          if ($parent->target_id > 0) {
+            $parent_ids[] = $parent->target_id;
+          }
+        }
+
+        // Check if the current category is in the parent array, if not, add it
+        if (!in_array($category_id, $parent_ids)) {
+          $parent_ids[] = $category_id;
+          $term->set('parent', $parent_ids);
+          $term->save();
+        }
+      }
+    }
+  }
 }
