@@ -9,13 +9,11 @@ dependencies:
     - field.field.block_content.image_card.field_image_card_text_size
     - field.field.block_content.image_card.field_image_card_title
     - field.field.block_content.image_card.field_image_card_url
-    - image.style.thumbnail
   module:
     - allowed_formats
     - fontawesome
-    - image
     - link
-    - pubs_entity_type
+    - media_library
     - text
 id: block_content.image_card.default
 targetEntityType: block_content
@@ -35,12 +33,11 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_image_card_image:
-    type: image_image
+    type: media_library_widget
     weight: 2
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      media_types: {  }
     third_party_settings: {  }
   field_image_card_text_size:
     type: options_select
@@ -68,9 +65,11 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
   info:
-    type: label_text
+    type: string_textfield
     weight: 0
     region: content
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: 'Administrative name for block, not displayed to user'
     third_party_settings: {  }
 hidden: {  }
