@@ -1,0 +1,6 @@
+# plp_programs.yml
+plp_programs:
+  version: 1.x
+  css:
+    theme:
+      css/plp_programs.css: {}
