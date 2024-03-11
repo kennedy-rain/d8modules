@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - program_offering_blocks
+    - system
+  theme:
+    - iastate_theme
+id: iastate_theme_programofferingblock2
+theme: iastate_theme
+region: content
+weight: 0
+provider: null
+plugin: 'program_offering_blocks:2'
+settings:
+  id: 'program_offering_blocks:2'
+  label: 'Program Offering Block: 2'
+  label_display: '0'
+  provider: program_offering_blocks
+  event_details_page: 1
+  max_events: '0'
+  no_upcoming_events: 'There are no upcoming events scheduled. Please check back later for updates.'
+  format_with_time: 'M j, Y, g:i a'
+  format_without_time: 'M j, Y'
+  title_search: ''
+  show_more_page: ''
+  show_more_text: More
+  announcement_text: ''
+  show_nonpublic_events: 0
+  only_planned_programs: 0
+  only_statewide_campus: 0
+  program_ids_field: field_plp_program_event_pgm_ids
+  program_area: ''
+  county: ''
+  placement: ''
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /events
