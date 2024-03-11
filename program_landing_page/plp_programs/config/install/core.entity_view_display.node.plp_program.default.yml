@@ -25,9 +25,269 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_website
     - node.type.plp_program
   module:
-    - link
+    - layout_builder
+    - layout_builder_base_library
+    - program_offering_blocks
     - text
     - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_base_onecol
+        layout_settings:
+          label: '1 Column Layout'
+          classes: ''
+          column_widths: null
+          id: ''
+          column_gap: ''
+          row_gap: ''
+          column_width: ''
+          column_breakpoint: ''
+          align_items: ''
+          background: layout--background--none
+          background_image: ''
+          background_image_style: ''
+          background_attachment: layout--background-attachment--default
+          background_position: layout--background-position--center
+          background_size: layout--background-size--cover
+          background_overlay: layout--background-overlay--none
+          equal_top_bottom_margins: ''
+          equal_left_right_margins: ''
+          top_margin: ''
+          right_margin: ''
+          bottom_margin: ''
+          left_margin: ''
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
+          equal_left_right_paddings: layout--left-right-padding--small
+          top_padding: ''
+          right_padding: ''
+          bottom_padding: ''
+          left_padding: ''
+          container: layout--container--none
+          content_container: layout--content-container--default
+          height: layout--height--default
+          color: layout--color--default
+          alignment: ''
+          modifier: ''
+          customizable_columns: ''
+          modifiers: ''
+        components:
+          d1af18b2-8d9f-4f5e-9e9e-de978036d285:
+            uuid: d1af18b2-8d9f-4f5e-9e9e-de978036d285
+            region: content
+            configuration:
+              id: 'extra_field_block:node:plp_program:links'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_base_onecol
+        layout_settings:
+          label: Body
+          context_mapping: {  }
+          classes: ''
+          column_widths: null
+          id: ''
+          column_gap: ''
+          row_gap: ''
+          column_width: ''
+          column_breakpoint: ''
+          align_items: ''
+          background: layout--background--none
+          background_image: ''
+          background_image_style: ''
+          background_attachment: layout--background-attachment--default
+          background_position: layout--background-position--center
+          background_size: layout--background-size--cover
+          background_overlay: layout--background-overlay--none
+          equal_top_bottom_margins: ''
+          equal_left_right_margins: ''
+          top_margin: ''
+          right_margin: ''
+          bottom_margin: ''
+          left_margin: ''
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
+          equal_left_right_paddings: layout--left-right-padding--small
+          top_padding: ''
+          right_padding: ''
+          bottom_padding: ''
+          left_padding: ''
+          container: layout--container--none
+          content_container: layout--content-container--default
+          height: layout-height-default
+          color: layout--color--default
+          alignment: ''
+          modifier: ''
+          customizable_columns: ''
+          modifiers: ''
+          layout_builder_styles_style:
+            hero_heading: 0
+        components:
+          41625b4f-81bf-49f0-9841-e12bffcb64c8:
+            uuid: 41625b4f-81bf-49f0-9841-e12bffcb64c8
+            region: content
+            configuration:
+              id: 'field_block:node:plp_program:body'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_base_onecol
+        layout_settings:
+          label: Events
+          context_mapping: {  }
+          classes: ''
+          column_widths: null
+          id: ''
+          column_gap: ''
+          row_gap: ''
+          column_width: ''
+          column_breakpoint: ''
+          align_items: ''
+          background: layout--background--gray
+          background_image: ''
+          background_image_style: ''
+          background_attachment: layout--background-attachment--default
+          background_position: layout--background-position--center
+          background_size: layout--background-size--cover
+          background_overlay: layout--background-overlay--none
+          equal_top_bottom_margins: ''
+          equal_left_right_margins: ''
+          top_margin: ''
+          right_margin: ''
+          bottom_margin: ''
+          left_margin: ''
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
+          equal_left_right_paddings: layout--left-right-padding--small
+          top_padding: ''
+          right_padding: ''
+          bottom_padding: ''
+          left_padding: ''
+          container: layout--container--none
+          content_container: layout--content-container--default
+          height: layout-height-default
+          color: layout--color--default
+          alignment: ''
+          modifier: ''
+          customizable_columns: ''
+          modifiers: ''
+          layout_builder_styles_style:
+            hero_heading: 0
+        components:
+          5d846e40-1cfa-41dc-bb9f-0fe77fa4c18d:
+            uuid: 5d846e40-1cfa-41dc-bb9f-0fe77fa4c18d
+            region: content
+            configuration:
+              id: 'program_offering_blocks:1'
+              label: 'Events Across Iowa'
+              label_display: visible
+              provider: program_offering_blocks
+              context_mapping: {  }
+              event_details_page: 1
+              max_events: '5'
+              no_upcoming_events: 'There are no upcoming events scheduled. Please check back later for updates.'
+              format_with_time: 'M j, Y, g:i a'
+              format_without_time: 'M j, Y'
+              title_search: ''
+              show_more_page: /events
+              show_more_text: 'More Events'
+              announcement_text: ''
+              show_nonpublic_events: 0
+              only_planned_programs: 0
+              only_statewide_campus: 0
+              program_ids_field: field_plp_program_event_pgm_ids
+              program_area: ''
+              county: ''
+              placement: 'Program Pages'
+            weight: 0
+            additional:
+              layout_builder_styles_style:
+                upcoming_events_white: 0
+                vertical_alignment: 0
+        third_party_settings: {  }
+      -
+        layout_id: layout_base_onecol
+        layout_settings:
+          label: 'Child Programs'
+          context_mapping: {  }
+          classes: ''
+          column_widths: null
+          id: ''
+          column_gap: ''
+          row_gap: ''
+          column_width: ''
+          column_breakpoint: ''
+          align_items: ''
+          background: layout--background--none
+          background_image: ''
+          background_image_style: ''
+          background_attachment: layout--background-attachment--default
+          background_position: layout--background-position--center
+          background_size: layout--background-size--cover
+          background_overlay: layout--background-overlay--none
+          equal_top_bottom_margins: ''
+          equal_left_right_margins: ''
+          top_margin: ''
+          right_margin: ''
+          bottom_margin: ''
+          left_margin: ''
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
+          equal_left_right_paddings: layout--left-right-padding--small
+          top_padding: ''
+          right_padding: ''
+          bottom_padding: ''
+          left_padding: ''
+          container: layout--container--none
+          content_container: layout--content-container--default
+          height: layout-height-default
+          color: layout--color--default
+          alignment: ''
+          modifier: ''
+          customizable_columns: ''
+          modifiers: ''
+          layout_builder_styles_style:
+            hero_heading: 0
+        components:
+          10c61616-8f3d-4bf2-8602-e5331e2a34de:
+            uuid: 10c61616-8f3d-4bf2-8602-e5331e2a34de
+            region: content
+            configuration:
+              id: 'field_block:node:plp_program:field_plp_program_children'
+              label: 'Supplementary Programs'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: hidden
+                settings:
+                  link: true
+                third_party_settings:
+                  field_delimiter:
+                    delimiter: ''
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              layout_builder_styles_style:
+                vertical_alignment: 0
+        third_party_settings: {  }
 id: node.plp_program.default
 targetEntityType: node
 bundle: plp_program
@@ -38,175 +298,31 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
-    region: content
-  field_plp_program_audiences:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 113
-    region: content
-  field_plp_program_category:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 121
-    region: content
-  field_plp_program_children:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 118
-    region: content
-  field_plp_program_contact_email:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 102
-    region: content
-  field_plp_program_contact_name:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 103
-    region: content
-  field_plp_program_contact_phone:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 104
-    region: content
-  field_plp_program_critical_issue:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 105
-    region: content
-  field_plp_program_event_pgm_ids:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 117
-    region: content
-  field_plp_program_interest_areas:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 107
-    region: content
-  field_plp_program_mydata_id:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 108
-    region: content
-  field_plp_program_num_events:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 114
-    region: content
-  field_plp_program_num_indicators:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 115
-    region: content
-  field_plp_program_num_measures:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 116
-    region: content
-  field_plp_program_on_counties:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 119
-    region: content
-  field_plp_program_program_area:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 109
-    region: content
-  field_plp_program_search_terms:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 110
-    region: content
-  field_plp_program_sort_calc:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 120
-    region: content
-  field_plp_program_title_filter:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 112
-    region: content
-  field_plp_program_topics:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 122
-    region: content
-  field_plp_program_website:
-    type: link
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 111
+    weight: 1
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
-hidden: {  }
+hidden:
+  field_plp_program_audiences: true
+  field_plp_program_category: true
+  field_plp_program_children: true
+  field_plp_program_contact_email: true
+  field_plp_program_contact_name: true
+  field_plp_program_contact_phone: true
+  field_plp_program_critical_issue: true
+  field_plp_program_event_pgm_ids: true
+  field_plp_program_interest_areas: true
+  field_plp_program_mydata_id: true
+  field_plp_program_num_events: true
+  field_plp_program_num_indicators: true
+  field_plp_program_num_measures: true
+  field_plp_program_on_counties: true
+  field_plp_program_program_area: true
+  field_plp_program_search_terms: true
+  field_plp_program_sort_calc: true
+  field_plp_program_title_filter: true
+  field_plp_program_topics: true
+  field_plp_program_website: true
