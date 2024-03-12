@@ -118,7 +118,8 @@ function plp_programs_getprograms()
       //'field_plp_program_contact_name' => 'Contact_Information_Name__c',
       'field_plp_program_contact_phone' => 'Primary_Contact__r.Phone',
       'field_plp_program_search_terms' => 'Search_Terms__c',
-      'field_plp_program_title_filter' => 'Name'
+      'field_plp_program_title_filter' => 'Name',
+      'field_plp_program_smugmug' => 'Smugmug_ID__c',
       //'field_event_program_name' => '',
     ];
     foreach ($fields as $key => $value) {

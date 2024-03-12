@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_on_counties
     - field.field.node.plp_program.field_plp_program_program_area
     - field.field.node.plp_program.field_plp_program_search_terms
+    - field.field.node.plp_program.field_plp_program_smugmug
     - field.field.node.plp_program.field_plp_program_sort_calc
     - field.field.node.plp_program.field_plp_program_title_filter
     - field.field.node.plp_program.field_plp_program_topics
@@ -84,6 +85,22 @@ third_party_settings:
               context_mapping:
                 entity: layout_builder.entity
             weight: 0
+            additional: {  }
+          94ce2662-ac40-47be-9f93-a50bf37ac8c1:
+            uuid: 94ce2662-ac40-47be-9f93-a50bf37ac8c1
+            region: content
+            configuration:
+              id: 'field_block:node:plp_program:field_plp_program_smugmug'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 1
             additional: {  }
         third_party_settings: {  }
       -
@@ -299,6 +316,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_plp_program_smugmug:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
     region: content
   links:
     settings: {  }
