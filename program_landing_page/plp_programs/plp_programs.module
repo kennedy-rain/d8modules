@@ -285,9 +285,7 @@ function plp_programs_theme($existing, $type, $theme, $path)
 function plp_programs_preprocess_node(&$variables) {
   // Add the css file if we're on content type of plp_program
   $node = $variables['node'];
-  Drupal::logger('blah')->info('I am here - ' . $node->getType());
   if ($node->getType() == 'plp_program') {
-  Drupal::logger('blah')->info('Now, I am here');
     $variables['#attached']['library'][] = 'plp_programs/plp_programs';
   }
 }
