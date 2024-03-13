@@ -69,9 +69,7 @@ function plp_programs_generate_body(array $program)
   } else {
     $body = $program['hed__Description__c'];
   }
-  if (!empty($program['Smugmug_ID__c'])) {
-    $body = '<img class="educational_program_image" src="https://photos.smugmug.com/photos/' . $program['Smugmug_ID__c'] . '/0/XL/' . $program['Smugmug_ID__c'] . '-XL.jpg" alt="" />' . $body . '<div class="clearer"></div>';
-  }
+
   if (!empty($program['Intended_Audiences__c'])) {
     $body .= '<p><b>Intended Audiences:</b><br />' . str_replace(';', ', ', $program['Intended_Audiences__c']) . '</p>';
   }
