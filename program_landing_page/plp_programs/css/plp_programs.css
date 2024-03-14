@@ -11,6 +11,13 @@
 	--green: #008540;
   }
 
+/* Program Page Customization */
+.node--type-plp-program .layout-content, .node--type-plp-program .layout__region--content {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Program Offerings */
 #plp-events .program_offering_blocks ul{
     display: grid;
@@ -54,4 +61,39 @@
 }
 #plp-events div.event_venue {
     font-size: clamp(.6rem, 1.1vw, .8rem);
+}
+a#plp-events {
+    text-decoration: underline;
+    float: right;
+}
+
+/* Hero Image & Title */
+.program-hero-image img {
+    width: 100%;
+    max-height: 248px;
+    float: none;
+    margin: 0;
+    max-width: 2600px;
+    position: relative;
+    border-top: 3px solid var(--gold);
+}
+.program-hero-label-wrapper {
+    position: absolute;
+    top: 0;
+    background-color: var(--gold);
+    width: 60%;
+    height: 100%;
+    border-top: 3px solid var(--gold);
+    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
+}
+.program-hero-label h1.isu-page-title {
+    color: #fff;
+    text-align: center;
+}
+.program-hero-label.container {
+    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
+    background-color: var(--cardinal);
+    width: 99%;
+    height: 100%;
+    position: absolute;
 }
