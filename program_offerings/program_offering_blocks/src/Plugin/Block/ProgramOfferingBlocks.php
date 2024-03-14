@@ -241,7 +241,7 @@ class ProgramOfferingBlocks extends BlockBase
       if ($filtering_by_program_ids) {
         $tmpfilter .= (empty($tmpfilter) ? '?' : '&') . 'referring_nid=' . $node->id();
       }
-      if ($node->bundle() == 'plp_program') {
+      if ($node instanceof \Drupal\node\NodeInterface && $node->bundle() == 'plp_program') {
         $results .= '<a class="events_show_more" id="plp-events" href="' . $base_url . '/' . $show_more_page . $tmpfilter . '">' . $config['show_more_text'] . '</a><br />';
       } else {
         $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . $tmpfilter . '">' . $config['show_more_text'] . '</a><br />';
