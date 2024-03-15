@@ -76,6 +76,7 @@ a#plp-events {
     max-width: 2600px;
     position: relative;
     border-top: 3px solid var(--gold);
+    object-fit: cover;
 }
 .program-hero-label-wrapper {
     position: absolute;
@@ -89,6 +90,10 @@ a#plp-events {
 .program-hero-label h1.isu-page-title {
     color: #fff;
     text-align: center;
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+    overflow-wrap: break-word;
 }
 .program-hero-label.container {
     clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
