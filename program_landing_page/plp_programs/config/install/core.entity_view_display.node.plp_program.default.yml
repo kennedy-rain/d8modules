@@ -98,7 +98,7 @@ third_party_settings:
               format_without_time: 'M j, Y'
               title_search: ''
               show_more_page: /events
-              show_more_text: 'More Events'
+              show_more_text: 'View All Events'
               announcement_text: ''
               show_nonpublic_events: 0
               only_planned_programs: 0
