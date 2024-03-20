@@ -26,6 +26,9 @@
     "drupal/views_data_export": "^1.4",
     "drupal/views_filters_populate": "^2.0",
     "drupal/webform": "^6.2@RC",
-    "drupal/weight": "^3.1"
+    "drupal/weight": "^3.1",
+    "php-http/curl-client": "^2.3",
+    "symfony/http-client": "^6.4",
+    "typesense/typesense-php": "^4.9"
   }
 }
