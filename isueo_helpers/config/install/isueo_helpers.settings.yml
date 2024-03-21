@@ -1,0 +1,5 @@
+typesense:
+  api_key: O1tfLS2ZsKlYlDpLq16ZYaiB2m2doa9o
+  host: typesense.exnet.iastate.edu
+  port: '8108'
+  protocol: https

@@ -12,14 +12,20 @@ class Typesense
   // Get the Client for our Typesense search server
   public static function getClient()
   {
+    $config = \Drupal::config('isueo_helpers.settings');
+    if ($config == null || empty($config->get('typesense.api_key'))) {
+      Drupal::logger('isueo_helpers')->alert('Please enter a Typesense API Key');
+    }
+
+    $number_of_blocks = $config->get('number_of_blocks');
     $client = new Client(
       [
-        'api_key' => 'O1tfLS2ZsKlYlDpLq16ZYaiB2m2doa9o',
+        'api_key' => $config->get('typesense.api_key'),
         'nodes' => [
           [
-            'host' => 'typesense.exnet.iastate.edu',
-            'port' => '8108',
-            'protocol' => 'https',
+            'host' => $config->get('typesense.host'),
+            'port' => $config->get('typesense.port'),
+            'protocol' => $config->get('typesense.protocol'),
           ],
         ],
         'client' => new HttplugClient(),
