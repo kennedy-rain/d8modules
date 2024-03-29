@@ -65,7 +65,7 @@ function educational_programs_page_node_presave(Drupal\Core\Entity\EntityInterfa
 					} else {
 						// Don't know why, but sometimes $menu_link_result doesn't contain our link so search for it here to delete the existing link
 						foreach ($main_menu_tree as $menu_item) {
-							foreach($menu_item->subtree as $child_link) {
+							foreach ($menu_item->subtree as $child_link) {
 								if ($child_term_name == $child_link->link->getTitle()) {
 									$child_link->link->deleteLink();
 								}
@@ -167,7 +167,7 @@ function educational_programs_page_check_published_nodes()
 	}
 
 	// Get all the published nodes
-  $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'educational_programs_page', 'status' => 1]);
+	$nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'educational_programs_page', 'status' => 1]);
 	foreach ($nodes as $node) {
 		$term_id = $node->get('field_educational_program')[0]->get('term_id')->getValue();
 		// Make sure the Taxonomy term exists
@@ -182,7 +182,6 @@ function educational_programs_page_check_published_nodes()
 			if ($node->getTitle() != $terms[$term_id]->getName()) {
 				$node->save();
 			}
-
 		} else {
 			// Shouldn't get here, but if the Taxonomy term doesn't exist, unpublish the node
 			$node->setUnpublished();
@@ -194,9 +193,10 @@ function educational_programs_page_check_published_nodes()
 /**
  * Implements hook_preprocess_HOOK()
  */
-function educational_programs_page_preprocess_node(&$variables) {
-    $variables['#attached']['library'][] = 'educational_programs_page/educational_programs_page';
-  }
+function educational_programs_page_preprocess_node(&$variables)
+{
+	$variables['#attached']['library'][] = 'educational_programs_page/educational_programs_page';
+}
 
 /* function educational_programs_page_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->bundle() == 'educational_programs_page') {
