@@ -1,0 +1,8 @@
+name: 'Basic TypeSense Fuctions'
+type: module
+core_version_requirement: ^10
+description: 'Beginning point for including TypeSense on a site'
+version: '8.x-1.0-dev'
+package: 'ISUEO'
+dependencies:
+  - d8modules:isueo_helpers
