@@ -11,7 +11,9 @@
 	--green: #008540;
   }
 
-/* Program Page Customization */
+/* ------------------------------------- */
+/* ## PROGRAM PAGES
+/* ------------------------------------- */
 .node--type-plp-program .layout-content, .node--type-plp-program .layout__region--content {
     max-width: 1140px;
     margin-left: auto;
@@ -114,27 +116,82 @@ a#plp-events {
     max-height: 248px;
     position: relative;
 }
-/*.program-hero-label-wrapper {
-    position: absolute;
-    top: 0;
-    background-color: var(--gold);
-    width: 60%;
-    height: 100%;
-    border-top: 3px solid var(--gold);
-    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
+
+/* Accordions */
+.accordion {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-block-end: 5em;
 }
-.program-hero-label h1.isu-page-title {
-    color: #fff;
-    text-align: center;
-    top: 50%;
-    position: relative;
-    transform: translateY(-50%);
-    overflow-wrap: break-word;
+.ui-accordion .ui-accordion-header {
+    color: var(--cardinal);
+    font-family: Nimbus Sans, sans-serif;
+    font-size: 1.3125rem;
+    font-weight: 700;
+    line-height: 1.42587;
+    padding: 1.5625rem 1.125rem;
+    border-bottom: 0.125rem solid #ebebeb;
 }
-.program-hero-label.container {
-    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
-    background-color: var(--cardinal);
-    width: 99%;
-    height: 100%;
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: none;
+    background: none;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+    background: none;
+    border: none;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: none;
+    background: none;
+    color: #212529;
+    border-bottom: 0 !important;
+}
+.ui-widget-content {
+    border: none;
+    background: none;
+    color: #212529;
+}
+.ui-accordion .ui-accordion-content {
+    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,border-radius 0.15s ease;
+    padding: 1em 2.2em 1.2em;
+    word-wrap: break-word;
+}
+.ui-icon:before {
+    transform: rotate(180deg);
+    left: 10px;
+    width: 20px;
+    background: var(--cardinal);
+    transition: all 600ms cubic-bezier(0.4,0,0.2,1);
+    content: '';
+    display: block;
+    height: 2px;
     position: absolute;
-}*/
+    will-change: transform;
+}
+.ui-icon:after {
+    transform: rotate(-90dog);
+    background: var(--cardinal);
+    content: '';
+    right: 0px;
+    width: 20px;
+    left: auto;
+    display: block;
+    height: 2px;
+    z-index: -1;
+    transition: all 600ms cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+}
+.ui-icon, .ui-widget-content .ui-icon, .ui-state-active .ui-icon, .ui-button:active .ui-icon {
+    background-image: none;
+    padding: 0 10px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    top: calc(50% - 1px);
+    box-sizing: border-box;
+    left: auto;
+    right: 11px;
+}
