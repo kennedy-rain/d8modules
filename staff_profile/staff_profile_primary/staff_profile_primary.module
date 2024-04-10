@@ -456,6 +456,7 @@ function _staff_profile_primary_get_position($profile, $jobtitle = '')
         || $jobtitle == 'County Services - Regional Dir'))
     || $jobtitle == 'Regional Director'
     || $jobtitle == 'Associate Director County Serv'
+    || $jobtitle == 'Field Operations Director'
     || strpos($jobtitle, 'Director of Field Operations') !== false
   ) {
     return 180;

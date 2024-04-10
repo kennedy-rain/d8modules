@@ -2,12 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_plp_program_smugmug
-    - node.type.plp_program
+    - field.storage.node.body
+    - field.storage.node.field_plp_child_website
+    - node.type.plp_child
   module:
+    - link
     - node
-    - slick_views
-    - staff_profile
+    - text
     - user
 id: program_pages
 label: 'Program Pages'
@@ -23,7 +24,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Program Image'
+      title: 'Child Pages'
       fields:
         title:
           id: title
@@ -36,7 +37,7 @@ display:
           entity_field: title
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -90,10 +91,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_plp_program_smugmug:
-          id: field_plp_program_smugmug
-          table: node__field_plp_program_smugmug
-          field: field_plp_program_smugmug
+        body:
+          id: body
+          table: node__body
+          field: body
           relationship: none
           group_type: group
           admin_label: ''
@@ -101,8 +102,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: true
-            text: "<div class=\"program-hero-wrapper program-hero-overlay\">\r\n<div class=\"program-hero-image\">{{ field_plp_program_smugmug }}</div>\r\n<div class=\"program-hero-label-wrapper\">\r\n<div class=\"program-hero-label container\">\r\n<h1 class=\"isu-page-title\"><span>{{ title }}</span></h1>\r\n</div>\r\n</div>"
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -132,15 +133,15 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: div
-          element_wrapper_class: program-hero-img
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: smugmug_id_formatter
+          type: text_default
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -152,11 +153,144 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_plp_child_website:
+          id: field_plp_child_website
+          table: node__field_plp_child_website
+          field: field_plp_child_website
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: uri
+          type: link
+          settings:
+            trim_length: 80
+            url_only: false
+            url_plain: false
+            rel: '0'
+            target: '0'
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
-        type: some
+        type: none
         options:
           offset: 0
-          items_per_page: 1
+          items_per_page: null
       exposed_form:
         type: basic
         options:
@@ -176,28 +310,27 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        created:
-          id: created
+        title:
+          id: title
           table: node_field_data
-          field: created
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: created
-          plugin_id: date
-          order: DESC
+          entity_field: title
+          plugin_id: standard
+          order: ASC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
-          granularity: second
       arguments:
         nid:
           id: nid
           table: node_field_data
           field: nid
-          relationship: none
+          relationship: reverse__node__field_plp_program_children
           group_type: group
           admin_label: ''
           entity_type: node
@@ -248,44 +381,13 @@ display:
           entity_field: type
           plugin_id: bundle
           value:
-            plp_program: plp_program
+            plp_child: plp_child
       style:
-        type: slick
+        type: default
         options:
-          caption:
-            title: '0'
-          optionset: hero_image
-          class: ''
-          image: ''
-          link: ''
-          overlay: ''
-          title: ''
-          vanilla: true
-          layout: ''
-          cache: 0
-          grid: ''
-          grid_medium: ''
-          grid_small: ''
-          style: ''
-          skin: fullwidth
-          overridables:
-            arrows: '0'
-            autoplay: '0'
-            dots: '0'
-            draggable: '0'
-            infinite: '0'
-            mouseWheel: '0'
-            randomize: '0'
-            variableWidth: '0'
-          thumbnail: ''
-          optionset_thumbnail: ''
-          skin_thumbnail: ''
-          thumbnail_caption: ''
-          thumbnail_effect: ''
-          thumbnail_position: ''
-          override: false
-          preserve_keys: false
-          visible_items: null
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
       row:
         type: fields
       query:
@@ -296,7 +398,26 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        field_plp_program_children:
+          id: field_plp_program_children
+          table: node__field_plp_program_children
+          field: field_plp_program_children
+          relationship: none
+          group_type: group
+          admin_label: 'field_plp_program_children: Content'
+          plugin_id: standard
+          required: false
+        reverse__node__field_plp_program_children:
+          id: reverse__node__field_plp_program_children
+          table: node_field_data
+          field: reverse__node__field_plp_program_children
+          relationship: none
+          group_type: group
+          admin_label: field_plp_program_children
+          entity_type: node
+          plugin_id: entity_reverse
+          required: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -309,16 +430,17 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_plp_program_smugmug'
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_plp_child_website'
   block_1:
     id: block_1
-    display_title: 'Program Image'
+    display_title: 'Child Accordion Block'
     display_plugin: block
     position: 1
     display_options:
       display_description: ''
       display_extenders: {  }
-      block_description: 'Program Hero Image'
+      block_description: 'Child Pages'
     cache_metadata:
       max-age: -1
       contexts:
@@ -328,4 +450,5 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_plp_program_smugmug'
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_plp_child_website'
