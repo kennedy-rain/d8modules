@@ -1,0 +1,145 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_plp_program_category
+    - field.storage.node.field_plp_program_search_terms
+    - field.storage.node.field_plp_program_smugmug
+    - field.storage.node.field_plp_program_sort_calc
+    - field.storage.node.field_plp_program_topics
+    - search_api.server.typesense
+  module:
+    - search_api_typesense
+    - node
+    - search_api
+id: plp_programs
+name: 'PLP Programs'
+description: ''
+read_only: true
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: typesense_string
+    dependencies:
+      config:
+        - field.storage.node.body
+  field_plp_program_category:
+    label: 'Program Category'
+    datasource_id: 'entity:node'
+    property_path: field_plp_program_category
+    type: typesense_int32
+    dependencies:
+      config:
+        - field.storage.node.field_plp_program_category
+  field_plp_program_search_terms:
+    label: 'Program Search Terms'
+    datasource_id: 'entity:node'
+    property_path: field_plp_program_search_terms
+    type: typesense_string
+    dependencies:
+      config:
+        - field.storage.node.field_plp_program_search_terms
+  field_plp_program_smugmug:
+    label: 'SmugMug ID'
+    datasource_id: 'entity:node'
+    property_path: field_plp_program_smugmug
+    type: typesense_string
+    dependencies:
+      config:
+        - field.storage.node.field_plp_program_smugmug
+  field_plp_program_sort_calc:
+    label: 'Programs - Calcuated Sort Order'
+    datasource_id: 'entity:node'
+    property_path: field_plp_program_sort_calc
+    type: typesense_int32
+    dependencies:
+      config:
+        - field.storage.node.field_plp_program_sort_calc
+  field_plp_program_topics:
+    label: 'Program Topics'
+    datasource_id: 'entity:node'
+    property_path: field_plp_program_topics
+    type: 'typesense_int32[]'
+    dependencies:
+      config:
+        - field.storage.node.field_plp_program_topics
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: typesense_string
+    dependencies:
+      module:
+        - node
+  url:
+    label: URI
+    property_path: search_api_url
+    type: typesense_string
+    configuration:
+      absolute: true
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - plp_program
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  custom_value: {  }
+  entity_type: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+  typesense_schema:
+    schema:
+      name: plp_programs
+      default_sorting_field: field_plp_program_sort_calc
+      fields:
+        body:
+          facet: 0
+          optional: 0
+          type: string
+        field_plp_program_category:
+          facet: 1
+          optional: 0
+          type: int32
+        field_plp_program_search_terms:
+          facet: 0
+          optional: 0
+          type: string
+        field_plp_program_smugmug:
+          facet: 0
+          optional: 0
+          type: string
+        field_plp_program_sort_calc:
+          facet: 0
+          optional: 0
+          type: int32
+        field_plp_program_topics:
+          facet: 1
+          optional: 0
+          type: 'int32[]'
+        title:
+          facet: 0
+          optional: 0
+          type: string
+        url:
+          facet: 0
+          optional: 0
+          type: string
+    fields: {  }
+    all_fields: false
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 500
+  index_directly: true
+  track_changes_in_references: true
+server: typesense
