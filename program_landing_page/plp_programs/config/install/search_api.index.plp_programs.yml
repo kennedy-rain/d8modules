@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.body
     - field.storage.node.field_plp_program_category
+    - field.storage.node.field_plp_program_num_events
     - field.storage.node.field_plp_program_search_terms
     - field.storage.node.field_plp_program_smugmug
     - field.storage.node.field_plp_program_sort_calc
@@ -34,6 +35,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_plp_program_category
+  field_plp_program_num_events:
+    label: 'Number of Events'
+    datasource_id: 'entity:node'
+    property_path: field_plp_program_num_events
+    type: typesense_int32
+    dependencies:
+      config:
+        - field.storage.node.field_plp_program_num_events
   field_plp_program_search_terms:
     label: 'Program Search Terms'
     datasource_id: 'entity:node'
@@ -109,6 +118,10 @@ processor_settings:
           facet: 1
           optional: 0
           type: int32
+        field_plp_program_num_events:
+          facet: 0
+          optional: 0
+          type: int32
         field_plp_program_search_terms:
           facet: 0
           optional: 0
@@ -140,6 +153,6 @@ tracker_settings:
     indexing_order: fifo
 options:
   cron_limit: 500
-  index_directly: true
+  index_directly: false
   track_changes_in_references: true
 server: typesense
