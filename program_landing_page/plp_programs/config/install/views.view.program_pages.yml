@@ -10,6 +10,7 @@ dependencies:
     - node
     - text
     - user
+    - views_accordion
 id: program_pages
 label: 'Program Pages'
 module: views
@@ -162,7 +163,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -231,7 +232,7 @@ display:
           entity_field: nid
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -383,11 +384,21 @@ display:
           value:
             plp_child: plp_child
       style:
-        type: default
+        type: views_accordion
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
+          disableifone: 0
+          row-start-open: none
+          collapsible: 1
+          animated: none
+          animation_time: '300'
+          heightStyle: auto
+          event: click
+          use_header_icons: 1
+          icon_header: ui-icon-triangle-1-e
+          icon_active_header: ui-icon-triangle-1-s
       row:
         type: fields
       query:
@@ -418,6 +429,7 @@ display:
           entity_type: node
           plugin_id: entity_reverse
           required: false
+      css_class: accordion
       header: {  }
       footer: {  }
       display_extenders: {  }
