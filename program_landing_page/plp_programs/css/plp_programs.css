@@ -11,7 +11,9 @@
 	--green: #008540;
   }
 
-/* Program Page Customization */
+/* ------------------------------------- */
+/* ## PROGRAM PAGES
+/* ------------------------------------- */
 .node--type-plp-program .layout-content, .node--type-plp-program .layout__region--content {
     max-width: 1140px;
     margin-left: auto;
@@ -68,37 +70,128 @@ a#plp-events {
 }
 
 /* Hero Image & Title */
-.program-hero-image img.staff_profile_smugmug {
+.program-hero-overlay:before {
+    position: absolute;
+    content: "";
+    background-color: var(--cardinal);
+    border-top: 5px solid var(--gold);
+    clip-path: polygon(0 0, 85% 0, 99% 100%, 0% 100%);
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+}
+.program-hero-overlay {
+    position: absolute;
+    background-color: var(--gold);
+    width: 60%;
+    height: 100%;
+    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
+    z-index: 1;
+}
+.program-hero-image img {
     width: 100%;
     max-height: 248px;
     float: none;
     margin: 0;
     max-width: 2600px;
-    position: relative;
-    border-top: 3px solid var(--gold);
+    position: absolute;
+    border-top: 5px solid var(--gold);
     object-fit: cover;
 }
 .program-hero-label-wrapper {
-    position: absolute;
-    top: 0;
-    background-color: var(--gold);
-    width: 60%;
-    height: 100%;
-    border-top: 3px solid var(--gold);
-    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1140px;
+    position: relative;
+    z-index: 2;
 }
 .program-hero-label h1.isu-page-title {
     color: #fff;
-    text-align: center;
-    top: 50%;
-    position: relative;
-    transform: translateY(-50%);
-    overflow-wrap: break-word;
 }
-.program-hero-label.container {
-    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
-    background-color: var(--cardinal);
-    width: 99%;
+.program-hero-wrapper {
     height: 100%;
+    max-height: 248px;
+    position: relative;
+}
+
+/* Accordions */
+.accordion {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-block-end: 5em;
+}
+.ui-accordion .ui-accordion-header {
+    color: var(--cardinal);
+    font-family: Nimbus Sans, sans-serif;
+    font-size: 1.3125rem;
+    font-weight: 700;
+    line-height: 1.42587;
+    padding: 1.5625rem 1.125rem;
+    border-bottom: 0.125rem solid #ebebeb;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: none;
+    background: none;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+    background: none;
+    border: none;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: none;
+    background: none;
+    color: #212529;
+    border-bottom: 0 !important;
+}
+.ui-widget-content {
+    border: none;
+    background: none;
+    color: #212529;
+}
+.ui-accordion .ui-accordion-content {
+    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,border-radius 0.15s ease;
+    padding: 1em 2.2em 1.2em;
+    word-wrap: break-word;
+}
+.ui-icon:before {
+    transform: rotate(180deg);
+    left: 10px;
+    width: 20px;
+    background: var(--cardinal);
+    transition: all 600ms cubic-bezier(0.4,0,0.2,1);
+    content: '';
+    display: block;
+    height: 2px;
     position: absolute;
+    will-change: transform;
+}
+.ui-icon:after {
+    transform: rotate(-90dog);
+    background: var(--cardinal);
+    content: '';
+    right: 0px;
+    width: 20px;
+    left: auto;
+    display: block;
+    height: 2px;
+    z-index: -1;
+    transition: all 600ms cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+}
+.ui-icon, .ui-widget-content .ui-icon, .ui-state-active .ui-icon, .ui-button:active .ui-icon {
+    background-image: none;
+    padding: 0 10px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    top: calc(50% - 1px);
+    box-sizing: border-box;
+    left: auto;
+    right: 11px;
 }
