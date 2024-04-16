@@ -28,7 +28,6 @@ class PLPProgramsSearch extends BlockBase
     //\Drupal::service('page_cache_kill_switch')->trigger();
 
     $results = '
-    <p>I am here</p>
     <div class="container">
         <div class="search-panel">
             <div class="search-panel__results">
