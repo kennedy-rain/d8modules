@@ -4,3 +4,7 @@ plp_programs:
   css:
     theme:
       css/plp_programs.css: {}
+
+plp_programs_search:
+  js:
+    js/search.js: {}
