@@ -123,7 +123,7 @@ a#plp-events {
     max-width: 1140px;
     margin-left: auto;
     margin-right: auto;
-}    
+}
 .accordion {
     margin-block-end: 5em;
 }
@@ -136,21 +136,21 @@ a#plp-events {
     padding: 1.5625rem 1.125rem;
     border-bottom: 0.125rem solid #ebebeb;
 }
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+.accordion .ui-state-default, .accordion .ui-widget-content .ui-state-default, .accordion .ui-widget-header .ui-state-default, .accordion .ui-button, html .accordion .ui-button.ui-state-disabled:hover, html .accordion .ui-button.ui-state-disabled:active {
     border: none;
     background: none;
 }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+.accordion .ui-state-hover, .accordion .ui-widget-content .ui-state-hover, .accordion .ui-widget-header .ui-state-hover, .accordion .ui-state-focus, .accordion .ui-widget-content .ui-state-focus, .accordion .ui-widget-header .ui-state-focus, .accordion .ui-button:hover, .accordion .ui-button:focus {
     background: none;
     border: none;
 }
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+.accordion .ui-state-active, .accordion .ui-widget-content .ui-state-active, .accordion .ui-widget-header .ui-state-active, .accordion a.ui-button:active, .accordion .ui-button:active, .accordion .ui-button.ui-state-active:hover {
     border: none;
     background: none;
-    color: #212529;
+    color: var(--cardinal);
     border-bottom: 0 !important;
 }
-.ui-widget-content {
+.accordion .ui-widget-content {
     border: none;
     background: none;
     color: #212529;
@@ -160,7 +160,10 @@ a#plp-events {
     padding: 1em 2.2em 1.2em;
     word-wrap: break-word;
 }
-.ui-icon:before {
+.accordion .ui-icon {
+    overflow: visible;
+}
+.accordion .ui-icon:before {
     transform: rotate(180deg);
     left: 10px;
     width: 20px;
@@ -172,8 +175,11 @@ a#plp-events {
     position: absolute;
     will-change: transform;
 }
-.ui-icon:after {
-    transform: rotate(-90dog);
+.accordion .ui-state-active .ui-icon:before {
+    transform: rotate(180deg);
+}
+.accordion .ui-icon:after {
+    transform: rotate(-90deg);
     background: var(--cardinal);
     content: '';
     right: 0px;
@@ -185,7 +191,10 @@ a#plp-events {
     transition: all 600ms cubic-bezier(0.4,0,0.2,1);
     will-change: transform;
 }
-.ui-icon, .ui-widget-content .ui-icon, .ui-state-active .ui-icon, .ui-button:active .ui-icon {
+.accordion .ui-state-active .ui-icon:after {
+    transform: rotate(180deg);
+}
+.accordion .ui-icon, .accordion .ui-widget-content .ui-icon, .accordion .ui-state-active .ui-icon, .accordion .ui-button:active .ui-icon, .accordion .ui-state-hover .ui-icon, .accordion .ui-state-focus .ui-icon, .accordion .ui-button:hover .ui-icon, .accordion .ui-button:focus .ui-icon {
     background-image: none;
     padding: 0 10px;
     width: 30px;
