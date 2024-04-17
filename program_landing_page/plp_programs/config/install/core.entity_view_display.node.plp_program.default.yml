@@ -146,6 +146,62 @@ third_party_settings:
             additional: {  }
         third_party_settings: {  }
       -
+        layout_id: layout_base_threecol
+        layout_settings:
+          label: '3 Column Layout'
+          classes: ''
+          column_widths: null
+          id: ''
+          column_gap: layout--column-gap--default
+          row_gap: layout--row-gap--none
+          column_width: layout--column-width--default
+          column_breakpoint: layout--column-breakpoint--medium
+          align_items: layout--align-items--normal
+          background: layout--background--none
+          background_image: ''
+          background_image_style: ''
+          background_attachment: layout--background-attachment--default
+          background_position: layout--background-position--center
+          background_size: layout--background-size--cover
+          background_overlay: layout--background-overlay--none
+          equal_top_bottom_margins: ''
+          equal_left_right_margins: ''
+          top_margin: ''
+          right_margin: ''
+          bottom_margin: ''
+          left_margin: ''
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
+          equal_left_right_paddings: layout--left-right-padding--small
+          top_padding: ''
+          right_padding: ''
+          bottom_padding: ''
+          left_padding: ''
+          container: layout--container--none
+          content_container: layout--content-container--default
+          height: layout--height--default
+          color: layout--color--default
+          alignment: ''
+          modifier: ''
+          customizable_columns: ''
+          modifiers: ''
+        components:
+          3c7a3e84-4b42-4bbf-934a-e2743f916839:
+            uuid: 3c7a3e84-4b42-4bbf-934a-e2743f916839
+            region: first
+            configuration:
+              id: 'views_block:program_pages-block_2'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional:
+              layout_builder_styles_style:
+                vertical_alignment: 0
+        third_party_settings: {  }
+      -
         layout_id: layout_base_onecol
         layout_settings:
           label: '1 Column Layout'
