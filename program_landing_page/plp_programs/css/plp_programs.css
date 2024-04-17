@@ -118,6 +118,21 @@ a#plp-events {
     position: relative;
 }
 
+/* Program Blocks */
+.plp-program-contact-blocks .isueo-box-shadow {
+    padding: 1rem;
+}
+.plp-program-contact-blocks a {
+    text-decoration: none;
+    color: var(--midnight);
+}
+.plp-program-contact-blocks p {
+    margin-bottom: 0;
+}
+.plp-program-contact-blocks svg {
+    padding-bottom: 11px;
+}
+
 /* Accordions */
 .views-element-container {
     max-width: 1140px;
