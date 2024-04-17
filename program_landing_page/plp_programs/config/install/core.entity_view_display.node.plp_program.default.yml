@@ -146,9 +146,9 @@ third_party_settings:
             additional: {  }
         third_party_settings: {  }
       -
-        layout_id: layout_base_threecol
+        layout_id: layout_base_twocol
         layout_settings:
-          label: '3 Column Layout'
+          label: '2 Column Layout'
           classes: ''
           column_widths: null
           id: ''
@@ -190,6 +190,21 @@ third_party_settings:
             region: first
             configuration:
               id: 'views_block:program_pages-block_2'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional:
+              layout_builder_styles_style:
+                vertical_alignment: 0
+          3e0cc62d-7250-4a0b-94c4-ec9277d68eac:
+            uuid: 3e0cc62d-7250-4a0b-94c4-ec9277d68eac
+            region: second
+            configuration:
+              id: 'views_block:program_pages-block_3'
               label: ''
               label_display: '0'
               provider: views
