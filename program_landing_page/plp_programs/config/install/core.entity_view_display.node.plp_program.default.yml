@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_website
     - field.field.node.plp_program.layout_builder__layout
     - node.type.plp_program
+    - views.view.program_pages
   module:
     - layout_builder
     - layout_builder_base_library
@@ -33,6 +34,7 @@ dependencies:
     - program_offering_blocks
     - text
     - user
+    - views
 third_party_settings:
   layout_builder:
     enabled: true
@@ -143,6 +145,64 @@ third_party_settings:
             weight: 1
             additional: {  }
         third_party_settings: {  }
+      -
+        layout_id: layout_base_onecol
+        layout_settings:
+          label: '1 Column Layout'
+          classes: ''
+          column_widths: null
+          id: ''
+          column_gap: ''
+          row_gap: ''
+          column_width: ''
+          column_breakpoint: ''
+          align_items: ''
+          background: layout--background--none
+          background_image: ''
+          background_image_style: ''
+          background_attachment: layout--background-attachment--default
+          background_position: layout--background-position--center
+          background_size: layout--background-size--cover
+          background_overlay: layout--background-overlay--none
+          equal_top_bottom_margins: ''
+          equal_left_right_margins: ''
+          top_margin: ''
+          right_margin: ''
+          bottom_margin: ''
+          left_margin: ''
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
+          equal_left_right_paddings: layout--left-right-padding--small
+          top_padding: ''
+          right_padding: ''
+          bottom_padding: ''
+          left_padding: ''
+          container: layout--container--none
+          content_container: layout--content-container--default
+          height: layout--height--default
+          color: layout--color--default
+          alignment: ''
+          modifier: ''
+          customizable_columns: ''
+          modifiers: ''
+        components:
+          d5c40ca4-2758-42b6-98bb-0ea204b4e7b1:
+            uuid: d5c40ca4-2758-42b6-98bb-0ea204b4e7b1
+            region: content
+            configuration:
+              id: 'views_block:program_pages-block_1'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional:
+              layout_builder_styles_style:
+                vertical_alignment: 0
+        third_party_settings: {  }
+_core:
+  default_config_hash: oU36RIhpWHJIjvoTVvh3rbQ5q4qXZclzxmwtuWjduoM
 id: node.plp_program.default
 targetEntityType: node
 bundle: plp_program
