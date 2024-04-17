@@ -25,7 +25,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Child Pages'
+      title: 'Educational Programs'
       fields:
         title:
           id: title
@@ -397,8 +397,8 @@ display:
           heightStyle: auto
           event: click
           use_header_icons: 1
-          icon_header: ui-icon-triangle-1-e
-          icon_active_header: ui-icon-triangle-1-s
+          icon_header: ui-icon-plus
+          icon_active_header: ui-icon-minus
       row:
         type: fields
       query:
@@ -453,6 +453,7 @@ display:
       display_description: ''
       display_extenders: {  }
       block_description: 'Child Pages'
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
