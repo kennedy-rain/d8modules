@@ -126,6 +126,10 @@ a#plp-events {
     text-decoration: none;
     color: var(--midnight);
 }
+.plp-program-contact-blocks a:hover {
+    text-decoration: none;
+    outline: var(--gold) auto 3px;
+}
 .plp-program-contact-blocks p {
     margin-bottom: 0;
 }
