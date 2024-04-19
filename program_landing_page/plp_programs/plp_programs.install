@@ -13,7 +13,6 @@ function plp_programs_install()
     'program_areas' => 'Program Areas',
     'critical_issues' => 'Critical Issues',
     'interest_areas' => 'Interest Areas',
-    'categories_topics' => 'Categories/Topics',
   ];
 
   // Make sure Vocabulary exits
