@@ -16,6 +16,9 @@ dependencies:
     - taxonomy
     - node
     - search_api
+  enforced:
+    config:
+      - node.type.plp_program
 id: plp_programs
 name: 'PLP Programs'
 description: ''

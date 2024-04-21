@@ -10,6 +10,9 @@ dependencies:
     - taxonomy
     - text
     - user
+  enforced:
+    config:
+      - node.type.plp_program
 id: category_cards
 label: 'Category Cards'
 module: views

@@ -43,3 +43,28 @@ function plp_programs_install()
     $config->save();
   }
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+
+function plp_programs_uninstall()
+{
+
+  // Remove content from the content types created by this module
+  foreach (['plp_child', 'plp_program'] as $type) {
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadByProperties(["type" => $type]);
+    $storage_handler->delete($entities);
+  }
+
+  // Remove the taxonomy this module created
+  /*
+  foreach (['intended_audiences', 'critical_issues', 'interest_areas'] as $type) {
+    $taxonomy = Vocabulary::load($type);
+    if ($taxonomy) {
+      $taxonomy->delete();
+    }
+  }
+  */
+}
