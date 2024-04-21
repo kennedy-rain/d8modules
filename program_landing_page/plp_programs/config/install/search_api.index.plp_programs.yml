@@ -10,7 +10,7 @@ dependencies:
     - field.storage.node.field_plp_program_smugmug
     - field.storage.node.field_plp_program_sort_calc
     - field.storage.node.field_plp_program_topics
-    - search_api.server.typesense
+    - search_api.server.typesense_plp_programs
   module:
     - search_api_typesense
     - taxonomy
@@ -229,4 +229,4 @@ options:
   cron_limit: 500
   index_directly: false
   track_changes_in_references: true
-server: typesense
+server: typesense_plp_programs
