@@ -38,7 +38,12 @@ function plp_programs_install()
           "plp_child" => "plp_child",
           "staff_profile" => "staff_profile"
         ]
-      ]
+      ],
+      "request_path" => [
+        "id" => "request_path",
+        "negate" => true,
+        "pages" => "<front>",
+      ],
     ]);
     $config->save();
   }
