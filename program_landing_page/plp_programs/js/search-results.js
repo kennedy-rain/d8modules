@@ -28,11 +28,17 @@ const searchResults = instantsearch({
   routing: true,
 });
 
+searchBoxID = "#search-results-bar";
+if (document.getElementById('search-bar')) {
+  searchBoxID = "#search-bar";
+}
+
 searchResults.addWidgets([
   instantsearch.widgets.searchBox({
-    container: "#search-results-bar",
+    container: searchBoxID,
     autofocus: true,
     searchAsYouType: false,
+    placeholder: "search",
   }),
   instantsearch.widgets.configure({
     hitsPerPage: 120,
