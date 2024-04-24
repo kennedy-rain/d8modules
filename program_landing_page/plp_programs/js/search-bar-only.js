@@ -24,7 +24,6 @@ const searchClientBar = typesenseInstantsearchAdapterBar.searchClient;
 const searchBar = instantsearch({
   searchClient: searchClientBar,
   indexName: "plp_programs",
-  placeholder: "Search Programs",
   routing: true,
 });
 
@@ -33,6 +32,7 @@ searchBar.addWidgets([
     container: "#search-bar-only",
     autofocus: true,
     searchAsYouType: false,
+    placeholder: "Search Programs",
     queryHook(query, search) {
       newurl = 'search-results-0?plp_programs[query]=' + query;
       window.location.href = newurl;

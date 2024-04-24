@@ -38,7 +38,7 @@ searchResults.addWidgets([
     container: searchBoxID,
     autofocus: true,
     searchAsYouType: false,
-    placeholder: "search",
+    placeholder: "Search Programs",
   }),
   instantsearch.widgets.configure({
     hitsPerPage: 120,
