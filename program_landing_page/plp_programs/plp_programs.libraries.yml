@@ -5,6 +5,9 @@ plp_programs:
     theme:
       css/plp_programs.css: {}
 
-plp_programs_search:
+plp_programs_search_results:
   js:
-    js/search.js: {}
+    js/search-results.js: {}
+  css:
+    theme:
+      css/search-results.css: {}
