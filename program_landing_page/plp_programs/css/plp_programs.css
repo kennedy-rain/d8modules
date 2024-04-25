@@ -110,7 +110,7 @@ a#plp-events {
 }
 .program-hero-label h1.isu-page-title {
     color: #fff;
-    font-size: clamp(1.2rem, 4.375vw - 1rem, 3.375rem);
+    font-size: clamp(1.2rem, 3.375vw - 1rem, 3.375rem);
 }
 .program-hero-wrapper {
     height: 100%;
@@ -173,6 +173,12 @@ a#plp-events {
     border: none;
     background: none;
     color: #212529;
+}
+.accordion .ui-widget-content .views-field-field-plp-child-website a {
+    color: var(--burgundy);
+}
+.accordion .ui-widget-content .views-field-field-plp-child-website a:hover {
+    color: var(--cardinal);
 }
 .ui-accordion .ui-accordion-content {
     transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,border-radius 0.15s ease;

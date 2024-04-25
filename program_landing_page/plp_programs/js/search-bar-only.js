@@ -15,7 +15,7 @@ const typesenseInstantsearchAdapterBar = new TypesenseInstantSearchAdapter({
   //  filterBy is managed and overridden by InstantSearch.js. To set it, you want to use one of the filter widgets like refinementList or use the `configure` widget.
   additionalSearchParameters: {
     queryBy:
-      "title,body,field_plp_program_search_terms,children_title,children_body",
+      "title,body,field_plp_program_search_terms,children_title,children_body,summary",
   },
 });
 
@@ -31,6 +31,7 @@ searchBar.addWidgets([
   instantsearch.widgets.searchBox({
     container: "#search-bar-only",
     autofocus: true,
+    showReset: false,
     searchAsYouType: false,
     placeholder: "Search Programs",
     queryHook(query, search) {
