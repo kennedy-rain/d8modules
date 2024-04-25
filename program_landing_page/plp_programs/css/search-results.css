@@ -23,6 +23,7 @@
 }
 .search-results h2.card-title a {
     color: var(--cardinal);
+    font-size: clamp(1.3rem, 2vw, 1.5rem);
 }
 .search-results h2.card-title a:hover {
     color: var(--burgundy);
@@ -30,6 +31,7 @@
 }
 .search-results .card-title {
     margin-bottom: 0;
+    line-height: 1;
 }
 .search-results h2 {
     padding-bottom: 0.5rem;
