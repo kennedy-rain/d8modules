@@ -475,16 +475,14 @@ display:
             default_group_multiple: {  }
             group_items: {  }
       style:
-        type: grid
+        type: html_list
         options:
-          uses_fields: false
-          columns: 3
-          automatic_width: true
-          alignment: horizontal
-          row_class_custom: ''
-          row_class_default: true
-          col_class_custom: ''
-          col_class_default: true
+          grouping: {  }
+          row_class: 'col-md-6 col-lg-4 mb-3'
+          default_row_class: true
+          type: ul
+          wrapper_class: item-list
+          class: 'list-unstyled row'
       row:
         type: fields
         options:
