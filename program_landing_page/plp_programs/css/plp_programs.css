@@ -232,3 +232,11 @@ a#plp-events {
     left: auto;
     right: 11px;
 }
+
+/* Related Programs */
+.plp-related-title {
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    font-family: Merriweather, serif;
+    line-height: 1.4;
+    font-weight: 700;
+}
