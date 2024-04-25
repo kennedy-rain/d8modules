@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\plp_programs\Plugin\Block;
+
 use Drupal\Core\Field\FieldFilteredMarkup;
 
 use Drupal\Core\Block\BlockBase;
@@ -28,18 +29,19 @@ class PLPProgramsSearchResults extends BlockBase
     //\Drupal::service('page_cache_kill_switch')->trigger();
 
     $results = '
-        <div class="container">
+        <div class="row">
           <div class="search-results">
             <div class="search-results-facets">
-              <strong>Categories</strong>
-              <div id="category_name"></div>
-              <strong>Topics</strong>
-              <div id="topic_names"></div>
-              <strong>Program Area</strong>
+              <h3>Program Area</h3>
               <div id="program_area"></div>
+              <h3>Categories</h3>
+              <div id="category_name"></div>
+              <h3>Topics</h3>
+              <div id="topic_names"></div>
             </div>
             <div class="search-results-snipets">
               <div id="search-results-bar"></div>
+              <div class="isueo-searchall"><a href="https://www.extension.iastate.edu/search-results?search_broadness=wide">Search all of Extension</a></div>
               <div id="stats"></div>
               <div id="hits"></div>
             </div>
@@ -54,7 +56,7 @@ class PLPProgramsSearchResults extends BlockBase
 
     //Add allowed tags for svg map
     $tags = FieldFilteredMarkup::allowedTags();
-    array_push($tags, 'script', 'div', 'img', 'src', );
+    array_push($tags, 'script', 'div', 'img', 'src', 'h3',);
 
     $block = [];
     $block['#allowed_tags'] = $tags;

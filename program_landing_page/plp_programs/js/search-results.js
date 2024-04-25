@@ -15,7 +15,7 @@ const typesenseInstantsearchAdapterResults = new TypesenseInstantSearchAdapter({
   //  filterBy is managed and overridden by InstantSearch.js. To set it, you want to use one of the filter widgets like refinementList or use the `configure` widget.
   additionalSearchParameters: {
     queryBy:
-      "title,body,field_plp_program_search_terms,children_title,children_body",
+      "title,body,field_plp_program_search_terms,children_title,children_body,summary",
   },
 });
 
@@ -37,8 +37,9 @@ searchResults.addWidgets([
   instantsearch.widgets.searchBox({
     container: searchBoxID,
     autofocus: true,
+    showReset: false,
     searchAsYouType: false,
-    placeholder: "search",
+    placeholder: "Search Programs",
   }),
   instantsearch.widgets.configure({
     hitsPerPage: 120,
@@ -57,17 +58,41 @@ searchResults.addWidgets([
             '-XL.jpg" alt="" />';
         }
         return `
-          <div>
-            <div class="hit-name"><a href="${item.url}">${item.title}</a></div>
-            ${imagelink}
-            <div class="hit-summary">${item.summary}</div>
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                ${imagelink}
+              </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h2 class="hit-name card-title"><a href="${item.url}"> ${item._highlightResult.title.value}</a></h2>
+                <div class="hit-summary">${item._highlightResult.summary.value}</div>
+              </div>
+            </div>
+            </div>
           </div>
         `;
       },
     },
+    cssClasses:{
+      loadMore: [
+        "btn-outline-danger",
+        "btn",
+      ],
+    },
   }),
+
   instantsearch.widgets.stats({
     container: "#stats",
+    templates: {
+      text(data) {
+        return `
+        <div class="search-stats-number">
+        ${data.nbHits} result(s) found
+        </div>
+        `;
+    },
+  },
   }),
 ]);
 
@@ -75,6 +100,16 @@ searchResults.addWidgets([
   instantsearch.widgets.refinementList({
     container: "#category_name",
     attribute: "category_name",
+    templates: {
+      item(item) {
+        const { url, label, count, isRefined } = item;
+      return `
+        <a href="${url}">
+          <span class="btn btn-outline-primary">${label} (${count})</span>
+        </a>
+      `;
+      },
+    },
   }),
 ]);
 
@@ -82,6 +117,16 @@ searchResults.addWidgets([
   instantsearch.widgets.refinementList({
     container: "#topic_names",
     attribute: "topic_names",
+    templates: {
+      item(item) {
+        const { url, label, count, isRefined } = item;
+      return `
+        <a href="${url}">
+          <span class="btn btn-outline-primary">${label} (${count})</span>
+        </a>
+      `;
+      },
+    },
   }),
 ]);
 
@@ -89,6 +134,16 @@ searchResults.addWidgets([
   instantsearch.widgets.refinementList({
     container: "#program_area",
     attribute: "program_area",
+    templates: {
+      item(item) {
+        const { url, label, count, isRefined } = item;
+      return `
+        <a href="${url}">
+          <span class="btn btn-outline-primary">${label} (${count})</span>
+        </a>
+      `;
+      },
+    },
   }),
 ]);
 
