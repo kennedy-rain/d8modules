@@ -272,8 +272,62 @@ third_party_settings:
               layout_builder_styles_style:
                 vertical_alignment: 0
         third_party_settings: {  }
-_core:
-  default_config_hash: oU36RIhpWHJIjvoTVvh3rbQ5q4qXZclzxmwtuWjduoM
+      -
+        layout_id: layout_base_onecol
+        layout_settings:
+          label: '1 Column Layout'
+          classes: ''
+          column_widths: null
+          id: ''
+          column_gap: ''
+          row_gap: ''
+          column_width: ''
+          column_breakpoint: ''
+          align_items: ''
+          background: layout--background--none
+          background_image: ''
+          background_image_style: ''
+          background_attachment: layout--background-attachment--default
+          background_position: layout--background-position--center
+          background_size: layout--background-size--cover
+          background_overlay: layout--background-overlay--none
+          equal_top_bottom_margins: ''
+          equal_left_right_margins: ''
+          top_margin: ''
+          right_margin: ''
+          bottom_margin: ''
+          left_margin: ''
+          equal_top_bottom_paddings: layout--top-bottom-padding--small
+          equal_left_right_paddings: layout--left-right-padding--small
+          top_padding: ''
+          right_padding: ''
+          bottom_padding: ''
+          left_padding: ''
+          container: layout--container--none
+          content_container: layout--content-container--default
+          height: layout--height--default
+          color: layout--color--default
+          alignment: ''
+          modifier: ''
+          customizable_columns: ''
+          modifiers: ''
+        components:
+          0ba1bfa8-b95d-4293-83a2-d2b1b8662144:
+            uuid: 0ba1bfa8-b95d-4293-83a2-d2b1b8662144
+            region: content
+            configuration:
+              id: 'views_block:program_pages-block_4'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional:
+              layout_builder_styles_style:
+                vertical_alignment: 0
+        third_party_settings: {  }
 id: node.plp_program.default
 targetEntityType: node
 bundle: plp_program
