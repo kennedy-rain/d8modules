@@ -144,7 +144,7 @@ a#plp-events {
     margin-right: auto;
 }
 .accordion {
-    margin-block-end: 5em;
+    margin-block-end: 2em;
 }
 .ui-accordion .ui-accordion-header {
     color: var(--cardinal);
@@ -235,8 +235,33 @@ a#plp-events {
 
 /* Related Programs */
 .plp-related-title {
-    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
     font-family: Merriweather, serif;
     line-height: 1.4;
     font-weight: 700;
+}
+.card.plp-related {
+    padding-top: 2rem;
+}
+.plp-related-icon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.plp-related-programs ul.row {
+    row-gap: 3rem;
+}
+.plp-related-programs .card a {
+    text-decoration: underline;
+}
+.plp-related-programs .col-md-6.col-lg-4 .card {
+    align-items: stretch;
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+}
+.plp-related-programs {
+    margin-top: 7%;
+    margin-block-end: 13%;
 }
