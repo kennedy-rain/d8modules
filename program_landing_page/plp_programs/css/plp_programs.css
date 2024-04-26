@@ -107,6 +107,10 @@ a#plp-events {
     max-width: 1140px;
     position: relative;
     z-index: 2;
+    height: 100%;
+}
+.program-hero-label.container {
+display: grid;
 }
 .program-hero-label h1.isu-page-title {
     color: #fff;
