@@ -28,7 +28,7 @@
 }
 #plp-events li.event {
     box-shadow: 0.5625rem 0.5625rem 1.25rem rgb(0 0 0 / 20%);
-    padding: .5em;
+    padding: .5em;	
 }
 #plp-events div.event_date {
     border-right: none;
@@ -126,6 +126,7 @@ margin: 0.625rem 0 0.625rem;
 /* Program Blocks */
 .plp-program-contact-blocks .isueo-box-shadow {
     padding: 1rem;
+background-color: #fff;
 }
 .plp-program-contact-blocks a {
     text-decoration: none;
