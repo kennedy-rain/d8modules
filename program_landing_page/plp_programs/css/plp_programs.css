@@ -72,13 +72,13 @@ a#plp-events {
 /* Hero Image & Title */
 .program-hero-wrapper {
 height: 100%;
-max-height: 60vh;
+max-height: 50vh;
 min-height: 40vh;
 position: relative;
 }
 .program-hero-image img {
     width: 100%;
-    max-height: 60vh;
+    max-height: 50vh;
     object-fit: cover;
 min-height: 1px;
 }
