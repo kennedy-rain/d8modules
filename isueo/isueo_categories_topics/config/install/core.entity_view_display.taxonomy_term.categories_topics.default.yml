@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.categories_topics.field_category_icon
     - field.field.taxonomy_term.categories_topics.field_category_image
     - field.field.taxonomy_term.categories_topics.field_category_link
     - taxonomy.vocabulary.categories_topics
@@ -20,6 +21,7 @@ content:
     weight: 0
     region: content
 hidden:
+  field_category_icon: true
   field_category_image: true
   field_category_link: true
   search_api_excerpt: true
