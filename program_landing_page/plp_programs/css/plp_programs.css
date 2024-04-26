@@ -107,10 +107,15 @@ a#plp-events {
     max-width: 1140px;
     position: relative;
     z-index: 2;
+    height: 100%;
+}
+.program-hero-label.container {
+display: grid;
 }
 .program-hero-label h1.isu-page-title {
     color: #fff;
-    font-size: clamp(1.2rem, 4.375vw - 1rem, 3.375rem);
+    font-size: clamp(1.2rem, 3.375vw - 1rem, 3.375rem);
+margin: 0.625rem 0 0.625rem;
 }
 .program-hero-wrapper {
     height: 100%;
@@ -128,6 +133,7 @@ a#plp-events {
 }
 .plp-program-contact-blocks a:hover {
     text-decoration: none;
+    color: var(--midnight);
     outline: var(--gold) auto 3px;
 }
 .plp-program-contact-blocks p {
@@ -142,9 +148,10 @@ a#plp-events {
     max-width: 1140px;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 .accordion {
-    margin-block-end: 5em;
+    margin-block-end: 2em;
 }
 .ui-accordion .ui-accordion-header {
     color: var(--cardinal);
@@ -173,6 +180,12 @@ a#plp-events {
     border: none;
     background: none;
     color: #212529;
+}
+.accordion .ui-widget-content .views-field-field-plp-child-website a {
+    color: var(--burgundy);
+}
+.accordion .ui-widget-content .views-field-field-plp-child-website a:hover {
+    color: var(--cardinal);
 }
 .ui-accordion .ui-accordion-content {
     transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,border-radius 0.15s ease;
@@ -225,4 +238,40 @@ a#plp-events {
     box-sizing: border-box;
     left: auto;
     right: 11px;
+}
+
+/* Related Programs */
+.plp-related-title {
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
+    font-family: Merriweather, serif;
+    line-height: 1.4;
+    font-weight: 700;
+}
+.card.plp-related {
+    padding-top: 2rem;
+}
+.plp-related-icon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.plp-related-programs ul.row {
+    row-gap: 3rem;
+}
+.plp-related-programs .card a {
+    text-decoration: underline;
+}
+.plp-related-programs .col-md-6.col-lg-4 .card {
+    align-items: stretch;
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+}
+.plp-related-programs {
+    margin-top: 7%;
+    margin-block-end: 13%;
+}
+.plp-related-programs .views-field.views-field-nothing {
+	height: 100%;
 }
