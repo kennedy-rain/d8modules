@@ -19,6 +19,12 @@ const typesenseInstantsearchAdapterResults = new TypesenseInstantSearchAdapter({
   },
 });
 
+var objUrlParams = new URLSearchParams(window.location.search);
+if (objUrlParams.has('plp_programs[query]')) {
+  document.getElementById("isueo-searchall").innerHTML='<a href="https://www.extension.iastate.edu/search-results?as_q=' + objUrlParams.get('plp_programs[query]') + '">Search all of Extension</a>';
+}
+
+
 const searchClientResults = typesenseInstantsearchAdapterResults.searchClient;
 const { infiniteHits } = instantsearch.widgets;
 
@@ -40,6 +46,10 @@ searchResults.addWidgets([
     showReset: false,
     searchAsYouType: false,
     placeholder: "Search Programs",
+    queryHook(query, search) {
+      document.getElementById("isueo-searchall").innerHTML='<a href="https://www.extension.iastate.edu/search-results?as_q=' + query + '">Search all of Extension</a>';
+      search(query);
+    },
   }),
   instantsearch.widgets.configure({
     hitsPerPage: 120,
