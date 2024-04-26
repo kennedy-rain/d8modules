@@ -266,3 +266,6 @@ a#plp-events {
     margin-top: 7%;
     margin-block-end: 13%;
 }
+.plp-related-programs .views-field.views-field-nothing {
+	height: 100%;
+}
