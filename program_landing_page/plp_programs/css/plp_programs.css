@@ -128,6 +128,7 @@ a#plp-events {
 }
 .plp-program-contact-blocks a:hover {
     text-decoration: none;
+    color: var(--midnight);
     outline: var(--gold) auto 3px;
 }
 .plp-program-contact-blocks p {
