@@ -115,6 +115,7 @@ display: grid;
 .program-hero-label h1.isu-page-title {
     color: #fff;
     font-size: clamp(1.2rem, 3.375vw - 1rem, 3.375rem);
+margin: 0.625rem 0 0.625rem;
 }
 .program-hero-wrapper {
     height: 100%;
