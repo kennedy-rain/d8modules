@@ -142,6 +142,7 @@ a#plp-events {
     max-width: 1140px;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 .accordion {
     margin-block-end: 2em;
