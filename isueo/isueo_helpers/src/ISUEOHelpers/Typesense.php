@@ -10,17 +10,19 @@ use Typesense\Client;
 class Typesense
 {
   // Get the Client for our Typesense search server
-  public static function getClient()
+  public static function getClient(string $api_key = '')
   {
     $config = \Drupal::config('isueo_helpers.settings');
     if ($config == null || empty($config->get('typesense.api_key'))) {
       Drupal::logger('isueo_helpers')->alert('Please enter a Typesense API Key');
     }
 
+    $api_key = !empty($api_key) ? $api_key : $config->get('typesense.api_key');
+
     $number_of_blocks = $config->get('number_of_blocks');
     $client = new Client(
       [
-        'api_key' => $config->get('typesense.api_key'),
+        'api_key' => $api_key,
         'nodes' => [
           [
             'host' => $config->get('typesense.host'),
