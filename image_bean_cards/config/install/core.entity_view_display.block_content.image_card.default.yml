@@ -26,14 +26,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_image_card_color_style:
     type: list_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_image_card_icon:
     type: fontawesome_icon_formatter
@@ -41,25 +41,25 @@ content:
     settings:
       layers: false
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   field_image_card_image:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: ''
       image_style: ''
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_image_card_text_size:
     type: list_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_image_card_title:
     type: text_default
@@ -78,7 +78,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
 hidden:
   field_image_card_body: true
