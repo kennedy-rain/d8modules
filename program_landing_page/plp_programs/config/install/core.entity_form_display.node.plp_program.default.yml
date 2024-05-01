@@ -19,10 +19,12 @@ dependencies:
     - field.field.node.plp_program.field_plp_program_on_counties
     - field.field.node.plp_program.field_plp_program_program_area
     - field.field.node.plp_program.field_plp_program_search_terms
+    - field.field.node.plp_program.field_plp_program_smugmug
     - field.field.node.plp_program.field_plp_program_sort_calc
     - field.field.node.plp_program.field_plp_program_title_filter
     - field.field.node.plp_program.field_plp_program_topics
     - field.field.node.plp_program.field_plp_program_website
+    - field.field.node.plp_program.layout_builder__layout
     - node.type.plp_program
   module:
     - link
@@ -187,6 +189,14 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_plp_program_smugmug:
+    type: string_textfield
+    weight: 143
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_plp_program_sort_calc:
     type: number
     weight: 140
@@ -282,4 +292,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  layout_builder__layout: true

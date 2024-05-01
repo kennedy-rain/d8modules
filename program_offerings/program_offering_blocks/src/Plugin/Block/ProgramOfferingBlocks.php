@@ -87,20 +87,24 @@ class ProgramOfferingBlocks extends BlockBase
 
     $program_ids = [];
     //Check if we're limitting program id's
-    if (!empty($config['program_ids_field'])
+    if (
+      !empty($config['program_ids_field'])
       && $node instanceof \Drupal\node\NodeInterface
       && $node->hasField($config['program_ids_field'])
-      && !empty($node->get($config['program_ids_field'])->getString())) {
-        $program_ids = unserialize($node->get($config['program_ids_field'])->getString());
-        $filtering_by_program_ids = true;
+      && !empty($node->get($config['program_ids_field'])->getString())
+    ) {
+      $program_ids = unserialize($node->get($config['program_ids_field'])->getString());
+      $filtering_by_program_ids = true;
     }
 
     $referring_node_id = intval(Drupal::request()->query->get('referring_nid'));
     if (!empty($referring_node_id) && !empty($config['program_ids_field'])) {
       $referring_node = Drupal\node\Entity\Node::load($referring_node_id);
-      if ($referring_node != null && $referring_node->hasField($config['program_ids_field'])
-        && !empty($referring_node->get($config['program_ids_field'])->getString())){
-          $program_ids = unserialize($referring_node->get($config['program_ids_field'])->getString());
+      if (
+        $referring_node != null && $referring_node->hasField($config['program_ids_field'])
+        && !empty($referring_node->get($config['program_ids_field'])->getString())
+      ) {
+        $program_ids = unserialize($referring_node->get($config['program_ids_field'])->getString());
       }
     }
 
@@ -218,7 +222,7 @@ class ProgramOfferingBlocks extends BlockBase
       $results .= '</ul>' . PHP_EOL;
     } else {
       if (!empty($config['no_upcoming_events'])) {
-       $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
+        $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
       }
 
       // Use Javascript to hide block if it's not showing any events (Should this be an option in config?)
@@ -237,8 +241,11 @@ class ProgramOfferingBlocks extends BlockBase
       if ($filtering_by_program_ids) {
         $tmpfilter .= (empty($tmpfilter) ? '?' : '&') . 'referring_nid=' . $node->id();
       }
-
-      $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . $tmpfilter . '">' . $config['show_more_text'] . '</a><br />';
+      if ($node instanceof \Drupal\node\NodeInterface && $node->bundle() == 'plp_program') {
+        $results .= '<a class="events_show_more" id="plp-events" href="' . $base_url . '/' . $show_more_page . $tmpfilter . '">' . $config['show_more_text'] . '</a><br />';
+      } else {
+        $results .= '<a class="events_show_more btn btn-danger" href="' . $base_url . '/' . $show_more_page . $tmpfilter . '">' . $config['show_more_text'] . '</a><br />';
+      }
     }
 
     return [

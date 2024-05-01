@@ -1,0 +1,16 @@
+<?php
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_uninstall().
+ */
+
+function isueo_categories_topics_uninstall()
+{
+  // Remove the taxonomy this module created
+  $taxonomy = Vocabulary::load('categories_topics');
+  if ($taxonomy) {
+    $taxonomy->delete();
+  }
+}
