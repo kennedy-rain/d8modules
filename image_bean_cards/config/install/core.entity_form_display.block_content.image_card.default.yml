@@ -16,7 +16,6 @@ dependencies:
     - fontawesome
     - image
     - link
-    - pubs_entity_type
     - text
 id: block_content.image_card.default
 targetEntityType: block_content
@@ -25,7 +24,7 @@ mode: default
 content:
   field_image_card_caption:
     type: string_textarea
-    weight: 2
+    weight: 3
     region: content
     settings:
       rows: 3
@@ -45,7 +44,7 @@ content:
     third_party_settings: {  }
   field_image_card_image:
     type: image_image
-    weight: 3
+    weight: 2
     region: content
     settings:
       progress_indicator: throbber
@@ -77,9 +76,11 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
   info:
-    type: label_text
+    type: string_textfield
     weight: 0
     region: content
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
 hidden: {  }
