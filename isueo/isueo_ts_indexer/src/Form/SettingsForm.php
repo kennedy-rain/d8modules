@@ -64,6 +64,16 @@ class SettingsForm extends ConfigFormBase {
       '#required' => true,
     ];
 
+    $form['home_url'] = [
+      '#type' => 'textfield',
+      '#title' => t('Home URL'),
+      '#description' => t('URL of the home directory'),
+      '#size' => 50,
+      '#maxlength' => 100,
+      '#default_value' => empty($config->get('home_url')) ? 'https://www.extension.iastate.edu/' . $urlParts[1] : $config->get('home_url'),
+      '#required' => true,
+    ];
+
     $types = \Drupal::entityTypeManager()
       ->getStorage('node_type')
       ->loadMultiple();
@@ -109,6 +119,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('api_key', $form_state->getValue('api_key'))
       ->set('collection', $form_state->getValue('collection'))
       ->set('site_name', $form_state->getValue('site_name'))
+      ->set('home_url', rtrim(trim($form_state->getValue('home_url')), '/'))
       ->set('content_types', $contentTypes)
       ->save();
 

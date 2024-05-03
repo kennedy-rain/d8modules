@@ -33,26 +33,25 @@ function isueo_ts_indexer_node_update(Drupal\Core\Entity\EntityInterface $entity
   $contentTypes = $config->get('content_types');
 
   if (in_array($entity->bundle(), $contentTypes)) {
-    isueo_ts_indexer_index_node($entity->id(), $config->get('api_key'), $config->get('collection'), $config->get('site_name'));
-    //isueo_ts_indexer_index_node($entity), $config->get('api_key'), $config->get('collection'), $config->get('site_name'));
+    isueo_ts_indexer_index_node($entity->id(), $config);
   }
 }
 
-function isueo_ts_indexer_index_node(int $nid, string $api_key, string $collection, string $site_name)
+function isueo_ts_indexer_index_node(int $nid, object $config)
 {
   try {
     $node = Drupal::entityTypeManager()->getStorage('node')->load($nid);
 
     if ($node) {
-      $client = Typesense::getClient($api_key);
+      $client = Typesense::getClient($config->get('api_key'));
       $record = [
-        'id' => $site_name . ':' . $nid,
+        'id' => $config->get('site_name') . ':' . $nid,
         'title' => $node->getTitle(),
-        'site_name' => $site_name,
-        'url' => $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $nid),
+        'site_name' => $config->get('site_name'),
+        'url' => $config->get('home_url') . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $nid),
         'content_type' => $node->bundle(),
       ];
-      $client->collections[$collection]->documents->upsert($record);
+      $client->collections[$config->get('collection')]->documents->upsert($record);
     }
   } catch (Exception $e) {
     Drupal::logger('isueo_ts_indexer')->error('Saving a node: ' . $e->getMessage());
@@ -65,16 +64,22 @@ function isueo_ts_indexer_index_all_nodes()
     $config = Drupal::config('isueo_ts_indexer.settings');
     $contentTypes = array_values($config->get('content_types'));
 
-    $client = Typesense::getClient($config->get('api_key'));
-    $client->collections[$config->get('collection')]->documents->delete(['filter_by' => 'site_name:=' . $config->get('site_name'),]);
+    isueo_ts_indexer_delete_all_from_collection();
 
     foreach ($contentTypes as $type) {
       $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => $type]);
       foreach ($nodes as $node) {
-        isueo_ts_indexer_index_node($node->id(), $config->get('api_key'), $config->get('collection'), $config->get('site_name'));
+        isueo_ts_indexer_index_node($node->id(), $config);
       }
     }
   } catch (Exception $e) {
     Drupal::logger('isueo_ts_indexer')->error('Indexing all nodes: ' . $e->getMessage());
   }
+}
+
+function isueo_ts_indexer_delete_all_from_collection()
+{
+    $config = Drupal::config('isueo_ts_indexer.settings');
+    $client = Typesense::getClient($config->get('api_key'));
+    $client->collections[$config->get('collection')]->documents->delete(['filter_by' => 'site_name:=' . $config->get('site_name'),]);
 }
