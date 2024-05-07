@@ -54,7 +54,7 @@ function isueo_ts_indexer_index_node(int $nid, object $config)
         'created' => date('c', $node->created->value),
         'content_type' => $node->bundle(),
         'summary' => $node->body->summary,
-        'rendered_content' => \Drupal::service('renderer')->render($render_array),
+        'rendered_content' => \Drupal::service('renderer')->renderPlain($render_array),
       ];
       $client->collections[$config->get('collection')]->documents->upsert($record);
     }
