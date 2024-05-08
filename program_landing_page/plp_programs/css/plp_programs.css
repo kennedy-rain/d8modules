@@ -28,7 +28,7 @@
 }
 #plp-events li.event {
     box-shadow: 0.5625rem 0.5625rem 1.25rem rgb(0 0 0 / 20%);
-    padding: .5em;
+    padding: .5em;	
 }
 #plp-events div.event_date {
     border-right: none;
@@ -70,62 +70,35 @@ a#plp-events {
 }
 
 /* Hero Image & Title */
-.program-hero-overlay:before {
-    position: absolute;
-    content: "";
-    background-color: var(--cardinal);
-    border-top: 5px solid var(--gold);
-    clip-path: polygon(0 0, 85% 0, 99% 100%, 0% 100%);
-    width: 100%;
-    z-index: 1;
-    top: 0;
-    bottom: 0;
-}
-.program-hero-overlay {
-    position: absolute;
-    background-color: var(--gold);
-    width: 60%;
-    height: 100%;
-    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
-    z-index: 1;
+.program-hero-wrapper {
+height: 100%;
+max-height: 50vh;
+min-height: 40vh;
+position: relative;
 }
 .program-hero-image img {
     width: 100%;
-    max-height: 248px;
-    float: none;
-    margin: 0;
-    max-width: 2600px;
-    position: absolute;
-    border-top: 5px solid var(--gold);
+    max-height: 50vh;
     object-fit: cover;
+min-height: 1px;
 }
 .program-hero-label-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1140px;
-    position: relative;
-    z-index: 2;
-    height: 100%;
-}
-.program-hero-label.container {
-display: grid;
+bottom: 0;
+width: 100%;
+position: absolute;
+padding: 0.75rem 1rem;
+background: rgba(200, 0, 21, .7);
 }
 .program-hero-label h1.isu-page-title {
     color: #fff;
     font-size: clamp(1.2rem, 3.375vw - 1rem, 3.375rem);
-margin: 0.625rem 0 0.625rem;
-}
-.program-hero-wrapper {
-    height: 100%;
-    max-height: 248px;
-    position: relative;
+margin: 0;
 }
 
 /* Program Blocks */
 .plp-program-contact-blocks .isueo-box-shadow {
     padding: 1rem;
+background-color: #fff;
 }
 .plp-program-contact-blocks a {
     text-decoration: none;
