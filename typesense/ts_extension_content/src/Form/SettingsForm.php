@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\isueo_ts_indexer\Form;
+namespace Drupal\ts_extension_content\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -16,7 +16,7 @@ class SettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'isueo_ts_indexer.settings',
+      'ts_extension_content.settings',
     ];
   }
 
@@ -31,7 +31,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('isueo_ts_indexer.settings');
+    $config = $this->config('ts_extension_content.settings');
 
     $form['typesense']['api_key'] = [
       '#type' => 'textfield',
@@ -115,7 +115,7 @@ class SettingsForm extends ConfigFormBase {
       }
     }
 
-    $this->config('isueo_ts_indexer.settings')
+    $this->config('ts_extension_content.settings')
       ->set('api_key', $form_state->getValue('api_key'))
       ->set('collection', $form_state->getValue('collection'))
       ->set('site_name', $form_state->getValue('site_name'))
@@ -123,7 +123,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('content_types', $contentTypes)
       ->save();
 
-      isueo_ts_indexer_index_all_nodes();
+      ts_extension_content_index_all_nodes();
 
   }
 }

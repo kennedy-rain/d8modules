@@ -1,9 +1,0 @@
-<?php
-
-/**
-* Implements hook_uninstall().
-*/
-
-function isueo_ts_indexer_uninstall() {
-  isueo_ts_indexer_delete_all_from_collection();
-}

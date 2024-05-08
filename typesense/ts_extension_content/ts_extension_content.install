@@ -1,0 +1,9 @@
+<?php
+
+/**
+* Implements hook_uninstall().
+*/
+
+function ts_extension_content_uninstall() {
+  ts_extension_content_delete_all_from_collection();
+}
