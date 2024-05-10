@@ -37,7 +37,6 @@ final class TsExtensionContentCommands extends DrushCommands {
   #[CLI\Command(name: 'ts_extension_content:rebuild', aliases: [])]
   #[CLI\Usage(name: 'ts_extension_content:rebuild', description: 'Rebuild this site\'s pages in the collection')]
   public function rebuild($options = []) {
-    ts_extension_content_delete_all_from_collection();
     ts_extension_content_index_all_nodes();
     $log_message = dt('Rebuilt nodes in the collection for this site');
     $this->logger()->success($log_message);
@@ -51,7 +50,7 @@ final class TsExtensionContentCommands extends DrushCommands {
   #[CLI\Usage(name: 'ts_extension_content:delete', description: 'Delete this site\'s nodes from the collection')]
   #[CLI\Usage(name: 'ts_extension_content:delete sitename', description: 'Delete the sitename\'s nodes from the collection')]
   public function delete($sitename='', $options = []) {
-    ts_extension_content_delete_all_from_collection();
+    ts_extension_content_delete_all_from_collection($sitename);
     $log_message = dt('Deleted') . (empty($sitename) ? ' ' : ' "' . $sitename . '" ') . dt('nodes from collection');
     $this->logger()->success($log_message);
   }

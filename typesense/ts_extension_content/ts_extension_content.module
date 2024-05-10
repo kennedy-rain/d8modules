@@ -82,9 +82,10 @@ function ts_extension_content_index_all_nodes()
   }
 }
 
-function ts_extension_content_delete_all_from_collection()
+function ts_extension_content_delete_all_from_collection($sitename = '')
 {
     $config = Drupal::config('ts_extension_content.settings');
     $client = Typesense::getClient($config->get('api_key'));
-    $client->collections[$config->get('collection')]->documents->delete(['filter_by' => 'site_name:=' . $config->get('site_name'),]);
+    $sitename = empty($sitename) ? $config->get('site_name') : $sitename;
+    $client->collections[$config->get('collection')]->documents->delete(['filter_by' => 'site_name:=' . $sitename,]);
 }
