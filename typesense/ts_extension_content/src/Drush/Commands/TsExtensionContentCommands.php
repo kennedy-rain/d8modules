@@ -32,20 +32,34 @@ final class TsExtensionContentCommands extends DrushCommands {
   }
 
   /**
+   * Rebuild this site's pages in the collection.
+   */
+  #[CLI\Command(name: 'ts_extension_content:rebuild', aliases: [])]
+  #[CLI\Usage(name: 'ts_extension_content:rebuild', description: 'Rebuild this site\'s pages in the collection')]
+  public function rebuild($options = []) {
+    ts_extension_content_delete_all_from_collection();
+    ts_extension_content_index_all_nodes();
+    $log_message = dt('Rebuilt nodes in the collection for this site');
+    $this->logger()->success($log_message);
+  }
+
+  /**
    * Delete this site's pages from the collection.
    */
   #[CLI\Command(name: 'ts_extension_content:delete', aliases: [])]
-  #[CLI\Argument(name: 'arg1', description: 'Argument description.')]
-  #[CLI\Option(name: 'option-name', description: 'Option description')]
-  #[CLI\Usage(name: 'ts_extension_content:delete', description: 'Delete this site\'s pages from the collection')]
-  #[CLI\Usage(name: 'ts_extension_content:delete site-name', description: 'Delete this site\'s pages from the collection')]
-  public function commandName($arg1, $options = ['option-name' => 'default']) {
-    $this->logger()->success(dt('Achievement unlocked.'));
+  #[CLI\Argument(name: 'sitename', description: 'Site Name, should be the same as used by drush')]
+  #[CLI\Usage(name: 'ts_extension_content:delete', description: 'Delete this site\'s nodes from the collection')]
+  #[CLI\Usage(name: 'ts_extension_content:delete sitename', description: 'Delete the sitename\'s nodes from the collection')]
+  public function delete($sitename='', $options = []) {
+    ts_extension_content_delete_all_from_collection();
+    $log_message = dt('Deleted') . (empty($sitename) ? ' ' : ' "' . $sitename . '" ') . dt('nodes from collection');
+    $this->logger()->success($log_message);
   }
 
   /**
    * An example of the table output format.
    */
+  /*
   #[CLI\Command(name: 'ts_extension_content:token', aliases: ['token'])]
   #[CLI\FieldLabels(labels: [
     'group' => 'Group',
@@ -67,5 +81,6 @@ final class TsExtensionContentCommands extends DrushCommands {
     }
     return new RowsOfFields($rows);
   }
+  */
 
 }
