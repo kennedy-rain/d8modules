@@ -107,6 +107,7 @@ function plp_programs_handle_children(array $children, array $programs)
     foreach ($value as $child) {
       // Make sure the child should be shown
       if (!$child['Show_on_Program_Catalog__c']) {
+      //if (!$child['Show_on_Program_Landing_Page__c']) {
         continue;
       }
 
