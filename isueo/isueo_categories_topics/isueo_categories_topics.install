@@ -3,6 +3,14 @@
 use \Drupal\taxonomy\Entity\Vocabulary;
 
 /**
+* Implements hook_install().
+*/
+
+function isueo_categories_topics_install() {
+  isueo_categories_topics_build_taxonomy();
+}
+
+/**
  * Implements hook_uninstall().
  */
 
