@@ -1,0 +1,8 @@
+api_key: ''
+collection: extension_content
+site_name: ''
+home_url: ''
+content_types:
+  layout_ct: layout_ct
+  page: page
+  staff_profile: staff_profile
