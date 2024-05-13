@@ -100,6 +100,8 @@ function isueo_categories_topics_build_taxonomy()
       $term->save();
     }
   }
+
+  // Delete unused terms
   foreach (array_diff($categories_topics, $terms_used) as $term_name => $tid) {
     \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid)->delete();
   }
