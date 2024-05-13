@@ -42,7 +42,7 @@ function ts_extension_content_index_node(int $nid, object $config)
   try {
     $node = Drupal::entityTypeManager()->getStorage('node')->load($nid);
 
-    if ($node) {
+    if ($node && $node->isPublished()) {
       $client = Typesense::getClient($config->get('api_key'));
       $render_array = \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'default');
       $record = [
