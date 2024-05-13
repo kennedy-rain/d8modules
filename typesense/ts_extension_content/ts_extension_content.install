@@ -7,6 +7,11 @@ function ts_extension_content_install() {
   $path = DRUPAL_ROOT;
   $folders = explode('/', $path);
   $site = $folders[count($folders) - 2];
+  $url = 'https://www.extension.iastate.edu/' . $site;
+  if (str_contains($site , '.')) {
+    $url = 'https://www.' . $site;
+    $site = explode('.', $site)[0];
+  }
 
   $entityTypeManager = \Drupal::service('entity_type.manager');
 
@@ -29,7 +34,7 @@ function ts_extension_content_install() {
   $config->set('api_key', 'eS90dAFa47TIaOa1gm21fskmfTgwAUBE');
   $config->set('collection', 'extension_content');
   $config->set('site_name', $site);
-  $config->set('home_url', 'https://www.extension.iastate.edu/' . $site);
+  $config->set('home_url', $url);
   foreach ($indexedTypes as $type) {
     if (array_key_exists($type, $existingTypes)) {
      $config->set('content_types.' . $type, $type);
