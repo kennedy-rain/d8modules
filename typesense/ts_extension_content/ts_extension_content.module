@@ -33,33 +33,13 @@ function ts_extension_content_node_update(Drupal\Core\Entity\EntityInterface $en
   $contentTypes = $config->get('content_types');
 
   if (in_array($entity->bundle(), $contentTypes)) {
-    ts_extension_content_index_node($entity->id(), $config);
-  }
-}
-
-function ts_extension_content_index_node(int $nid, object $config)
-{
-  try {
-    $node = Drupal::entityTypeManager()->getStorage('node')->load($nid);
-
-    if ($node && $node->isPublished()) {
-      $client = Typesense::getClient($config->get('api_key'));
-      $render_array = \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'default');
-      $record = [
-        'id' => $config->get('site_name') . ':' . $nid,
-        'title' => $node->getTitle(),
-        'site_name' => $config->get('site_name'),
-        'url' => $config->get('home_url') . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $nid),
-        'changed' => date('c', $node->changed->value),
-        'created' => date('c', $node->created->value),
-        'content_type' => $node->bundle(),
-        'summary' => $node->body->summary,
-        'rendered_content' => \Drupal::service('renderer')->renderPlain($render_array),
-      ];
-      $client->collections[$config->get('collection')]->documents->upsert($record);
+    if ($entity->isPublished()) {
+      Typesense::index_node($entity, $config->get('api_key'), $config->get('collection'), $config->get('site_name'), $config->get('home_url'));
+    } else {
+      if ($entity->original->isPublished()) {
+        ts_extension_content_node_delete($entity);
+      }
     }
-  } catch (Exception $e) {
-    Drupal::logger('ts_extension_content')->error('Saving a node: ' . $e->getMessage());
   }
 }
 
@@ -72,9 +52,9 @@ function ts_extension_content_index_all_nodes()
     ts_extension_content_delete_all_from_collection();
 
     foreach ($contentTypes as $type) {
-      $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => $type]);
+      $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => $type, 'status' => 1,]);
       foreach ($nodes as $node) {
-        ts_extension_content_index_node($node->id(), $config);
+        Typesense::index_node($node, $config->get('api_key'), $config->get('collection'), $config->get('site_name'), $config->get('home_url'));
       }
     }
   } catch (Exception $e) {
@@ -84,8 +64,8 @@ function ts_extension_content_index_all_nodes()
 
 function ts_extension_content_delete_all_from_collection($sitename = '')
 {
-    $config = Drupal::config('ts_extension_content.settings');
-    $client = Typesense::getClient($config->get('api_key'));
-    $sitename = empty($sitename) ? $config->get('site_name') : $sitename;
-    $client->collections[$config->get('collection')]->documents->delete(['filter_by' => 'site_name:=' . $sitename,]);
+  $config = Drupal::config('ts_extension_content.settings');
+  $client = Typesense::getClient($config->get('api_key'));
+  $sitename = empty($sitename) ? $config->get('site_name') : $sitename;
+  $client->collections[$config->get('collection')]->documents->delete(['filter_by' => 'site_name:=' . $sitename,]);
 }

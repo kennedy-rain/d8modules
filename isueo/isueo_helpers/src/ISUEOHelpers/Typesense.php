@@ -6,6 +6,8 @@ use Drupal;
 use Exception;
 use Symfony\Component\HttpClient\HttplugClient;
 use Typesense\Client;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 class Typesense
 {
@@ -56,5 +58,33 @@ class Typesense
       Drupal::logger('isueo_helpers')->info('Error in searchCollection: ' . $e->getMessage());
     }
     return (null);
+  }
+
+  //public static function index_node(int $nid, string $api_key, string $collection, string $site_name, string $base_url)
+  public static function index_node(EntityInterface $node, string $api_key, string $collection, string $site_name, string $base_url)
+  {
+    try {
+//      $node = Drupal::entityTypeManager()->getStorage('node')->load($nid);
+
+      if ($node) {
+        $client = Typesense::getClient($api_key);
+        $render_array = \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'default');
+        $record = [
+          'id' => $site_name . ':' . $node->id(),
+          'title' => $node->getTitle(),
+          'site_name' => $site_name,
+          'url' => $base_url . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id()),
+          'changed' => date('c', $node->changed->value),
+          'created' => date('c', $node->created->value),
+          'content_type' => $node->bundle(),
+          'summary' => empty($node->body->summary) ? '' : $node->body->summary,
+          'rendered_content' => \Drupal::service('renderer')->renderPlain($render_array),
+          'published' => $node->isPublished(),
+        ];
+        $client->collections[$collection]->documents->upsert($record);
+      }
+    } catch (Exception $e) {
+      Drupal::logger('ts_extension_content')->error('Saving a node: ' . $e->getMessage());
+    }
   }
 }
