@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    config:
+      - node.type.plp_program
 id: hero_image
 name: hero_image
 weight: 0

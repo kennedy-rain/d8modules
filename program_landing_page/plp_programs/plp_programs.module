@@ -221,7 +221,7 @@ function plp_programs_getprograms()
     }
 
     // Publish the node if it's unpublished
-    if (!$mynode->isPublished) {
+    if (!$mynode->isPublished()) {
       $mynode->setPublished();
       $save = true;
     }
