@@ -9,13 +9,13 @@ type: 'canonical_entities:node'
 pattern: 'staff/[node:title]'
 selection_criteria:
   6029f8c9-3a4b-41c5-ad55-7c024b35fd36:
-    id: entity_bundle:node
-    bundles:
-      staff_profile: staff_profile
+    id: 'entity_bundle:node'
     negate: false
+    uuid: 6029f8c9-3a4b-41c5-ad55-7c024b35fd36
     context_mapping:
       node: node
-    uuid: 6029f8c9-3a4b-41c5-ad55-7c024b35fd36
+    bundles:
+      staff_profile: staff_profile
 selection_logic: and
 weight: -5
 relationships: {  }
