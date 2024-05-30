@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - node
+  enforced:
+    module:
+      - staff_profile
 id: staff_profile
 label: 'Staff Profile'
 type: 'canonical_entities:node'

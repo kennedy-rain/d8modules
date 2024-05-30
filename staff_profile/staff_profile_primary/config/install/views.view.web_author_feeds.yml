@@ -19,6 +19,9 @@ dependencies:
     - serialization
     - taxonomy
     - user
+  enforced:
+    module:
+      - staff_profile_primary
 id: web_author_feeds
 label: 'Web Author Feeds'
 module: views

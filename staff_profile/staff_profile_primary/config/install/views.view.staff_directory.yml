@@ -14,6 +14,9 @@ dependencies:
     - taxonomy
     - user
     - views_filters_populate
+  enforced:
+    module:
+      - staff_profile_primary
 id: staff_directory
 label: 'Staff Directory'
 module: views

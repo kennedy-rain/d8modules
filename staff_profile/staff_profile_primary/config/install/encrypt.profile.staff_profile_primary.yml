@@ -5,6 +5,9 @@ dependencies:
     - key.key.staff_profile_primary
   module:
     - real_aes
+  enforced:
+    module:
+      - staff_profile_primary
 id: staff_profile_primary
 label: 'Staff Profile Primary'
 encryption_method: real_aes

@@ -7,6 +7,9 @@ dependencies:
   module:
     - allowed_formats
     - text
+  enforced:
+    module:
+      - staff_profile
 third_party_settings:
   allowed_formats:
     basic: basic
