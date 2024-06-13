@@ -50,7 +50,8 @@ function staff_profile_primary_profile_from_database()
   $setwise_netid = [];
   $nodes_netid = [];
   $nodes_staffid = [];
-  $count_active = 0;
+  $node_ids_active = [];
+  $node_ids_setwise = [];
   $county_taxonomy = ISUEOHelpers\Taxonomy::get_terms('counties_in_iowa');
   $staff_positions = ISUEOHelpers\Taxonomy::get_terms('staff_positions');
 
@@ -78,14 +79,14 @@ function staff_profile_primary_profile_from_database()
   foreach ($nodes as $node) {
     $nodes_staffid[$node->field_staff_profile_staffid->value] = $node;
     $nodes_netid[$node->field_staff_profile_netid->value] = $node;
-    if ($node->isPublished()) {
-      $count_active += 1;
+    if ($node->isPublished() && !empty($node->field_staff_profile_staffid->getString())) {
+      $node_ids_active[] = $node->id();
     }
   }
   echo 'Nodes: ' . count($nodes) . PHP_EOL;
   echo 'staffids: ' . count($nodes_staffid) . PHP_EOL;
   echo 'netids: ' . count($nodes_netid) . PHP_EOL;
-  echo 'active: ' . $count_active . PHP_EOL;
+  echo 'active: ' . count($node_ids_active) . PHP_EOL;
   echo 'SetWise: ' . count($setwise_netid) . PHP_EOL;
 
   // Step through the nodes from SetWise
@@ -101,6 +102,12 @@ function staff_profile_primary_profile_from_database()
       $node = Node::create(array('type' => 'staff_profile', 'title' => $setwise['LAST NAME'] . ', ' .$setwise['FIRST NAME']));
       $node->set('field_staff_profile_netid', $netid);
       $node->save();
+    }
+
+    // Publish unpublished nodes
+    if (!$node->isPublished()) {
+      $node->setPublished();
+      $save = true;
     }
 
     // Handle NetID
@@ -219,7 +226,26 @@ function staff_profile_primary_profile_from_database()
       //echo "Saving: " . $node->id() . PHP_EOL;
       $node->save();
     }
+
+    $node_ids_setwise[] = $node->id();
   }
+
+  // Unpublish staff nodes that have dropped out of the feed
+  foreach (array_diff($node_ids_active, $node_ids_setwise) as $nid) {
+    $node = Node::load($nid);
+    $node->setUnpublished();
+    $node->save();
+
+    /*
+    // Block the user of the node
+    $users = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(array('name' => $node->field_staff_profile_netid->value));
+    $user = reset($users);
+    if ($user) {
+      $user->block()->save();
+    }
+    */
+  }
+
   /*
   // Get all Staff Profile nodes
   $nodes = Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'staff_profile', ]);
@@ -514,6 +540,17 @@ function staff_profile_primary_node_presave($entity)
       $owner = User::create(array('name' => $entity->field_staff_profile_netid, 'mail' => $entity->field_staff_profile_email, 'pass' => rand_string(40)));
       $owner->activate()->save();
     }
+
+    // Activate user if it's blocked and node is published
+    if ($owner->isBlocked() && $entity->isPublished()) {
+      $owner->activate()->save();
+    }
+
+    // Block user if it's active and the node is unpublished
+    if ($owner->isActive() && !$entity->isPublished()) {
+      $owner->block()->save();
+    }
+
     $entity->setOwner($owner);
     $entity->setTitle($entity->field_staff_profile_pref_name->value . ' ' . $entity->field_staff_profile_last_name->value);
 
