@@ -47,6 +47,180 @@ function staff_profile_primary_cron()
 
 function staff_profile_primary_profile_from_database()
 {
+  $setwise_netid = [];
+  $nodes_netid = [];
+  $nodes_staffid = [];
+  $count_active = 0;
+  $county_taxonomy = ISUEOHelpers\Taxonomy::get_terms('counties_in_iowa');
+  $staff_positions = ISUEOHelpers\Taxonomy::get_terms('staff_positions');
+
+  // Get entries from Setwise
+  $raw = ISUEOHelpers\Files::fetch_url('https://dev6.setwisebase.com/api/employees?token=abc');
+  $entries = json_decode($raw, true);
+  foreach ($entries as $entry) {
+    if (str_contains($entry['EMAIL ADDRESS'], '@iastate.edu')) {
+      if (array_key_exists('PHONE', $entry) && !empty($entry['PHONE'])) {
+        $entry['PHONE'] = ISUEOHelpers\General::format_phone_number($entry['PHONE']);
+      }
+      if (array_key_exists('ZIPCODE', $entry) && !empty($entry['ZIPCODE'])) {
+        $entry['ZIPCODE'] = ISUEOHelpers\General::format_zip_code($entry['ZIPCODE']);
+      }
+      if (!array_key_exists('STATE', $entry) || empty($entry['STATE'])) {
+        $entry['STATE'] = 'IA';
+      }
+      $netid = str_replace('@iastate.edu', '', $entry['EMAIL ADDRESS']);
+      $setwise_netid[$netid] = $entry;
+    }
+  }
+
+  // Get current nodes
+  $nodes = Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'staff_profile', ]);
+  foreach ($nodes as $node) {
+    $nodes_staffid[$node->field_staff_profile_staffid->value] = $node;
+    $nodes_netid[$node->field_staff_profile_netid->value] = $node;
+    if ($node->isPublished()) {
+      $count_active += 1;
+    }
+  }
+  echo 'Nodes: ' . count($nodes) . PHP_EOL;
+  echo 'staffids: ' . count($nodes_staffid) . PHP_EOL;
+  echo 'netids: ' . count($nodes_netid) . PHP_EOL;
+  echo 'active: ' . $count_active . PHP_EOL;
+  echo 'SetWise: ' . count($setwise_netid) . PHP_EOL;
+
+  // Step through the nodes from SetWise
+  foreach ($setwise_netid as $netid => $setwise) {
+    $save = false;
+
+    // Try to find an existing node, otherwise create one
+    if (array_key_exists($netid, $nodes_netid)) {
+      $node = $nodes_netid[$netid];
+//    } elseif (array_key_exists($setwise['STAFFID'], $nodes_staffid)) {
+//      $node = $nodes_staffid[$setwise['STAFFID']];
+    } else {
+      $node = Node::create(array('type' => 'staff_profile', 'title' => $setwise['LAST NAME'] . ', ' .$setwise['FIRST NAME']));
+      $node->set('field_staff_profile_netid', $netid);
+      $node->save();
+    }
+
+    // Handle NetID
+    if ($node->get('field_staff_profile_netid')->value != $netid) {
+      $node->set('field_staff_profile_netid', $netid);
+      $save = true;
+    }
+
+    // Handle a bunch of fields in a foreach loop
+    $fields_all = [
+      ['FIRST NAME', 'field_staff_profile_first_name', 'field_staff_profile_pref_name', ],
+      ['LAST NAME', 'field_staff_profile_last_name', '', ],
+      ['EMAIL ADDRESS', 'field_staff_profile_email', '', ],
+      ['PHONE', 'field_staff_profile_phone', 'field_staff_profile_pref_phone', ],
+      ['FAX', 'field_staff_profile_fax', '', ],
+      ['STAFFID', 'field_staff_profile_staffid', '', ],
+      ['REGION', 'field_staff_profile_region', '', ],
+      ['JOB TITLE', 'field_staff_profile_job_title', 'field_staff_profile_pref_title', ],
+    ];
+    foreach ($fields_all as $fields) {
+      // Make sure SetWise has a value, even if it's an empty string
+      if (!array_key_exists($fields[0], $setwise)) {
+        $setwise[$fields[0]] = '';
+      }
+      $old_value = $node->get($fields[1])->value;
+      $new_value = $setwise[$fields[0]];
+
+      // See if the value has changed, if so, set it
+      if ($new_value != $old_value) {
+        $node->set($fields[1], $new_value);
+        // Also handle if there is a preferred field
+        if (!empty($fields[2])) {
+          $pref_value = $node->get($fields[2])->value;
+          if ($old_value == $pref_value && !empty($new_value)) {
+            $node->set($fields[2], $new_value);
+          }
+        }
+        $save = true;
+      }
+    }
+
+    //Handle Address
+    $fields_all = [
+      ['ADDRESS STREET 1', 'address_line1', ],
+      ['ADDRESS STREET 2', 'address_line2', ],
+      ['CITY', 'locality', ],
+      ['STATE', 'administrative_area', ],
+      ['ZIPCODE', 'postal_code', ],
+    ];
+    $old_addr = $node->get('field_staff_profile_addr')->getValue()[0];
+    foreach ($fields_all as $fields) {
+      if (empty($setwise[$fields[0]])) {
+        $setwise[$fields[0]] = $fields[0] == 'STATE' ? 'IA' : '';
+      }
+      if ($setwise[$fields[0]] != $old_addr[$fields[1]]) {
+        $old_addr[$fields[1]] = $setwise[$fields[0]];
+        $save = true;
+      }
+    }
+    $old_addr['country_code'] = 'US';
+    $node->field_staff_profile_addr = $old_addr;
+
+    // Handle Base County
+    $new_value = array_key_exists('BASE COUNTY', $setwise) ? ISUEOHelpers\Taxonomy::get_term_id(ISUEOHelpers\General::fix_county_name($setwise['BASE COUNTY']), $county_taxonomy, 'counties_in_iowa', false) : 0;
+    if ($node->field_staff_profile_base_county->target_id != $new_value) {
+      $node->field_staff_profile_base_county = ['target_id' => $new_value, ];
+      $save = true;
+    }
+
+    // Handle Counties Served
+    $raw = array_key_exists('COUNTIES SERVED', $setwise) ? $setwise['COUNTIES SERVED'] : '';
+    $newArray = [];
+    foreach (explode(',', $raw) as $county_name) {
+      if (!empty($county_name)) {
+        $newArray[] = ISUEOHelpers\Taxonomy::get_term_id(ISUEOHelpers\General::fix_county_name($county_name), $county_taxonomy, 'counties_in_iowa', false);
+      }
+    }
+    sort($newArray);
+    $newString = implode(', ', $newArray);
+    if ($newString != $node->field_staff_profile_cty_served->getString()) {
+      $node->field_staff_profile_cty_served = $newArray;
+      $save = true;
+    }
+
+    // Handle Location
+    switch (empty($setwise['LOCATION'])? '3' : $setwise['LOCATION']) {
+      case '1':
+        $newString = 'FLD-CNTYPD';
+        break;
+      case '2':
+        $newString = 'FLD-ISU-PD';
+        break;
+      case '3':
+      default:
+        $newString = 'CAMPUS';
+        break;
+    }
+    if ($newString != $node->field_staff_profile_location->getString()) {
+      $node->set('field_staff_profile_location',  $newString);
+      $save = true;
+    }
+
+    // Handle Position
+    $new_value = _staff_profile_primary_get_position($node, $staff_positions);
+    if ($node->field_staff_profile_position->getString() != $new_value) {
+      $node->set('field_staff_profile_position', $new_value);
+      $save = true;
+    }
+
+    // If a value has changed, make sure the Title is right, and save the node
+    if ($save) {
+      $new_value = $node->field_staff_profile_pref_name->value . ' ' . $node->field_staff_profile_last_name->value;
+      if ($node->getTitle() != $new_value) {
+        $node->setTitle($new_value);
+      }
+      //echo "Saving: " . $node->id() . PHP_EOL;
+      $node->save();
+    }
+  }
+  /*
   // Get all Staff Profile nodes
   $nodes = Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'staff_profile', ]);
 
@@ -292,6 +466,7 @@ function staff_profile_primary_profile_from_database()
 
   \Drupal::logger('staff_profile_primary')->info('Regional Directors: ' . count($regional_directors));
   \Drupal::logger('staff_profile_primary')->info('Staff from Staff Directory Database: ' . $count);
+  */
 }
 
 /*
@@ -447,21 +622,20 @@ function staff_profile_primary_web_editor_training()
  *
  * TODO: This should lookup values in a taxonomy, not return hard coded values!
  */
-function _staff_profile_primary_get_position($profile, $jobtitle = '')
+function _staff_profile_primary_get_position($node, $staff_positions)
 {
-  if (
-    ($profile->DepartmentID == '30310'
-      && (strpos($jobtitle, 'Assistant Director County Serv') !== false
-        || strpos($jobtitle, 'Regional Extension Education') !== false
-        || $jobtitle == 'County Services - Regional Dir'))
-    || $jobtitle == 'Regional Director'
-    || $jobtitle == 'Associate Director County Serv'
-    || $jobtitle == 'Field Operations Director'
-    || strpos($jobtitle, 'Director of Field Operations') !== false
-  ) {
-    return 180;
-  } elseif ($profile->Location == 'FLD-ISU-PD' && !empty($profile->CountiesServed)) {
-    return 181;
+  $value = 0;
+
+  // Look for Field Specialists
+  if ($node->field_staff_profile_location->getString() == 'FLD-ISU-PD' && strlen($node->field_staff_profile_cty_served->getString()) > 0) {
+    $value = $staff_positions['Field Specialist'];
   }
-  return false;
+
+  // Look for Region Directors
+  $nodeTitle = $node->get('field_staff_profile_job_title')->value;
+  if ($nodeTitle == 'Assistant Director County Services' || $nodeTitle == 'Associate Director Extension and Outreach Services') {
+    $value = $staff_positions['Regional Director'];
+  }
+
+  return $value;
 }
