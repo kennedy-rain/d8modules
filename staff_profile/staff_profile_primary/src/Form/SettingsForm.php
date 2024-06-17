@@ -4,7 +4,6 @@ namespace Drupal\staff_profile_primary\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\encrypt\Entity\EncryptionProfile;
 
 /*
  * Class SettingsForm

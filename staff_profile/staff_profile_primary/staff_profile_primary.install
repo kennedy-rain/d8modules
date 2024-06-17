@@ -34,8 +34,6 @@ function staff_profile_primary_install()
 }
 
 function staff_profile_primary_uninstall() {
-  \Drupal::configFactory()->getEditable('encrypt.profile.staff_profile_primary')->delete();
-  \Drupal::configFactory()->getEditable('key.key.staff_profile_primary')->delete();
   \Drupal::configFactory()->getEditable('views.view.county_feeds_json')->delete();
   \Drupal::configFactory()->getEditable('views.view.staff_directory')->delete();
   \Drupal::configFactory()->getEditable('views.view.web_author_feeds')->delete();
