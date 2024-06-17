@@ -53,6 +53,7 @@ function staff_profile_primary_profile_from_database()
   $node_ids_active = [];
   $node_ids_setwise = [];
   $county_taxonomy = ISUEOHelpers\Taxonomy::get_terms('counties_in_iowa');
+  $program_area_taxonomy = ISUEOHelpers\Taxonomy::get_terms('program_areas');
   $staff_positions = ISUEOHelpers\Taxonomy::get_terms('staff_positions');
 
   // Get entries from Setwise
@@ -189,6 +190,27 @@ function staff_profile_primary_profile_from_database()
     $newString = implode(', ', $newArray);
     if ($newString != $node->field_staff_profile_cty_served->getString()) {
       $node->field_staff_profile_cty_served = $newArray;
+      $save = true;
+    }
+
+    // Handle Program Areas
+    $raw = array_key_exists('PROGRAM AREAS', $setwise) ? $setwise['PROGRAM AREAS'] : '';
+    if (!empty($raw)) {
+      $raw = str_replace('Youth and 4-H', '4-H Youth Development', $raw);
+      $raw = str_replace(' (ANR)', '', $raw);
+      $raw = str_replace('Communities and Economic Development (CED)', 'Community and Economic Development', $raw);
+      $raw = str_replace('Human Sciences Extension and Outreach (HSEO)', 'Human Sciences', $raw);
+    }
+    $newArray = [];
+    foreach (explode(',', $raw) as $program_area) {
+      if (!empty($program_area)) {
+        $newArray[] = ISUEOHelpers\Taxonomy::get_term_id($program_area, $program_area_taxonomy, 'program_areas', true);
+      }
+    }
+    sort($newArray);
+    $new_value = implode(', ', $newArray);
+    if ($new_value != $node->field_staff_profile_pgm_areas->getString()) {
+      $node->field_staff_profile_pgm_areas = $newArray;
       $save = true;
     }
 
