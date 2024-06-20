@@ -457,13 +457,13 @@ function _staff_profile_primary_get_position($node, $staff_positions)
 
   // Look for Field Specialists
   if ($node->field_staff_profile_location->getString() == 'FLD-ISU-PD' && strlen($node->field_staff_profile_cty_served->getString()) > 0) {
-    $value = $staff_positions['Field Specialist'];
+    $value = ISUEOHelpers\Taxonomy::get_term_id('Field Specialist', $staff_positions, 'staff_positions', true);
   }
 
   // Look for Region Directors
   $nodeTitle = $node->get('field_staff_profile_job_title')->value;
   if ($nodeTitle == 'Assistant Director County Services' || $nodeTitle == 'Associate Director Extension and Outreach Services') {
-    $value = $staff_positions['Regional Director'];
+    $value = ISUEOHelpers\Taxonomy::get_term_id('Regional Director', $staff_positions, 'staff_positions', true);
   }
 
   return $value;
