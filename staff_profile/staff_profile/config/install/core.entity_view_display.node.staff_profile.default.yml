@@ -44,6 +44,9 @@ dependencies:
     - staff_profile
     - text
     - user
+  enforced:
+    module:
+      - staff_profile
 third_party_settings:
   field_group:
     group_contact_:

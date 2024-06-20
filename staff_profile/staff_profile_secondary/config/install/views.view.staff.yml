@@ -13,6 +13,9 @@ dependencies:
     - staff_profile
     - telephone
     - user
+  enforced:
+    module:
+      - staff_profile_secondary
 id: staff
 label: Staff
 module: views

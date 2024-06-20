@@ -18,6 +18,9 @@ dependencies:
     - taxonomy
     - user
     - views_data_export
+  enforced:
+    module:
+      - staff_profile_primary
 id: editor_permissions_list
 label: 'Editor Permissions List'
 module: views

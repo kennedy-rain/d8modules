@@ -36,6 +36,9 @@ dependencies:
     - taxonomy
     - text
     - user
+  enforced:
+    module:
+      - staff_profile_primary
 id: county_feeds_json
 label: 'Feeds - JSON'
 module: views
