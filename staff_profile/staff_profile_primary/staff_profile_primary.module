@@ -82,7 +82,7 @@ function staff_profile_primary_profile_from_database()
   }
 
   // Get current nodes
-  $nodes = Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'staff_profile', ]);
+  $nodes = Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'staff_profile',]);
   foreach ($nodes as $node) {
     $nodes_staffid[$node->field_staff_profile_staffid->value] = $node;
     $nodes_netid[$node->field_staff_profile_netid->value] = $node;
@@ -103,10 +103,10 @@ function staff_profile_primary_profile_from_database()
     // Try to find an existing node, otherwise create one
     if (array_key_exists($netid, $nodes_netid)) {
       $node = $nodes_netid[$netid];
-//    } elseif (array_key_exists($setwise['STAFFID'], $nodes_staffid)) {
-//      $node = $nodes_staffid[$setwise['STAFFID']];
+      //    } elseif (array_key_exists($setwise['STAFFID'], $nodes_staffid)) {
+      //      $node = $nodes_staffid[$setwise['STAFFID']];
     } else {
-      $node = Node::create(array('type' => 'staff_profile', 'title' => $setwise['LAST NAME'] . ', ' .$setwise['FIRST NAME']));
+      $node = Node::create(array('type' => 'staff_profile', 'title' => $setwise['LAST NAME'] . ', ' . $setwise['FIRST NAME']));
       $node->set('field_staff_profile_netid', $netid);
       $node->save();
     }
@@ -125,14 +125,14 @@ function staff_profile_primary_profile_from_database()
 
     // Handle a bunch of fields in a foreach loop
     $fields_all = [
-      ['FIRST NAME', 'field_staff_profile_first_name', 'field_staff_profile_pref_name', ],
-      ['LAST NAME', 'field_staff_profile_last_name', '', ],
-      ['EMAIL ADDRESS', 'field_staff_profile_email', '', ],
-      ['PHONE', 'field_staff_profile_phone', 'field_staff_profile_pref_phone', ],
-      ['FAX', 'field_staff_profile_fax', '', ],
-      ['STAFFID', 'field_staff_profile_staffid', '', ],
-      ['REGION', 'field_staff_profile_region', '', ],
-      ['JOB TITLE', 'field_staff_profile_job_title', 'field_staff_profile_pref_title', ],
+      ['FIRST NAME', 'field_staff_profile_first_name', 'field_staff_profile_pref_name',],
+      ['LAST NAME', 'field_staff_profile_last_name', '',],
+      ['EMAIL ADDRESS', 'field_staff_profile_email', '',],
+      ['PHONE', 'field_staff_profile_phone', 'field_staff_profile_pref_phone',],
+      ['FAX', 'field_staff_profile_fax', '',],
+      ['STAFFID', 'field_staff_profile_staffid', '',],
+      ['REGION', 'field_staff_profile_region', '',],
+      ['JOB TITLE', 'field_staff_profile_job_title', 'field_staff_profile_pref_title',],
     ];
     foreach ($fields_all as $fields) {
       // Make sure SetWise has a value, even if it's an empty string
@@ -158,11 +158,11 @@ function staff_profile_primary_profile_from_database()
 
     //Handle Address
     $fields_all = [
-      ['ADDRESS STREET 1', 'address_line1', ],
-      ['ADDRESS STREET 2', 'address_line2', ],
-      ['CITY', 'locality', ],
-      ['STATE', 'administrative_area', ],
-      ['ZIPCODE', 'postal_code', ],
+      ['ADDRESS STREET 1', 'address_line1',],
+      ['ADDRESS STREET 2', 'address_line2',],
+      ['CITY', 'locality',],
+      ['STATE', 'administrative_area',],
+      ['ZIPCODE', 'postal_code',],
     ];
     $old_addr = $node->get('field_staff_profile_addr')->getValue()[0];
     foreach ($fields_all as $fields) {
@@ -180,7 +180,7 @@ function staff_profile_primary_profile_from_database()
     // Handle Base County
     $new_value = array_key_exists('BASE COUNTY', $setwise) ? ISUEOHelpers\Taxonomy::get_term_id(ISUEOHelpers\General::fix_county_name($setwise['BASE COUNTY']), $county_taxonomy, 'counties_in_iowa', false) : 0;
     if ($node->field_staff_profile_base_county->target_id != $new_value) {
-      $node->field_staff_profile_base_county = ['target_id' => $new_value, ];
+      $node->field_staff_profile_base_county = ['target_id' => $new_value,];
       $save = true;
     }
 
@@ -221,7 +221,7 @@ function staff_profile_primary_profile_from_database()
     }
 
     // Handle Location
-    switch (empty($setwise['LOCATION'])? '3' : $setwise['LOCATION']) {
+    switch (empty($setwise['LOCATION']) ? '3' : $setwise['LOCATION']) {
       case '1':
         $newString = 'FLD-CNTYPD';
         break;
@@ -272,7 +272,7 @@ function staff_profile_primary_profile_from_database()
       continue;
     }
     list($k, $v) = explode('|', $override);
-    $users = \Drupal::entityTypeManager()->getStorage('user') ->loadByProperties([ 'name' => $k, ]);
+    $users = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['name' => $k,]);
     if ($users) {
       $user = reset($users);
       if ($user->hasRole('regional_director') && 'none' == trim(strtolower($v))) {
@@ -355,7 +355,7 @@ function staff_profile_primary_node_presave($entity)
 
     // In the Custodian of Public Record field, set a value of false to null
     if ($entity->field_custodian_of_public_record->value == false) {
-      $entity->field_custodian_of_public_record->value=null;
+      $entity->field_custodian_of_public_record->value = null;
     }
   }
 }
