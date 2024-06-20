@@ -107,11 +107,14 @@ function staff_profile_install()
   ));
 }
 
-/*
-function staff_profile_uninstall() {
-  Drupal::configFactory()->getEditable('pathauto.pattern.staff_profiles')->delete();
-}
+/**
+* Implements hook_uninstall().
 */
+function staff_profile_uninstall() {
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('node');
+  $entities = $storage_handler->loadByProperties(['type' => 'staff_profile']);
+  $storage_handler->delete($entities);
+}
 
 /**
  * Adjust Program Areas Taxonomy
