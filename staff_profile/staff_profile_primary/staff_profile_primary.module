@@ -337,8 +337,9 @@ function staff_profile_primary_node_presave($entity)
     $owner = reset($users);
     if (!$owner) {
       $owner = User::create(array('name' => $entity->field_staff_profile_netid, 'mail' => $entity->field_staff_profile_email, 'pass' => rand_string(40)));
-      $owner->activate()->save();
     }
+    $owner->activate()->save();
+
     $entity->setOwner($owner);
     $entity->setTitle($entity->field_staff_profile_pref_name->value . ' ' . $entity->field_staff_profile_last_name->value);
 
