@@ -29,7 +29,7 @@ function staff_profile_primary_rebuild()
   }
   echo 'Nodes: ' . count($nodes) . PHP_EOL;
 
-  $raw = file_get_contents('http://local.test/staffdir/feeds/export_staff.json');
+  $raw = file_get_contents('https://www.extension.iastate.edu/staffdir/feeds/export_staff.json');
   $profiles = json_decode($raw, true);
   foreach ($profiles as $profile) {
     $mynode = Node::create(['type' => 'staff_profile', 'title' => $profile['field_staff_profile_last_name'] . ', ' . $profile['field_staff_profile_first_name']]);
@@ -126,7 +126,7 @@ function staff_profile_primary_rebuild()
 
     $mynode->save();
     $old = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$mynode->id());
-    $new = 'staffdir/staff/' . strtolower($mynode->getTitle());
+    $new = 'staff/staff/' . strtolower($mynode->getTitle());
     $new = str_replace(' ', '-', strtolower($new));
     $new = str_replace('\'', '', strtolower($new));
     $new = str_replace('é', 'e', strtolower($new));
@@ -144,7 +144,7 @@ function staff_profile_primary_rebuild()
   }
 
   echo 'Profiles: ' . count($profiles) . PHP_EOL;
-  return;
+  //return;
 
   \Drupal::logger('staff_profile_primary')->info('Starting staff profile refresh from hook_rebuild page');
   staff_profile_primary_profile_from_database();
