@@ -6,6 +6,7 @@ use \Drupal\Component\Utility\Random;
 use \Drupal\encrypt\Entity\EncryptionProfile;
 use \Drupal\taxonomy\Entity\Term;
 use Drupal\isueo_helpers\ISUEOHelpers;
+use Drupal\redirect\Entity\Redirect;
 
 /**
  * Implements hook_rebuild()
@@ -15,9 +16,9 @@ function staff_profile_primary_rebuild()
   $counties = ISUEOHelpers\Taxonomy::get_terms('counties_in_iowa');
   $programAreas = ISUEOHelpers\Taxonomy::get_terms('program_areas');
   $editorQualifications = ISUEOHelpers\Taxonomy::get_terms(('editor_qualifications'));
-  //$drupalSites = ISUEOHelpers\Taxonomy::get_terms(('drupal_sites'));
-  //$teamsGroups = ISUEOHelpers\Taxonomy::get_terms(('teams_groups'));
-  //print_r($teamsGroups);
+  $drupalSites = ISUEOHelpers\Taxonomy::get_terms(('drupal_sites'));
+  $teamsGroups = ISUEOHelpers\Taxonomy::get_terms(('teams_groups'));
+  $staffPositions = ISUEOHelpers\Taxonomy::get_terms(('staff_positions'));
   //return;
 
   // Delete existing Staff Profile Nodes
@@ -58,6 +59,7 @@ function staff_profile_primary_rebuild()
       'field_staff_profile_staffid',
     ];
     foreach ($fields as $field) {
+      $profile[$field] = str_replace('&#039;', '\'', trim($profile[$field]));
       $mynode->set($field, $profile[$field]);
     }
 
@@ -83,16 +85,18 @@ function staff_profile_primary_rebuild()
 
 
     $fields = [
-      ['field_staff_profile_cty_served', 'counties_in_iowa', $counties],
-      ['field_staff_profile_cty_author', 'counties_in_iowa', $counties],
-      ['field_staff_profile_web_amb', 'counties_in_iowa', $counties],
-      ['field_staff_profile_pgm_areas', 'program_areas', $programAreas],
-      ['field_staff_profile_quals', 'editor_qualifications', $editorQualifications],
-      //['field_staff_profile_site_author', 'drupal_sites', $drupalSites],
-      //['field_staff_profile_teams_groups', 'teams_groups', $teamsGroups],
+      ['field_staff_profile_cty_served', 'counties_in_iowa', &$counties],
+      ['field_staff_profile_cty_author', 'counties_in_iowa', &$counties],
+      ['field_staff_profile_web_amb', 'counties_in_iowa', &$counties],
+      ['field_staff_profile_pgm_areas', 'program_areas', &$programAreas],
+      ['field_staff_profile_quals', 'editor_qualifications', &$editorQualifications],
+      ['field_staff_profile_site_author', 'drupal_sites', &$drupalSites],
+      ['field_staff_profile_teams_groups', 'teams_groups', &$teamsGroups],
+      ['field_staff_profile_position', 'staff_positions', &$staffPositions],
     ];
     foreach ($fields as $field) {
     $profile[$field[0]] = str_replace('&#039;', '\'', $profile[$field[0]]);
+    $profile[$field[0]] = str_replace('&amp;', '&', $profile[$field[0]]);
         $newArray = [];
         foreach (explode(', ', $profile[$field[0]]) as $county_name) {
           if (!empty($county_name)) {
@@ -121,11 +125,25 @@ function staff_profile_primary_rebuild()
 
 
     $mynode->save();
+    $old = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$mynode->id());
+    $new = 'staffdir/staff/' . strtolower($mynode->getTitle());
+    $new = str_replace(' ', '-', strtolower($new));
+    $new = str_replace('\'', '', strtolower($new));
+    $new = str_replace('é', 'e', strtolower($new));
+    $new = str_replace('(she/her)', 'sheher', strtolower($new));
+    //if ($old != $new) {
+    //echo $old . ' - ' . $new . PHP_EOL;
+    //}
 
+    Redirect::create([
+      'redirect_source' => $new,
+      'redirect_redirect' => 'internal:/node/' . $mynode->id(),
+      'language' => 'und',
+      'status_code' => '301',
+    ])->save();
   }
 
   echo 'Profiles: ' . count($profiles) . PHP_EOL;
-
   return;
 
   \Drupal::logger('staff_profile_primary')->info('Starting staff profile refresh from hook_rebuild page');
