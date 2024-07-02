@@ -500,6 +500,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           filters:
+            field_staff_profile_email_value: field_staff_profile_email_value
             field_staff_profile_first_name_value: field_staff_profile_first_name_value
             field_staff_profile_pref_name_value: field_staff_profile_pref_name_value
             field_staff_profile_last_name_value: field_staff_profile_last_name_value
@@ -648,10 +649,10 @@ display:
           limit: true
           error_message: true
           depth: 1
-        field_staff_profile_netid_value:
-          id: field_staff_profile_netid_value
-          table: node__field_staff_profile_netid
-          field: field_staff_profile_netid_value
+        field_staff_profile_email_value:
+          id: field_staff_profile_email_value
+          table: node__field_staff_profile_email
+          field: field_staff_profile_email_value
           relationship: none
           group_type: group
           admin_label: ''
