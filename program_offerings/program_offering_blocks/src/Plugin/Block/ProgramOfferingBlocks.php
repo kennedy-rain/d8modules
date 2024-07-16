@@ -65,6 +65,7 @@ class ProgramOfferingBlocks extends BlockBase
     $count = 0;
     $id = $this->getDerivativeID();
     $config = $this->getConfiguration();
+    $horizontal_display = !empty($config['horizontal_display']);
     $module_config = \Drupal::config('program_offering_blocks.settings');
     $site_name = \Drupal::config('system.site')->get('name');
     $is_front_page = Drupal::service('path.matcher')->isFrontPage();
@@ -193,6 +194,10 @@ class ProgramOfferingBlocks extends BlockBase
         if ($count == 0) {
           // For Horizontal Displays - Add div with ID
           // $results .= '  <div id="isu-horiz-events">' . PHP_EOL;
+          if ($horizontal_display) {
+            $results .= PHP_EOL . '  <div id="isu-horiz-events">' . PHP_EOL;
+            $results .= '<p>Horizontal Display</p>';
+          }
           $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
         }
 
@@ -202,16 +207,27 @@ class ProgramOfferingBlocks extends BlockBase
           $results .= '  <li class="event">' . PHP_EOL;
           // For Horizontal Displays
           // Month and day should be switched so that month comes first, move time
-          $results .= '    <div class="event_date"><span class="event_day">' . date('d', $start_date) . '</span>
-            <span class="event_month">' . date('M', $start_date) . '</span>
-            <span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span></div>';
+          if ($horizontal_display) {
+            $results .= '    <div class="event_date">
+              <span class="event_month">' . date('M', $start_date) . '</span>
+              <span class="event_day">' . date('d', $start_date) . '</span>
+              </div>';
+          } else {
+            $results .= '    <div class="event_date">
+              <span class="event_day">' . date('d', $start_date) . '</span>
+              <span class="event_month">' . date('M', $start_date) . '</span>
+              <span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span>
+              </div>';
+          }
 
           $results .= $this->format_title($event, $config) . PHP_EOL;
           if (!empty($event['series_info'])) {
             $results .= '    <div class="event_series">' . $event['series_info'] . '</div>' . PHP_EOL;
           }
           // For Horizontal Displays - Move time
-          // $results .= '<span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span>';
+          if ($horizontal_display) {
+            $results .= '<span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span>';
+          }
           $results .= '    <div class="event_venue">';
           $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
           $results .= '</div>' . PHP_EOL;
@@ -229,6 +245,9 @@ class ProgramOfferingBlocks extends BlockBase
       $results .= '</ul>' . PHP_EOL;
       // For Horizontal Displays
       // $results .= '</div>' . PHP_EOL;
+          if ($horizontal_display) {
+            $results .= '</div>' . PHP_EOL;
+          }
     } else {
       if (!empty($config['no_upcoming_events'])) {
         $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
