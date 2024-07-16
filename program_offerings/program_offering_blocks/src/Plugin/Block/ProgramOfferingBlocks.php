@@ -191,12 +191,17 @@ class ProgramOfferingBlocks extends BlockBase
 
       if ($display_event) {
         if ($count == 0) {
+          // For Horizontal Displays - Add div with ID
+          // $results .= '  <div id="isu-horiz-events">' . PHP_EOL;
           $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
         }
 
         if ($count < $max_events) {
+          // horizontal_display: config variable
           $start_date = strtotime($event['Next_Start_Date__c']);
           $results .= '  <li class="event">' . PHP_EOL;
+          // For Horizontal Displays
+          // Month and day should be switched so that month comes first, move time
           $results .= '    <div class="event_date"><span class="event_day">' . date('d', $start_date) . '</span>
             <span class="event_month">' . date('M', $start_date) . '</span>
             <span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span></div>';
@@ -205,6 +210,8 @@ class ProgramOfferingBlocks extends BlockBase
           if (!empty($event['series_info'])) {
             $results .= '    <div class="event_series">' . $event['series_info'] . '</div>' . PHP_EOL;
           }
+          // For Horizontal Displays - Move time
+          // $results .= '<span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span>';
           $results .= '    <div class="event_venue">';
           $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
           $results .= '</div>' . PHP_EOL;
@@ -220,6 +227,8 @@ class ProgramOfferingBlocks extends BlockBase
 
     if ($count > 0) {
       $results .= '</ul>' . PHP_EOL;
+      // For Horizontal Displays
+      // $results .= '</div>' . PHP_EOL;
     } else {
       if (!empty($config['no_upcoming_events'])) {
         $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
@@ -406,6 +415,13 @@ class ProgramOfferingBlocks extends BlockBase
       '#default_value' => $config['placement'],
     );
 
+    $form['horizontal_display'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Show Events as Horizontal'),
+      '#description' => t('When checked, events will be displayed horizontally as opposed to the default vertical list.'),
+      '#default_value' => empty($config['horizontal_display']) ? false : $config['horizontal_display'],
+    );
+
     return $form;
   }
 
@@ -432,6 +448,7 @@ class ProgramOfferingBlocks extends BlockBase
     $this->configuration['program_area'] = $values['program_area'];
     $this->configuration['county'] = array_key_exists('county', $values) ? $values['county'] : '';
     $this->configuration['placement'] = $values['placement'];
+    $this->configuration['horizontal_display'] = $values['horizontal_display'];
   }
 
   /**
@@ -456,6 +473,7 @@ class ProgramOfferingBlocks extends BlockBase
       'program_area' => '',
       'county' => '',
       'placement' => '',
+      'horizontal_display' => FALSE,
     );
   }
 
