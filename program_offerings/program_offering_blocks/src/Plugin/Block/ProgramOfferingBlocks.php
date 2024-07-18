@@ -203,6 +203,11 @@ class ProgramOfferingBlocks extends BlockBase
         if ($count < $max_events) {
           // horizontal_display: config variable
           $start_date = strtotime($event['Next_Start_Date__c']);
+          // NEW CHANGE BRIAN
+          // Make the entire Horizontal Display Card a link
+           if ($horizontal_display) {
+            $results .= '    <a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . str_replace('/', '-', $event['Name_Placeholder__c']) . '">' . PHP_EOL;
+          } else {
           $results .= '  <li class="event">' . PHP_EOL;
           // For Horizontal Displays
           // Month and day should be switched so that month comes first, move time
@@ -218,8 +223,13 @@ class ProgramOfferingBlocks extends BlockBase
               <span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span>
               </div>';
           }
-
-          $results .= $this->format_title($event, $config) . PHP_EOL;
+          // NEW CHANGE BRIAN
+          // Horizontal Diplay - Since the whole card is a link the title should not be
+          if ($horizontal_display) {
+            $results .= ' <div class="event_title">' . $title_text . '</div>' . PHP_EOL;
+          } else {
+            $results .= $this->format_title($event, $config) . PHP_EOL;
+          }
           if (!empty($event['series_info'])) {
             $results .= '    <div class="event_series">' . $event['series_info'] . '</div>' . PHP_EOL;
           }
@@ -233,7 +243,11 @@ class ProgramOfferingBlocks extends BlockBase
 
           $startDate = date($config['format_with_time'], strtotime($event['Next_Start_Date__c']));
           $results .= '    <div class="event_startdate">' . $startDate . '</div>' . PHP_EOL;
-
+          // NEW CHANGE BRIAN
+          // Close the link tag for horizontal displays
+           if ($horizontal_display) {
+          $results .= '  </a>' . PHP_EOL;
+          } else {
           $results .= '  </li>' . PHP_EOL;
         }
         $count++;
