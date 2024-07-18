@@ -193,7 +193,6 @@ class ProgramOfferingBlocks extends BlockBase
       if ($display_event) {
         if ($count == 0) {
           // For Horizontal Displays - Add div with ID
-          // $results .= '  <div id="isu-horiz-events">' . PHP_EOL;
           if ($horizontal_display) {
             $results .= PHP_EOL . '  <div id="isu-horiz-events">' . PHP_EOL;
           }
@@ -201,14 +200,13 @@ class ProgramOfferingBlocks extends BlockBase
         }
 
         if ($count < $max_events) {
-          // horizontal_display: config variable
           $start_date = strtotime($event['Next_Start_Date__c']);
-          // NEW CHANGE BRIAN
+          $results .= '  <li class="event">' . PHP_EOL;
+
           // Make the entire Horizontal Display Card a link
            if ($horizontal_display) {
             $results .= '    <a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . str_replace('/', '-', $event['Name_Placeholder__c']) . '">' . PHP_EOL;
-          } else {
-          $results .= '  <li class="event">' . PHP_EOL;
+          }
           // For Horizontal Displays
           // Month and day should be switched so that month comes first, move time
           if ($horizontal_display) {
@@ -223,31 +221,33 @@ class ProgramOfferingBlocks extends BlockBase
               <span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span>
               </div>';
           }
-          // NEW CHANGE BRIAN
           // Horizontal Diplay - Since the whole card is a link the title should not be
           if ($horizontal_display) {
-            $results .= ' <div class="event_title">' . $title_text . '</div>' . PHP_EOL;
+            $results .= ' <div class="event_title">' . $this->get_title_text($event) . '</div>' . PHP_EOL;
           } else {
             $results .= $this->format_title($event, $config) . PHP_EOL;
           }
+
           if (!empty($event['series_info'])) {
             $results .= '    <div class="event_series">' . $event['series_info'] . '</div>' . PHP_EOL;
           }
+
           // For Horizontal Displays - Move time
           if ($horizontal_display) {
             $results .= '<span class="event_time">' . date('g:i', $start_date) . '</span><span class="event_ampm">' . date('A', $start_date) . '</span>';
           }
+
           $results .= '    <div class="event_venue">';
           $results .= $event['Event_Location__c'] == 'Online' ? 'Online' : $event['Event_Location__c'] . ', ' . $event['Program_State__c'];
           $results .= '</div>' . PHP_EOL;
 
           $startDate = date($config['format_with_time'], strtotime($event['Next_Start_Date__c']));
           $results .= '    <div class="event_startdate">' . $startDate . '</div>' . PHP_EOL;
-          // NEW CHANGE BRIAN
+
           // Close the link tag for horizontal displays
-           if ($horizontal_display) {
-          $results .= '  </a>' . PHP_EOL;
-          } else {
+          if ($horizontal_display) {
+            $results .= '  </a>' . PHP_EOL;
+          }
           $results .= '  </li>' . PHP_EOL;
         }
         $count++;
@@ -256,8 +256,7 @@ class ProgramOfferingBlocks extends BlockBase
 
     if ($count > 0) {
       $results .= '</ul>' . PHP_EOL;
-      // For Horizontal Displays
-      // $results .= '</div>' . PHP_EOL;
+      // For Horizontal Displays, close the div tag
       if ($horizontal_display) {
         $results .= '</div>' . PHP_EOL;
       }
@@ -538,12 +537,15 @@ class ProgramOfferingBlocks extends BlockBase
   private function format_title($event, $config)
   {
     $title = '<div class="event_title">';
+    /*
     $title_text = $event['Name_Placeholder__c'];
 
     // Append language to the end of the title, when it's not English
     if (!empty($event['Delivery_Language__c']) && 'english' != strtolower($event['Delivery_Language__c'])) {
       $title_text .= ' - ' . $event['Delivery_Language__c'];
     }
+    */
+    $title_text = $this->get_title_text($event);
 
     if ($config['event_details_page']) {
       $title .= '<a href="' . base_path() . 'event_details/' . $event['Id'] . '/' . str_replace('/', '-', $event['Name_Placeholder__c']) . '">' . $title_text . '</a>';
@@ -564,6 +566,21 @@ class ProgramOfferingBlocks extends BlockBase
     $title .= '</div>';
 
     return $title;
+  }
+
+  /**
+   * Return title text, checking for delivery language
+   */
+  private function get_title_text($event)
+  {
+    $title_text = $event['Name_Placeholder__c'];
+
+    // Append language to the end of the title, when it's not English
+    if (!empty($event['Delivery_Language__c']) && 'english' != strtolower($event['Delivery_Language__c'])) {
+      $title_text .= ' - ' . $event['Delivery_Language__c'];
+    }
+
+    return $title_text;
   }
 
   /**
