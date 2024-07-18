@@ -196,7 +196,6 @@ class ProgramOfferingBlocks extends BlockBase
           // $results .= '  <div id="isu-horiz-events">' . PHP_EOL;
           if ($horizontal_display) {
             $results .= PHP_EOL . '  <div id="isu-horiz-events">' . PHP_EOL;
-            $results .= '<p>Horizontal Display</p>';
           }
           $results .= PHP_EOL . '<ul class="program_offering_blocks program_offering_blocks_' . $id . '">' . PHP_EOL;
         }
@@ -245,9 +244,9 @@ class ProgramOfferingBlocks extends BlockBase
       $results .= '</ul>' . PHP_EOL;
       // For Horizontal Displays
       // $results .= '</div>' . PHP_EOL;
-          if ($horizontal_display) {
-            $results .= '</div>' . PHP_EOL;
-          }
+      if ($horizontal_display) {
+        $results .= '</div>' . PHP_EOL;
+      }
     } else {
       if (!empty($config['no_upcoming_events'])) {
         $results .= '<p class="event_no_events">' . $config['no_upcoming_events'] . '</p>';
