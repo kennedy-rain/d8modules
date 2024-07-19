@@ -140,3 +140,6 @@ a#isu-horiz-events {
   text-decoration: underline;
   float: right;
 }
+#isu-horiz-events .program_offering_blocks a {
+  color: $000;
+}
