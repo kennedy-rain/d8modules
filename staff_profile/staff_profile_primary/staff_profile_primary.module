@@ -6,6 +6,7 @@ use \Drupal\Component\Utility\Random;
 use \Drupal\encrypt\Entity\EncryptionProfile;
 use \Drupal\taxonomy\Entity\Term;
 use Drupal\isueo_helpers\ISUEOHelpers;
+use Drupal\redirect\Entity\Redirect;
 
 /**
  * Implements hook_rebuild()
