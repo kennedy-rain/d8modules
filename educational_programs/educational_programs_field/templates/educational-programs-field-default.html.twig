@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Default template for educational_programs_field
+ *
+ * Available variables:
+ *   - program_name: Name for the Program
+ *   - description: Description
+ *   - url: URL for the program
+ *   - smugmug_id: SmugMug ID
+ *   - redirected: true/false - Automatically redirected to the program page
+ */
+#}
+
+<div class="educational_program">
+  {% if redirected %}
+    <div class="educational_program_redirected">
+      <h4>Note: Page Redirected</h4>
+      <p>Public users will automatically be redirected to <a href="{{ url }}">{{ url }}</a></p>
+    </div>
+  {% endif %}
+
+  {% if program_name %}
+    <div class="educational_program_description">
+      {{ description }}
+    </div>
+    <img class="educational_program_image" src="https://photos.smugmug.com/photos/{{ smugmug_id }}/0/XL/{{ smugmug_id }}-XL.jpg" alt="" />
+    <div class="clearer"></div>
+
+    <div class="educational_program_link">
+      <a href="{{ url }}">More about {{ program_name }}</a>
+    </div>
+  {% else %}
+    <div class="educational_program_description">
+      Program not found
+    </div>
+  {% endif %}
+</div>

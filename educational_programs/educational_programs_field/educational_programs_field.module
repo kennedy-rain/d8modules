@@ -28,3 +28,21 @@ function educational_programs_field_preprocess_node(&$variables)
 {
   $variables['#attached']['library'][] = 'educational_programs_field/educational_programs_field';
 }
+
+/**
+* Implements hook_theme().
+*/
+
+function educational_programs_field_theme($existing, $type, $theme, $path) {
+    return [
+      'educational_programs_field_default' => [
+        'variables' => [
+          'program_name' => '',
+          'description' => '',
+          'url' => '',
+          'smugmug_id' => '',
+          'redirected' => false,
+        ],
+      ],
+    ];
+}
