@@ -4,33 +4,72 @@
  * Default template for educational_programs_field
  *
  * Available variables:
- *   - program_name: Name for the Program
- *   - description: Description
- *   - url: URL for the program
- *   - smugmug_id: SmugMug ID
- *   - redirected: true/false - Automatically redirected to the program page
+ *   - program
+ *     - name: Name for the Program
+ *     - description: Description
+ *     - url: URL for the program
+ *     - smugmug_id: SmugMug ID
+ *     - redirected: true/false - Automatically redirected to the program page
+ *   - children: Array of children
+ *     - name
+ *     - description
+ *     - url
  */
 #}
 
 <div class="educational_program">
-  {% if redirected %}
-    <div class="educational_program_redirected">
-      <h4>Note: Page Redirected</h4>
-      <p>Public users will automatically be redirected to <a href="{{ url }}">{{ url }}</a></p>
-    </div>
-  {% endif %}
+  {% if program %}
+    {# Output redirected message when needed #}
+    {% if program.redirected %}
+      <div class="educational_program_redirected">
+        <h4>Note: Page Redirected</h4>
+        <p>Public users will automatically be redirected to <a href="{{ program.url }}">{{ program.url }}</a></p>
+      </div>
+    {% endif %}
 
-  {% if program_name %}
+    {# Output the description and image #}
     <div class="educational_program_description">
-      {{ description }}
+      {{ program.description }}
     </div>
-    <img class="educational_program_image" src="https://photos.smugmug.com/photos/{{ smugmug_id }}/0/XL/{{ smugmug_id }}-XL.jpg" alt="" />
+    <img class="educational_program_image" src="https://photos.smugmug.com/photos/{{ program.smugmug_id }}/0/XL/{{ program.smugmug_id }}-XL.jpg" alt="" />
     <div class="clearer"></div>
 
     <div class="educational_program_link">
-      <a href="{{ url }}">More about {{ program_name }}</a>
+      <a href="{{ program.url }}">More about {{ program.name }}</a>
     </div>
+
+    {# Start of accordion #}
+    <div><div class="accordion">
+
+    {# Step through all the child records #}
+    {% for child in children %}
+      <div class="views-row">
+        <div class="views-row" style="border:solid 1px red;">
+          {# Output the child name #}
+          <div class="views-field views-field-title views-accordion-header js-views-accordion-header-2500e0de8557df4f07fd1455c46a47bba6e4a25a3189afd01a8eb3a6b5699724">
+            <span class="field-content">{{ child.name }}</span>
+          </div>
+          {# Output the child description #}
+          <div class="views-field views-field-body">
+            <div class="field-content">{{ child.description }}</div>
+          </div>
+          {# Output the child url, if given one #}
+          {% if child.url %}
+          <div class="views-field views-field-field-plp-child-website">
+            <div class="field-content">
+              <a href="{{ child.url }}">More about {{ child.name }}</a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+
+    </div>
+    </div>
+
   {% else %}
+    {# Don't have a program to output #}
     <div class="educational_program_description">
       Program not found
     </div>

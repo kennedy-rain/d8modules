@@ -37,11 +37,8 @@ function educational_programs_field_theme($existing, $type, $theme, $path) {
     return [
       'educational_programs_field_default' => [
         'variables' => [
-          'program_name' => '',
-          'description' => '',
-          'url' => '',
-          'smugmug_id' => '',
-          'redirected' => false,
+          'program' => [],
+          'children' => [],
         ],
       ],
     ];
