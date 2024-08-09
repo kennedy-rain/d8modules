@@ -112,6 +112,7 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase
           ];
         }
       }
+      ksort($children);
       $elements[$delta] = [
         '#theme' => 'educational_programs_field_default',
         '#program' => $program,
