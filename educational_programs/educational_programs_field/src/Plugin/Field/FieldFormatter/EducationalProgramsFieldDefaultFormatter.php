@@ -71,7 +71,7 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase
       $website = '';
       $description = '';
       $redirected = false;
-      $children = [];
+      $subprograms = [];
       $program = [];
 
       foreach ($products as $product) {
@@ -105,18 +105,23 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase
           && $program_id == $product['Related_Program__c']
           && ($product['Show_on_Program_Landing_Page__c'] || $product['Public_Access__c'])
         ) {
-          $children[$product['Name']] = [
+          $subprograms[$product['Name']] = [
+            //'#theme' => 'educational_programs_field_program',
             'name' => $product['Name'],
             'url' => $product['Planned_Program_Website__c'],
             'description' => ['#markup' => $this::educational_programs_field_get_description($product),],
           ];
         }
       }
-      ksort($children);
+      ksort($subprograms);
       $elements[$delta] = [
         '#theme' => 'educational_programs_field_default',
         '#program' => $program,
-        '#children' => $children,
+        '#children' => [
+
+          '#theme' => 'educational_programs_field_children',
+          '#subprograms' => $subprograms,
+        ],
       ];
 
       // Redirect if user is anonymous, we have a web site, and auto_redirect is enabled
@@ -134,6 +139,7 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase
       //}
 
     }
+
     return $elements;
   }
 

@@ -41,5 +41,10 @@ function educational_programs_field_theme($existing, $type, $theme, $path) {
           'children' => [],
         ],
       ],
+      'educational_programs_field_children' => [
+        'variables' => [
+          'subprograms' => [],
+        ],
+      ],
     ];
 }

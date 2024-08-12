@@ -38,35 +38,8 @@
       <a href="{{ program.url }}">More about {{ program.name }}</a>
     </div>
 
-    {# Start of accordion #}
-    <div><div class="accordion">
-
     {# Step through all the child records #}
-    {% for child in children %}
-      <div class="views-row">
-        <div class="views-row" style="border:solid 1px red;">
-          {# Output the child name #}
-          <div class="views-field views-field-title views-accordion-header js-views-accordion-header-2500e0de8557df4f07fd1455c46a47bba6e4a25a3189afd01a8eb3a6b5699724">
-            <span class="field-content">{{ child.name }}</span>
-          </div>
-          {# Output the child description #}
-          <div class="views-field views-field-body">
-            <div class="field-content">{{ child.description }}</div>
-          </div>
-          {# Output the child url, if given one #}
-          {% if child.url %}
-          <div class="views-field views-field-field-plp-child-website">
-            <div class="field-content">
-              <a href="{{ child.url }}">More about {{ child.name }}</a>
-            </div>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
-
-    </div>
-    </div>
+      {{ children }} {# uses the educational-programs-field-children TWIG template #}
 
   {% else %}
     {# Don't have a program to output #}
