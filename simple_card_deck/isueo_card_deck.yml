@@ -11,4 +11,3 @@ dependencies:
   - drupal:image
   - drupal:allowed_formats
   - drupal:pubs_entity_type
-

@@ -1,5 +1,5 @@
 {
-  "name": "isueit/simple_card_deck",
+  "name": "isueit/isueo_card_deck",
   "type": "drupal-custom-module",
   "description": "Creates a simple card deck block type"
 }
