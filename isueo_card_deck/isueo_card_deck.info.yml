@@ -7,7 +7,6 @@ core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - drupal:block
   - drupal:block_content
-  - drupal:options
   - drupal:image
   - drupal:allowed_formats
   - drupal:pubs_entity_type

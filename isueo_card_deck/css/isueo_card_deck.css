@@ -22,10 +22,10 @@
 	margin: 0;
 }
 .isueo-card-deck-body.card-body {
-	padding: 0 1rem;
+	padding: 0 1rem 1.25rem 1rem;
 }
 .isueo-card-deck-footer.card-footer {
-	padding: 1.25rem 1.25rem;
+	padding: 0 1.25rem 1.25rem 1.25rem;
 }
 .isueo-card-deck-footer a {
 	text-decoration: none;
