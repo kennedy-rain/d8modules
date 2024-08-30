@@ -21,21 +21,19 @@
   {% if program %}
     {# Output redirected message when needed #}
     {% if program.redirected %}
-      <div class="educational_program_redirected">
-        <h4>Note: Page Redirected</h4>
-        <p>Public users will automatically be redirected to <a href="{{ program.url }}">{{ program.url }}</a></p>
+      <div class="alert alert-info" role="alert">
+        <p class="text-uppercase font-weight-bold">This page has been redirected</p>
+        <p>Visitors to this page will be automatically redirected to <a href="{{ program.url }}">{{ program.url }}.</a></p>
       </div>
     {% endif %}
 
     {# Output the description and image #}
+    <div class="program-hero-image">
+      <img src="https://photos.smugmug.com/photos/{{ program.smugmug_id }}/0/XL/{{ program.smugmug_id }}-XL.jpg" alt="{{ program.name }}" />
+    </div>
     <div class="educational_program_description">
       {{ program.description }}
-    </div>
-    <img class="educational_program_image" src="https://photos.smugmug.com/photos/{{ program.smugmug_id }}/0/XL/{{ program.smugmug_id }}-XL.jpg" alt="" />
-    <div class="clearer"></div>
-
-    <div class="educational_program_link">
-      <a href="{{ program.url }}">More about {{ program.name }}</a>
+        <span class="educational_program_link"><a class="btn btn-outline-secondary" href="{{ program.url }}">Explore additional details</a></span>
     </div>
 
     {# Step through all the child records #}
