@@ -97,6 +97,7 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase
             'url' => $website,
             'smugmug_id' => $product['Smugmug_ID__c'],
             'redirected' => $redirected,
+            'hide_image' => !empty($item->hide_image),
           ];
         }
 
