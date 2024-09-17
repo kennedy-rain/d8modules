@@ -42,7 +42,7 @@
 .slick__slide img {
 	margin-left: auto;
 	margin-right: auto;
-	border-bottom: 2px #ddd solid;
+	padding: 15px 15px 0 15px;
 }
 
 
