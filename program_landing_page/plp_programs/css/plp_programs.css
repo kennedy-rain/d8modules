@@ -28,7 +28,7 @@
 }
 #plp-events li.event {
     box-shadow: 0.5625rem 0.5625rem 1.25rem rgb(0 0 0 / 20%);
-    padding: .5em;
+    padding: .5em;	
 }
 #plp-events div.event_date {
     border-right: none;
@@ -70,57 +70,35 @@ a#plp-events {
 }
 
 /* Hero Image & Title */
-.program-hero-overlay:before {
-    position: absolute;
-    content: "";
-    background-color: var(--cardinal);
-    border-top: 5px solid var(--gold);
-    clip-path: polygon(0 0, 85% 0, 99% 100%, 0% 100%);
-    width: 100%;
-    z-index: 1;
-    top: 0;
-    bottom: 0;
-}
-.program-hero-overlay {
-    position: absolute;
-    background-color: var(--gold);
-    width: 60%;
-    height: 100%;
-    clip-path: polygon(0 0, 86% 0, 100% 100%, 0% 100%);
-    z-index: 1;
+.program-hero-wrapper {
+height: 100%;
+max-height: 50vh;
+min-height: 40vh;
+position: relative;
 }
 .program-hero-image img {
     width: 100%;
-    max-height: 248px;
-    float: none;
-    margin: 0;
-    max-width: 2600px;
-    position: absolute;
-    border-top: 5px solid var(--gold);
+    max-height: 50vh;
     object-fit: cover;
+min-height: 1px;
 }
 .program-hero-label-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1140px;
-    position: relative;
-    z-index: 2;
+bottom: 0;
+width: 100%;
+position: absolute;
+padding: 0.75rem 1rem;
+background: rgba(200, 0, 21, .7);
 }
 .program-hero-label h1.isu-page-title {
     color: #fff;
-    font-size: clamp(1.2rem, 4.375vw - 1rem, 3.375rem);
-}
-.program-hero-wrapper {
-    height: 100%;
-    max-height: 248px;
-    position: relative;
+    font-size: clamp(1.2rem, 3.375vw - 1rem, 3.375rem);
+margin: 0;
 }
 
 /* Program Blocks */
 .plp-program-contact-blocks .isueo-box-shadow {
     padding: 1rem;
+background-color: #fff;
 }
 .plp-program-contact-blocks a {
     text-decoration: none;
@@ -128,6 +106,7 @@ a#plp-events {
 }
 .plp-program-contact-blocks a:hover {
     text-decoration: none;
+    color: var(--midnight);
     outline: var(--gold) auto 3px;
 }
 .plp-program-contact-blocks p {
@@ -142,9 +121,10 @@ a#plp-events {
     max-width: 1140px;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 .accordion {
-    margin-block-end: 5em;
+    margin-block-end: 2em;
 }
 .ui-accordion .ui-accordion-header {
     color: var(--cardinal);
@@ -173,6 +153,12 @@ a#plp-events {
     border: none;
     background: none;
     color: #212529;
+}
+.accordion .ui-widget-content .views-field-field-plp-child-website a {
+    color: var(--burgundy);
+}
+.accordion .ui-widget-content .views-field-field-plp-child-website a:hover {
+    color: var(--cardinal);
 }
 .ui-accordion .ui-accordion-content {
     transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,border-radius 0.15s ease;
@@ -225,4 +211,40 @@ a#plp-events {
     box-sizing: border-box;
     left: auto;
     right: 11px;
+}
+
+/* Related Programs */
+.plp-related-title {
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
+    font-family: Merriweather, serif;
+    line-height: 1.4;
+    font-weight: 700;
+}
+.card.plp-related {
+    padding-top: 2rem;
+}
+.plp-related-icon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.plp-related-programs ul.row {
+    row-gap: 3rem;
+}
+.plp-related-programs .card a {
+    text-decoration: underline;
+}
+.plp-related-programs .col-md-6.col-lg-4 .card {
+    align-items: stretch;
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+}
+.plp-related-programs {
+    margin-top: 7%;
+    margin-block-end: 13%;
+}
+.plp-related-programs .views-field.views-field-nothing {
+	height: 100%;
 }

@@ -3,8 +3,11 @@ status: true
 dependencies:
   module:
     - search_api_typesense
-id: typesense
-name: Typesense
+  enforced:
+    module:
+      - plp_programs
+id: typesense_plp_programs
+name: 'Typesense PLP Programs'
 description: ''
 backend: search_api_typesense
 backend_config:
