@@ -11,6 +11,7 @@ include_once('plp_programs.page.inc');
 function plp_programs_rebuild()
 {
   plp_programs_getprograms();
+  plp_programs_index_all();
 }
 
 /**
@@ -19,6 +20,7 @@ function plp_programs_rebuild()
 function plp_programs_cron()
 {
   plp_programs_getprograms();
+  plp_programs_index_all();
 }
 
 function plp_programs_getprograms()

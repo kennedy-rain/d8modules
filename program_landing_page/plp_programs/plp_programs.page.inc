@@ -2,6 +2,9 @@
 
 use Drupal\node\Entity\Node;
 use Drupal\isueo_helpers\ISUEOHelpers;
+use Drupal\isueo_helpers\ISUEOHelpers\Taxonomy;
+use Drupal\isueo_helpers\ISUEOHelpers\Typesense;
+use Drupal\taxonomy\Entity\Term;
 
 // Return an array of existing nodes with MyData ID as the array key
 function plp_programs_get_existing_nodes(string $content_type, string $mydata_id_field)
@@ -271,4 +274,58 @@ function plp_programs_handle_topic_hierarchy(array $categories_topics, array $pr
       }
     }
   }
+}
+
+function plp_programs_get_typesense_client() {
+  return Typesense::getClient('KPwl7XwGfNLPjKdRtZSL1H0Rb1YeApcD');
+}
+
+// Index all programs to typesense
+function plp_programs_index_all()
+{
+  $client = plp_programs_get_typesense_client();
+
+  $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'plp_program')->condition('status', true)->execute();
+  $nodes =  Node::loadMultiple($nids);
+  foreach ($nodes as $node) {
+    plp_programs_typesense_index_node($client, $node);
+  }
+}
+
+function plp_programs_typesense_index_node($client, $node) {
+  $record = [
+    'id' => 'plp_program:' . $node->id(),
+    'title' => $node->getTitle(),
+    'field_plp_program_sort_calc' => intval($node->field_plp_program_sort_calc->value),
+    'field_plp_program_num_events' => intval($node->field_plp_program_num_events->value),
+    'field_plp_program_category' => intval($node->get('field_plp_program_category')->getString()),
+    'field_plp_program_smugmug' => $node->get('field_plp_program_smugmug')->getString(),
+    'field_plp_program_search_terms' => $node->get('field_plp_program_search_terms')->getString(),
+    'category_name' => Term::load(intval($node->get('field_plp_program_category')->getString()))->getName(),
+    'body' => empty($node->get('body')->value)? 'N/A' : $node->get('body')->value,
+    'summary' => empty($node->get('body')->summary) ? 'N/A' : $node->get('body')->summary,
+    'program_area' => Term::load(intval($node->get('field_plp_program_program_area')->getString()))->getName(),
+    'url' => '/program' . \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id()),
+    'children_title' => [],
+    'children_body' => [],
+    'field_plp_program_topics' => [],
+    'topic_names' => [],
+  ];
+
+  $topics = explode(', ', $node->get('field_plp_program_topics')->getString());
+  foreach ($topics as $topic_id) {
+    $record['field_plp_program_topics'][] = intval($topic_id);
+    $record['topic_names'][] = Term::load(intval($topic_id))->getName();
+  }
+
+  $children = explode(', ', $node->get('field_plp_program_children')->getString());
+  foreach ($children as $child) {
+    $child_node = Node::load($child);
+    if ($child_node) {
+      $record['children_title'][] = $child_node->getTitle();
+      $record['children_body'][] = $child_node->get('body')->getString();
+    }
+  }
+
+  $client->collections['plp_programs']->documents->upsert($record);
 }
