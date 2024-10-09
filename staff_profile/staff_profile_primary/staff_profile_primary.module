@@ -104,8 +104,8 @@ function staff_profile_primary_profile_from_database()
     // Try to find an existing node, otherwise create one
     if (array_key_exists($netid, $nodes_netid)) {
       $node = $nodes_netid[$netid];
-      //    } elseif (array_key_exists($setwise['STAFFID'], $nodes_staffid)) {
-      //      $node = $nodes_staffid[$setwise['STAFFID']];
+          } elseif (array_key_exists($setwise['STAFFID'], $nodes_staffid)) {
+            $node = $nodes_staffid[$setwise['STAFFID']];
     } else {
       $node = Node::create(array('type' => 'staff_profile', 'title' => $setwise['LAST NAME'] . ', ' . $setwise['FIRST NAME']));
       $node->set('field_staff_profile_netid', $netid);
