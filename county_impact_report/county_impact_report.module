@@ -1,0 +1,36 @@
+<?php
+
+/*
+ * Implements hook_ENTITY_TYPE_update()
+ */
+function county_impact_report_content_update(Drupal\Core\Entity\EntityInterface $entity){
+	// Clear cache if BlockContent is of type
+  if ($entity->bundle() == 'county_impact_remport') {
+	\Drupal::service('cache.render')->invalidateAll();
+  }
+}
+
+function county_impact_report_theme_suggestions_block_alter(&$suggestions, $variables) {
+  $content = $variables['elements']['content'];
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof \Drupal\block_content\BlockContentInterface) {
+    $suggestions[] = 'block__' . $content['#block_content']->bundle();
+  }
+}
+
+function county_impact_report_preprocess_block(&$variables) {
+    $variables['#attached']['library'][] = 'county_impact_report/county_impact_report';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function county_impact_report_theme($existing, $type, $theme, $path)
+{
+  return [
+    'paragraph__county_impact_story' => [
+      'variables' => ['test_var' => NULL],
+      'template' => 'paragraph--county-impact-story',
+      'base hook' => 'paragraph',
+    ],
+  ];
+}

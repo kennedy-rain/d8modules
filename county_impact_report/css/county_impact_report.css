@@ -1,0 +1,36 @@
+:root {
+	--cardinal: #c8102e;
+	--gold: #f1be48;
+	--burgundy: #7c2529;
+	--dk-gray: #4a4a4a;
+	--lt-gray: #f5f5f5;
+	--md-gray: #ebebeb;
+	--midnight: #003d4c;
+	--green: #008540;
+	--sans-font: 'Arial', 'Helvetica Neue', sans-serif;
+	--serif-font: 'Merriweather', serif;
+  }
+
+/* -------------------------------------- */
+/* ## Impact Reports
+/* ------------------------------------- */
+div#block-iastate-theme-content--2 .paragraph {
+	max-width: 1140px;
+	margin: auto;
+}
+.paragraph .impact-story-image {
+	width: 350px;
+	height: 350px;
+	float: right;
+	shape-outside: circle() margin-box;
+	shape-margin: 10px;
+	margin-left: 2rem;
+}
+.paragraph .impact-story-image img {
+	width: 350px;
+	height: 350px;
+	border-radius: 50%;
+}
+.paragraph h2 {
+	padding-top: 4rem;
+}
