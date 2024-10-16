@@ -33,11 +33,19 @@
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
  *
+ * Locally added Variables
+ *   direct_contacts: Total Direct Contacts
+ *   volenteer_hours: Volunteer Hours
+ *   youth: Unique Youth
+ *   partners: County Partners
+ *   certifications: Professional Certification and CEU Contacts
+ *
  * @see template_preprocess_paragraph()
  *
  * @ingroup themeable
  */
 #}
+
 {%
   set classes = [
     'paragraph',
@@ -46,14 +54,28 @@
     not paragraph.isPublished() ? 'paragraph--unpublished'
   ]
 %}
+
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
- <h2 class="isu-block-title h4">{{ content.field_county_impact_story_title }}</h2>
+     <h2 class="isu-block-title h4">{{ content.field_county_impact_story_title }}</h2>
      <div class="impact-story-image">{{ content.field_county_impact_story_image }}</div>
-     <p class="impact-story-body">{{ content.field_county_impact_story_body }}</p>
+     <div class="impact-story-body">{{ content.field_county_impact_story_body }}</div>
     {% endblock %}
+
+    {% if paragraph.id() == 2 %}
+      <p>Do great stuff here</p>
+      <ul>
+        <li>{{ direct_contacts }}</li>
+        <li>{{ volenteer_hours }}</li>
+        <li>{{ youth }}</li>
+        <li>{{ partners }}</li>
+        <li>{{ certifications }}</li>
+      </ul>
+    {% endif %}
+    {% if paragraph.id() == 3 %}
+      <p> Do more great stuff here</p>
+    {% endif %}
+
   </div>
 {% endblock paragraph %}
-
-
