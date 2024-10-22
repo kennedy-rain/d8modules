@@ -7,7 +7,6 @@ dependencies:
   module:
     - entity_reference_revisions
     - layout_builder
-    - layout_builder_base_library
     - layout_discovery
     - user
 third_party_settings:
@@ -15,49 +14,6 @@ third_party_settings:
     enabled: true
     allow_custom: false
     sections:
-      -
-        layout_id: layout_base_onecol
-        layout_settings:
-          label: 'Hero Header'
-          context_mapping: {  }
-          classes: ''
-          column_widths: null
-          id: ''
-          column_gap: ''
-          row_gap: ''
-          column_width: ''
-          column_breakpoint: ''
-          align_items: ''
-          background: layout--background--none
-          background_image: '476'
-          background_image_style: ''
-          background_attachment: layout--background-attachment--default
-          background_position: layout--background-position--center
-          background_size: layout--background-size--cover
-          background_overlay: layout--background-overlay--none
-          equal_top_bottom_margins: ''
-          equal_left_right_margins: ''
-          top_margin: ''
-          right_margin: ''
-          bottom_margin: ''
-          left_margin: ''
-          equal_top_bottom_paddings: layout--top-bottom-padding--big
-          equal_left_right_paddings: layout--left-right-padding--small
-          top_padding: ''
-          right_padding: ''
-          bottom_padding: ''
-          left_padding: ''
-          container: layout--container--none
-          content_container: layout--content-container--default
-          height: layout-height-40vh
-          color: layout--color--default
-          alignment: ''
-          modifier: ''
-          customizable_columns: ''
-          modifiers: ''
-          layout_builder_styles_style: {  }
-        components: {  }
-        third_party_settings: {  }
       -
         layout_id: layout_onecol
         layout_settings:
