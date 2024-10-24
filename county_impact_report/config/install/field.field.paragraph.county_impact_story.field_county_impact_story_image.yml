@@ -10,7 +10,7 @@ field_name: field_county_impact_story_image
 entity_type: paragraph
 bundle: county_impact_story
 label: Image
-description: ''
+description: 'Images are displayed proportionally and scaled to 350px x 275px.'
 required: false
 translatable: false
 default_value: {  }

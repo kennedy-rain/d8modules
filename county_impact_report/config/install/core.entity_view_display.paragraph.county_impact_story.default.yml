@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.county_impact_story.field_county_impact_story_title
     - paragraphs.paragraphs_type.county_impact_story
   module:
+    - field_formatter_class
     - text
 id: paragraph.county_impact_story.default
 targetEntityType: paragraph
@@ -26,7 +27,9 @@ content:
     settings:
       view_mode: default
       link: false
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 2
     region: content
   field_county_impact_story_title:

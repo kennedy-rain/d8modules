@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_county_impact_story_body
-    - filter.format.plain_text
+    - filter.format.impact_report
     - paragraphs.paragraphs_type.county_impact_story
   module:
     - text
@@ -19,5 +19,5 @@ default_value: {  }
 default_value_callback: ''
 settings:
   allowed_formats:
-    - plain_text
+    - impact_report
 field_type: text_long
