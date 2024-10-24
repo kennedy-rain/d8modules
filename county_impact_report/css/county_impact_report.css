@@ -93,6 +93,20 @@ div#block-iastate-theme-content--2 .paragraph {
 	margin-top: 60px;
 	margin-bottom: 1rem;
 }
+/* --------------------------------------  */
+/* ## Responsive
+/* --------------------------------------  */
+@media screen and (max-width : 575px) {
+	.paragraph .impact-story-image {
+		float: none;
+	}
+	.paragraph .impact-story-image img {
+		margin-left: 0;
+	}
+	.impact-story-stats-one .layout-builder-base--three-columns .layout-content, .impact-story-stats-two .layout-builder-base--three-columns .layout-content {
+		row-gap: 40px;
+	}
+}
 
 /* -------------------------------------- */
 /* ## PRINT STYLES
