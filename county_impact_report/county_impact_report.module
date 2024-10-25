@@ -3,6 +3,11 @@
 /*
  * Implements hook_ENTITY_TYPE_update()
  */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\media\Entity\Media;
+use Drupal\paragraphs\Entity\Paragraph;
+
 function county_impact_report_content_update(Drupal\Core\Entity\EntityInterface $entity)
 {
   // Clear cache if BlockContent is of type
@@ -281,11 +286,61 @@ function county_impact_report_preprocess_paragraph__county_impact_story(&$variab
      'Worth' => [3373, 5, 412, 4, 178,],
      'Wright' => [3564, 750, 526, 8, 390,],
    ];
- 
+
    $variables['direct_contacts'] = number_format($data[$site_name][0]);
    $variables['volenteer_hours'] = number_format($data[$site_name][1]);
    $variables['youth'] = number_format($data[$site_name][2]);
    $variables['partners'] = number_format($data[$site_name][3]);
    $variables['certifications'] = number_format($data[$site_name][4]);
  }
- 
+
+/**
+* Implements hook_form_alter().
+*/
+
+function county_impact_report_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'node_county_impact_report_edit_form') {
+
+    $form['actions']['save_review'] = array(
+      '#type' => 'submit',
+      '#value' => 'Save & Submit for Review',
+      '#name' => 'op',
+      //'#submit' => ['county_impact_report_form_submit'], /* NEED this */
+      '#submit' => array_merge($form['actions']['submit']['#submit'],
+          ['county_impact_report_form_submit']),
+      '#weight' => 10
+    );
+  }
+}
+
+// Handle the form submission
+function county_impact_report_form_submit($form, FormStateInterface $form_state) {
+/*
+  $node = $form_state->getFormObject()->getEntity();
+  //$node->save();
+  //$message = print_r($form, true);
+
+  $message = '<br>' . $node->getTitle();
+  $paragraphs = $node->get('field_impact_story');
+  $message .= ' - ' . count($paragraphs);
+  foreach ($paragraphs as $paragraph) {
+    $values = Paragraph::load($paragraph->target_id);
+    //$message .= '*' . print_r($values->field_county_impact_story_body->getValue(), true) . '*';
+    $message .= '*' . $values->field_county_impact_story_title->value . '*';
+    $message .= '*' . $values->field_county_impact_story_body->getValue()[0]['value'] . '*';
+    //$message .= $values->field_county_impact_story_image->getValue()[0]['target_id'];
+    $image = Media::load($values->field_county_impact_story_image->getValue()[0]['target_id']);
+    //$message .= print_r($values->field_county_impact_story_image->getValue(), true);
+    //$message .= print_r($image->getFields(), true);
+    $message .= $values->field_county_impact_story_image->alt;
+    $message .= $values->field_county_impact_story_image->url;
+    $message .= $values->field_county_impact_story_image->title;
+    $message .= $image->id();
+    $message .= $image->toUrl()->toString();
+  }
+
+  Drupal::messenger()->addStatus('Saved, and emails sent for reviews' . $message);
+*/
+
+  Drupal::messenger()->addStatus('Saved, Submit for Review feature coming soon!');
+}
