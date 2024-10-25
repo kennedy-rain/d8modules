@@ -1,0 +1,107 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * Locally added Variables
+ *   direct_contacts: Total Direct Contacts
+ *   volenteer_hours: Volunteer Hours
+ *   youth: Unique Youth
+ *   partners: County Partners
+ *   certifications: Professional Certification and CEU Contacts
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+    <div class="paragraph-layout-content">
+     <h2 class="isu-block-title h4">{{ content.field_county_impact_story_title }}</h2>
+     <div class="impact-story-image">{{ content.field_county_impact_story_image }}</div>
+     <div class="impact-story-body">{{ content.field_county_impact_story_body }}</div>
+     </div>
+    {% endblock %}
+
+    {% if paragraph.id() == 1 %} 
+    <div class="impact-story-stats-one">
+      <div class="layout layout--base--threecols layout--base--threecols-- layout--background--none layout--background-attachment--default layout--background-position--center layout--background-size--cover layout--background-overlay--none layout--top-bottom-padding--big layout--left-right-padding--small layout--container--none layout--content-container--default layout--height--default layout--color--default layout--column-gap--default layout--row-gap--none layout--column-breakpoint--medium layout--column-width--default layout--align-items--normal layout-builder-base--three-columns layout--fourcol">
+        <div class="layout-content">
+          <div class="layout__region layout__region--first">
+            <div class="isueo-callout-stat isu-block">
+              <div class="text-align-center">
+                <p><svg class="svg-inline--fa fa-id-card fa-4x" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="id-card" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M0 96l576 0c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96zm0 32V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128H0zM64 405.3c0-29.5 23.9-53.3 53.3-53.3H234.7c29.5 0 53.3 23.9 53.3 53.3c0 5.9-4.8 10.7-10.7 10.7H74.7c-5.9 0-10.7-4.8-10.7-10.7zM176 320c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64zM352 208c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16z"></path></svg></p>                
+                <h3 class="impact_statistic__title">{{ direct_contacts }}</h3>
+                <p class="impact_statistic__text">Educational exchanges<br>with Iowans</p>
+              </div>
+            </div>
+          </div>
+          <div class="layout__region layout__region--second">
+            <div class="isueo-callout-stat isu-block">
+              <div class="text-align-center">
+                <p><svg class="svg-inline--fa fa-person-circle-question fa-4x" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="person-circle-question" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M208 48c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zM152 352V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6h29.7c33.7 0 64.9 17.7 82.3 46.6l44.9 74.7c-16.1 17.6-28.6 38.5-36.6 61.5c-1.9-1.8-3.5-3.9-4.9-6.3L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352H152zM432 512c-79.5 0-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144s-64.5 144-144 144zm0-48c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24zM368 321.6V328c0 8.8 7.2 16 16 16s16-7.2 16-16v-6.4c0-5.3 4.3-9.6 9.6-9.6h40.5c7.7 0 13.9 6.2 13.9 13.9c0 5.2-2.9 9.9-7.4 12.3l-32 16.8c-5.3 2.8-8.6 8.2-8.6 14.2V384c0 8.8 7.2 16 16 16s16-7.2 16-16v-5.1l23.5-12.3c15.1-7.9 24.5-23.6 24.5-40.6c0-25.4-20.6-45.9-45.9-45.9H409.6c-23 0-41.6 18.6-41.6 41.6z"></path></svg></p>
+                <h3 class="impact_statistic__title">{{ volenteer_hours }}</h3>
+                <p class="impact_statistic__text">Volunteer hours</p>
+              </div>
+            </div>
+          </div>
+          <div class="layout__region layout__region--third">
+            <div class="isueo-callout-stat isu-block">
+              <div class="text-align-center">
+                <p class="d-print-none"><img loading="lazy" src="https://photos.smugmug.com/WORDMARKS/Primary-4-HExtension/CloverEmblem/White/High-Res/i-kxnLLqT/0/MZxc3sZwVCcfLC829w2Sv8R4C2N9zbbcqhRVRF8L7/D/Clover_Wht-D.png" alt="4-H clover emblem" style="height:4.5rem"></p>
+                <p class="d-none d-print-block"><img loading="lazy" src="https://photos.smugmug.com/WORDMARKS/Primary-4-HExtension/CloverEmblem/Green/No-Border/High-Res/i-4XFdgtJ/0/LRjBkvb7ZT7bGSzTT4rms9FgQLpnX4J8VXqP6Zd55/D/Clover_NoBorder1080-D.png" alt="4-H clover emblem" style="height:4.5rem"></p>
+                <h3 class="impact_statistic__title">{{ youth }}</h3>
+                <p class="impact_statistic__text">Youth reached</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% endif %}
+  </div>
+  
+{% endblock paragraph %}

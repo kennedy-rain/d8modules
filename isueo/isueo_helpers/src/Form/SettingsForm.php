@@ -57,10 +57,10 @@ class SettingsForm extends ConfigFormBase {
     $form['typesense']['port'] = [
       '#type' => 'textfield',
       '#title' => t('Port'),
-      '#description' => t('Port for server: default 8108'),
+      '#description' => t('Port for server: default 443'),
       '#size' => 17,
       '#maxlength' => 30,
-      '#default_value' => empty($config->get('typesense.port')) ? 8108 : $config->get('typesense.port'),
+      '#default_value' => empty($config->get('typesense.port')) ? 443 : $config->get('typesense.port'),
     ];
 
     $form['typesense']['protocol'] = [
