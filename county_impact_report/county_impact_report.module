@@ -4,6 +4,7 @@
  * Implements hook_ENTITY_TYPE_update()
  */
 
+use Drupal\contact\Entity\Message;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
@@ -330,11 +331,58 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
     $message .= '<br>';
     $message .= $values->field_county_impact_story_title->value;
     $message .= $values->field_county_impact_story_body->getValue()[0]['value'];
-    $img = '<img src="' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/files/' . str_replace('public://', '', $file->getFileUri()) . '" alt="' . $image->toArray()['field_media_image'][0]['alt'] .'" style="max-width: 600px;" />';
-    $message .= $img;
+    if ($file) {
+      $img = '<img src="' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/files/' . str_replace('public://', '', $file->getFileUri()) . '" alt="' . $image->toArray()['field_media_image'][0]['alt'] .'" style="max-width: 600px;" />';
+      $message .= $img;
+    }
   }
 
-  Drupal::messenger()->addStatus('Saved, and emails sent for reviews' . $message);
+  try {
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'county_impact_report';
+    $key = 'county_impact_report_reed'; // Replace with Your key
+    $to = 'bwebster@iastate.edu';
+    $params['message'] = $message;
+    $langcode = 'en';
+    $send = true;
 
-  Drupal::messenger()->addStatus('Saved, Submit for Review feature coming soon!');
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    if ($result['result'] != true) {
+      $errorMessage = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+      \Drupal::messenger()->addError($errorMessage);
+      \Drupal::logger('county_impact_report')->error($errorMessage);
+      return;
+    }
+
+    $successMessage = t('An email notification has been sent to @email ', array('@email' => $to));
+    \Drupal::messenger()->addStatus($successMessage);
+    \Drupal::logger('county_impact_report')->notice($successMessage);
+  }
+  catch (Exception $e) {
+
+  \Drupal::messenger()->addStatus($e->getMessage());
+  }
+
+  \Drupal::messenger()->addStatus('Saved, and emails sent for reviews' . $message);
+
+  \Drupal::messenger()->addStatus('Saved, Submit for Review feature coming soon!');
+}
+
+/**
+* Implements hook_mail().
+*/
+
+function county_impact_report_mail($key, &$message, $params) {
+
+  switch ($key) {
+    case 'county_impact_reports_reed':
+      $message = $params['message'];
+      break;
+    case 'county_impact_reports_approver':
+      $message = $params['message'];
+      $message .= $params['approver'];
+      break;
+    default:
+      break;
+  }
 }
