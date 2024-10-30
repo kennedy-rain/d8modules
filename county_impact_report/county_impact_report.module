@@ -316,9 +316,11 @@ function county_impact_report_form_alter(&$form, \Drupal\Core\Form\FormStateInte
 }
 
 // Handle the form submission
-function county_impact_report_form_submit($form, FormStateInterface $form_state) {
+function county_impact_report_form_submit($form, FormStateInterface $form_state)
+{
   $node = $form_state->getFormObject()->getEntity();
   $paragraphs = $node->get('field_impact_story');
+  $params['title'] = $node->getTitle();
 
   $message = '<br>';
   $message .= $node->getTitle();
@@ -329,12 +331,22 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
     $file = File::load($image->field_media_image->target_id);
 
     $message .= '<br>';
+    $message .= '<br>';
+    //$message .= '<strong>' . $values->field_county_impact_story_title->value . '</strong>';
+    $message .= PHP_EOL;
     $message .= $values->field_county_impact_story_title->value;
+    $message .= PHP_EOL;
+    $message .= '<br>';
     $message .= $values->field_county_impact_story_body->getValue()[0]['value'];
     if ($file) {
-      $img = '<img src="' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/files/' . str_replace('public://', '', $file->getFileUri()) . '" alt="' . $image->toArray()['field_media_image'][0]['alt'] .'" style="max-width: 600px;" />';
-      $message .= $img;
+      $img = '<img src="' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/files/' . str_replace('public://', '', $file->getFileUri()) . '" alt="' . $image->toArray()['field_media_image'][0]['alt'] . '" style="max-width: 600px;" />';
+      //$message .= $img;
+      $message .= str_replace(' ', '%20', \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/files/' . str_replace('public://', '', $file->getFileUri()));
     }
+    $message .= '<br>';
+    $message .= '-----------------';
+    $message .= '<br>';
+    $message .= PHP_EOL;
   }
 
   try {
@@ -357,10 +369,8 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
     $successMessage = t('An email notification has been sent to @email ', array('@email' => $to));
     \Drupal::messenger()->addStatus($successMessage);
     \Drupal::logger('county_impact_report')->notice($successMessage);
-  }
-  catch (Exception $e) {
-
-  \Drupal::messenger()->addStatus($e->getMessage());
+  } catch (Exception $e) {
+    \Drupal::messenger()->addStatus($e->getMessage());
   }
 
   \Drupal::messenger()->addStatus('Saved, and emails sent for reviews' . $message);
@@ -375,10 +385,11 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
 function county_impact_report_mail($key, &$message, $params) {
 
   switch ($key) {
-    case 'county_impact_reports_reed':
-      $message = $params['message'];
+    case 'county_impact_report_reed':
+      $message['body'][] = $params['message'];
+      $message['subject'] = 'Review - ' . $params['title'];
       break;
-    case 'county_impact_reports_approver':
+    case 'county_impact_report_approver':
       $message = $params['message'];
       $message .= $params['approver'];
       break;
