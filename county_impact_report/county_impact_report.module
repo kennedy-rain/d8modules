@@ -339,7 +339,7 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
   $params['to'] = 'bwebster@iastate.edu';
   $params['reply'] = 'elmore@iastate.edu';
 
-  //county_impact_report_send_mail($params);
+  county_impact_report_send_mail($params);
 
   /*
   try {
@@ -361,9 +361,7 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
   }
   */
 
-  \Drupal::messenger()->addStatus('Saved, and emails sent for reviews' . $params['message']);
-
-  \Drupal::messenger()->addStatus('Saved, Submit for Review feature coming soon!');
+  \Drupal::messenger()->addStatus('Saved, and Submitted to Regional Director for Review!');
 }
 
 /**
