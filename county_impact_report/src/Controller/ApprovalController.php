@@ -36,11 +36,47 @@ class ApprovalController extends ControllerBase
       $params['key'] = 'county_impact_report_to_reed';
       $params['to'] = 'bwebster@iastate.edu';
       $params['reply'] = 'elmore@iastate.edu';
+      $params['subject'] = 'Review - ' . $params['title'];
 
       $title = 'Regional Director Approval Page';
       $results = '<h3>' . $node->getTitle() . '</h3>';
-      $results .= $params['message'];
+      \Drupal::messenger()->addMessage('Sending email to Advancement Specialist');
       county_impact_report_send_mail($params);
+
+      $params['subject'] = 'Approval Link for ' . $params['title'];
+      $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/advancement_specialist_approval';
+
+      county_impact_report_send_mail($params);
+    }
+
+    $element = array(
+      '#title' => $title,
+      '#markup' => $results,
+    );
+
+    return $element;
+  }
+
+  public function advancement_specialist()
+  {
+    // Do NOT cache the events details page
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
+    $results = '';
+    $title = 'Error';
+    $nids = \Drupal::entityQuery('node')->accessCheck(false)->condition('type', 'county_impact_report')->sort('created', 'DESC')->execute();
+    $nodes = Node::loadMultiple($nids);
+    reset($nodes);
+    $node = empty($nodes) ? null : $nodes[array_key_first($nodes)];
+
+    if (empty($node)) {
+      $title = 'Can\'t find the County Impact Report';
+    } else {
+      $title = 'Advancement Specialist Approval Page';
+      $results = '<h3><a href="' . \Drupal::request()->getBaseUrl() . \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id()) . '">' . $node->getTitle() . '</a></h3>';
+      $node->setPublished();
+      $node->save();
+      \Drupal::messenger()->addMessage('Publishing the County Impact Report');
     }
 
     $element = array(

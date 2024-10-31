@@ -11,10 +11,11 @@ use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
-* Implements hook_entity_presave().
-*/
+ * Implements hook_entity_presave().
+ */
 
-function county_impact_report_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
+function county_impact_report_node_presave(Drupal\Core\Entity\EntityInterface $entity)
+{
   $userId = \Drupal::currentUser()->id();
   if ($entity->getType() == 'county_impact_report') {
     $entity->setOwnerId($userId);
@@ -338,28 +339,13 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
   $params['key'] = 'county_impact_report_to_reed';
   $params['to'] = 'bwebster@iastate.edu';
   $params['reply'] = 'elmore@iastate.edu';
-
+  $params['subject'] = 'Review - ' . $params['title'];
   county_impact_report_send_mail($params);
 
-  /*
-  try {
-    $mailManager = \Drupal::service('plugin.manager.mail');
+  $params['subject'] = 'Approval Link for ' . $params['title'];
+  $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/regional_director_approval';
 
-    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
-    if ($result['result'] != true) {
-      $errorMessage = t('There was a problem sending your email notification to @email.', array('@email' => $to));
-      \Drupal::messenger()->addError($errorMessage);
-      \Drupal::logger('county_impact_report')->error($errorMessage);
-      return;
-    }
-
-    $successMessage = t('An email notification has been sent to @email ', array('@email' => $to));
-    \Drupal::messenger()->addStatus($successMessage);
-    \Drupal::logger('county_impact_report')->notice($successMessage);
-  } catch (Exception $e) {
-    \Drupal::messenger()->addStatus($e->getMessage());
-  }
-  */
+  county_impact_report_send_mail($params);
 
   \Drupal::messenger()->addStatus('Saved, and Submitted to Regional Director for Review!');
 }
@@ -374,11 +360,11 @@ function county_impact_report_mail($key, &$message, $params)
   switch ($key) {
     case 'county_impact_report_to_reed':
       $message['body'][] = $params['message'];
-      $message['subject'] = 'Review - ' . $params['title'];
+      $message['subject'] = $params['subject'];
       break;
     case 'county_impact_report_to_advancement_specialist':
       $message = $params['message'];
-      $message .= $params['advancement_specialist'];
+      $message['subject'] = $params['subject'];
       break;
     default:
       break;
@@ -446,7 +432,8 @@ function county_impact_report_build_params($node)
   return $params;
 }
 
-function county_impact_report_send_mail($params) {
+function county_impact_report_send_mail($params)
+{
   try {
     $mailManager = \Drupal::service('plugin.manager.mail');
 
