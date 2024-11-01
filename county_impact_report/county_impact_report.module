@@ -337,13 +337,14 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
 
   $params = county_impact_report_build_params($node);
   $params['key'] = 'county_impact_report_to_reed';
-  $params['to'] = 'bwebster@iastate.edu';
-  $params['reply'] = 'elmore@iastate.edu';
+  $params['to'] = $params['reed'];
+  $params['reply'] = 'Content Editor <' . $params['content_editor'] . '>';
   $params['subject'] = 'Review - ' . $params['title'];
   county_impact_report_send_mail($params);
 
   $params['subject'] = 'Approval Link for ' . $params['title'];
   $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/regional_director_approval';
+  $params['reply'] = 'Extension Web <extensionweb@iastate.edu>';
 
   county_impact_report_send_mail($params);
 
@@ -356,19 +357,14 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
 
 function county_impact_report_mail($key, &$message, $params)
 {
+  //$from = 'Extension Web <extensionweb@iastate.edu>';
 
-  switch ($key) {
-    case 'county_impact_report_to_reed':
-      $message['body'][] = $params['message'];
-      $message['subject'] = $params['subject'];
-      break;
-    case 'county_impact_report_to_advancement_specialist':
-      $message = $params['message'];
-      $message['subject'] = $params['subject'];
-      break;
-    default:
-      break;
-  }
+  //$message['from'] = $from;
+  //$message['headers']['From'] = $from;
+  //$message['headers']['Sender'] = $from;
+  $message['body'][] = $params['message'];
+  $message['subject'] = $params['subject'];
+  $message['headers']['reply-To'] = $params['reply'];
 }
 
 function county_impact_report_get_emails($nodes, string $title, string $defaultAddress)

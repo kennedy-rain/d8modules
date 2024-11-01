@@ -34,8 +34,8 @@ class ApprovalController extends ControllerBase
     } else {
       $params = county_impact_report_build_params($node);
       $params['key'] = 'county_impact_report_to_reed';
-      $params['to'] = 'bwebster@iastate.edu';
-      $params['reply'] = 'elmore@iastate.edu';
+      $params['to'] = $params['advancement_specialist'];
+      $params['reply'] = 'Content Editor <' . $params['content_editor'] . '>';
       $params['subject'] = 'Review - ' . $params['title'];
 
       $title = 'Regional Director Approval Page';
@@ -45,6 +45,7 @@ class ApprovalController extends ControllerBase
 
       $params['subject'] = 'Approval Link for ' . $params['title'];
       $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/advancement_specialist_approval';
+      $params['reply'] = 'Extension Web <extensionweb@iastate.edu>';
 
       county_impact_report_send_mail($params);
     }
