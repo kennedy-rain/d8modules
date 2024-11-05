@@ -303,6 +303,7 @@ function county_impact_report_build_params($node)
   $message .= $params['title'];
   $message .= '<br>';
   $message .= 'Last edited by: ' . $params['content_editor'];
+  $message .= '<br>';
   $message .= '<p>';
   $message .= '*******BEGIN OUTPUT OF DRAFT CONTENT*******';
   $message .= '</p>';
