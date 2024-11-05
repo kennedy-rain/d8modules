@@ -247,7 +247,8 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
   county_impact_report_send_mail($params);
 
   $params['subject'] = 'Approval Link for ' . $params['title'];
-  $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/regional_director_approval';
+  $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/regional_director_approval'
+    . 'Only use this link for the FINAL approval';
   $params['reply'] = 'Extension Web <extensionweb@iastate.edu>';
 
   county_impact_report_send_mail($params);
@@ -302,6 +303,9 @@ function county_impact_report_build_params($node)
   $message .= $params['title'];
   $message .= '<br>';
   $message .= 'Last edited by: ' . $params['content_editor'];
+  $message .= '<p>';
+  $message .= '*******BEGIN OUTPUT OF DRAFT CONTENT*******';
+  $message .= '</p>';
   foreach ($paragraphs as $paragraph) {
     $values = Paragraph::load($paragraph->target_id);
     $image = Media::load($values->field_county_impact_story_image->getValue()[0]['target_id']);
