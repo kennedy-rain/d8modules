@@ -247,7 +247,7 @@ function county_impact_report_form_submit($form, FormStateInterface $form_state)
   county_impact_report_send_mail($params);
 
   $params['subject'] = 'Approval Link for ' . $params['title'];
-  $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/regional_director_approval'
+  $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/regional_director_approval '
     . 'Only use this link for the FINAL approval';
   $params['reply'] = 'Extension Web <extensionweb@iastate.edu>';
 
