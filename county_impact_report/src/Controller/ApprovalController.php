@@ -44,7 +44,8 @@ class ApprovalController extends ControllerBase
       county_impact_report_send_mail($params);
 
       $params['subject'] = 'Approval Link for ' . $params['title'];
-      $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/advancement_specialist_approval';
+      $params['message'] = 'The approval link for ' . $params['title'] . ' is ' . \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl() . '/advancement_specialist_approval'
+        . 'Only use this link for the FINAL approval';
       $params['reply'] = 'Extension Web <extensionweb@iastate.edu>';
 
       county_impact_report_send_mail($params);
