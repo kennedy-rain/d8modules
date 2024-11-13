@@ -100,6 +100,9 @@ class EducationalProgramsFieldDefaultFormatter extends FormatterBase
             'redirected' => $redirected,
             'hide_image' => !empty($item->hide_image),
           ];
+          if (!empty($product['Smugmug_ID__c'])) {
+            $program['smugmug_url'] = ISUEOHelpers\General::build_smugmug_url(trim($product['Smugmug_ID__c'], '/'), 'XL');
+          }
         }
 
         if (
