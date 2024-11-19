@@ -48,10 +48,10 @@ class SettingsForm extends ConfigFormBase {
     $form['typesense']['host'] = [
       '#type' => 'textfield',
       '#title' => t('Host name of the Typesense server'),
-      '#description' => t('Host name: default typesense.exnet.iastate.edu'),
+      '#description' => t('Host name: default typesense.extension.iastate.edu'),
       '#size' => 50,
       '#maxlength' => 100,
-      '#default_value' => empty($config->get('typesense.host')) ? 'typesense.exnet.iastate.edu' : $config->get('typesense.host'),
+      '#default_value' => empty($config->get('typesense.host')) ? 'typesense.extension.iastate.edu' : $config->get('typesense.host'),
     ];
 
     $form['typesense']['port'] = [
