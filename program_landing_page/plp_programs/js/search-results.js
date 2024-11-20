@@ -142,6 +142,23 @@ searchResults.addWidgets([
 
 searchResults.addWidgets([
   instantsearch.widgets.refinementList({
+    container: "#audiences",
+    attribute: "audiences",
+    templates: {
+      item(item) {
+        const { url, label, count, isRefined } = item;
+      return `
+        <a href="${url}">
+          <span class="btn btn-outline-primary">${label} (${count})</span>
+        </a>
+      `;
+      },
+    },
+  }),
+]);
+
+searchResults.addWidgets([
+  instantsearch.widgets.refinementList({
     container: "#program_area",
     attribute: "program_area",
     templates: {

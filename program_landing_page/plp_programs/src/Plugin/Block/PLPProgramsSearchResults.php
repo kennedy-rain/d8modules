@@ -38,6 +38,8 @@ class PLPProgramsSearchResults extends BlockBase
               <div id="category_name"></div>
               <h3>Topics</h3>
               <div id="topic_names"></div>
+              <h3>Audiences</h3>
+              <div id="audiences"></div>
             </div>
             <div class="search-results-snipets">
               <div id="search-results-bar"></div>
