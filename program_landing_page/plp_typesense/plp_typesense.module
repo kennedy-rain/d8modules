@@ -35,7 +35,6 @@ function plp_typesense_entity_presave(Drupal\Core\Entity\EntityInterface $entity
   $client = plp_typesense_get_typesense_client();
   $collection_name = plp_typesense_get_typesense_collection_name();
 
-    Drupal::logger('blah')->info('I am here');
   try {
     switch ($entity->bundle()) {
       case 'plp_program':
